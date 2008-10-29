@@ -1,6 +1,6 @@
-#summary The Homepage
+#summary Homepage
 #labels Featured
 
-= Welcome to the !LayerGlue ActionScript library =
+= Welcome to the !LayerGlue !ActionScript library =
 
 Hello
