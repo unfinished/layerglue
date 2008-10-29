@@ -1,6 +1,6 @@
-#summary Welcome page for LayerGlue wiki
+#summary The Homepage
 #labels Featured
 
-= Welcome to the !LayerGlue code library =
+= Welcome to the !LayerGlue ActionScript library =
 
 Hello
