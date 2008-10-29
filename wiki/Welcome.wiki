@@ -1,4 +1,5 @@
 #summary Welcome page for LayerGlue wiki
+#labels Featured
 
 = Welcome to the !LayerGlue code library =
 
