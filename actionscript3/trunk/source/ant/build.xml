@@ -9,24 +9,50 @@
 	<!-- load project configuration properties -->
 	<property file="project.properties" />
 
-	<!-- sdk properties -->
-	<property name="mxmlc" value="${flexSDK.dir}/bin/mxmlc" />
-	<property name="fcsh"  value="${flexSDK.dir}/bin/fcsh" />
-	<property name="asdoc" value="${flexSDK.dir}/bin/asdoc" />
+	<!-- SDK properties -->
+		<condition property="mxmlc" value="${FLEX_HOME}/bin/mxmlc" else="${FLEX_HOME}/bin/mxmlc.exe">
+			<os family="mac"/>
+		</condition>
+	
+		<condition property="compc" value="${FLEX_HOME}/bin/compc" else="${FLEX_HOME}/bin/compc.exe">
+			<os family="mac"/>
+		</condition>
+		
+		<condition property="fcsh" value="${FLEX_HOME}/bin/fsch" else="${FLEX_HOME}/bin/fsch.exe">
+			<os family="mac"/>
+		</condition>
+		
+		<condition property="asdoc" value="${FLEX_HOME}/bin/asdoc" else="${FLEX_HOME}/bin/asdoc.exe">
+			<os family="mac"/>
+		</condition>
 	
 	<!-- templates folder for asdoc -->
 	<property name="templates.dir" value="${flexSDK.dir}/asdoc/templates" />
 	
 	
 	<!-- =================================
-          target: copy_runtime_assets            
+          target: createdocs
          ================================= -->
-	<target 
-		name="copy_runtime_assets" 
-		description="Copies files from runtime_assets to bin">
-		<copy todir="${bin.dir}">
-			<fileset dir="${runtimeassets.dir}" />
-		</copy>
+	
+	<target name="create-docs">
+		<exec executable="${asdoc}" failonerror="true">
+			<arg line="-o ${docs.dir}" />
+			<arg line="-doc-sources ${src.dir}" />
+		</exec>
+	</target>
+	
+	<target name="delete-docs">
+		<delete includeemptydirs="true">
+			<fileset dir="${docs.dir}" includes="**/*" excludes="Main.swf"/>
+		</delete>
+	</target>
+	
+	<target name="create-swc">
+		<exec executable="${compc}">
+			<arg line="-source-path ${src.dir}"/>
+			<arg line="-output ${basedir}/LayerGlue.swc"/>
+			<arg line="-include-sources ${src.dir}"/>
+		</exec>
 	</target>
 	
 </project>
