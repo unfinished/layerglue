@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+	applicationComplete="applicationCompleteHandler()">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.layerglue.lib.base.substitution.ISubstitutionSource;
+			import com.layerglue.lib.base.substitution.sources.ExcelSubstitutionSource;
+			import com.layerglue.lib.base.substitution.XMLSubstitutor;
+			import com.layerglue.lib.base.loaders.XmlLoader;
+			
+			//Defining loaders
+			private var _unsubstitutedXMLoader:XmlLoader;
+			private var _copySourceXMLoader:XmlLoader;
+			
+			//Defining properties to hold XML
+			private var _unsubstitutedXML:XML;
+			private var _substitutedXML:XML;
+			private var _copySource:ISubstitutionSource;
+			
+			private function applicationCompleteHandler():void
+			{
+				loadCopySourceXML();
+			}
+			
+			private function loadCopySourceXML():void
+			{
+				_copySourceXMLoader = new XmlLoader();
+				_copySourceXMLoader.addEventListener(Event.COMPLETE, copySourceXMLloadCompleteHandler);
+				
+				// 1. Start loading the localised content for the site - Try swapping the lines
+				// below to load French instead of English
+				
+				_copySourceXMLoader.load(new URLRequest("_excel_en-gb.xml"));
+				//_copySourceXMLoader.load(new URLRequest("_copy_fr-fr.xml"));
+			}
+			
+			private function copySourceXMLloadCompleteHandler(event:Event):void
+			{
+				// 2. Create a source for the subsitutor passing in the excel xml and references for the
+				//index of the key column, the value column, the ignoreFlag columm, and the
+				//ignoreFlag value - (open _excel_en-gb.xml in Excel for reference)
+				_copySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 4);
+				
+				// 3. Load the unsubstituted xml describing the site's structure
+				loadUnpopuatedXML();
+			}
+			
+			private function loadUnpopuatedXML():void
+			{
+				_unsubstitutedXMLoader = new XmlLoader();
+				_unsubstitutedXMLoader.addEventListener(Event.COMPLETE, unsubstitutedXMLloadCompleteHandler);
+				_unsubstitutedXMLoader.load(new URLRequest("_structure_unsubstituted.xml"));
+			}
+			
+			private function unsubstitutedXMLloadCompleteHandler(event:Event):void
+			{
+				// 4. Store the unsubstituted structural xml
+				_unsubstitutedXML = (event.target as XmlLoader).typedData;
+				
+				// 5. Now the unsubstituted data and localised content are loaded start the substitution
+				doSubstitution();
+			}
+			
+			private function doSubstitution():void
+			{
+				trace("\n- Before substitution ------------------------------------------------\n");
+				trace(_unsubstitutedXML);
+				
+				// 6. Set up the substitutor specifying the opening and closing delimeter - these
+				// can be anything but in this example are both set to the @ symbol
+				var substitutor:XMLSubstitutor = new XMLSubstitutor("@", "@");
+				
+				// 7. Substitute the unsubstituted structural data with the localized copy and store
+				// the result.
+				_substitutedXML = substitutor.process(_unsubstitutedXML, _copySource);
+				
+				trace("\n- After substitution -------------------------------------------------\n");
+				trace(_substitutedXML);
+			}
+			
+		]]>
+	</mx:Script>
+</mx:Application>
