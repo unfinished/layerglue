@@ -1,38 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?><!--ant-->
-<project name="jamiecopeland.com Local Build" basedir=".">
+<?xml version="1.0" encoding="utf-8"?>
+<project name="LayerGlue" basedir=".">
 
-	<!--<taskdef resource="com/adobe/ac/ant/tasks/tasks.properties"	classpath="../lib/bin/FlexAntTasks.jar"/>-->
-	
-	<!-- load user configuration properties -->
 	<property file="user.properties" />
-	
-	<!-- load project configuration properties -->
 	<property file="project.properties" />
 
 	<!-- SDK properties -->
-		<condition property="mxmlc" value="${FLEX_HOME}/bin/mxmlc" else="${FLEX_HOME}/bin/mxmlc.exe">
-			<os family="mac"/>
-		</condition>
 	
-		<condition property="compc" value="${FLEX_HOME}/bin/compc" else="${FLEX_HOME}/bin/compc.exe">
-			<os family="mac"/>
-		</condition>
-		
-		<condition property="fcsh" value="${FLEX_HOME}/bin/fsch" else="${FLEX_HOME}/bin/fsch.exe">
-			<os family="mac"/>
-		</condition>
-		
-		<condition property="asdoc" value="${FLEX_HOME}/bin/asdoc" else="${FLEX_HOME}/bin/asdoc.exe">
-			<os family="mac"/>
-		</condition>
+	<condition property="mxmlc" value="${FLEX_HOME}/bin/mxmlc" else="${FLEX_HOME}/bin/mxmlc.exe">
+		<os family="mac"/>
+	</condition>
+
+	<condition property="compc" value="${FLEX_HOME}/bin/compc" else="${FLEX_HOME}/bin/compc.exe">
+		<os family="mac"/>
+	</condition>
 	
-	<!-- templates folder for asdoc -->
-	<property name="templates.dir" value="${flexSDK.dir}/asdoc/templates" />
+	<condition property="fcsh" value="${FLEX_HOME}/bin/fsch" else="${FLEX_HOME}/bin/fsch.exe">
+		<os family="mac"/>
+	</condition>
 	
+	<condition property="asdoc" value="${FLEX_HOME}/bin/asdoc" else="${FLEX_HOME}/bin/asdoc.exe">
+		<os family="mac"/>
+	</condition>
 	
-	<!-- =================================
-          target: createdocs
-         ================================= -->
+	<!-- Targets -->
 	
 	<target name="create-docs">
 		<exec executable="${asdoc}" failonerror="true">
