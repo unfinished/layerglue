@@ -1,3 +1,5 @@
+#summary Simple multi-language substitution, allowing the loading of Excel files directly into flash.
+
 = Substitution template =
 
 
