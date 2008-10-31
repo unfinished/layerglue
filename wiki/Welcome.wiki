@@ -1,11 +1,13 @@
 #labels Featured
 = Welcome to the !LayerGlue !ActionScript library =
 
+== Introduction ==
+
 !LayerGlue is a fully featured !ActionScript 3 library ranging from simple low level utility classes, multi-language substitution, and workflow enhancements, up to more prescriptive solutions for browser integration and application management.
 
 == Example templates ==
 
-For a quickstart guide, have a look through these example templates. They are currently built in Flex but do not require any of the Flex framework, so could easily be converted to Flash only applications.
+For a quickstart guide, have a look through these example templates. They are currently built in Flex but do not require any of the Flex framework to perform their core tasks, so could easily be converted to Flash only applications.
 
 
 === [TemplateSubstitution 1. Substitution] ===
