@@ -1,5 +1,7 @@
 package com.layerglue.lib.framework.views
 {
+	import com.asual.swfaddress.SWFAddress;
+	import com.asual.swfaddress.SWFAddressEvent;
 	import com.layerglue.lib.framework.requests.RawNavigationRequest;
 	
 	import flash.events.Event;
