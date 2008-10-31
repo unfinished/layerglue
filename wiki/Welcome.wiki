@@ -12,7 +12,7 @@ For a quickstart guide, have a look through these example templates. They are cu
 
 === [TemplateSubstitution 1. Substitution] ===
 
-Simple multi-language substitution, allows the loading of Excel files directly into flash.
+Simple multi-language substitution, allowing the loading of Excel files directly into flash.
 
 Subversion location: https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/substitution
  
