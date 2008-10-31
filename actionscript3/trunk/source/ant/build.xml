@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--ant-->
+<project name="jamiecopeland.com Local Build" basedir=".">
+
+	<!--<taskdef resource="com/adobe/ac/ant/tasks/tasks.properties"	classpath="../lib/bin/FlexAntTasks.jar"/>-->
+	
+	<!-- load user configuration properties -->
+	<property file="user.properties" />
+	
+	<!-- load project configuration properties -->
+	<property file="project.properties" />
+
+	<!-- sdk properties -->
+	<property name="mxmlc" value="${flexSDK.dir}/bin/mxmlc" />
+	<property name="fcsh"  value="${flexSDK.dir}/bin/fcsh" />
+	<property name="asdoc" value="${flexSDK.dir}/bin/asdoc" />
+	
+	<!-- templates folder for asdoc -->
+	<property name="templates.dir" value="${flexSDK.dir}/asdoc/templates" />
+	
+	
+	<!-- =================================
+          target: copy_runtime_assets            
+         ================================= -->
+	<target 
+		name="copy_runtime_assets" 
+		description="Copies files from runtime_assets to bin">
+		<copy todir="${bin.dir}">
+			<fileset dir="${runtimeassets.dir}" />
+		</copy>
+	</target>
+	
+</project>
