@@ -1,9 +1,7 @@
-#summary Homepage
 #labels Featured
-
 = Welcome to the !LayerGlue !ActionScript library =
 
-LayerGlue is a fully featured ActionScript 3 library ranging from simple low level utility classes, multi-language substitution, and workflow enhancements, up to more prescriptive solutions for browser integration and application management.
+!LayerGlue is a fully featured !ActionScript 3 library ranging from simple low level utility classes, multi-language substitution, and workflow enhancements, up to more prescriptive solutions for browser integration and application management.
 
 == Example templates ==
 
