@@ -12,21 +12,30 @@ For a quickstart guide, have a look through these example templates. They are cu
 
 === [TemplateSubstitution 1. Substitution] ===
 
-Multi-language substitution using xml or Excel files directly into a flash application
+Simple multi-language substitution, allows the loading of Excel files directly into flash.
 
-https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/substitution
-
+Subversion location: https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/substitution
+ 
+ 
 
 === [TemplateDeserialization 2. Deserialization] ===
 
-https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/deserialization
+Automated deserialization of xml into custom value object classes.
+
+Subversion location: https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/deserialization
 
 
-=== [TemplateSubstitutionAndDeserialization3. Substitution and Deserialization] ===
 
-https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/substitution-and-deserialization
+=== [TemplateSubstitutionAndDeserialization 3. Substitution and Deserialization] ===
+
+A combination of examples 1 and 2, substuting text and deserializing the results into  custom value objects.
+
+Subversion location: https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/substitution-and-deserialization
+
 
 
 === [TemplateWorkflow 4. Workflow] ===
 
-https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/workflow
+A more structured project pulling together previous examples and including Ant build files.
+
+Subversion location: https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/workflow
