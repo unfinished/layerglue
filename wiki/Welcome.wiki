@@ -3,4 +3,30 @@
 
 = Welcome to the !LayerGlue !ActionScript library =
 
-Hello
+
+
+== Example templates ==
+
+For a quickstart guide, have a look through these example templates. They are currently built in Flex but do not require any of the Flex framework, so could easily be converted to Flash only applications.
+
+
+=== [TemplateSubstitution 1. Substitution] ===
+
+Multi-language substitution using xml or Excel files directly into a flash application
+
+https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/substitution
+
+
+=== [TemplateDeserialization 2. Deserialization] ===
+
+https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/deserialization
+
+
+=== [TemplateSubstitutionAndDeserialization3. Substitution and Deserialization] ===
+
+https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/substitution-and-deserialization
+
+
+=== [TemplateWorkflow 4. Workflow] ===
+
+https://layerglue.googlecode.com/svn/trunk/actionscript3/trunk/templates/workflow
