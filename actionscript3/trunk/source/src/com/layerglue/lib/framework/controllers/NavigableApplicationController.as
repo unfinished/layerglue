@@ -1,5 +1,6 @@
 package com.layerglue.lib.framework.controllers
 {
+	import com.asual.swfaddress.SWFAddress;
 	import com.layerglue.lib.framework.events.NavigableApplicationControllerEvent;
 	import com.layerglue.lib.framework.navigation.NavigationPacket;
 	import com.layerglue.lib.framework.requests.RawNavigationRequest;

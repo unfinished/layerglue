@@ -1,5 +1,6 @@
 package com.layerglue.lib.framework.commands
 {
+	import com.asual.swfaddress.SWFAddress;
 	import com.layerglue.lib.base.commands.AbstractCommand;
 	import com.layerglue.lib.base.requests.IRequest;
 	import com.layerglue.lib.framework.requests.NavigationRequest;
