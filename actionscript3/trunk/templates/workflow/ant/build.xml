@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><!--ant-->
+
+<project name="client.project ant tasks" basedir=".">
+
+	<!--
+	<taskdef resource="com/adobe/ac/ant/tasks/tasks.properties"	classpath="../lib/bin/FlexAntTasks.jar"/>
+	<taskdef resource="flexTasks.tasks" classpath="${ant.dir}/flexTasks.jar" />
+	-->
+	
+	<!-- Load properties files -->
+	<property file="user.properties" />
+	<property file="project.properties" />
+
+	<!-- SDK properties -->
+	<condition property="mxmlc" value="${FLEX_HOME}/bin/mxmlc" else="${FLEX_HOME}/bin/mxmlc.exe">
+		<os family="mac"/>
+	</condition>
+	
+	<condition property="fcsh" value="${FLEX_HOME}/bin/fsch" else="${FLEX_HOME}/bin/fsch.exe">
+		<os family="mac"/>
+	</condition>
+	
+	<condition property="asdoc" value="${FLEX_HOME}/bin/asdoc" else="${FLEX_HOME}/bin/asdoc.exe">
+		<os family="mac"/>
+	</condition>
+	
+	<!-- =================================
+		Debug targets          
+	         ================================= -->
+	
+	<target name="_debug_refresh_bin"
+		depends="	debug_delete_contents,
+					debug_copy_assets
+						" />
+	
+	<target name="debug_delete_contents">
+		<delete includeemptydirs="true">
+			<fileset dir="${bindebug.dir}" includes="**/*" excludes="Main.swf"/>
+		</delete>
+	</target>
+	
+	<target name="debug_copy_assets" 
+			description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-debug">
+
+		<copy todir="${bindebug.dir}">
+			<fileset dir="${runtimeassets.dir}">
+				<exclude name="**/_svn/**"/>
+				<exclude name="**/.svn/**"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	
+	<!-- =================================
+			Release targets          
+		 ================================= -->
+	
+	<target name="_release_refresh_bin"
+		depends="	release_delete_assets,
+					release_copy_assets
+					" />
+		
+	<target name="release_delete_assets">
+		<delete includeemptydirs="true">
+			<fileset dir="${binrelease.dir}" includes="**/*"/>
+		</delete>
+	</target>
+	
+	<target name="release_copy_assets" 
+			description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-release">
+		
+		<copy todir="${binrelease.dir}">
+			<fileset dir="${runtimeassets.dir}">
+				<exclude name="**/_svn/**"/>
+				<exclude name="**/.svn/**"/>
+			</fileset>	
+		</copy>
+	</target>
+	
+	<target name="createdocs">
+		<exec executable="${asdoc}" failonerror="true">
+			<arg line="-o ${docs.dir}" />
+			<arg line="-doc-sources ${src.dir}" />
+		</exec>
+	</target>
+	
+</project>
