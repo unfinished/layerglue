@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<structureRoot>
+  <title>Layer Glue website</title>
+  <children>
+    <home>
+      <title>Home</title>
+      <bodyCopy>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.</bodyCopy>
+      <imageUrl>images/image.jpg</imageUrl>
+    </home>
+    <gallery type="images">
+      <title>Gallery</title>
+      <bodyCopy>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.</bodyCopy>
+      <children>
+        <page>
+          <title>Animals</title>
+          <bodyCopy>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</bodyCopy>
+          <children>
+            <image>
+              <title>Cow</title>
+              <imageUrl>image/gallery/image.jpg</imageUrl>
+            </image>
+            <image>
+              <title>Duck</title>
+              <imageUrl>image/gallery/image.jpg</imageUrl>
+            </image>
+          </children>
+        </page>
+        <page>
+          <title>Minerals</title>
+          <bodyCopy>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</bodyCopy>
+          <children>
+            <image>
+              <title>Diamond</title>
+              <imageUrl>image/gallery/image.jpg</imageUrl>
+            </image>
+            <image>
+              <title>Graphite</title>
+              <imageUrl>image/gallery/image.jpg</imageUrl>
+            </image>
+          </children>
+        </page>
+      </children>
+    </gallery>
+    <contact>
+      <title>Contact</title>
+      <bodyCopy>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.</bodyCopy>
+      <email>image/gallery/image.jpg</email>
+    </contact>
+  </children>
+</structureRoot>
