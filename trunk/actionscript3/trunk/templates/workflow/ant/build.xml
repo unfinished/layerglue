@@ -2,16 +2,10 @@
 
 <project name="client.project ant tasks" basedir=".">
 
-	<!--
-	<taskdef resource="com/adobe/ac/ant/tasks/tasks.properties"	classpath="../lib/bin/FlexAntTasks.jar"/>
-	<taskdef resource="flexTasks.tasks" classpath="${ant.dir}/flexTasks.jar" />
-	-->
-	
-	<!-- Load properties files -->
 	<property file="user.properties" />
 	<property file="project.properties" />
 
-	<!-- SDK properties -->
+	<!-- SDK properties ======================================================================== -->
 	<condition property="mxmlc" value="${FLEX_HOME}/bin/mxmlc" else="${FLEX_HOME}/bin/mxmlc.exe">
 		<os family="mac"/>
 	</condition>
@@ -24,14 +18,11 @@
 		<os family="mac"/>
 	</condition>
 	
-	<!-- =================================
-		Debug targets          
-	         ================================= -->
+	<!-- Debug targets ========================================================================= -->
 	
 	<target name="_debug_refresh_bin"
 		depends="	debug_delete_contents,
-					debug_copy_assets
-						" />
+					debug_copy_assets" />
 	
 	<target name="debug_delete_contents">
 		<delete includeemptydirs="true">
@@ -50,15 +41,11 @@
 		</copy>
 	</target>
 	
-	
-	<!-- =================================
-			Release targets          
-		 ================================= -->
+	<!-- Release targets ======================================================================= -->
 	
 	<target name="_release_refresh_bin"
 		depends="	release_delete_assets,
-					release_copy_assets
-					" />
+					release_copy_assets" />
 		
 	<target name="release_delete_assets">
 		<delete includeemptydirs="true">
