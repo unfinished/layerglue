@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<item id="project.title">Le Layer Glue site de la web</item>
+	
+	<item id="project.home.title">Accueil</item>
+	<item id="project.home.bodyCopy">En ligne des tests de vitesse travaillent généralement par l'envoi d'un fichier à un ordinateur et de temps qu'il faut.</item>
+	<item id="project.home.imageUrl">images/image.jpg</item>
+	
+	<item id="project.gallery.title">Galerie</item>
+	<item id="project.gallery.bodyCopy">La plupart des consommateurs à large bande au Royaume-Uni utilisez actuellement un service.</item>
+	
+	<item id="project.gallery.page1.title">Animaux</item>
+	<item id="project.gallery.page1.bodyCopy">Mais il existe de grandes variations de la vitesse réelle qu'ils reçoivent.</item>
+	<item id="project.gallery.page1.image1.title">Vache</item>
+	<item id="project.gallery.page1.image1.imageUrl">image/gallery/image.jpg</item>
+	<item id="project.gallery.page1.image2.title">Canard</item>
+	<item id="project.gallery.page1.image2.imageUrl">image/gallery/image.jpg</item>
+	
+	<item id="project.gallery.page2.title">Minerais</item>
+	<item id="project.gallery.page2.bodyCopy">Qui est soumis à des goulets d'étranglement et les retards.</item>
+	<item id="project.gallery.page2.image1.title">Diamant</item>
+	<item id="project.gallery.page2.image1.imageUrl">image/gallery/image.jpg</item>
+	<item id="project.gallery.page2.image2.title">Graphite</item>
+	<item id="project.gallery.page2.image2.imageUrl">image/gallery/image.jpg</item>
+	
+	<item id="project.contact.title">Contact</item>
+	<item id="project.contact.bodyCopy">Il est également préoccupé par la voie basée sur le Web vitesse tests ne mesurent que la rapidité de données est en mesure de Voyage d'une partie de l'Internet à l'autre.</item>
+	<item id="project.contact.email">test@test.com</item>
+	<item id="project.contact.imageUrl">images/image.jpg</item>
+</xml>
