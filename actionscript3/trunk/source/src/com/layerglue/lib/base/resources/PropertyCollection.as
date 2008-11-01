@@ -36,7 +36,7 @@ package com.layerglue.lib.base.resources
 		{
 			if(_primaryLoader)
 			{
-				_primaryLoaderCompleteListener.remove();
+				_primaryLoaderCompleteListener.destroy();
 				_primaryLoader.close();
 				_primaryLoader = null;
 			}

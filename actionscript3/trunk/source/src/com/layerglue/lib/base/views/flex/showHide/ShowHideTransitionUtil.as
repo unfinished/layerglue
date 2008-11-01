@@ -52,7 +52,7 @@ package com.layerglue.lib.base.views.flex.showHide
 		
 		protected function showEndHandler(event:EffectEvent):void
 		{
-			_effectListener.remove();
+			_effectListener.destroy();
 			_state = ShowHideState.SHOWN;
 			// TODO: Should events bubble?
 			_target.dispatchEvent(new ShowHideEvent(ShowHideEvent.SHOW_END, _eventsBubble));
@@ -60,7 +60,7 @@ package com.layerglue.lib.base.views.flex.showHide
 		
 		protected function hideEndHandler(event:EffectEvent):void
 		{
-			_effectListener.remove();
+			_effectListener.destroy();
 			_state = ShowHideState.HIDDEN;
 			// TODO: Should events bubble?
 			_target.dispatchEvent(new ShowHideEvent(ShowHideEvent.HIDE_END, _eventsBubble));
@@ -74,7 +74,7 @@ package com.layerglue.lib.base.views.flex.showHide
 		{
 			if (_effect)
 			{
-				_effectListener.remove();
+				_effectListener.destroy();
 				_effect.stop();
 				
 				//TODO Put something in this util so that phase is stored so we can tell which of

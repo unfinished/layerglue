@@ -83,7 +83,7 @@ package com.layerglue.lib.framework.structure
 		{
 			if(_childrenSubselectionChangeListener)
 			{
-				_childrenSubselectionChangeListener.remove();
+				_childrenSubselectionChangeListener.destroy();
 				_childrenSubselectionChangeListener = null;
 			}
 		}
