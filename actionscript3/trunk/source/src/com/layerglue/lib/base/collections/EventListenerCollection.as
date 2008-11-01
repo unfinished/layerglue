@@ -138,13 +138,43 @@ package com.layerglue.lib.base.collections
 		}
 		
 		/**
-		 * Whether or not this instance contains the specified EventListener. 
+		 * Whether or not this instance contains the specified EventListener.
+		 * 
+		 * @param eventListener The Eventlistener instance to test for
+		 * @param findSimilar Whether to search for EventListeners that have the same properties as the specified instance, but are not that that instance. 
 		 */
-		public function contains(eventListener:EventListener):Boolean
+		public function contains(eventListener:EventListener, findSimilar:Boolean=false):Boolean
 		{
-			return ArrayUtils.contains(_eventListeners,  eventListener);
+			if(findSimilar)
+			{
+				var el:EventListener;
+			
+				for each(el in _eventListeners)
+				{
+					if(
+						el.target == eventListener.target 
+						&&
+						el.eventName == eventListener.eventName 
+						&&
+						el.useCapture == eventListener.useCapture 
+						&&
+						el.priority == eventListener.priority 
+						&&
+						el.useWeakReference == eventListener.useWeakReference
+						)
+					{
+						return true;
+					}
+				}
+			}
+			else
+			{
+				return ArrayUtils.contains(_eventListeners,  eventListener);
+			}
+			
+			return false;
 		}
-		
+		/* 
 		//TODO look into rolling this functionality into contains with a param passed to specify matchOnSimilar
 		public function containsSimilar(eventListener:EventListener):Boolean
 		{
@@ -169,7 +199,7 @@ package com.layerglue.lib.base.collections
 			}
 			
 			return false;
-		}
+		} */
 		
 		/**
 		 * Proxies a call on to removeAll()
