@@ -174,32 +174,6 @@ package com.layerglue.lib.base.collections
 			
 			return false;
 		}
-		/* 
-		//TODO look into rolling this functionality into contains with a param passed to specify matchOnSimilar
-		public function containsSimilar(eventListener:EventListener):Boolean
-		{
-			var el:EventListener;
-			
-			for each(el in _eventListeners)
-			{
-				if(
-					el.target == eventListener.target 
-					&&
-					el.eventName == eventListener.eventName 
-					&&
-					el.useCapture == eventListener.useCapture 
-					&&
-					el.priority == eventListener.priority 
-					&&
-					el.useWeakReference == eventListener.useWeakReference
-					)
-				{
-					return true;
-				}
-			}
-			
-			return false;
-		} */
 		
 		/**
 		 * Proxies a call on to removeAll()
