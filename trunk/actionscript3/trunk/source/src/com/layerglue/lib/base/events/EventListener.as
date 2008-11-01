@@ -1,13 +1,15 @@
 package com.layerglue.lib.base.events
 {
 
+	import com.layerglue.lib.base.core.IDestroyable;
+	
 	import flash.events.IEventDispatcher;
 	
 	/**
-	 * <p>This class wraps the event listening functionality provided by the standard flashplayer event system.</p>
+	 * This class wraps the event listening functionality provided by the standard flashplayer event system.
 	 * <p>A reference to the eventName, listener and useCapture properties is stored so the listener can be removed later</p>
 	 */
-	public class EventListener
+	public class EventListener implements IDestroyable
 	{
 		
 		private var _target:IEventDispatcher;
@@ -20,13 +22,6 @@ package com.layerglue.lib.base.events
 			return _target;
 		}
 
-		/*
-		public function set target(value:IEventDispatcher):void
-		{
-			_target = value;
-		}
-		*/
-		
 		private var _eventName:String;
 		
 		/**
@@ -36,14 +31,7 @@ package com.layerglue.lib.base.events
 		{
 			return _eventName;
 		}
-		
-		/*
-		public function set eventName(value:String):void
-		{
-			_eventName = value;
-		}
-		*/
-		
+				
 		private var _listener:Function;
 		
 		/**
@@ -54,13 +42,6 @@ package com.layerglue.lib.base.events
 			return _listener;
 		}
 		
-		/*
-		public function set listener(value:Function):void
-		{
-			_listener = value;
-		}
-		*/
-		
 		private var _useCapture:Boolean;
 		
 		/**
@@ -70,13 +51,6 @@ package com.layerglue.lib.base.events
 		{
 			return _useCapture;
 		}
-		
-		/*
-		public function set useCapture(value:Boolean):void
-		{
-			_useCapture = value;
-		}
-		*/
 		
 		private var _priority:int;
 		
@@ -89,13 +63,6 @@ package com.layerglue.lib.base.events
 			return _priority;
 		}
 		
-		/*
-		public function set priority(value:int):void
-		{
-			_priority = value;
-		}
-		*/
-		
 		private var _useWeakReference:Boolean;
 		
 		/**
@@ -105,13 +72,6 @@ package com.layerglue.lib.base.events
 		{
 			return _useWeakReference;
 		}
-		
-		/*
-		public function set useWeakReference(value:Boolean):void
-		{
-			_useWeakReference = value;
-		}
-		*/
 		
 		private var _active:Boolean;
 
@@ -146,18 +106,25 @@ package com.layerglue.lib.base.events
 		}
 		
 		/**
-		 * Removes the event listener defined by the properties of this instance.
-		 */
-		public function remove():void
-		{
-			deactivate();
-		}
-		
-		/**
 		 * Adds the event listener defined by the properties of this instance.
 		 */
 		public function activate():void
 		{
+			if(_target == null)
+			{
+				throw new Error("The target property for this listener is not defined for this EventListener instance");
+			}
+			
+			if(_eventName == null)
+			{
+				throw new Error("The eventName property for this listener is not defined for this EventListener instance");
+			}
+			
+			if( _listener == null)
+			{
+				throw new Error("The listener property for this listener is not defined for this EventListener instance");
+			}
+			
 			if(!_active)
 			{
 				target.addEventListener(eventName, listener, useCapture, priority, useWeakReference);
@@ -166,7 +133,9 @@ package com.layerglue.lib.base.events
 		}
 		
 		/**
-		 * Removes the event listener defined by the properties of this instance.
+		 * Removes the event listener defined by the properties of this instance, but maintains
+		 * properties and references allowing the listener to be reactivated at a point
+		 * in the future.
 		 */
 		public function deactivate():void
 		{
@@ -176,5 +145,28 @@ package com.layerglue.lib.base.events
 				_active = false;
 			}
 		}
+		
+		/**
+		 * Permanently deactivates the event listener and nulls properties with references to other
+		 * objects.
+		 * 
+		 * <p>This method permanently prevents an instance from listening to an event again as it
+		 * nulls the eventName and listener property, ensuring that referenced objects can be
+		 * garbage collected.</p>
+		 * 
+		 * <p>If the listener is intended to be reactivated at some point in the future, deactivate
+		 * should be used, as it maintains the references to eventName and listener.
+		 * 
+		 * @see deactivate()
+		 * </p>
+		 */
+		public function destroy():void
+		{
+			deactivate();
+			
+			_target = null;
+			_listener = null;
+			_eventName = null;
+		}	
 	}
 }
