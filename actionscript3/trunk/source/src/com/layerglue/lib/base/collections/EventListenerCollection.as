@@ -25,7 +25,7 @@ package com.layerglue.lib.base.collections
 		public function createListener(target:IEventDispatcher, eventName:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=true, activateImmediately:Boolean=true):EventListener
 		{
 			var eventListener:EventListener = new EventListener(target, eventName, listener, useCapture, priority, useWeakReference, activateImmediately);
-			add(eventListener);
+			addItem(eventListener);
 			return eventListener;
 		}
 		
@@ -34,7 +34,7 @@ package com.layerglue.lib.base.collections
 		 * 
 		 * @param eventListener The Eventlistener instance to be added.
 		 */
-		public function add(eventListener:EventListener):void
+		public function addItem(eventListener:EventListener):void
 		{
 			_eventListeners.push(eventListener);	
 		}
@@ -47,7 +47,7 @@ package com.layerglue.lib.base.collections
 		 * @param eventListener The EventListener instance to remove from the collection.
 		 * @param dontDeactivate Whether or not to deactivate the EventListener instance as it is removed
 		 */
-		public function remove(eventListener:EventListener, dontDeactivate:Boolean=false):void
+		public function removeItem(eventListener:EventListener, dontDeactivate:Boolean=false):void
 		{
 			ArrayUtils.removeItem(_eventListeners, eventListener);
 		}
