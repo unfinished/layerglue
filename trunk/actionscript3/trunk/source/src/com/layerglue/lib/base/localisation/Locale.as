@@ -1,11 +1,6 @@
 package com.layerglue.lib.base.localisation
 {
-	import com.layerglue.lib.base.io.FlashVars;
-	import com.layerglue.lib.base.resources.PropertyCollection;
 	
-	/**
-	 * 
-	 */
 	public class Locale extends Object
 	{
 		public function Locale(code:String=null, codeDelimeter:String="-")
