@@ -5,6 +5,7 @@ package com.layerglue.lib.base.events.loader
 	import flash.events.Event;
 	
 	/**
+	 * Defines events dispatched by the MultiLoader class.
 	 */
 	public class MultiLoaderEvent extends Event
 	{
@@ -24,12 +25,40 @@ package com.layerglue.lib.base.events.loader
 		public static const ITEM_PROGRESS:String = "itemProgress";
 		
 		/**
-		 * Dispatched when an item's load is closed
+		 * Dispatched when an item's load process is closed.
 		 */
 		public static const ITEM_CLOSE:String = "itemClose";
 		
-		public var item:ILoader;
-		public var itemIndex:int;
+		
+		private var _item:ILoader;
+		
+		/**
+		 * The item in the MultiLoader that the event refers to.
+		 */
+		public function get item():ILoader
+		{
+			return _item;
+		}
+		
+		public function set item(value:ILoader):void
+		{
+			_item = value;
+		}
+		
+		private var _itemIndex:int;
+		
+		/**
+		 * The index of the item in the MultiLoader that the event refers to.
+		 */
+		public function get itemIndex():int
+		{
+			return _itemIndex;
+		}
+		
+		public function set itemIndex(value:int):void
+		{
+			_itemIndex = value;
+		}
 		
 		public function MultiLoaderEvent(type:String, item:ILoader, index:int, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
@@ -38,6 +67,9 @@ package com.layerglue.lib.base.events.loader
 			super(type, bubbles, cancelable);
 		}
 		
+		/**
+		 * Duplicates this instance.
+		 */
 		override public function clone():Event
 		{
 			var e:MultiLoaderEvent = new MultiLoaderEvent(type, item, itemIndex, bubbles, cancelable);

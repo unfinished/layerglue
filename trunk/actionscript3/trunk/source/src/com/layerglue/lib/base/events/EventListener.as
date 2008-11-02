@@ -156,9 +156,9 @@ package com.layerglue.lib.base.events
 		 * 
 		 * <p>If the listener is intended to be reactivated at some point in the future, deactivate
 		 * should be used, as it maintains the references to eventName and listener.
+		 * </p>
 		 * 
 		 * @see deactivate()
-		 * </p>
 		 */
 		public function destroy():void
 		{
