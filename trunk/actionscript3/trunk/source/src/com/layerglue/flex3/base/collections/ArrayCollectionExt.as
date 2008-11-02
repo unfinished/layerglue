@@ -1,4 +1,4 @@
-package com.layerglue.flex3.collections
+package com.layerglue.flex3.base.collections
 {
 	import com.layerglue.lib.base.collections.ICollection;
 	import com.layerglue.lib.base.collections.strategies.ArrayCollectionStrategy;

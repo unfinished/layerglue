@@ -1,4 +1,4 @@
-package com.layerglue.flex3.controls
+package com.layerglue.flex3.base.controls
 {
 	import com.layerglue.lib.base.utils.ImageSubstitutorUtils;
 	

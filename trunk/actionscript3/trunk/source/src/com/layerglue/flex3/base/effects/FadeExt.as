@@ -1,4 +1,4 @@
-package com.layerglue.flex3.effects
+package com.layerglue.flex3.base.effects
 {
 	import mx.effects.Fade;
 	
