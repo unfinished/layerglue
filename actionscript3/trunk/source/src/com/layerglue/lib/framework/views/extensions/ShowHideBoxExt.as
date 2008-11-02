@@ -1,7 +1,7 @@
 package com.layerglue.lib.framework.views.extensions
 {
+	import com.layerglue.flex3.base.views.showHide.ShowHideBox;
 	import com.layerglue.lib.base.events.SelectionEvent;
-	import com.layerglue.lib.base.views.flex.showHide.ShowHideBox;
 	import com.layerglue.lib.framework.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.framework.structure.IStructuralData;
 	import com.layerglue.lib.framework.views.IView;
