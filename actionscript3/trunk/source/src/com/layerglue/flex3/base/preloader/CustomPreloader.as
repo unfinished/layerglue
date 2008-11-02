@@ -1,4 +1,4 @@
-package com.layerglue.flex3.preloader
+package com.layerglue.flex3.base.preloader
 {
 	import com.layerglue.lib.base.io.FlashVars;
 	

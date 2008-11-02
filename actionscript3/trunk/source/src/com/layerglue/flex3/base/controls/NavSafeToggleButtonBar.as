@@ -1,4 +1,4 @@
-package com.layerglue.flex3.controls
+package com.layerglue.flex3.base.controls
 {
 	import flash.display.DisplayObject;
 	import flash.display.InteractiveObject;

@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package com.layerglue.flex3.skins
+package com.layerglue.flex3.base.skins
 {
 
 import flash.display.Graphics;

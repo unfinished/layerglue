@@ -1,4 +1,4 @@
-package com.layerglue.flex3.loaders
+package com.layerglue.flex3.base.loaders
 {
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.loaders.ILoader;
