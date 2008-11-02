@@ -1,6 +1,5 @@
 package com.layerglue.flex3.base.collections.strategies
 {
-	import com.layerglue.lib.base.collections.strategies.ArrayCollectionStrategy;
 	import com.layerglue.lib.base.collections.strategies.DeserializerCollectionStrategyMap;
 	
 	import mx.collections.ArrayCollection;
@@ -13,6 +12,5 @@ package com.layerglue.flex3.base.collections.strategies
 			
 			addItem(ArrayCollection, new ArrayCollectionStrategy());
 		}
-		
 	}
 }
