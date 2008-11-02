@@ -1,5 +1,7 @@
-package com.layerglue.lib.base.collections.strategies
+package com.layerglue.flex3.base.collections.strategies
 {
+	import com.layerglue.lib.base.collections.strategies.AbstractCollectionStrategy;
+	
 	import mx.collections.ArrayCollection;
 	
 	public class ArrayCollectionStrategy extends AbstractCollectionStrategy
