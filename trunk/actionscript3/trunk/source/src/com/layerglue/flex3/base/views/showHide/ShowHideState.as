@@ -1,4 +1,4 @@
-package com.layerglue.lib.base.views.flex.showHide
+package com.layerglue.flex3.base.views.showHide
 {
 	public class ShowHideState
 	{
