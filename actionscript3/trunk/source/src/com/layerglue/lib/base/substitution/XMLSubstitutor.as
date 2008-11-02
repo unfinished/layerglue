@@ -15,7 +15,7 @@ package com.layerglue.lib.base.substitution
 		private var _openingDelimeter:String;
 		
 		/**
-		 * <p>The delimeter signifying the start of a value to be substituted.</p>
+		 * The delimeter signifying the start of a value to be substituted.
 		 * 
 		 * @see closingDelimeter
 		 */
@@ -32,7 +32,7 @@ package com.layerglue.lib.base.substitution
 		private var _closingDelimeter:String;
 		
 		/**
-		 * <p>The delimeter signifying the end of a value to be substituted.</p>
+		 * The delimeter signifying the end of a value to be substituted.
 		 * 
 		 * @see openingDelimeter
 		 */
