@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+	applicationComplete="applicationCompleteHandler()">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.vo.StructureRoot;
+			import com.client.project.io.InitialLoadManager;
+						
+			private var _initialLoadManager:InitialLoadManager;
+						
+			// The object that will contain the deserialized xml data
+			[Bindable]
+			public var structureRoot:StructureRoot;
+			
+			private function applicationCompleteHandler():void
+			{
+				startLoadProcess();
+			}
+			
+			private function startLoadProcess():void
+			{
+				_initialLoadManager = new InitialLoadManager();
+				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
+				_initialLoadManager.start();
+			}
+			
+			private function initialLoadCompleteHandler(event:Event):void
+			{
+				structureRoot = (event.target as InitialLoadManager).structureRoot;
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
+	<mx:HBox>
+		<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
+		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
+	</mx:HBox>
+</mx:Application>
