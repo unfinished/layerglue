@@ -1,11 +1,11 @@
 package com.layerglue.lib.application.views.extensions
 {
-	import com.layerglue.lib.base.events.DestroyEvent;
-	import com.layerglue.lib.base.events.SelectionEvent;
-	import com.layerglue.lib.base.views.flex.showHide.ShowHideCanvas;
+	import com.layerglue.flex3.base.views.showHide.ShowHideCanvas;
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.base.events.DestroyEvent;
+	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
