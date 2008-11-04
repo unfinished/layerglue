@@ -18,10 +18,11 @@ package com.layerglue.lib.base.loaders
 			
 			_rootLoaderInfo = rootLoaderInfo;
 			
+			_isComplete = _rootLoaderInfo.bytesLoaded < _rootLoaderInfo.bytesTotal;
+			
 			_eventListenerCollection = new EventListenerCollection();
 			_eventListenerCollection.createListener(_rootLoaderInfo, ProgressEvent.PROGRESS, progressHandler);
 			_eventListenerCollection.createListener(_rootLoaderInfo, Event.COMPLETE, completeHandler);
-			
 		}
 		
 		private function progressHandler(event:ProgressEvent):void
@@ -31,6 +32,7 @@ package com.layerglue.lib.base.loaders
 		
 		private function completeHandler(event:Event):void
 		{
+			_isComplete = true;
 			dispatchEvent(event.clone());
 		}
 		
@@ -42,9 +44,11 @@ package com.layerglue.lib.base.loaders
 		{
 		}
 		
+		private var _isComplete:Boolean;
+		
 		public function isComplete():Boolean
 		{
-			return false;
+			return _isComplete;
 		}
 		
 		public function getBytesLoaded():uint

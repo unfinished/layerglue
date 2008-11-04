@@ -9,6 +9,7 @@ package com.layerglue.lib.base.io
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import com.layerglue.lib.base.loaders.IMeasurableLoader;
 	
 	/**
 	 * Wraps MultiLoader to provide a convenient way to add and listen to individual loaders.
@@ -52,7 +53,7 @@ package com.layerglue.lib.base.io
 		/**
 		 * Loads the next loader item in the queue.
 		 */
-		protected function loadNext():void
+		public function loadNext():void
 		{
 			_multiLoader.loadNext();
 		}
@@ -140,6 +141,8 @@ package com.layerglue.lib.base.io
 		
 		private function itemProgressHandler(event:MultiLoaderEvent):void
 		{
+			var loader:IMeasurableLoader = (event.target as MultiLoader).currentItem as IMeasurableLoader;
+			trace("proportional progress: " + loader.getBytesLoaded() + " / " + loader.getBytesTotal());
 			dispatchEvent(event);
 		}
 			

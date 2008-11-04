@@ -1,7 +1,7 @@
 package com.layerglue.flex3.base.loaders
 {
 	import com.layerglue.lib.base.collections.EventListenerCollection;
-	import com.layerglue.lib.base.loaders.ILoader;
+	import com.layerglue.lib.base.loaders.IMeasurableLoader;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -11,7 +11,7 @@ package com.layerglue.flex3.base.loaders
 	
 	import mx.styles.StyleManager;
 
-	public class CSSStyleLoader extends EventDispatcher implements ILoader
+	public class CSSStyleLoader extends EventDispatcher implements IMeasurableLoader
 	{
 		protected var _listenerCollection:EventListenerCollection;
 		protected var _isComplete:Boolean;
@@ -66,8 +66,11 @@ package com.layerglue.flex3.base.loaders
 			_listenerCollection.removeAll();
 		}
 		
-		private function progressHandler(event:Event):void
+		private function progressHandler(event:ProgressEvent):void
 		{
+			_bytesLoaded = event.bytesLoaded;
+			_bytesTotal = event.bytesTotal;
+			
 			dispatchEvent(event.clone());
 		}
 		
@@ -81,6 +84,20 @@ package com.layerglue.flex3.base.loaders
 		public function destroy():void
 		{
 			removeListeners();
+		}
+		
+		private var _bytesLoaded:Number;
+		
+		public function getBytesLoaded():uint
+		{
+			return _bytesLoaded;
+		}
+		
+		private var _bytesTotal:Number;
+		
+		public function getBytesTotal():uint
+		{
+			return _bytesTotal;
 		}
 	}
 }
