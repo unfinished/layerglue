@@ -10,6 +10,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.io.InitialLoadManagerWrapper;
 			import mx.preloaders.DownloadProgressBar;
 			import com.layerglue.flex3.base.preloader.DownloadProgressBarExt;
 			import com.client.project.preloader.PreloaderView;
@@ -17,14 +18,11 @@
 			import com.layerglue.flex3.base.events.PreloaderManagerEvent;
 			import com.layerglue.flex3.base.preloader.PreloaderManager;
 			import com.client.project.vo.StructureRoot;
-			import com.client.project.io.InitialLoadManager;
 			
 			//com.layerglue.flex3.base.preloader.DownloadProgressBarExt
 			//com.client.project.preloader.PreloaderView
 			
-			DownloadProgressBarExt
-			
-			private var _initialLoadManager:InitialLoadManager;
+			private var _initialLoadManager:InitialLoadManagerWrapper;
 						
 			// The object that will contain the deserialized xml data
 			[Bindable]
@@ -42,14 +40,14 @@
 			
 			private function startLoadProcess():void
 			{
-				_initialLoadManager = new InitialLoadManager();
-				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
+				_initialLoadManager = new InitialLoadManagerWrapper();
+				_initialLoadManager.loader.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
 				_initialLoadManager.start();
 			}
 			
 			private function initialLoadCompleteHandler(event:Event):void
 			{
-				structureRoot = (event.target as InitialLoadManager).structureRoot;
+				structureRoot = _initialLoadManager.structureRoot;
 				
 				createComponentsFromDescriptors();
 				

@@ -3,6 +3,7 @@ package com.client.project.io
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.client.project.vo.StructureRoot;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
+	import com.layerglue.flex3.base.preloader.PreloaderManager;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
@@ -13,6 +14,7 @@ package com.client.project.io
 	import com.layerglue.lib.base.substitution.sources.MultiSubstitutionSource;
 	
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
 	
 	import mx.core.Application;
@@ -21,7 +23,7 @@ package com.client.project.io
 	 * Handles the loading, substitution and deserialization of any XML data that's
 	 * required before the application begins. 
 	 */
-	public class InitialLoadManager extends ProportionalLoadManager
+	public class InitialLoadManagerWrapper extends EventDispatcher
 	{
 		private var _locale:String;
 		
@@ -33,6 +35,9 @@ package com.client.project.io
 		public var structureRoot:StructureRoot;
 		
 		
+		
+		
+		
 		private var _globalConfigXMLLoader:XmlLoader;
 		private var _localeConfigXMLLoader:XmlLoader;
 		private var _localeCopyXMLLoader:XmlLoader;
@@ -40,11 +45,20 @@ package com.client.project.io
 		private var _regionalCSSLoader:CSSStyleLoader;
 		
 		
-		public function InitialLoadManager()
+		public function InitialLoadManagerWrapper()
 		{
 			super();
 			
+			_loader = PreloaderManager.getInstance().initialLoadManager;
+			
 			initialize();
+		}
+		
+		private var _loader:ProportionalLoadManager
+		
+		public function get loader():ProportionalLoadManager
+		{
+			return _loader;
 		}
 		
 		public function initialize():void
@@ -52,22 +66,22 @@ package com.client.project.io
 			FlashVars.initialize(Application.application.root);
 			_locale = FlashVars.getInstance().getValue("locale");
 			
-			addItem(
+			_loader.addItem(
 				new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
 				globalConfigCompleteHandler,
 				errorHandler);
 			
-			addItem(
+			_loader.addItem(
 				new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
 				localeConfigCompleteHandler,
 				errorHandler);
 			
-			addItem(
+			_loader.addItem(
 				new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
 				localeCopyCompleteHandler,
 				errorHandler);
 				
-			addItem(
+			_loader.addItem(
 				new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 				structureUnpopulatedCompleteHandler,
 				errorHandler);
@@ -77,7 +91,7 @@ package com.client.project.io
 			
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
 			
-			addItem(
+			_loader.addItem(
 				_regionalCSSLoader,
 				regionalCompiledCSSCompleteHandler,
 				errorHandler);
@@ -87,33 +101,38 @@ package com.client.project.io
 			trace("_regionalCSSLoader.request.url: " + _regionalCSSLoader.request.url);
 		}
 		
+		public function start():void
+		{
+			_loader.start();
+		}
+		
 		private function globalConfigCompleteHandler(event:Event):void
 		{
 			_globalConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			loadNext();
+			_loader.loadNext();
 		}
 		
 		private function localeConfigCompleteHandler(event:Event):void
 		{
 			_localeConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			loadNext();
+			_loader.loadNext();
 		}
 		
 		private function localeCopyCompleteHandler(event:Event):void
 		{
 			_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			loadNext();
+			_loader.loadNext();
 		}
 		
 		private function structureUnpopulatedCompleteHandler(event:Event):void
 		{
 			populateStructuralDataXML((event.target as XmlLoader).typedData);
-			loadNext();
+			_loader.loadNext();
 		}
 		
 		private function regionalCompiledCSSCompleteHandler(event:Event):void
 		{
-			loadNext();
+			_loader.loadNext();
 		}
 		
 		private function errorHandler(event:Event):void
