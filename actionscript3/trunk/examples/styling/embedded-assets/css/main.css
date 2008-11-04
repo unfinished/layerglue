@@ -2,7 +2,7 @@
 
 global
 {
-	fontFamily: "Fontin";
+	fontFamily: "RegionalFont";
 	embedFonts: true;
 	fontAntiAliasType: advanced;
 	color: #444444;

@@ -40,7 +40,6 @@
 		]]>
 	</mx:Script>
 	
-	<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
 	<mx:HBox>
 		<mx:Label text="Font embedding" styleName="applicationTitle"/>
 		<mx:Button label="Click"/>
