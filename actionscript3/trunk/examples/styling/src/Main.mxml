@@ -2,15 +2,19 @@
 <mx:Application
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	layout="absolute"
-	applicationComplete="applicationCompleteHandler()">
+	preinitialize="startLoadProcess()"
+	creationPolicy="none">
+	
+	<mx:Style source="../embedded-assets/css/main.css"/>
 	
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.locators.ModelLocator;
 			import com.client.project.vo.StructureRoot;
 			import com.client.project.io.InitialLoadManager;
 						
 			private var _initialLoadManager:InitialLoadManager;
-						
+			
 			// The object that will contain the deserialized xml data
 			[Bindable]
 			public var structureRoot:StructureRoot;
@@ -29,7 +33,8 @@
 			
 			private function initialLoadCompleteHandler(event:Event):void
 			{
-				structureRoot = (event.target as InitialLoadManager).structureRoot;
+				structureRoot = ModelLocator.getInstance().structure;
+				createComponentsFromDescriptors();
 			}
 			
 		]]>
@@ -37,7 +42,7 @@
 	
 	<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
 	<mx:HBox>
-		<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
-		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
+		<mx:Label text="Font embedding" styleName="applicationTitle"/>
+		<mx:Button label="Click"/>
 	</mx:HBox>
 </mx:Application>
