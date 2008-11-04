@@ -1,4 +1,5 @@
 #summary Examples for the LayerGlue library
+#labels Featured
 
 = Examples=
 
