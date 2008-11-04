@@ -2,10 +2,17 @@
 <mx:Application
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	layout="absolute"
-	applicationComplete="applicationCompleteHandler()">
+	applicationComplete="applicationCompleteHandler()"
+	preinitialize="preinitializeHandler()"
+	creationPolicy="none"
+	preloader="com.client.project.preloader.PreloaderView">
+	
 	
 	<mx:Script>
 		<![CDATA[
+			import flash.utils.setTimeout;
+			import com.layerglue.flex3.base.events.PreloaderCommunicatorEvent;
+			import com.layerglue.flex3.base.preloader.PreloaderCommunicator;
 			import com.client.project.vo.StructureRoot;
 			import com.client.project.io.InitialLoadManager;
 						
@@ -17,6 +24,11 @@
 			
 			private function applicationCompleteHandler():void
 			{
+				
+			}
+			
+			private function preinitializeHandler():void
+			{
 				startLoadProcess();
 			}
 			
@@ -24,12 +36,21 @@
 			{
 				_initialLoadManager = new InitialLoadManager();
 				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
+				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
 				_initialLoadManager.start();
 			}
 			
 			private function initialLoadCompleteHandler(event:Event):void
 			{
 				structureRoot = (event.target as InitialLoadManager).structureRoot;
+				
+				setTimeout(test, 2000);
+			}
+			
+			private function test():void
+			{
+				PreloaderCommunicator.getInstance().preloader.startTransitionOut();
+				trace("hiding it now");
 			}
 			
 		]]>

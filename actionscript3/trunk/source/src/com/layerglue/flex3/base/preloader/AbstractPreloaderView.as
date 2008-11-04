@@ -44,6 +44,7 @@ package com.layerglue.flex3.base.preloader
 		
 		public function triggerComplete():void
 		{
+			trace("dispatching complete");
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
