@@ -56,12 +56,6 @@ package com.layerglue.lib.base.loaders
 			return bytesTotal;
 		}
 		
-		[Bindable(event="open", event="complete", event="progress")]
-		public function getPercentLoaded():Number
-		{
-			return (!isNaN(bytesLoaded) && !isNaN(bytesTotal)) ? ((bytesLoaded/bytesTotal)*100) : 0;
-		}
-		
 		[Bindable(event="open", event="complete")]
 		public function getData():*
 		{

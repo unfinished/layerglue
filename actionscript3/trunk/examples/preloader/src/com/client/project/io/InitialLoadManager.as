@@ -2,8 +2,9 @@ package com.client.project.io
 {
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.client.project.vo.StructureRoot;
+	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.lib.base.io.FlashVars;
-	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
@@ -20,7 +21,7 @@ package com.client.project.io
 	 * Handles the loading, substitution and deserialization of any XML data that's
 	 * required before the application begins. 
 	 */
-	public class InitialLoadManager extends LoadManager
+	public class InitialLoadManager extends ProportionalLoadManager
 	{
 		private var _locale:String;
 		
@@ -30,6 +31,14 @@ package com.client.project.io
 		private var _copySource:ISubstitutionSource;
 		
 		public var structureRoot:StructureRoot;
+		
+		
+		private var _globalConfigXMLLoader:XmlLoader;
+		private var _localeConfigXMLLoader:XmlLoader;
+		private var _localeCopyXMLLoader:XmlLoader;
+		private var _structureUnsubstitutedXMLLoader:XmlLoader;
+		private var _regionalCSSLoader:CSSStyleLoader;
+		
 		
 		public function InitialLoadManager()
 		{
@@ -62,6 +71,20 @@ package com.client.project.io
 				new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 				structureUnpopulatedCompleteHandler,
 				errorHandler);
+			
+			
+			//--------------------------------------------------------------------------------------
+			
+			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
+			
+			addItem(
+				_regionalCSSLoader,
+				regionalCompiledCSSCompleteHandler,
+				errorHandler);
+			
+			trace("_regionalCSSLoader.request.url: " + _regionalCSSLoader.request.url);
+			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/western.swf";
+			trace("_regionalCSSLoader.request.url: " + _regionalCSSLoader.request.url);
 		}
 		
 		private function globalConfigCompleteHandler(event:Event):void

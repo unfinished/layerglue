@@ -6,5 +6,10 @@ package com.layerglue.flex3.base.preloader
 	{
 		function startTransitionOut():void;
 		function triggerComplete():void;
+		
+		/*
+		function get applicationSWFLoadProportion():Number;
+		function set applicationSWFLoadProportion(value:Number):void;
+		*/
 	}
 }
