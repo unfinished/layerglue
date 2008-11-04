@@ -4,7 +4,7 @@
 {
 	fontFamily: "RegionalFont";
 	fontWeight: normal;
-	src: url("../../fonts/Fontin-Regular.otf");
+	src: url("../../fonts/Diavlo_MEDIUM_II_37.otf");
 	
 	
 	/*unicode-range:*/
@@ -19,7 +19,7 @@
 {
 	fontFamily: "RegionalFont";
 	fontWeight: bold;
-	src: url("../../fonts/Fontin-Bold.otf");
+	src: url("../../fonts/Diavlo_BOLD_II_37.otf");
 	
 	
 	/*unicode-range:*/
@@ -33,7 +33,7 @@
 /* Since regional css is loaded after main css then styles here will override */
 global
 {
-	color: #333333;
+	color: #993333;
 }
 
 /* Font provided by: http://www.josbuivenga.demon.nl/index.html */

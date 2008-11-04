@@ -22,7 +22,9 @@
 	
 	<target name="_debug_refresh_bin"
 		depends="	debug_delete_contents,
-					debug_copy_assets" />
+					debug_copy_assets,
+					debug_compile_regional_css_western,
+					debug_compile_regional_css_european" />
 	
 	<target name="debug_delete_contents">
 		<delete includeemptydirs="true">
@@ -45,12 +47,21 @@
 			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
 		</exec>
 	</target>
-	
+
+	<target name="debug_compile_regional_css_european">
+		<exec executable="${mxmlc}" failonerror="true">
+			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/european.swf"/>
+			<arg line="${embeddedassets.dir}/css/regions/european.css"/>
+		</exec>
+	</target>
+			
 	<!-- Release targets ======================================================================= -->
 	
 	<target name="_release_refresh_bin"
 		depends="	release_delete_assets,
-					release_copy_assets" />
+					release_copy_assets,
+					release_compile_regional_css_western,
+					release_compile_regional_css_european" />
 		
 	<target name="release_delete_assets">
 		<delete includeemptydirs="true">
@@ -58,15 +69,27 @@
 		</delete>
 	</target>
 	
-	<target name="release_copy_assets" 
-			description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-release">
-		
+	<target name="release_copy_assets" description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-release">
 		<copy todir="${binrelease.dir}">
 			<fileset dir="${runtimeassets.dir}">
 				<exclude name="**/_svn/**"/>
 				<exclude name="**/.svn/**"/>
 			</fileset>	
 		</copy>
+	</target>
+	
+	<target name="release_compile_regional_css_western">
+		<exec executable="${mxmlc}" failonerror="true">
+			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/western.swf"/>
+			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
+		</exec>
+	</target>
+
+	<target name="release_compile_regional_css_european">
+		<exec executable="${mxmlc}" failonerror="true">
+			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/european.swf"/>
+			<arg line="${embeddedassets.dir}/css/regions/european.css"/>
+		</exec>
 	</target>
 	
 	<target name="createdocs">

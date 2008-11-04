@@ -62,12 +62,6 @@ package com.client.project.io
 				new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 				structureUnpopulatedCompleteHandler,
 				errorHandler);
-			
-			// TODO: switch region on locale config
-			addItem(
-				new CSSStyleLoader(new URLRequest("flash-assets/compiled-css/regions/western.swf")),
-				regionalCompiledCSSCompleteHandler,
-				errorHandler);
 		}
 		
 		private function globalConfigCompleteHandler(event:Event):void
@@ -79,6 +73,13 @@ package com.client.project.io
 		private function localeConfigCompleteHandler(event:Event):void
 		{
 			_localeConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			var region:String = _localeConfigSource.getValueByReference("region");
+			trace("region = "+region);
+			addItem(
+				new CSSStyleLoader(new URLRequest("flash-assets/compiled-css/regions/" + region + ".swf")),
+				regionalCompiledCSSCompleteHandler,
+				errorHandler);
+			
 			loadNext();
 		}
 		
