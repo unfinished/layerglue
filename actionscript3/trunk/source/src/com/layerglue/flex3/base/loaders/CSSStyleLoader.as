@@ -14,7 +14,6 @@ package com.layerglue.flex3.base.loaders
 	public class CSSStyleLoader extends EventDispatcher implements IMeasurableLoader
 	{
 		protected var _listenerCollection:EventListenerCollection;
-		protected var _isComplete:Boolean;
 		protected var _styleManagerEventDispatcher:IEventDispatcher;
 		
 		public function CSSStyleLoader(request:URLRequest=null)
@@ -33,9 +32,25 @@ package com.layerglue.flex3.base.loaders
 			return _request
 		}
 		
+		protected var _isComplete:Boolean;
+		
 		public function isComplete():Boolean
 		{
 			return _isComplete;
+		}
+		
+		private var _bytesLoaded:Number;
+		
+		public function getBytesLoaded():uint
+		{
+			return _bytesLoaded;
+		}
+		
+		private var _bytesTotal:Number;
+		
+		public function getBytesTotal():uint
+		{
+			return _bytesTotal;
 		}
 		
 		public function open():void
@@ -84,20 +99,6 @@ package com.layerglue.flex3.base.loaders
 		public function destroy():void
 		{
 			removeListeners();
-		}
-		
-		private var _bytesLoaded:Number;
-		
-		public function getBytesLoaded():uint
-		{
-			return _bytesLoaded;
-		}
-		
-		private var _bytesTotal:Number;
-		
-		public function getBytesTotal():uint
-		{
-			return _bytesTotal;
 		}
 	}
 }

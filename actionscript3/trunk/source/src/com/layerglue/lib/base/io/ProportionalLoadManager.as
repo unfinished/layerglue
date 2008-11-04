@@ -69,7 +69,7 @@ package com.layerglue.lib.base.io
 			// Add loader to multiloader first, so complete event for multiloader fires before
 			// here in LoadManager
 			_multiLoader.addItem(loader);
-			var item:LoadManagerElement = new LoadManagerElement(loader, completeHandler, errorHandler);
+			var item:LoadManagerItem = new LoadManagerItem(loader, completeHandler, errorHandler);
 			_items.push(item);
 		}
 		
@@ -79,12 +79,12 @@ package com.layerglue.lib.base.io
 		 */
 		public function removeItem(loader:ILoader):Boolean
 		{
-			var loadManagerElement:LoadManagerElement = getLoadManagerElementByLoader(loader);
+			var loadManagerItem:LoadManagerItem = getLoadManagerItemByLoader(loader);
 			
-			if(loadManagerElement)
+			if(loadManagerItem)
 			{
-				loadManagerElement.destroy();
-				ArrayUtils.removeItem(_items, loadManagerElement);
+				loadManagerItem.destroy();
+				ArrayUtils.removeItem(_items, loadManagerItem);
 				return true;
 			}
 			
@@ -94,9 +94,9 @@ package com.layerglue.lib.base.io
 		/*
 		* Used internally by the class to find references to loaders in the queue
 		*/
-		protected function getLoadManagerElementByLoader(loader:ILoader):LoadManagerElement
+		protected function getLoadManagerItemByLoader(loader:ILoader):LoadManagerItem
 		{
-			for each(var item:LoadManagerElement in _items)
+			for each(var item:LoadManagerItem in _items)
 			{
 				if(item.loader == loader)
 				{
@@ -142,46 +142,10 @@ package com.layerglue.lib.base.io
 		private function itemProgressHandler(event:MultiLoaderEvent):void
 		{
 			var loader:IMeasurableLoader = (event.target as MultiLoader).currentItem as IMeasurableLoader;
-			trace("proportional progress: " + loader.getBytesLoaded() + " / " + loader.getBytesTotal());
+			trace("proportional progress: " + loader + " - "  +  loader.getBytesLoaded() + " / " + loader.getBytesTotal());
 			dispatchEvent(event);
 		}
 			
 	}
 	
-}
-
-import com.layerglue.lib.base.collections.EventListenerCollection;
-import flash.events.Event;
-import flash.events.IOErrorEvent;
-import flash.events.SecurityErrorEvent;
-import com.layerglue.lib.base.loaders.ILoader;
-
-/*
-* Helper class used to encapsulate the loader and it's associated handlers.
-* It creates a link between the loader complete event and the handler passed into
-* the addItem() method. This means the method specified in addItem() gets called the
-* moment the loader completes.
-*/
-class LoadManagerElement
-{
-	public var loader:ILoader;
-	public var proportion:Number;
-	private var _listenerCollection:EventListenerCollection;
-	
-	public function LoadManagerElement(loader:ILoader, completeHandler:Function, errorHandler:Function, proportion:Number=NaN)
-	{
-		this.loader = loader;
-		this.proportion = proportion;
-		
-		_listenerCollection =  new EventListenerCollection();
-		_listenerCollection.createListener(loader, Event.COMPLETE, completeHandler);
-	}
-	
-	public function destroy():void
-	{
-		_listenerCollection.removeAll();
-		
-		loader = null;
-		_listenerCollection = null;
-	}
 }

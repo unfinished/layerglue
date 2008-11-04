@@ -23,8 +23,6 @@ package com.layerglue.flex3.base.preloader
 		{
 			super();
 			
-			
-			
 			_eventListenerCollection = new EventListenerCollection();
 			
 			_backgroundAlpha = 1;
@@ -35,8 +33,6 @@ package com.layerglue.flex3.base.preloader
 			PreloaderManager.initialize(this);
 			
 			FlashVars.initialize(root);
-			
-			_eventListenerCollection.createListener(PreloaderManager.getInstance(), PreloaderManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetsLoadCompleteHandler);
 		}
 		
 		public function startTransitionOut():void
@@ -176,12 +172,6 @@ package com.layerglue.flex3.base.preloader
 			//instance to the stage and make it fire FlexEvent.APPLICATION_COMPLETE.
 			
 			//dispatchEvent(new Event(Event.COMPLETE));
-		}
-		
-		protected function initialAssetsLoadCompleteHandler(event:PreloaderManagerEvent):void
-		{
-			trace("preloader heard assets load complete");
-			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 	}
