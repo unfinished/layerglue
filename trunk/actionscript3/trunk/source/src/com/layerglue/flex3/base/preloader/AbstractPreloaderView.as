@@ -1,6 +1,6 @@
 package com.layerglue.flex3.base.preloader
 {
-	import com.layerglue.flex3.base.events.PreloaderCommunicatorEvent;
+	import com.layerglue.flex3.base.events.PreloaderManagerEvent;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.io.FlashVars;
 	
@@ -23,7 +23,7 @@ package com.layerglue.flex3.base.preloader
 		{
 			super();
 			
-			PreloaderCommunicator.initialize(this);
+			
 			
 			_eventListenerCollection = new EventListenerCollection();
 			
@@ -32,9 +32,11 @@ package com.layerglue.flex3.base.preloader
 		
 		public function initialize():void
 		{
+			PreloaderManager.initialize(this);
+			
 			FlashVars.initialize(root);
 			
-			_eventListenerCollection.createListener(PreloaderCommunicator.getInstance(), PreloaderCommunicatorEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetsLoadCompleteHandler);
+			_eventListenerCollection.createListener(PreloaderManager.getInstance(), PreloaderManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetsLoadCompleteHandler);
 		}
 		
 		public function startTransitionOut():void
@@ -44,7 +46,6 @@ package com.layerglue.flex3.base.preloader
 		
 		public function triggerComplete():void
 		{
-			trace("dispatching complete");
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
@@ -177,7 +178,7 @@ package com.layerglue.flex3.base.preloader
 			//dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
-		protected function initialAssetsLoadCompleteHandler(event:PreloaderCommunicatorEvent):void
+		protected function initialAssetsLoadCompleteHandler(event:PreloaderManagerEvent):void
 		{
 			trace("preloader heard assets load complete");
 			dispatchEvent(new Event(Event.COMPLETE));

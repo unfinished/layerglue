@@ -17,7 +17,7 @@ package com.layerglue.flex3.base.preloader
 		{
 			super();
 			
-			PreloaderCommunicator.initialize(this);
+			PreloaderManager.initialize(this);
 		}
 		
 		override public function set preloader(value:Sprite):void

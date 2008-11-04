@@ -29,6 +29,6 @@ package com.layerglue.lib.base.loaders
 		 * 
 		 * @returns A boolean describing whether or not he load has completed.
 		 */
-		function isComplete():Boolean
+		function isComplete():Boolean		
 	}
 }

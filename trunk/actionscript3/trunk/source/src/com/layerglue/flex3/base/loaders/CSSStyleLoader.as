@@ -14,9 +14,7 @@ package com.layerglue.flex3.base.loaders
 	public class CSSStyleLoader extends EventDispatcher implements ILoader
 	{
 		protected var _listenerCollection:EventListenerCollection;
-		protected var _request:URLRequest;
 		protected var _isComplete:Boolean;
-		
 		protected var _styleManagerEventDispatcher:IEventDispatcher;
 		
 		public function CSSStyleLoader(request:URLRequest=null)
@@ -26,6 +24,13 @@ package com.layerglue.flex3.base.loaders
 			_listenerCollection = new EventListenerCollection();
 			_request = request;
 			_isComplete = false;
+		}
+		
+		protected var _request:URLRequest;
+		
+		public function get request():URLRequest
+		{
+			return _request
 		}
 		
 		public function isComplete():Boolean
@@ -63,14 +68,14 @@ package com.layerglue.flex3.base.loaders
 		
 		private function progressHandler(event:Event):void
 		{
-			dispatchEvent(new Event(ProgressEvent.PROGRESS));
+			dispatchEvent(event.clone());
 		}
 		
 		private function completeHandler(event:Event):void
 		{
 			_isComplete = true;
 			
-			dispatchEvent(new Event(Event.COMPLETE));
+			dispatchEvent(event.clone());
 		}
 		
 		public function destroy():void
