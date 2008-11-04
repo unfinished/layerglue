@@ -1,11 +1,12 @@
 package com.client.project.io
 {
+	import com.client.project.locators.ModelLocator;
 	import com.client.project.maps.StructureDeserializationMap;
-	import com.client.project.vo.StructureRoot;
-	import com.layerglue.lib.base.io.FlashVars;
+	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
+	import com.layerglue.lib.base.localisation.Locale;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
 	import com.layerglue.lib.base.substitution.XMLSubstitutor;
 	import com.layerglue.lib.base.substitution.sources.FlatXMLSubstitutionSource;
@@ -22,14 +23,12 @@ package com.client.project.io
 	 */
 	public class InitialLoadManager extends LoadManager
 	{
-		private var _locale:String;
-		
 		//Defining properties to hold XML Substitutors
 		private var _globalConfigSource:ISubstitutionSource;
 		private var _localeConfigSource:ISubstitutionSource;
 		private var _copySource:ISubstitutionSource;
 		
-		public var structureRoot:StructureRoot;
+		protected var modelLocator:ModelLocator;
 		
 		public function InitialLoadManager()
 		{
@@ -40,8 +39,9 @@ package com.client.project.io
 		
 		public function initialize():void
 		{
-			FlashVars.initialize(Application.application.root);
-			_locale = FlashVars.getInstance().getValue("locale");
+			modelLocator = ModelLocator.getInstance();
+			//FlashVars.initialize(Application.application.root);
+			modelLocator.locale = new Locale(Application.application.parameters.locale);
 			
 			addItem(
 				new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
@@ -49,18 +49,24 @@ package com.client.project.io
 				errorHandler);
 			
 			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
+				new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml")),
 				localeConfigCompleteHandler,
 				errorHandler);
 			
 			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
+				new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),
 				localeCopyCompleteHandler,
 				errorHandler);
 				
 			addItem(
 				new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 				structureUnpopulatedCompleteHandler,
+				errorHandler);
+			
+			// TODO: switch region on locale config
+			addItem(
+				new CSSStyleLoader(new URLRequest("flash-assets/compiled-css/regions/western.swf")),
+				regionalCompiledCSSCompleteHandler,
 				errorHandler);
 		}
 		
@@ -116,7 +122,7 @@ package com.client.project.io
 			var deserializer:XMLDeserializer = new XMLDeserializer();
 			deserializer.map = new StructureDeserializationMap();
 			var structure:* = deserializer.deserialize(xml);
-			structureRoot = structure;			
+			modelLocator.structure = structure;			
 		}
 		
 	}

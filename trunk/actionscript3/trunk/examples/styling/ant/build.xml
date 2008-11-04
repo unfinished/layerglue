@@ -30,15 +30,20 @@
 		</delete>
 	</target>
 	
-	<target name="debug_copy_assets" 
-			description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-debug">
-
+	<target name="debug_copy_assets"  description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-debug">
 		<copy todir="${bindebug.dir}">
 			<fileset dir="${runtimeassets.dir}">
 				<exclude name="**/_svn/**"/>
 				<exclude name="**/.svn/**"/>
 			</fileset>
 		</copy>
+	</target>
+	
+	<target name="debug_compile_regional_css_western">
+		<exec executable="${mxmlc}" failonerror="true">
+			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/western.swf"/>
+			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
+		</exec>
 	</target>
 	
 	<!-- Release targets ======================================================================= -->
