@@ -1,6 +1,4 @@
 #labels Featured
-= Examples=
-
 ==Utility examples==
 
 The library does not have to be used in it's entirety, and specific classes (or groups of classes) can be used independently. These examples demonstrate several important utilities, all of which can be used separately from the MVC navigation framework.
