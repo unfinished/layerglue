@@ -13,6 +13,7 @@ package com.client.project.preloader
 		override public function initialize():void
 		{
 			super.initialize();
+			
 			//trace("initialized: " + stage);
 			
 			graphics.beginFill(0x00FF00, 1);
@@ -22,7 +23,7 @@ package com.client.project.preloader
 		
 		override protected function progressHandler(event:ProgressEvent):void
 		{
-			trace("progress: " + event.bytesLoaded);
+			trace("PreloaderView progressHandler: " + event.bytesLoaded);
 		}
 		
 		
