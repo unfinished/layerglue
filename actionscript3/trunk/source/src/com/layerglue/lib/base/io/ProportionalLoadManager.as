@@ -1,9 +1,9 @@
 package com.layerglue.lib.base.io
 {
+	import com.layerglue.lib.base.loaders.IMeasurableLoader;
+	
 	/**
-	 * Wraps MultiLoader to provide a convenient way to add and listen to individual loaders.
-	 * This is intended to be subclassed and loaders to be added in the constructor.
-	 * Processing of the loaders is begun using the start() method.
+	 * 
 	 */
 	public class ProportionalLoadManager extends LoadManager
 	{
@@ -11,7 +11,60 @@ package com.layerglue.lib.base.io
 		public function ProportionalLoadManager()
 		{
 			super();
+			
+			totalValue = 1;
 		}
 		
+		private var _totalValue:Number;
+		
+		public function get totalValue():Number
+		{
+			return _totalValue;
+		}
+		
+		public function set totalValue(value:Number):void
+		{
+			_totalValue = value;
+		}
+		
+		public function get currentValue():Number
+		{
+			return calculateCurrentValue();
+		}
+		
+		private function calculateCurrentValue():Number
+		{
+			var proportionLoaded:Number = 0;;
+			
+			for each(var item:LoadManagerItem in _loadManagerItems)
+			{
+				if(item.loader.isComplete())
+				{
+					proportionLoaded += item.proportion;
+				}
+				else //If we get here there is still an item loading
+				{
+					//Get the loader contained within the item
+					var measurableLoader:IMeasurableLoader = item.loader as IMeasurableLoader;
+					
+					//Calculate the fraction of the currently loading item's proportion
+					var measurableLoaderProportion:Number = item.proportion * (measurableLoader.getBytesLoaded() / measurableLoader.getBytesTotal());
+					
+					//Add the fractional proportion to the overall value
+					proportionLoaded += isNaN(measurableLoaderProportion) ? 0 : measurableLoaderProportion;
+					
+					//Make sure to stop here, as this item is loading, and all after this are
+					//waiting to load
+					break;
+				}
+			}
+			
+			return proportionLoaded;
+		}
+		
+		public function fraction():Number
+		{
+			return currentValue / totalValue;
+		}
 	}
 }

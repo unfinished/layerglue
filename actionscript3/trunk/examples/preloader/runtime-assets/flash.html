@@ -25,7 +25,7 @@
         </div>
         <script type="text/javascript">
         // <![CDATA[
-            var so = new SWFObject('Main.swf', 'website', '100%', '100%', '9', '#FFFFFF');
+            var so = new SWFObject('Main.swf?cacheBust='+Math.random(), 'website', '100%', '100%', '9', '#FFFFFF');
             so.useExpressInstall('html-assets/js/swfobject/expressinstall.swf');
 			so.addParam('menu', 'false');
 			so.addVariable("locale", locale);

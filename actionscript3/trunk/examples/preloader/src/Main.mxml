@@ -47,22 +47,18 @@
 			
 			private function initialLoadCompleteHandler(event:Event):void
 			{
+				trace("Overall load complete");
+				
 				structureRoot = _initialLoadManager.structureRoot;
 				
 				createComponentsFromDescriptors();
 				
-				//setTimeout(test, 1000);
-				
-				test();
+				reparentPreloader();
 			}
 			
-			private function test():void
+			private function reparentPreloader():void
 			{
-				PreloaderManager.getInstance().preloaderView.triggerComplete();
 				preloaderContainer.addChild(PreloaderManager.getInstance().preloaderView as DisplayObject);
-				//PreloaderManager.getInstance().preloader.startTransitionOut();
-				
-				var p:DownloadProgressBarExt = PreloaderManager.getInstance().preloaderView as DownloadProgressBarExt;
 			}
 			
 			[Embed(source="../embedded-assets/images.jpg")]
