@@ -6,7 +6,14 @@ package com.layerglue.lib.base.loaders
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
-
+	
+	/**
+	 * A class to represent the main swf when performing load procedures in the LayerGlue loader
+	 * subframework.
+	 * 
+	 * <p>The class aheres to IMeasurable loader, as well as dispatching progress and complete
+	 * events and can be used within a standard MultiLoader or the more complex load managers.<p> 
+	 */
 	public class RootLoaderProxy extends EventDispatcher implements IMeasurableLoader
 	{
 		private var _rootLoaderInfo:LoaderInfo;
@@ -18,7 +25,7 @@ package com.layerglue.lib.base.loaders
 			
 			_rootLoaderInfo = rootLoaderInfo;
 			
-			_isComplete = _rootLoaderInfo.bytesLoaded < _rootLoaderInfo.bytesTotal;
+			_isComplete = _rootLoaderInfo.bytesLoaded > 0 &&  _rootLoaderInfo.bytesLoaded == _rootLoaderInfo.bytesTotal;
 			
 			_eventListenerCollection = new EventListenerCollection();
 			_eventListenerCollection.createListener(_rootLoaderInfo, ProgressEvent.PROGRESS, progressHandler);
@@ -36,10 +43,16 @@ package com.layerglue.lib.base.loaders
 			dispatchEvent(event.clone());
 		}
 		
+		/**
+		 * An unused method, as the main swf will always begin its load.
+		 */
 		public function open():void
 		{
 		}
 		
+		/**
+		 * An unused method, as the main swf cannot have its load closed.
+		 */
 		public function close():void
 		{
 		}

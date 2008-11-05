@@ -5,7 +5,7 @@
 	applicationComplete="applicationCompleteHandler()"
 	preinitialize="preinitializeHandler()"
 	creationPolicy="none"
-	preloader="com.client.project.preloader.PreloaderView">
+	preloader="com.client.project.preloader.PreloaderView" xmlns:local="*">
 	
 	
 	<mx:Script>
@@ -63,17 +63,30 @@
 				//PreloaderManager.getInstance().preloader.startTransitionOut();
 				
 				var p:DownloadProgressBarExt = PreloaderManager.getInstance().preloaderView as DownloadProgressBarExt;
-				
-				
 			}
+			
+			[Embed(source="../embedded-assets/images.jpg")]
+            [Bindable]
+            public var pic1:Class;
+            
+            [Embed(source="../embedded-assets/google.jpg")]
+            [Bindable]
+            public var pic2:Class;
 			
 		]]>
 	</mx:Script>
 	
 	<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
+	<!--
 	<mx:HBox>
 		<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
 		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
 	</mx:HBox>
+	-->
+	
+	
+	
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
+	<mx:Image source="../embedded-assets/google-logo-3.jpg" width="100" height="100" />
+	<mx:Image source="../embedded-assets/images.jpg" width="100" height="100" />
 </mx:Application>
