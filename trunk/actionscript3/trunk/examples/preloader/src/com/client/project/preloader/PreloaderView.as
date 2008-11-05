@@ -4,10 +4,11 @@ package com.client.project.preloader
 	import com.layerglue.flex3.base.preloader.PreloaderManager;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
+	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import com.layerglue.lib.base.io.ProportionalLoadManager;
 
 	public class PreloaderView extends AbstractPreloaderView
 	{
@@ -65,10 +66,14 @@ package com.client.project.preloader
 				_progressBar.graphics.drawRect(0, 0, _barWidth, _barHeight);
 				_progressBar.graphics.endFill()
 				
-				_progressBar.graphics.beginFill(0xCCCCCC, 1);
-				_progressBar.graphics.drawRect(_barBorderThickness, _barBorderThickness, (_barWidth-(_barBorderThickness*2)) * PreloaderManager.getInstance().initialLoadManager.currentValue, (_barHeight-(_barBorderThickness*2)));
-				_progressBar.graphics.endFill()
+				var loadManager:LoadManager = PreloaderManager.getInstance().initialLoadManager;
 				
+				if(loadManager is ProportionalLoadManager)
+				{
+					_progressBar.graphics.beginFill(0xCCCCCC, 1);
+					_progressBar.graphics.drawRect(_barBorderThickness, _barBorderThickness, (_barWidth-(_barBorderThickness*2)) * (loadManager as ProportionalLoadManager).currentValue, (_barHeight-(_barBorderThickness*2)));
+					_progressBar.graphics.endFill()
+				}
 			}
 		}
 		

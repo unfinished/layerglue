@@ -12,29 +12,22 @@ package com.layerglue.lib.base.io
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	
 	/**
-	 * Wraps MultiLoader to provide a convenient way to add and listen to individual loaders.
-	 * This is intended to be subclassed and loaders to be added in the constructor.
-	 * Processing of the loaders is begun using the start() method.
+	 * 
 	 */
 	public class LoadManager extends EventDispatcher
 	{
 		protected var _multiLoader:MultiLoader;
-		
 		protected var _eventListenerCollection:EventListenerCollection;
-		
-		protected var _items:Array;
+		protected var _loadManagerItems:Array;
 		
 		public function LoadManager()
 		{
 			super();
 			
-			totalValue = 1;
-			
-			_items = [];
+			_loadManagerItems = [];
 			
 			_multiLoader = new MultiLoader();
 			_multiLoader.pauseAfterItem = true;
-			
 			
 			addListeners();
 		}
@@ -59,7 +52,7 @@ package com.layerglue.lib.base.io
 		public function addItem(item:LoadManagerItem):void
 		{
 			_multiLoader.addItem(item.loader);
-			_items.push(item);
+			_loadManagerItems.push(item);
 		}
 		
 		/**
@@ -68,68 +61,16 @@ package com.layerglue.lib.base.io
 		 */
 		public function removeItem(item:LoadManagerItem):Boolean
 		{
-			if(ArrayUtils.contains(_items, item))
+			if(ArrayUtils.contains(_loadManagerItems, item))
 			{
 				//TODO Make a close method here - dont necessarily want to destroy here
 				item.destroy();
-				ArrayUtils.removeItem(_items, item);
+				ArrayUtils.removeItem(_loadManagerItems, item);
 				_multiLoader.removeItem(item.loader);
 				return true;
 			}
 			
 			return false;
-		}
-		
-		private var _total:Number;
-		
-		public function get totalValue():Number
-		{
-			return _total;
-		}
-		
-		public function set totalValue(value:Number):void
-		{
-			_total = value;
-		}
-		
-		public function get currentValue():Number
-		{
-			return calculateCurrentValue();
-		}
-		
-		private function calculateCurrentValue():Number
-		{
-			var proportionLoaded:Number = 0;;
-			
-			for each(var item:LoadManagerItem in _items)
-			{
-				if(item.loader.isComplete())
-				{
-					proportionLoaded += item.proportion;
-				}
-				else //If we get here there is still an item loading
-				{
-					//Get the loader contained within the item
-					var measurableLoader:IMeasurableLoader = item.loader as IMeasurableLoader;
-					
-					//Calculate the fraction of the currently loading item's proportion
-					var measurableLoaderProportion:Number = item.proportion * (measurableLoader.getBytesLoaded() / measurableLoader.getBytesTotal());
-					
-					//Add the fractional proportion to the overall value
-					proportionLoaded += isNaN(measurableLoaderProportion) ? 0 : measurableLoaderProportion;
-					
-					//Make sure to stop here, as this item is loading, and all after this are
-					//waiting to load
-					break;
-				}
-			}
-			
-			return proportionLoaded;
-		}
-		
-		public function fraction():Number
-		{
-			return currentValue / totalValue;
 		}
 		
 		/**
@@ -149,22 +90,7 @@ package com.layerglue.lib.base.io
 		{
 			_multiLoader.loadNext();
 		}
-		
-		/*
-		* Used internally by the class to find references to loaders in the queue
-		*/
-		protected function getLoadManagerItemByLoader(loader:ILoader):LoadManagerItem
-		{
-			for each(var item:LoadManagerItem in _items)
-			{
-				if(item.loader == loader)
-				{
-					return item;
-				}
-			}
-			return null;
-		}
-		
+			
 		private function openHandler(event:Event):void
 		{
 			dispatchEvent(event.clone());

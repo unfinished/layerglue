@@ -22,7 +22,8 @@ package com.layerglue.flex3.base.preloader
 			
 			_preloaderView = preloader;
 			
-			_initialLoadManager = new LoadManager();
+			_initialLoadManager = new ProportionalLoadManager();
+			//_initialLoadManager = new LoadManager();
 			
 			var item:LoadManagerItem = new LoadManagerItem(
 							new RootLoaderProxy((preloaderView as DisplayObject).root.loaderInfo),
@@ -71,7 +72,6 @@ package com.layerglue.flex3.base.preloader
 		
 		private function rootLoadCompleteHandler(event:Event):void
 		{
-			trace("root load complete")	
 		}
 	}
 }
