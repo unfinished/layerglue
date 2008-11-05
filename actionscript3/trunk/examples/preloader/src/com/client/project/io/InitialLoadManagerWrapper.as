@@ -5,6 +5,8 @@ package com.client.project.io
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.flex3.base.preloader.PreloaderManager;
 	import com.layerglue.lib.base.io.FlashVars;
+	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.LoadManagerItem;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
@@ -54,9 +56,9 @@ package com.client.project.io
 			initialize();
 		}
 		
-		private var _loader:ProportionalLoadManager
+		private var _loader:LoadManager;
 		
-		public function get loader():ProportionalLoadManager
+		public function get loader():LoadManager
 		{
 			return _loader;
 		}
@@ -66,39 +68,43 @@ package com.client.project.io
 			FlashVars.initialize(Application.application.root);
 			_locale = FlashVars.getInstance().getValue("locale");
 			
-			_loader.addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
-				globalConfigCompleteHandler,
-				errorHandler);
-			
-			_loader.addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
-				localeConfigCompleteHandler,
-				errorHandler);
-			
-			_loader.addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
-				localeCopyCompleteHandler,
-				errorHandler);
-				
-			_loader.addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
-				structureUnpopulatedCompleteHandler,
-				errorHandler);
-			
-			
-			//--------------------------------------------------------------------------------------
-			
+			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
 			
-			_loader.addItem(
-				_regionalCSSLoader,
-				regionalCompiledCSSCompleteHandler,
-				errorHandler);
+			var globalConfigItem:LoadManagerItem = new LoadManagerItem(
+										new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
+										globalConfigCompleteHandler,
+										errorHandler,
+										0.025);
+			_loader.addItem(globalConfigItem);
 			
-			trace("_regionalCSSLoader.request.url: " + _regionalCSSLoader.request.url);
-			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/western.swf";
-			trace("_regionalCSSLoader.request.url: " + _regionalCSSLoader.request.url);
+			var localeConfigItem:LoadManagerItem = new LoadManagerItem(
+										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
+										localeConfigCompleteHandler,
+										errorHandler,
+										0.025);
+			_loader.addItem(localeConfigItem);
+					
+			var localeCopyItem:LoadManagerItem = new LoadManagerItem(
+										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
+										localeCopyCompleteHandler,
+										errorHandler,
+										0.025);
+			_loader.addItem(localeCopyItem);
+										
+			var structureItem:LoadManagerItem = new LoadManagerItem(
+										new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
+										structureUnpopulatedCompleteHandler,
+										errorHandler,
+										0.025);
+			_loader.addItem(structureItem);
+								
+			var regionalCSSItem:LoadManagerItem = new LoadManagerItem(
+										_regionalCSSLoader,
+										regionalCompiledCSSCompleteHandler,
+										errorHandler,
+										0.3);
+			_loader.addItem(regionalCSSItem);
 		}
 		
 		public function start():void
@@ -127,6 +133,10 @@ package com.client.project.io
 		private function structureUnpopulatedCompleteHandler(event:Event):void
 		{
 			populateStructuralDataXML((event.target as XmlLoader).typedData);
+			
+			//Simulating setting the structural data here
+			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/western.swf?cacheBuster=" + Math.random();
+			
 			_loader.loadNext();
 		}
 		

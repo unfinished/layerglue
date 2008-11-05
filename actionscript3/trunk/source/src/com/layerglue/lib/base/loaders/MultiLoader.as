@@ -57,7 +57,6 @@ package com.layerglue.lib.base.loaders
 				addListeners(item);
 				ArrayUtils.addItemAt(_loaders, item, index);
 			}
-			
 		}
 		
 		/**
