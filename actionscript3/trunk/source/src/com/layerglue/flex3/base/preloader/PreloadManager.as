@@ -13,11 +13,11 @@ package com.layerglue.flex3.base.preloader
 	/**
 	 * A proxy to sit between the preloader and the main application
 	 */
-	public class PreloaderManager extends EventDispatcher
+	public class PreloadManager extends EventDispatcher
 	{
 		private var _loadManager:LoadManager;
 		
-		public function PreloaderManager(preloader:IPreloaderDisplayExt)
+		public function PreloadManager(preloader:IPreloaderDisplayExt)
 		{
 			super();
 			
@@ -53,19 +53,19 @@ package com.layerglue.flex3.base.preloader
 		}
 		*/
 		
-		private static var _instance:PreloaderManager;
+		private static var _instance:PreloadManager;
 		
-		public static function initialize(preloader:IPreloaderDisplayExt):PreloaderManager
+		public static function initialize(preloader:IPreloaderDisplayExt):PreloadManager
 		{
 			if(!_instance)
 			{
-				_instance = new PreloaderManager(preloader);
+				_instance = new PreloadManager(preloader);
 			}
 			
 			return _instance;
 		}
 		
-		public static function getInstance():PreloaderManager
+		public static function getInstance():PreloadManager
 		{
 			return _instance;
 		}

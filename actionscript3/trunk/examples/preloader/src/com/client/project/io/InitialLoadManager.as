@@ -3,11 +3,10 @@ package com.client.project.io
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.client.project.vo.StructureRoot;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
-	import com.layerglue.flex3.base.preloader.PreloaderManager;
+	import com.layerglue.flex3.base.preloader.PreloadManager;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
-	import com.layerglue.lib.base.io.LoadManagerToken;
-	import com.layerglue.lib.base.io.ProportionalLoadManager;
+	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
@@ -20,13 +19,12 @@ package com.client.project.io
 	import flash.net.URLRequest;
 	
 	import mx.core.Application;
-	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
 	
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
 	 * required before the application begins. 
 	 */
-	public class InitialLoadManagerWrapper extends EventDispatcher
+	public class InitialLoadManager extends EventDispatcher
 	{
 		//Defining properties to hold XML Substitutors
 		private var _globalConfigSource:ISubstitutionSource;
@@ -38,11 +36,11 @@ package com.client.project.io
 		private var _regionalCSSLoader:CSSStyleLoader;
 		
 		
-		public function InitialLoadManagerWrapper()
+		public function InitialLoadManager()
 		{
 			super();
 			
-			_loader = PreloaderManager.getInstance().initialLoadManager;
+			_loader = PreloadManager.getInstance().initialLoadManager;
 			
 			initialize();
 		}
