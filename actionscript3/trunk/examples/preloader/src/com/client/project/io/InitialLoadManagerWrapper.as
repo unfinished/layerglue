@@ -6,7 +6,7 @@ package com.client.project.io
 	import com.layerglue.flex3.base.preloader.PreloaderManager;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
-	import com.layerglue.lib.base.io.LoadManagerItem;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
@@ -71,35 +71,35 @@ package com.client.project.io
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
 			
-			var globalConfigItem:LoadManagerItem = new LoadManagerItem(
+			var globalConfigItem:LoadManagerToken = new LoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
 										globalConfigCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(globalConfigItem);
 			
-			var localeConfigItem:LoadManagerItem = new LoadManagerItem(
+			var localeConfigItem:LoadManagerToken = new LoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
 										localeConfigCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(localeConfigItem);
 					
-			var localeCopyItem:LoadManagerItem = new LoadManagerItem(
+			var localeCopyItem:LoadManagerToken = new LoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
 										localeCopyCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(localeCopyItem);
 										
-			var structureItem:LoadManagerItem = new LoadManagerItem(
+			var structureItem:LoadManagerToken = new LoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 										structureUnpopulatedCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(structureItem);
 								
-			var regionalCSSItem:LoadManagerItem = new LoadManagerItem(
+			var regionalCSSItem:LoadManagerToken = new LoadManagerToken(
 										_regionalCSSLoader,
 										regionalCompiledCSSCompleteHandler,
 										errorHandler,

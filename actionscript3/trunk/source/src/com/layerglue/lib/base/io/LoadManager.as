@@ -1,15 +1,12 @@
 package com.layerglue.lib.base.io
 {
-	import com.layerglue.lib.base.events.EventListener;
+	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
-	import com.layerglue.lib.base.loaders.ILoader;
-	import com.layerglue.lib.base.loaders.IMeasurableLoader;
 	import com.layerglue.lib.base.loaders.MultiLoader;
 	import com.layerglue.lib.base.utils.ArrayUtils;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
-	import com.layerglue.lib.base.collections.EventListenerCollection;
 	
 	/**
 	 * 
@@ -49,7 +46,7 @@ package com.layerglue.lib.base.io
 		 * @param completeHandler The handler function to be called once the item has loaded
 		 * @param errorHandler The handler function to called if the item fails to load
 		 */
-		public function addItem(item:LoadManagerItem):void
+		public function addItem(item:LoadManagerToken):void
 		{
 			_multiLoader.addItem(item.loader);
 			_loadManagerItems.push(item);
@@ -59,7 +56,7 @@ package com.layerglue.lib.base.io
 		 * Removes a loader item from the queue.
 		 * @param loader A reference to the loader item to be removed
 		 */
-		public function removeItem(item:LoadManagerItem):Boolean
+		public function removeItem(item:LoadManagerToken):Boolean
 		{
 			if(ArrayUtils.contains(_loadManagerItems, item))
 			{
