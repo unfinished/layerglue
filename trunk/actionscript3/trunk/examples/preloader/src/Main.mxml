@@ -73,16 +73,13 @@
 	</mx:Script>
 	
 	<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
-	<!--
+	
 	<mx:HBox>
 		<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
 		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
 	</mx:HBox>
-	-->
 	
-	
-	
-	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
-	<mx:Image source="../embedded-assets/google-logo-3.jpg" width="100" height="100" />
-	<mx:Image source="../embedded-assets/images.jpg" width="100" height="100" />
+	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" visible="false" />
+	<mx:Image source="../embedded-assets/google-logo-3.jpg" width="100" height="100"  visible="false" />
+	<mx:Image source="../embedded-assets/images.jpg" width="100" height="100" visible="false" />
 </mx:Application>

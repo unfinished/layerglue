@@ -1,7 +1,7 @@
 package com.layerglue.flex3.base.preloader
 {
 	import com.layerglue.lib.base.io.LoadManager;
-	import com.layerglue.lib.base.io.LoadManagerItem;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
@@ -25,7 +25,7 @@ package com.layerglue.flex3.base.preloader
 			_initialLoadManager = new ProportionalLoadManager();
 			//_initialLoadManager = new LoadManager();
 			
-			var item:LoadManagerItem = new LoadManagerItem(
+			var item:LoadManagerToken = new LoadManagerToken(
 							new RootLoaderProxy((preloaderView as DisplayObject).root.loaderInfo),
 							rootLoadCompleteHandler,
 							null,

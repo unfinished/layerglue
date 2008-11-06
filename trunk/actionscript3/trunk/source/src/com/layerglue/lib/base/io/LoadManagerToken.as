@@ -11,14 +11,25 @@ package com.layerglue.lib.base.io
 	* the addItem() method. This means the method specified in addItem() gets called the
 	* moment the loader completes.
 	*/
-	public class LoadManagerItem
+	public class LoadManagerToken
 	{
 		public var loader:ILoader;
-		public var proportion:Number;
 		
-		private var _listenerCollection:EventListenerCollection;
+		private var _proportion:Number;
 		
-		public function LoadManagerItem(loader:ILoader, completeHandler:Function, errorHandler:Function, proportion:Number=NaN)
+		public function get proportion():Number
+		{
+			return _proportion;
+		}
+		
+		public function set proportion(value:Number):void
+		{
+			_proportion = value;
+		}
+		
+		protected var _listenerCollection:EventListenerCollection;
+		
+		public function LoadManagerToken(loader:ILoader, completeHandler:Function, errorHandler:Function, proportion:Number=NaN)
 		{
 			this.loader = loader;
 			this.proportion = proportion;
@@ -29,9 +40,10 @@ package com.layerglue.lib.base.io
 		
 		public function destroy():void
 		{
-			_listenerCollection.removeAll();
-			
+			loader.close();
 			loader = null;
+			
+			_listenerCollection.removeAll();
 			_listenerCollection = null;
 		}
 	}
