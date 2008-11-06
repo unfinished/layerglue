@@ -28,8 +28,6 @@ package com.client.project.io
 	 */
 	public class InitialLoadManagerWrapper extends EventDispatcher
 	{
-		private var _locale:String;
-		
 		//Defining properties to hold XML Substitutors
 		private var _globalConfigSource:ISubstitutionSource;
 		private var _localeConfigSource:ISubstitutionSource;
@@ -37,14 +35,6 @@ package com.client.project.io
 		
 		public var structureRoot:StructureRoot;
 		
-		
-		
-		
-		
-		private var _globalConfigXMLLoader:XmlLoader;
-		private var _localeConfigXMLLoader:XmlLoader;
-		private var _localeCopyXMLLoader:XmlLoader;
-		private var _structureUnsubstitutedXMLLoader:XmlLoader;
 		private var _regionalCSSLoader:CSSStyleLoader;
 		
 		
@@ -67,7 +57,7 @@ package com.client.project.io
 		public function initialize():void
 		{
 			FlashVars.initialize(Application.application.root);
-			_locale = FlashVars.getInstance().getValue("locale");
+			var locale:String = FlashVars.getInstance().getValue("locale");
 			
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
@@ -80,14 +70,14 @@ package com.client.project.io
 			_loader.addItem(globalConfigItem);
 			
 			var localeConfigItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
-										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
+										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + locale + ".xml")),
 										localeConfigCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(localeConfigItem);
 					
 			var localeCopyItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
-										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
+										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + locale + ".xml")),
 										localeCopyCompleteHandler,
 										errorHandler,
 										0.025);

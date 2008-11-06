@@ -15,7 +15,7 @@ package com.layerglue.flex3.base.preloader
 	 */
 	public class PreloaderManager extends EventDispatcher
 	{
-		private var _initialLoadManager:LoadManager;
+		private var _loadManager:LoadManager;
 		
 		public function PreloaderManager(preloader:IPreloaderDisplayExt)
 		{
@@ -23,8 +23,8 @@ package com.layerglue.flex3.base.preloader
 			
 			_preloaderView = preloader;
 			
-			_initialLoadManager = new ProportionalLoadManager();
-			//_initialLoadManager = new LoadManager();
+			_loadManager = new ProportionalLoadManager();
+			//_loadManager = new LoadManager();
 			
 			var item:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
 							new RootLoaderProxy((preloaderView as DisplayObject).root.loaderInfo),
@@ -33,12 +33,12 @@ package com.layerglue.flex3.base.preloader
 							0.6);
 			
 			
-			_initialLoadManager.addItem(item);
-			_initialLoadManager.start();
+			_loadManager.addItem(item);
+			_loadManager.start();
 		}
 		
 		/*
-		private function createInitialLoadManager():LoadManager
+		private function createLoadManager():LoadManager
 		{
 			return new ProportionalLoadManager();
 		}
@@ -79,7 +79,7 @@ package com.layerglue.flex3.base.preloader
 		
 		public function get initialLoadManager():LoadManager
 		{
-			return _initialLoadManager;
+			return _loadManager;
 		}
 		
 		private function rootLoadCompleteHandler(event:Event):void
