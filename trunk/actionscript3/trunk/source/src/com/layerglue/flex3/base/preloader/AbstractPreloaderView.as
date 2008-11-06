@@ -1,6 +1,6 @@
 package com.layerglue.flex3.base.preloader
 {
-	import com.layerglue.flex3.base.events.PreloaderManagerEvent;
+	import com.layerglue.flex3.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.io.FlashVars;
 	
@@ -30,7 +30,7 @@ package com.layerglue.flex3.base.preloader
 		
 		public function initialize():void
 		{
-			PreloaderManager.initialize(this);
+			PreloadManager.initialize(this);
 			
 			FlashVars.initialize(root);
 		}

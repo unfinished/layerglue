@@ -1,7 +1,7 @@
 package com.client.project.preloader
 {
 	import com.layerglue.flex3.base.preloader.AbstractPreloaderView;
-	import com.layerglue.flex3.base.preloader.PreloaderManager;
+	import com.layerglue.flex3.base.preloader.PreloadManager;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.io.LoadManager;
@@ -34,8 +34,8 @@ package com.client.project.preloader
 			
 			_eventListenerCollection = new EventListenerCollection();
 			
-			_eventListenerCollection.createListener(PreloaderManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
-			_eventListenerCollection.createListener(PreloaderManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
 			_eventListenerCollection.createListener(stage, Event.RESIZE, stageSizeChangeHandler);
 			
 			_progressBar = new Sprite();
@@ -59,14 +59,14 @@ package com.client.project.preloader
 		{
 			if(_progressBar)
 			{
-				//var castLoadManager:ProportionalLoadManager = PreloaderManager.getInstance().initialLoadManager as ProportionalLoadManager;
+				//var castLoadManager:ProportionalLoadManager = PreloadManager.getInstance().initialLoadManager as ProportionalLoadManager;
 				
 				_progressBar.graphics.lineStyle(1, 0xCCCCCC, 1);
 				_progressBar.graphics.beginFill(0x666666, 1);
 				_progressBar.graphics.drawRect(0, 0, _barWidth, _barHeight);
 				_progressBar.graphics.endFill()
 				
-				var loadManager:LoadManager = PreloaderManager.getInstance().initialLoadManager;
+				var loadManager:LoadManager = PreloadManager.getInstance().initialLoadManager;
 				
 				if(loadManager is ProportionalLoadManager)
 				{

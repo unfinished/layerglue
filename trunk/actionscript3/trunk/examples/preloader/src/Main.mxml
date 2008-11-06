@@ -10,19 +10,19 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.client.project.io.InitialLoadManagerWrapper;
+			import com.client.project.io.InitialLoadManager;
 			import mx.preloaders.DownloadProgressBar;
 			import com.layerglue.flex3.base.preloader.DownloadProgressBarExt;
 			import com.client.project.preloader.PreloaderView;
 			import flash.utils.setTimeout;
-			import com.layerglue.flex3.base.events.PreloaderManagerEvent;
-			import com.layerglue.flex3.base.preloader.PreloaderManager;
+			import com.layerglue.flex3.base.events.PreloadManagerEvent;
+			import com.layerglue.flex3.base.preloader.PreloadManager;
 			import com.client.project.vo.StructureRoot;
 			
 			//com.layerglue.flex3.base.preloader.DownloadProgressBarExt
 			//com.client.project.preloader.PreloaderView
 			
-			private var _initialLoadManager:InitialLoadManagerWrapper;
+			private var _initialLoadManager:InitialLoadManager;
 						
 			// The object that will contain the deserialized xml data
 			[Bindable]
@@ -40,7 +40,7 @@
 			
 			private function startLoadProcess():void
 			{
-				_initialLoadManager = new InitialLoadManagerWrapper();
+				_initialLoadManager = new InitialLoadManager();
 				_initialLoadManager.loader.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
 				_initialLoadManager.start();
 			}
@@ -58,7 +58,7 @@
 			
 			private function reparentPreloader():void
 			{
-				preloaderContainer.addChild(PreloaderManager.getInstance().preloaderView as DisplayObject);
+				preloaderContainer.addChild(PreloadManager.getInstance().preloaderView as DisplayObject);
 			}
 			
 			[Embed(source="../embedded-assets/images.jpg")]
