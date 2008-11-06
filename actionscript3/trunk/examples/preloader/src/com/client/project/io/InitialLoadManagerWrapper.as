@@ -20,6 +20,7 @@ package com.client.project.io
 	import flash.net.URLRequest;
 	
 	import mx.core.Application;
+	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
 	
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
@@ -71,35 +72,35 @@ package com.client.project.io
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
 			
-			var globalConfigItem:LoadManagerToken = new LoadManagerToken(
+			var globalConfigItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
 										globalConfigCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(globalConfigItem);
 			
-			var localeConfigItem:LoadManagerToken = new LoadManagerToken(
+			var localeConfigItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
 										localeConfigCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(localeConfigItem);
 					
-			var localeCopyItem:LoadManagerToken = new LoadManagerToken(
+			var localeCopyItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
 										localeCopyCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(localeCopyItem);
 										
-			var structureItem:LoadManagerToken = new LoadManagerToken(
+			var structureItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 										structureUnpopulatedCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(structureItem);
 								
-			var regionalCSSItem:LoadManagerToken = new LoadManagerToken(
+			var regionalCSSItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
 										_regionalCSSLoader,
 										regionalCompiledCSSCompleteHandler,
 										errorHandler,

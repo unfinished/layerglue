@@ -36,7 +36,7 @@ package com.layerglue.lib.base.io
 		{
 			var proportionLoaded:Number = 0;;
 			
-			for each(var item:LoadManagerToken in _loadManagerItems)
+			for each(var item:ProportionalLoadManagerToken in _loadManagerItems)
 			{
 				if(item.loader.isComplete())
 				{

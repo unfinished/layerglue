@@ -8,6 +8,7 @@ package com.layerglue.flex3.base.preloader
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
 	
 	/**
 	 * A proxy to sit between the preloader and the main application
@@ -25,7 +26,7 @@ package com.layerglue.flex3.base.preloader
 			_initialLoadManager = new ProportionalLoadManager();
 			//_initialLoadManager = new LoadManager();
 			
-			var item:LoadManagerToken = new LoadManagerToken(
+			var item:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
 							new RootLoaderProxy((preloaderView as DisplayObject).root.loaderInfo),
 							rootLoadCompleteHandler,
 							null,
@@ -36,10 +37,21 @@ package com.layerglue.flex3.base.preloader
 			_initialLoadManager.start();
 		}
 		
-		public function get tempInitialLoadManager():LoadManager
+		/*
+		private function createInitialLoadManager():LoadManager
 		{
-			return _initialLoadManager;
+			return new ProportionalLoadManager();
 		}
+		
+		private function createRootLoaderToken():LoadManagerToken
+		{
+			return new ProportionalLoadManagerToken(
+							new RootLoaderProxy((preloaderView as DisplayObject).root.loaderInfo),
+							rootLoadCompleteHandler,
+							null,
+							0.6);
+		}
+		*/
 		
 		private static var _instance:PreloaderManager;
 		
