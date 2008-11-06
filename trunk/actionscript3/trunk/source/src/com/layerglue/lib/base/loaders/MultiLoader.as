@@ -15,8 +15,8 @@ package com.layerglue.lib.base.loaders
 	 */
 	public class MultiLoader extends EventDispatcher implements IMultiLoader
 	{
-		private var _loaders:Array;
-		private var _iterator:ArrayIterator;
+		protected var _loaders:Array;
+		protected var _iterator:ArrayIterator;
 		
 		public function MultiLoader()
 		{
