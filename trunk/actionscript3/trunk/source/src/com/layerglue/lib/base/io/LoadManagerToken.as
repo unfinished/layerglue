@@ -6,33 +6,18 @@ package com.layerglue.lib.base.io
 	import flash.events.Event;
 	
 	/**
-	* Helper class used to encapsulate the loader and it's associated handlers.
+	* A wrapper class used to encapsulate the loader and it's associated handlers.
 	* It creates a link between the loader complete event and the handler passed into
 	* the addItem() method. This means the method specified in addItem() gets called the
 	* moment the loader completes.
 	*/
 	public class LoadManagerToken
 	{
-		public var loader:ILoader;
-		
-		private var _proportion:Number;
-		
-		public function get proportion():Number
-		{
-			return _proportion;
-		}
-		
-		public function set proportion(value:Number):void
-		{
-			_proportion = value;
-		}
-		
 		protected var _listenerCollection:EventListenerCollection;
 		
-		public function LoadManagerToken(loader:ILoader, completeHandler:Function, errorHandler:Function, proportion:Number=NaN)
+		public function LoadManagerToken(loader:ILoader, completeHandler:Function, errorHandler:Function)
 		{
 			this.loader = loader;
-			this.proportion = proportion;
 			
 			_listenerCollection =  new EventListenerCollection();
 			_listenerCollection.createListener(loader, Event.COMPLETE, completeHandler);
@@ -45,6 +30,18 @@ package com.layerglue.lib.base.io
 			
 			_listenerCollection.removeAll();
 			_listenerCollection = null;
+		}
+		
+		private var _loader:ILoader;
+		
+		public function get loader():ILoader
+		{
+			return _loader;
+		}
+		
+		public function set loader(value:ILoader):void
+		{
+			_loader = value;
 		}
 	}
 }
