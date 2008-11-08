@@ -54,8 +54,8 @@ package com.client.project.io
 		
 		public function initialize():void
 		{
+			//Ensuring that the FlashVars are initialized
 			FlashVars.initialize(Application.application.root);
-			var locale:String = FlashVars.getInstance().getValue("locale");
 			
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
@@ -68,14 +68,14 @@ package com.client.project.io
 			_loader.addItem(globalConfigItem);
 			
 			var localeConfigItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
-										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + locale + ".xml")),
+										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + FlashVars.getInstance().getValue("locale") + ".xml")),
 										localeConfigCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(localeConfigItem);
 					
 			var localeCopyItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
-										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + locale + ".xml")),
+										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + FlashVars.getInstance().getValue("locale") + ".xml")),
 										localeCopyCompleteHandler,
 										errorHandler,
 										0.025);
@@ -123,7 +123,7 @@ package com.client.project.io
 		{
 			populateStructuralDataXML((event.target as XmlLoader).typedData);
 			
-			//Simulating setting the structural data here
+			//Simulate availability of config data by setting the regional css path 
 			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/western.swf?cacheBuster=" + Math.random();
 			
 			_loader.loadNext();

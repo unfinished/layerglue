@@ -162,11 +162,12 @@ package com.layerglue.flex3.base.preloader
 		
 		protected function initProgressHandler(event:FlexEvent):void
 		{
-			
+			trace("init progress handler");
 		}
 		
 		protected function initCompleteHandler(event:FlexEvent):void
 		{
+			trace("init complete handler");
 			//The standard Flex preloader view dispatches a complete event at this point which
 			//triggers the SystemManager to remove the preloder from the stage, add the application
 			//instance to the stage and make it fire FlexEvent.APPLICATION_COMPLETE.
