@@ -4,6 +4,7 @@ package com.client.project.io
 	import com.client.project.vo.StructureRoot;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
@@ -43,25 +44,33 @@ package com.client.project.io
 			FlashVars.initialize(Application.application.root);
 			_locale = FlashVars.getInstance().getValue("locale");
 			
-			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
-				globalConfigCompleteHandler,
-				errorHandler);
+			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
+					globalConfigCompleteHandler,
+					errorHandler) 
 			
-			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
-				localeConfigCompleteHandler,
-				errorHandler);
+			addItem(globalConfigToken);
 			
-			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
-				localeCopyCompleteHandler,
-				errorHandler);
+			var localeConfigToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + _locale + ".xml")),
+					localeConfigCompleteHandler,
+					errorHandler);
+			
+			addItem(localeConfigToken);
+			
+			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + _locale + ".xml")),
+					localeCopyCompleteHandler,
+					errorHandler);
+			
+			addItem(localeCopyToken);
 				
-			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
-				structureUnpopulatedCompleteHandler,
-				errorHandler);
+			var unsubstitutedStructureToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
+					structureUnpopulatedCompleteHandler,
+					errorHandler);
+				
+			addItem(unsubstitutedStructureToken);
 		}
 		
 		private function globalConfigCompleteHandler(event:Event):void
