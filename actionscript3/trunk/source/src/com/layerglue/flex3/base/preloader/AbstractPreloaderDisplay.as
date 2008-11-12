@@ -10,12 +10,16 @@ package com.layerglue.flex3.base.preloader
 	import mx.events.FlexEvent;
 	import mx.events.RSLEvent;
 	import mx.preloaders.Preloader;
+	import flash.utils.getTimer;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
 	
 	/**
 	 *  
 	 */
 	public class AbstractPreloaderDisplay extends Sprite implements IPreloaderDisplayExt
 	{
+		private var _creationTime:Number
 		private var _eventListenerCollection:EventListenerCollection;
 		
 		public function AbstractPreloaderDisplay()
@@ -26,23 +30,28 @@ package com.layerglue.flex3.base.preloader
 			
 			_backgroundAlpha = 1;
 			
+			minDisplayTime = 0;
 		}
 		
 		public function initialize():void
 		{
+			_creationTime = getTimer();
+			
 			PreloadManager.initialize(this);
 			
 			FlashVars.initialize(root);
 		}
 		
-		public function startTransitionOut():void
+		private var _minimumDisplayTime:Number 
+		
+		public function get minDisplayTime():Number
 		{
-			triggerComplete();
+			return _minimumDisplayTime;
 		}
 		
-		public function triggerComplete():void
+		public function set minDisplayTime(value:Number):void
 		{
-			dispatchEvent(new Event(Event.COMPLETE));
+			_minimumDisplayTime = value;
 		}
 		
 		private var _backgroundAlpha:Number;
@@ -151,6 +160,11 @@ package com.layerglue.flex3.base.preloader
 			_stageWidth = value;
 		}
 		
+		protected function get elapsedDisplayTime():Number
+		{
+			return getTimer() - _creationTime;
+		} 
+		
 		protected function progressHandler(event:ProgressEvent):void
 		{
 			
@@ -178,7 +192,7 @@ package com.layerglue.flex3.base.preloader
 		
 		protected function initProgressHandler(event:FlexEvent):void
 		{
-			trace("init progress handler");
+			//trace("init progress handler");
 		}
 		
 		protected function initCompleteHandler(event:FlexEvent):void
@@ -189,6 +203,29 @@ package com.layerglue.flex3.base.preloader
 			//instance to the stage and make it fire FlexEvent.APPLICATION_COMPLETE.
 			
 			//dispatchEvent(new Event(Event.COMPLETE));
+			
+			if(elapsedDisplayTime >= minDisplayTime)
+			{
+				trace(">>>>> dispatching immediately");
+				dispatchCompleteEvent();
+			}
+			else
+			{
+				trace(">>>>> delaying dispatch");
+				var t:Timer = new Timer(minDisplayTime - elapsedDisplayTime, 1);
+				_eventListenerCollection.createListener(t, TimerEvent.TIMER_COMPLETE, minDisplayTimeTimerComplete);
+				t.start();
+			}
+		}
+		
+		private function minDisplayTimeTimerComplete(event:TimerEvent):void
+		{
+			dispatchCompleteEvent();
+		}
+		
+		private function dispatchCompleteEvent():void
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		public function destroy():void
