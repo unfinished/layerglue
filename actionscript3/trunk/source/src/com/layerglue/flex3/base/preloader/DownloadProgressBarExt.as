@@ -67,8 +67,12 @@ package com.layerglue.flex3.base.preloader
 			TraceNotifier.getInstance().dispatchEvent(new Trace("download prog createChildren"));
 		}
 		
-		override protected function showDisplayForDownloading(elapsedTime:int,
-											  event:ProgressEvent):Boolean
+		override protected function showDisplayForDownloading(elapsedTime:int, event:ProgressEvent):Boolean
+		{
+			return true;
+		}
+		
+		override protected function showDisplayForInit(elapsedTime:int, count:int):Boolean
 		{
 			return true;
 		}
@@ -129,17 +133,6 @@ package com.layerglue.flex3.base.preloader
 			{
 				setProgress((loadManager as ProportionalLoadManager).currentValue, (loadManager as ProportionalLoadManager).totalValue);
 			}
-		}
-		
-		public function startTransitionOut():void
-		{
-			//triggerComplete();
-		}
-		
-		public function triggerComplete():void
-		{
-			trace("triggerComplete");
-			//dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		public function destroy():void
