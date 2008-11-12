@@ -1,6 +1,5 @@
 package com.layerglue.flex3.base.preloader
 {
-	import com.layerglue.flex3.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.io.FlashVars;
 	
@@ -10,22 +9,23 @@ package com.layerglue.flex3.base.preloader
 	
 	import mx.events.FlexEvent;
 	import mx.events.RSLEvent;
-	import mx.preloaders.IPreloaderDisplay;
+	import mx.preloaders.Preloader;
 	
 	/**
 	 *  
 	 */
-	public class AbstractPreloaderView extends Sprite implements IPreloaderDisplayExt
+	public class AbstractPreloaderDisplay extends Sprite implements IPreloaderDisplayExt
 	{
 		private var _eventListenerCollection:EventListenerCollection;
 		
-		public function AbstractPreloaderView()
+		public function AbstractPreloaderDisplay()
 		{
 			super();
 			
 			_eventListenerCollection = new EventListenerCollection();
 			
 			_backgroundAlpha = 1;
+			
 		}
 		
 		public function initialize():void
@@ -94,21 +94,37 @@ package com.layerglue.flex3.base.preloader
 			_backgroundSize = value;
 		}
 		
-		private var _preloader:Sprite;
+		private var _flexPreloader:Preloader;
 		
-		public function set preloader(obj:Sprite):void
+		public function get flexPreloader():Preloader
 		{
-			_preloader = obj;
+			return _flexPreloader;
+		}
+		
+		public function set flexPreloader(obj:Preloader):void
+		{
+			_flexPreloader = obj;
 			
-			_eventListenerCollection.createListener(_preloader, ProgressEvent.PROGRESS, progressHandler);	
-			_eventListenerCollection.createListener(_preloader, Event.COMPLETE, completeHandler);
+			_eventListenerCollection.createListener(_flexPreloader, ProgressEvent.PROGRESS, progressHandler);	
+			_eventListenerCollection.createListener(_flexPreloader, Event.COMPLETE, completeHandler);
 			
-			_eventListenerCollection.createListener(_preloader, RSLEvent.RSL_PROGRESS, rslProgressHandler);
-			_eventListenerCollection.createListener(_preloader, RSLEvent.RSL_COMPLETE, rslCompleteHandler);
-			_eventListenerCollection.createListener(_preloader, RSLEvent.RSL_ERROR, rslErrorHandler);
+			_eventListenerCollection.createListener(_flexPreloader, RSLEvent.RSL_PROGRESS, rslProgressHandler);
+			_eventListenerCollection.createListener(_flexPreloader, RSLEvent.RSL_COMPLETE, rslCompleteHandler);
+			_eventListenerCollection.createListener(_flexPreloader, RSLEvent.RSL_ERROR, rslErrorHandler);
 			
-			_eventListenerCollection.createListener(_preloader, FlexEvent.INIT_PROGRESS, initProgressHandler);
-			_eventListenerCollection.createListener(_preloader, FlexEvent.INIT_COMPLETE, initCompleteHandler);
+			_eventListenerCollection.createListener(_flexPreloader, FlexEvent.INIT_PROGRESS, initProgressHandler);
+			_eventListenerCollection.createListener(_flexPreloader, FlexEvent.INIT_COMPLETE, initCompleteHandler);
+		}
+		
+		//This getter setter is defined by the IPreloaderDisplay interface
+		public function get preloader():Sprite
+		{
+			return flexPreloader;
+		}
+		
+		public function set preloader(value:Sprite):void
+		{
+			flexPreloader = value as Preloader;
 		}
 		
 		private var _stageHeight:Number;
@@ -173,6 +189,17 @@ package com.layerglue.flex3.base.preloader
 			//instance to the stage and make it fire FlexEvent.APPLICATION_COMPLETE.
 			
 			//dispatchEvent(new Event(Event.COMPLETE));
+		}
+		
+		public function destroy():void
+		{
+			_eventListenerCollection.destroy();
+			_eventListenerCollection = null;
+			
+			if(parent)
+			{
+				parent.removeChild(this);
+			}
 		}
 		
 	}

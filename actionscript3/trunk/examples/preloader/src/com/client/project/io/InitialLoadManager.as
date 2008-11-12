@@ -19,6 +19,7 @@ package com.client.project.io
 	import flash.net.URLRequest;
 	
 	import mx.core.Application;
+	import com.layerglue.lib.base.events.EventListener;
 	
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
@@ -31,6 +32,8 @@ package com.client.project.io
 		private var _localeConfigSource:ISubstitutionSource;
 		private var _copySource:ISubstitutionSource;
 		
+		private var _loadManagerListener:EventListener;
+		
 		public var structureRoot:StructureRoot;
 		
 		private var _regionalCSSLoader:CSSStyleLoader;
@@ -41,6 +44,8 @@ package com.client.project.io
 			super();
 			
 			_loader = PreloadManager.getInstance().initialLoadManager;
+			
+			_loadManagerListener = new EventListener(_loader, Event.COMPLETE, loaderCompleteHandler);
 			
 			initialize();
 		}
@@ -132,6 +137,11 @@ package com.client.project.io
 		private function regionalCompiledCSSCompleteHandler(event:Event):void
 		{
 			_loader.loadNext();
+		}
+		
+		private function loaderCompleteHandler(event:Event):void
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		private function errorHandler(event:Event):void
