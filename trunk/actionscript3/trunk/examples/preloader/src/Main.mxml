@@ -8,7 +8,7 @@
 	creationPolicy="none"
 	
 	
-	preloader="com.layerglue.flex3.base.preloader.DownloadProgressBarExt">
+	preloader="com.client.project.preloader.PreloaderView">
 	
 	
 	<mx:Script>
@@ -95,11 +95,11 @@
 				//preloaderContainer.visible = false;
 				
 				var effect:Fade = new FadeExt(preloaderContainer, 1, 0, 500);
-				effect.addEventListener(EffectEvent.EFFECT_END, hideEffectComplete);
+				effect.addEventListener(EffectEvent.EFFECT_END, preloaderHideComplete);
 				effect.play();
 			}
 			
-			private function hideEffectComplete(event:EffectEvent):void
+			private function preloaderHideComplete(event:EffectEvent):void
 			{
 				PreloadManager.getInstance().preloaderDisplay.destroy();
 				removeChild(preloaderContainer);
