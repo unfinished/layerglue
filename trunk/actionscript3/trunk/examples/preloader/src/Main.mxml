@@ -61,7 +61,7 @@
 				trace("Main.flexPreloaderDoneHandler");
 				
 				reparentPreloader();
-				hidePreloader();
+				callLater(hidePreloader);
 			}
 			
 			private function traceHandler(event:Event):void
