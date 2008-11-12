@@ -95,7 +95,7 @@ package com.layerglue.flex3.base.preloader
 		
 		private function rootLoadCompleteHandler(event:Event):void
 		{
-			trace("rootLoadCompleteHandler");
+			//trace("rootLoadCompleteHandler");
 		}
 	}
 }

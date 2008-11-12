@@ -49,15 +49,9 @@ package com.layerglue.flex3.base.preloader
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
 			
-			
 			setProgress(0, 0);
 			
-			minDisplayTime = 3000;
-			//MINIMUM_DISPLAY_TIME = 2000;
-			trace("minDisplayTime: " + minDisplayTime)
-			
-			//TraceNotifier.getInstance().dispatchEvent(new Trace("download prog initialize - stageWidth: " + stageWidth + ", stageHeight: " + stageHeight));
-			//trace("stageWidth: " + stageWidth + ", stageHeight: " + stageHeight);
+			minDisplayTime = 0;
 		}
 		
 		override protected function createChildren():void
@@ -95,34 +89,11 @@ package com.layerglue.flex3.base.preloader
 		}
 		
 		override public function set preloader(value:Sprite):void
-		{
-			//value.addEventListener(FlexEvent.INIT_COMPLETE, initCompleteHandler);
-			_flexPreloader = value as Preloader;
-			
-			_flexPreloader.addEventListener(FlexEvent.PRELOADER_DONE, preloaderDoneTempHandler);
-			_flexPreloader.addEventListener(FlexEvent.INIT_COMPLETE, preloaderInitCompleteTempHandler);
-			
+		{			
 			super.preloader = value;
-			
+			_flexPreloader = value as Preloader;
 			//value.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
 			//value.removeEventListener(FlexEvent.INIT_PROGRESS, initProgressHandler);
-		}
-		
-		private function preloaderDoneTempHandler(event:Event):void
-		{
-			trace("preloaderDoneTempHandler");
-		}
-		
-		private function preloaderInitCompleteTempHandler(event:Event):void
-		{
-			trace("preloaderInitCompleteTempHandler");
-		}
-		
-		protected function initCompleteHandler(event:FlexEvent):void
-		{
-			//event.stopImmediatePropagation();
-			
-			//dispatchEvent(new Event(Event.COMPLETE)); 
 		}
 		
 		private function loaderChangeHandler(event:Event):void

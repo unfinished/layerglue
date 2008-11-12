@@ -2,8 +2,6 @@ package com.client.project.preloader
 {
 	import com.layerglue.flex3.base.preloader.AbstractPreloaderDisplay;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
-	import com.layerglue.lib.base.collections.EventListenerCollection;
-	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	
@@ -12,8 +10,6 @@ package com.client.project.preloader
 
 	public class PreloaderView extends AbstractPreloaderDisplay
 	{
-		private var _eventListenerCollection:EventListenerCollection;
-		
 		private var _progressBar:Sprite;
 		private var _barWidth:Number;
 		private var _barHeight:Number;
@@ -32,27 +28,25 @@ package com.client.project.preloader
 		{
 			super.initialize();
 			
-			_eventListenerCollection = new EventListenerCollection();
-			
-			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
-			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
-			_eventListenerCollection.createListener(stage, Event.RESIZE, stageSizeChangeHandler);
-			
+			createChildren();
+			drawProgress();
+			reposition();
+		}
+		
+		override protected function loaderChangeHandler(event:Event):void
+		{
+			drawProgress();
+		}
+		
+		override protected function stageSizeChangeHandler(event:Event):void
+		{
+			reposition();
+		}
+		
+		protected function createChildren():void
+		{
 			_progressBar = new Sprite();
 			addChild(_progressBar);
-			
-			drawProgress();
-			reposition();
-		}
-		
-		protected function loaderChangeHandler(event:Event):void
-		{
-			drawProgress();
-		}
-		
-		private function stageSizeChangeHandler(event:Event):void
-		{
-			reposition();
 		}
 		
 		private function drawProgress():void
@@ -61,7 +55,7 @@ package com.client.project.preloader
 			{
 				//var castLoadManager:ProportionalLoadManager = PreloadManager.getInstance().initialLoadManager as ProportionalLoadManager;
 				
-				_progressBar.graphics.lineStyle(1, 0xCCCCCC, 1);
+				//_progressBar.graphics.lineStyle(1, 0xCCCCCC, 1);
 				_progressBar.graphics.beginFill(0x666666, 1);
 				_progressBar.graphics.drawRect(0, 0, _barWidth, _barHeight);
 				_progressBar.graphics.endFill()

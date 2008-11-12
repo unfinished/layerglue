@@ -6,9 +6,8 @@
 	applicationComplete="applicationCompleteHandler()"
 	preinitialize="preinitializeHandler()"
 	creationPolicy="none"
-	
-	
-	preloader="com.client.project.preloader.PreloaderView">
+	backgroundColor="0xFFFFFF"
+	preloader="com.layerglue.flex3.base.preloader.DownloadProgressBarExt">
 	
 	
 	<mx:Script>
@@ -58,8 +57,6 @@
 			
 			private function flexPreloaderDoneHandler(event:Event):void
 			{
-				trace("Main.flexPreloaderDoneHandler");
-				
 				reparentPreloader();
 				callLater(hidePreloader);
 			}
@@ -83,8 +80,6 @@
 			
 			private function initialLoadCompleteHandler(event:Event):void
 			{
-				trace("Main.initialLoadCompleteHandler");
-				
 				structureRoot = _initialLoadManager.structureRoot;
 				
 				createComponentsFromDescriptors();
@@ -107,7 +102,6 @@
 			
 			private function reparentPreloader():void
 			{
-				trace("reparentPreloader: " + (PreloadManager.getInstance().preloaderDisplay as DisplayObject).width)
 				preloaderContainer.addChild(PreloadManager.getInstance().preloaderDisplay as DisplayObject);
 			}
 			
@@ -122,17 +116,14 @@
 		]]>
 	</mx:Script>
 	
-	<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
-	
-	<!--
-	<mx:HBox>
-		<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
-		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
-	</mx:HBox>
-	-->
-	<mx:ComboBox />
-	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
 	<mx:Image source="../embedded-assets/google-logo-3.jpg" width="100" height="100"  visible="false" />
 	<mx:Image source="../embedded-assets/images.jpg" width="100" height="100" visible="false" />
-	
+	<mx:Box width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+		<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
+		<mx:HBox>
+			<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
+			<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
+		</mx:HBox>
+	</mx:Box>
+	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
 </mx:Application>
