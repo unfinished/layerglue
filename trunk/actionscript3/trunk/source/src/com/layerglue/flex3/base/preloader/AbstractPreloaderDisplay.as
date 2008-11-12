@@ -1,18 +1,19 @@
 package com.layerglue.flex3.base.preloader
 {
 	import com.layerglue.lib.base.collections.EventListenerCollection;
+	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.io.FlashVars;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import flash.utils.getTimer;
 	
 	import mx.events.FlexEvent;
 	import mx.events.RSLEvent;
 	import mx.preloaders.Preloader;
-	import flash.utils.getTimer;
-	import flash.utils.Timer;
-	import flash.events.TimerEvent;
 	
 	/**
 	 *  
@@ -40,6 +41,18 @@ package com.layerglue.flex3.base.preloader
 			PreloadManager.initialize(this);
 			
 			FlashVars.initialize(root);
+			
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
+			_eventListenerCollection.createListener(stage, Event.RESIZE, stageSizeChangeHandler);
+		}
+		
+		protected function loaderChangeHandler(event:Event):void
+		{
+		}
+		
+		protected function stageSizeChangeHandler(event:Event):void
+		{
 		}
 		
 		private var _minimumDisplayTime:Number 
@@ -192,26 +205,17 @@ package com.layerglue.flex3.base.preloader
 		
 		protected function initProgressHandler(event:FlexEvent):void
 		{
-			//trace("init progress handler");
+			
 		}
 		
 		protected function initCompleteHandler(event:FlexEvent):void
 		{
-			trace("init complete handler");
-			//The standard Flex preloader view dispatches a complete event at this point which
-			//triggers the SystemManager to remove the preloder from the stage, add the application
-			//instance to the stage and make it fire FlexEvent.APPLICATION_COMPLETE.
-			
-			//dispatchEvent(new Event(Event.COMPLETE));
-			
 			if(elapsedDisplayTime >= minDisplayTime)
 			{
-				trace(">>>>> dispatching immediately");
 				dispatchCompleteEvent();
 			}
 			else
 			{
-				trace(">>>>> delaying dispatch");
 				var t:Timer = new Timer(minDisplayTime - elapsedDisplayTime, 1);
 				_eventListenerCollection.createListener(t, TimerEvent.TIMER_COMPLETE, minDisplayTimeTimerComplete);
 				t.start();
