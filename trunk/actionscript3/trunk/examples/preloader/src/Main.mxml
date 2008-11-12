@@ -6,13 +6,18 @@
 	applicationComplete="applicationCompleteHandler()"
 	preinitialize="preinitializeHandler()"
 	creationPolicy="none"
-	backgroundColor="0xFFFFFF"
-	backgroundGradientAlphas="0,0"
-	preloader="com.client.project.preloader.PreloaderView">
+	
+	
+	preloader="com.layerglue.flex3.base.preloader.DownloadProgressBarExt">
 	
 	
 	<mx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
+			import com.client.project.temp.Trace;
+			import com.client.project.temp.TraceNotifier;
+			import com.layerglue.lib.base.notifiication.Notifier;
+			import mx.events.EffectEvent;
 			import com.layerglue.flex3.base.effects.FadeExt;
 			import mx.effects.Fade;
 			import com.client.project.io.InitialLoadManager;
@@ -27,6 +32,9 @@
 			//com.layerglue.flex3.base.preloader.DownloadProgressBarExt
 			//com.client.project.preloader.PreloaderView
 			
+			[Bindable]
+			public var traceOutput:String;
+			
 			private var _initialLoadManager:InitialLoadManager;
 						
 			// The object that will contain the deserialized xml data
@@ -35,48 +43,72 @@
 			
 			private function applicationCompleteHandler():void
 			{
-				
+				TraceNotifier.getInstance().dispatchEvent(new Trace("Main app complete"));
+				updateTraceOutput();
 			}
 			
 			private function preinitializeHandler():void
 			{
 				startLoadProcess();
+				
+				PreloadManager.getInstance().flexPreloader.addEventListener(FlexEvent.PRELOADER_DONE, flexPreloaderDoneHandler);
+				
+				TraceNotifier.getInstance().subscribe(Trace.TRACE, traceHandler);
+			}
+			
+			private function flexPreloaderDoneHandler(event:Event):void
+			{
+				trace("Main.flexPreloaderDoneHandler");
+				
+				reparentPreloader();
+				hidePreloader();
+			}
+			
+			private function traceHandler(event:Event):void
+			{
+				updateTraceOutput();
+			}
+			
+			private function updateTraceOutput():void
+			{
+				traceOutput = Trace.totalOutput;
 			}
 			
 			private function startLoadProcess():void
 			{
 				_initialLoadManager = new InitialLoadManager();
-				_initialLoadManager.loader.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
+				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
 				_initialLoadManager.start();
 			}
 			
 			private function initialLoadCompleteHandler(event:Event):void
 			{
-				trace("Overall load complete");
+				trace("Main.initialLoadCompleteHandler");
 				
 				structureRoot = _initialLoadManager.structureRoot;
 				
 				createComponentsFromDescriptors();
-				
-				PreloadManager.getInstance().preloaderView.triggerComplete();
-				
-				reparentPreloader();
-				
-				hidePreloader();
 			}
 			
-			private function hidePreloader()
+			private function hidePreloader():void
 			{
 				//preloaderContainer.visible = false;
 				
 				var effect:Fade = new FadeExt(preloaderContainer, 1, 0, 500);
+				effect.addEventListener(EffectEvent.EFFECT_END, hideEffectComplete);
 				effect.play();
+			}
+			
+			private function hideEffectComplete(event:EffectEvent):void
+			{
+				PreloadManager.getInstance().preloaderDisplay.destroy();
+				removeChild(preloaderContainer);
 			}
 			
 			private function reparentPreloader():void
 			{
-				trace("preloader view: " + PreloadManager.getInstance().preloaderView)
-				preloaderContainer.addChild(PreloadManager.getInstance().preloaderView as DisplayObject);
+				trace("reparentPreloader: " + (PreloadManager.getInstance().preloaderDisplay as DisplayObject).width)
+				preloaderContainer.addChild(PreloadManager.getInstance().preloaderDisplay as DisplayObject);
 			}
 			
 			[Embed(source="../embedded-assets/images.jpg")]
@@ -98,8 +130,9 @@
 		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
 	</mx:HBox>
 	-->
-	
+	<mx:ComboBox />
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
 	<mx:Image source="../embedded-assets/google-logo-3.jpg" width="100" height="100"  visible="false" />
 	<mx:Image source="../embedded-assets/images.jpg" width="100" height="100" visible="false" />
+	
 </mx:Application>

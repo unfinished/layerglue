@@ -1,6 +1,6 @@
 package com.client.project.preloader
 {
-	import com.layerglue.flex3.base.preloader.AbstractPreloaderView;
+	import com.layerglue.flex3.base.preloader.AbstractPreloaderDisplay;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
@@ -10,7 +10,7 @@ package com.client.project.preloader
 	import flash.display.Sprite;
 	import flash.events.Event;
 
-	public class PreloaderView extends AbstractPreloaderView
+	public class PreloaderView extends AbstractPreloaderDisplay
 	{
 		private var _eventListenerCollection:EventListenerCollection;
 		
