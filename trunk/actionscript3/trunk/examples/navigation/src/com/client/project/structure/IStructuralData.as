@@ -41,9 +41,6 @@ package com.client.project.structure
 		
 		function get depth():uint
 		
-		function get deserialized():Boolean
-		function set deserialized(value:Boolean):void
-		
 		function get branchOnly():Boolean
 		function set branchOnly(value:Boolean):void
 		

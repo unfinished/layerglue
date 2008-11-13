@@ -4,8 +4,7 @@ package com.client.project.structure
 	import com.layerglue.lib.base.utils.ArrayUtils;
 	
 	
-	 // TODO: Most of these events can be handled by binding
-	 // i.e. propertyChange and collectionChange 
+	 // TODO: Put these events back in at the right places
 	/* 
 	[Event(name="subselectionChange", type="com.layerglue.lib.base.events.SelectionEvent")]
 	[Event(name="selectionStatusChange", type="com.layerglue.lib.base.events.SelectionEvent")]
@@ -101,13 +100,18 @@ package com.client.project.structure
 		{
 			return _selected;
 		}
-
+		
 		public function set selected(value:Boolean):void
 		{
 			if(_selected != value)
 			{
 				_selected = value;
 			}
+			// TODO: should parent structuraldata know about this change?
+			// What if there is no parent? is this unit-testable?
+			// Should it be read only?
+			
+			// Q: Should children be able to select themselves, or only the parent?
 		}
 		
 		public function get selectedChild():IStructuralData
@@ -124,7 +128,7 @@ package com.client.project.structure
 			}
 			
 			selectedChildIndex = ArrayUtils.getIndex(children, value);
-			// TODO: set selected prop on child (eg refreshSubselections());
+			// TODO: set selected prop on child (eg. something like refreshSubselections());
 		}
 		
 		protected var _selectedChildIndex:int;
@@ -134,6 +138,8 @@ package com.client.project.structure
 			return _selectedChildIndex;
 		}
 		
+		// TODO: this property is acting as the lynch-pin for selection
+		// selectedChild defers to it, should the 'selected' property too?
 		public function set selectedChildIndex(value:int):void
 		{
 			if(value > children.length-1)
@@ -154,18 +160,6 @@ package com.client.project.structure
 			return isRoot() ? 0 : parent.depth + 1;
 		}
 		
-		private var _deserialized:Boolean;
-		
-		public function get deserialized():Boolean
-		{
-			return _deserialized;
-		}
-		
-		public function set deserialized(value:Boolean):void
-		{
-			_deserialized = value;
-		}
-		
 		private var _mapId:String;
 		// TODO: property is ambiguous
 		public function get mapId():String
@@ -180,6 +174,7 @@ package com.client.project.structure
 		
 		private var _branchOnly:Boolean
 		// TODO: property is ambiguous
+		// it enforces the default child
 		public function get branchOnly():Boolean
 		{
 			return _branchOnly;
