@@ -58,10 +58,7 @@ package com.client.project.io
 		}
 		
 		public function initialize():void
-		{
-			//Ensuring that the FlashVars are initialized
-			FlashVars.initialize(Application.application.root);
-			
+		{			
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
 			
