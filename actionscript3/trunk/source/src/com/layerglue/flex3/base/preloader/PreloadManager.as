@@ -9,6 +9,7 @@ package com.layerglue.flex3.base.preloader
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
+	import mx.preloaders.IPreloaderDisplay;
 	import mx.preloaders.Preloader;
 	
 	/**
@@ -18,7 +19,7 @@ package com.layerglue.flex3.base.preloader
 	{
 		private var _loadManager:LoadManager;
 		
-		public function PreloadManager(preloaderDisplay:IPreloaderDisplayExt)
+		public function PreloadManager(preloaderDisplay:IPreloaderDisplay)
 		{
 			super();
 			
@@ -56,7 +57,7 @@ package com.layerglue.flex3.base.preloader
 		 
 		private static var _instance:PreloadManager;
 		
-		public static function initialize(preloaderDisplay:IPreloaderDisplayExt):PreloadManager
+		public static function initialize(preloaderDisplay:IPreloaderDisplay):PreloadManager
 		{
 			if(!_instance)
 			{
@@ -71,21 +72,23 @@ package com.layerglue.flex3.base.preloader
 			return _instance;
 		}
 		
-		private var _preloaderDisplay:IPreloaderDisplayExt;
+		private var _preloaderDisplay:IPreloaderDisplay;
 		
-		public function get preloaderDisplay():IPreloaderDisplayExt
+		public function get preloaderDisplay():IPreloaderDisplay
 		{
 			return _preloaderDisplay;
 		}
 		
+		private var _flexPreloader:Preloader;
+		
 		public function get flexPreloader():Preloader
 		{
-			if(_preloaderDisplay)
-			{
-				return _preloaderDisplay.flexPreloader;
-			}
-			
-			return null;
+			return _flexPreloader;
+		}
+		
+		public function set flexPreloader(value:Preloader):void
+		{
+			_flexPreloader = value;
 		}
 		
 		public function get initialLoadManager():LoadManager

@@ -8,16 +8,16 @@ package com.layerglue.flex3.base.preloader
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.filters.BlurFilter;
 	
-	import mx.events.FlexEvent;
 	import mx.preloaders.DownloadProgressBar;
+	import mx.preloaders.IPreloaderDisplay;
+	import flash.display.Sprite;
 	import mx.preloaders.Preloader;
 
-	public class DownloadProgressBarExt extends DownloadProgressBar implements IPreloaderDisplayExt
+	public class DownloadProgressBarExt extends DownloadProgressBar implements IPreloaderDisplay
 	{
 		
 		private var _eventListenerCollection:EventListenerCollection;
@@ -48,6 +48,8 @@ package com.layerglue.flex3.base.preloader
 			
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, Event.COMPLETE, loaderCompleteHandler);
+			_eventListenerCollection.createListener(this, Event.COMPLETE, preloaderPhaseCompleteHandler);
 			
 			setProgress(0, 0);
 			
@@ -81,19 +83,11 @@ package com.layerglue.flex3.base.preloader
 			MINIMUM_DISPLAY_TIME = value;
 		}
 		
-		private var _flexPreloader:Preloader
-		
-		public function get flexPreloader():Preloader
+		override public function set preloader(obj:Sprite):void
 		{
-			return _flexPreloader;
-		}
-		
-		override public function set preloader(value:Sprite):void
-		{			
-			super.preloader = value;
-			_flexPreloader = value as Preloader;
-			//value.removeEventListener(ProgressEvent.PROGRESS, progressHandler);
-			//value.removeEventListener(FlexEvent.INIT_PROGRESS, initProgressHandler);
+			super.preloader = obj;
+			
+			PreloadManager.getInstance().flexPreloader = obj as Preloader;
 		}
 		
 		private function loaderChangeHandler(event:Event):void
@@ -104,6 +98,34 @@ package com.layerglue.flex3.base.preloader
 			{
 				setProgress((loadManager as ProportionalLoadManager).currentValue, (loadManager as ProportionalLoadManager).totalValue);
 			}
+		}
+		
+		protected function loaderCompleteHandler(event:Event):void
+		{
+		}
+		
+		protected function preloaderPhaseCompleteHandler(event:Event):void
+		{
+			if(_eventListenerCollection)
+			{
+				_eventListenerCollection.destroy();
+				_eventListenerCollection = null;
+			}
+		}
+		
+		override protected function setProgress(completed:Number, total:Number):void
+		{
+			var loadManager:LoadManager = PreloadManager.getInstance().initialLoadManager;
+			
+			if( loadManager is ProportionalLoadManager)
+			{
+				if( completed == (loadManager as ProportionalLoadManager).currentValue && total == (loadManager as ProportionalLoadManager).totalValue )
+				{
+					super.setProgress(completed, total);
+				}
+			}
+			
+			super.setProgress(completed, total);
 		}
 		
 		public function destroy():void
