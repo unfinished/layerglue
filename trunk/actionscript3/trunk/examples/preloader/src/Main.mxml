@@ -96,7 +96,7 @@
 			
 			private function preloaderHideComplete(event:EffectEvent):void
 			{
-				PreloadManager.getInstance().preloaderDisplay.destroy();
+				//PreloadManager.getInstance().preloaderDisplay.destroy();
 				removeChild(preloaderContainer);
 			}
 			

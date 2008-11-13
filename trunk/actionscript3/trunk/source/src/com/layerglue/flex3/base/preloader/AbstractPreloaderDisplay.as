@@ -13,12 +13,13 @@ package com.layerglue.flex3.base.preloader
 	
 	import mx.events.FlexEvent;
 	import mx.events.RSLEvent;
+	import mx.preloaders.IPreloaderDisplay;
 	import mx.preloaders.Preloader;
 	
 	/**
 	 *  
 	 */
-	public class AbstractPreloaderDisplay extends Sprite implements IPreloaderDisplayExt
+	public class AbstractPreloaderDisplay extends Sprite implements IPreloaderDisplay
 	{
 		private var _creationTime:Number
 		private var _eventListenerCollection:EventListenerCollection;
@@ -44,10 +45,15 @@ package com.layerglue.flex3.base.preloader
 			
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, Event.COMPLETE, loaderCompleteHandler);
 			_eventListenerCollection.createListener(stage, Event.RESIZE, stageSizeChangeHandler);
 		}
 		
 		protected function loaderChangeHandler(event:Event):void
+		{
+		}
+		
+		protected function loaderCompleteHandler(event:Event):void
 		{
 		}
 		
@@ -116,37 +122,19 @@ package com.layerglue.flex3.base.preloader
 			_backgroundSize = value;
 		}
 		
-		private var _flexPreloader:Preloader;
-		
-		public function get flexPreloader():Preloader
-		{
-			return _flexPreloader;
-		}
-		
-		public function set flexPreloader(obj:Preloader):void
-		{
-			_flexPreloader = obj;
-			
-			_eventListenerCollection.createListener(_flexPreloader, ProgressEvent.PROGRESS, progressHandler);	
-			_eventListenerCollection.createListener(_flexPreloader, Event.COMPLETE, completeHandler);
-			
-			_eventListenerCollection.createListener(_flexPreloader, RSLEvent.RSL_PROGRESS, rslProgressHandler);
-			_eventListenerCollection.createListener(_flexPreloader, RSLEvent.RSL_COMPLETE, rslCompleteHandler);
-			_eventListenerCollection.createListener(_flexPreloader, RSLEvent.RSL_ERROR, rslErrorHandler);
-			
-			_eventListenerCollection.createListener(_flexPreloader, FlexEvent.INIT_PROGRESS, initProgressHandler);
-			_eventListenerCollection.createListener(_flexPreloader, FlexEvent.INIT_COMPLETE, initCompleteHandler);
-		}
-		
-		//This getter setter is defined by the IPreloaderDisplay interface
-		public function get preloader():Sprite
-		{
-			return flexPreloader;
-		}
-		
 		public function set preloader(value:Sprite):void
 		{
-			flexPreloader = value as Preloader;
+			PreloadManager.getInstance().flexPreloader = value as Preloader;
+			
+			_eventListenerCollection.createListener(value, ProgressEvent.PROGRESS, progressHandler);	
+			_eventListenerCollection.createListener(value, Event.COMPLETE, completeHandler);
+			
+			_eventListenerCollection.createListener(value, RSLEvent.RSL_PROGRESS, rslProgressHandler);
+			_eventListenerCollection.createListener(value, RSLEvent.RSL_COMPLETE, rslCompleteHandler);
+			_eventListenerCollection.createListener(value, RSLEvent.RSL_ERROR, rslErrorHandler);
+			
+			_eventListenerCollection.createListener(value, FlexEvent.INIT_PROGRESS, initProgressHandler);
+			_eventListenerCollection.createListener(value, FlexEvent.INIT_COMPLETE, initCompleteHandler);
 		}
 		
 		private var _stageHeight:Number;
@@ -224,6 +212,17 @@ package com.layerglue.flex3.base.preloader
 		
 		private function minDisplayTimeTimerComplete(event:TimerEvent):void
 		{
+			complete();
+		}
+		
+		private function complete():void
+		{
+			if(_eventListenerCollection)
+			{
+				_eventListenerCollection.destroy();
+				_eventListenerCollection = null;
+			}
+			
 			dispatchCompleteEvent();
 		}
 		
@@ -234,8 +233,12 @@ package com.layerglue.flex3.base.preloader
 		
 		public function destroy():void
 		{
-			_eventListenerCollection.destroy();
-			_eventListenerCollection = null;
+			if(_eventListenerCollection)
+			{
+				_eventListenerCollection.destroy();
+				_eventListenerCollection = null;
+			}
+			
 			
 			if(parent)
 			{
