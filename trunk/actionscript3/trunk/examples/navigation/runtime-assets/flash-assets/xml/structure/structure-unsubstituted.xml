@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<structureRoot>
+<structureRoot id="root" uriNode="" defaultChildId="home">
 	<title><![CDATA[@project.title@]]></title>
 	<children>
-		<home>
+		<home id="home" uriNode="home">
 			<title><![CDATA[@project.home.title@]]></title>
 			<bodyCopy><![CDATA[@project.home.bodyCopy@]]></bodyCopy>
 			<imageUrl><![CDATA[@project.home.imageUrl@]]></imageUrl>
 		</home>
-		<gallery type="images">
+		<gallery id="gallery" uriNode="gallery" defaultChildId="page1">
 			<title><![CDATA[@project.gallery.title@]]></title>
 			<bodyCopy><![CDATA[@project.gallery.bodyCopy@]]></bodyCopy>
 			<children>
-				<page>
+				<page id="page1" uriNode="page1">
 					<title><![CDATA[@project.gallery.page1.title@]]></title>
 					<bodyCopy><![CDATA[@project.gallery.page1.bodyCopy@]]></bodyCopy>
 					<children>
