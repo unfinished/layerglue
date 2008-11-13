@@ -55,8 +55,6 @@ package com.client.project.preloader
 		{
 			if(_progressBar)
 			{
-				//var castLoadManager:ProportionalLoadManager = PreloadManager.getInstance().initialLoadManager as ProportionalLoadManager;
-				
 				_progressBar.graphics.beginFill(0x666666, 1);
 				_progressBar.graphics.drawRect(0, 0, _barWidth, _barHeight);
 				_progressBar.graphics.endFill()
