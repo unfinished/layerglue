@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<lgviews:PreloadableApplication
+<lgapps:ProportionallyPreloadableApplication
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:local="*"
-	xmlns:lgviews="com.layerglue.flex3.base.views.*"
+	xmlns:lgapps="com.layerglue.flex3.base.applications.*"
 	layout="absolute"
 	preinitialize="preinitializeHandler()"
 	creationPolicy="none"
 	backgroundColor="0xFFFFFF"
-	preloader="com.layerglue.flex3.base.preloader.DownloadProgressBarExt"
+	preloader="com.client.project.preloader.PreloaderView"
 	loadManager="com.layerglue.lib.base.io.ProportionalLoadManager"
 	loadManagerTotalValue="1"
 	loadManagerMainSWFValue="0.6">
@@ -31,9 +31,6 @@
 			//com.layerglue.flex3.base.preloader.DownloadProgressBarExt
 			//com.client.project.preloader.PreloaderView
 			
-			[Bindable]
-			public var traceOutput:String;
-			
 			private var _initialLoadManager:InitialLoadManager;
 						
 			// The object that will contain the deserialized xml data
@@ -51,16 +48,6 @@
 			{
 				reparentPreloader();
 				callLater(hidePreloader);
-			}
-			
-			private function traceHandler(event:Event):void
-			{
-				updateTraceOutput();
-			}
-			
-			private function updateTraceOutput():void
-			{
-				traceOutput = Trace.totalOutput;
 			}
 			
 			private function startLoadProcess():void
@@ -121,4 +108,4 @@
 		</mx:HBox>
 	</mx:Box>
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
-</lgviews:PreloadableApplication>
+</lgapps:ProportionallyPreloadableApplication>
