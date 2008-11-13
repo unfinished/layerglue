@@ -48,11 +48,9 @@ package com.layerglue.flex3.base.preloader
 		
 		protected function createLoadManager():LoadManager
 		{
-			var systemManagerInfo:Object = (root as SystemManager).info();
-			
-			var loadManagerClassRef:Class = getDefinitionByName( systemManagerInfo["loadManager"] ? systemManagerInfo["loadManager"] : PreloadManager.LOAD_MANAGER ) as Class;
-			var loadManagerTotalValue:Number = systemManagerInfo["loadManagerTotalValue"] ? systemManagerInfo["loadManagerTotalValue"] : PreloadManager.LOAD_MANAGER_TOTAL_VALUE;
-			var loadManagerMainSWFValue:Number = systemManagerInfo["loadManagerMainSWFValue"] ? systemManagerInfo["loadManagerMainSWFValue"] : PreloadManager.LOAD_MANAGER_MAIN_SWF_VALUE;
+			var loadManagerClassRef:Class = PreloadManager.getLoadManagerClassReference(root as SystemManager);
+			var loadManagerTotalValue:Number = PreloadManager.getLoadManagerTotalValue(root as SystemManager);
+			var loadManagerMainSWFValue:Number = PreloadManager.getLoadManagerMainSWFValue(root as SystemManager);
 			
 			var loadManager:LoadManager = new loadManagerClassRef();
 			

@@ -1,9 +1,12 @@
 package com.layerglue.flex3.base.preloader
 {
 	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	
 	import flash.events.EventDispatcher;
+	import flash.utils.getDefinitionByName;
 	
+	import mx.managers.SystemManager;
 	import mx.preloaders.IPreloaderDisplay;
 	import mx.preloaders.Preloader;
 	
@@ -12,9 +15,24 @@ package com.layerglue.flex3.base.preloader
 	 */
 	public class PreloadManager extends EventDispatcher
 	{
-		public static var LOAD_MANAGER:String = "com.layerglue.lib.base.io.ProportionalLoadManager";
-		public static var LOAD_MANAGER_TOTAL_VALUE:Number = 1;
-		public static var LOAD_MANAGER_MAIN_SWF_VALUE:Number = 0.6;
+		public static var DEFAULT_LOAD_MANAGER:Class = ProportionalLoadManager;
+		public static var DEFAULT_LOAD_MANAGER_TOTAL_VALUE:Number = 1;
+		public static var DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE:Number = 0.6;
+		
+		public static function getLoadManagerClassReference(systemManager:SystemManager):Class
+		{
+			return (systemManager.info()["loadManager"] ? getDefinitionByName( systemManager.info()["loadManager"] ) : DEFAULT_LOAD_MANAGER) as Class;
+		}
+		
+		public static function getLoadManagerTotalValue(systemManager:SystemManager):Number
+		{
+			return systemManager.info()["loadManagerTotalValue"] ? systemManager.info()["loadManagerTotalValue"] : DEFAULT_LOAD_MANAGER_TOTAL_VALUE;
+		}
+		
+		public static function getLoadManagerMainSWFValue(systemManager:SystemManager):Number
+		{
+			return systemManager.info()["loadManagerMainSWFValue"] ? systemManager.info()["loadManagerMainSWFValue"] : DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE;
+		}
 		
 		private var _loadManager:LoadManager;
 		
