@@ -3,7 +3,9 @@ package com.client.project.io
 	import com.client.project.locators.ModelLocator;
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
+	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
 	import com.layerglue.lib.base.localisation.Locale;
@@ -40,28 +42,32 @@ package com.client.project.io
 		public function initialize():void
 		{
 			modelLocator = ModelLocator.getInstance();
-			//FlashVars.initialize(Application.application.root);
-			modelLocator.locale = new Locale(Application.application.parameters.locale);
+			modelLocator.locale = new Locale(FlashVars.getInstance().getValue("locale"));
 			
-			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
-				globalConfigCompleteHandler,
-				errorHandler);
+			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
+					globalConfigCompleteHandler,
+					errorHandler);
 			
-			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml")),
-				localeConfigCompleteHandler,
-				errorHandler);
+			var localeConfigToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml")),
+					localeConfigCompleteHandler,
+					errorHandler);
 			
-			addItem(
-				new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),
-				localeCopyCompleteHandler,
-				errorHandler);
-				
-			addItem(
+			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),
+					localeCopyCompleteHandler,
+					errorHandler);
+			
+			var unsubstitutedStructureToken:LoadManagerToken = new LoadManagerToken(
 				new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 				structureUnpopulatedCompleteHandler,
 				errorHandler);
+				
+			addItem(globalConfigToken);
+			addItem(localeConfigToken);
+			addItem(localeCopyToken);
+			addItem(unsubstitutedStructureToken);
 		}
 		
 		private function globalConfigCompleteHandler(event:Event):void
@@ -74,11 +80,12 @@ package com.client.project.io
 		{
 			_localeConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
 			var region:String = _localeConfigSource.getValueByReference("region");
-			trace("region = "+region);
-			addItem(
+			
+			var regionalCSSToken:LoadManagerToken = new LoadManagerToken(
 				new CSSStyleLoader(new URLRequest("flash-assets/compiled-css/regions/" + region + ".swf")),
 				regionalCompiledCSSCompleteHandler,
 				errorHandler);
+			addItem(regionalCSSToken);
 			
 			loadNext();
 		}
