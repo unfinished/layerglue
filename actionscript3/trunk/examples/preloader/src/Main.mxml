@@ -7,7 +7,7 @@
 	preinitialize="preinitializeHandler()"
 	creationPolicy="none"
 	backgroundColor="0xFFFFFF"
-	preloader="com.layerglue.flex3.base.preloader.DownloadProgressBarExt">
+	preloader="com.client.project.preloader.PreloaderView">
 	
 	
 	<mx:Script>
