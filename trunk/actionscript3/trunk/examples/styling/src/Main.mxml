@@ -2,13 +2,14 @@
 <mx:Application
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	layout="absolute"
-	preinitialize="startLoadProcess()"
+	preinitialize="preinintializeHandler()"
 	creationPolicy="none">
 	
 	<mx:Style source="../embedded-assets/css/main.css"/>
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.base.io.FlashVars;
 			import com.client.project.locators.ModelLocator;
 			import com.client.project.vo.StructureRoot;
 			import com.client.project.io.InitialLoadManager;
@@ -22,6 +23,13 @@
 			private function applicationCompleteHandler():void
 			{
 				startLoadProcess();
+			}
+			
+			private function preinintializeHandler():void
+			{
+				FlashVars.initialize(systemManager as DisplayObject);
+				
+				startLoadProcess()
 			}
 			
 			private function startLoadProcess():void
