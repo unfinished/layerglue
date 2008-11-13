@@ -1,12 +1,7 @@
 package com.layerglue.flex3.base.preloader
 {
 	import com.layerglue.lib.base.io.LoadManager;
-	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
-	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
-	import flash.display.DisplayObject;
-	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
 	import mx.preloaders.IPreloaderDisplay;
@@ -19,49 +14,26 @@ package com.layerglue.flex3.base.preloader
 	{
 		private var _loadManager:LoadManager;
 		
-		public function PreloadManager(preloaderDisplay:IPreloaderDisplay)
+		public function PreloadManager(preloaderDisplay:IPreloaderDisplay, loadManager:LoadManager)
 		{
 			super();
 			
 			_preloaderDisplay = preloaderDisplay;
 			
-			_loadManager = new ProportionalLoadManager();
-			//_loadManager = new LoadManager();
+			_loadManager = loadManager;
 			
-			var item:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
-							new RootLoaderProxy((preloaderDisplay as DisplayObject).root.loaderInfo),
-							rootLoadCompleteHandler,
-							null,
-							0.6);
-			
-			
-			_loadManager.addItem(item);
+			//Dont really need to do this, but some objects may be listening for a start event, so
+			//method is called here to ensure start event is dispatched.
 			_loadManager.start();
 		}
-		
-		/*
-		private function createLoadManager():LoadManager
-		{
-			return new ProportionalLoadManager();
-		}
-		
-		private function createRootLoaderToken():LoadManagerToken
-		{
-			return new ProportionalLoadManagerToken(
-							new RootLoaderProxy((preloaderView as DisplayObject).root.loaderInfo),
-							rootLoadCompleteHandler,
-							null,
-							0.6);
-		}
-		*/
 		 
 		private static var _instance:PreloadManager;
 		
-		public static function initialize(preloaderDisplay:IPreloaderDisplay):PreloadManager
+		public static function initialize(preloaderDisplay:IPreloaderDisplay, loadManager:LoadManager):PreloadManager
 		{
 			if(!_instance)
 			{
-				_instance = new PreloadManager(preloaderDisplay);
+				_instance = new PreloadManager(preloaderDisplay, loadManager);
 			}
 			
 			return _instance;
@@ -94,11 +66,6 @@ package com.layerglue.flex3.base.preloader
 		public function get initialLoadManager():LoadManager
 		{
 			return _loadManager;
-		}
-		
-		private function rootLoadCompleteHandler(event:Event):void
-		{
-			//trace("rootLoadCompleteHandler");
 		}
 	}
 }

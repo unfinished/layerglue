@@ -1,20 +1,20 @@
 package com.layerglue.flex3.base.preloader
 {
-	import com.client.project.temp.Trace;
-	import com.client.project.temp.TraceNotifier;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
+	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
+	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.filters.BlurFilter;
 	
 	import mx.preloaders.DownloadProgressBar;
 	import mx.preloaders.IPreloaderDisplay;
-	import flash.display.Sprite;
 	import mx.preloaders.Preloader;
 
 	public class DownloadProgressBarExt extends DownloadProgressBar implements IPreloaderDisplay
@@ -42,25 +42,53 @@ package com.layerglue.flex3.base.preloader
 			
 			FlashVars.initialize(root);
 			
-			PreloadManager.initialize(this);
+			PreloadManager.initialize(this, createLoadManager());
 			
-			_eventListenerCollection = new EventListenerCollection();
-			
-			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
-			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
-			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, Event.COMPLETE, loaderCompleteHandler);
-			_eventListenerCollection.createListener(this, Event.COMPLETE, preloaderPhaseCompleteHandler);
+			addListeners()
 			
 			setProgress(0, 0);
 			
 			minDisplayTime = 0;
 		}
 		
+		protected function createLoadManager():LoadManager
+		{
+			var loadManager:LoadManager = new ProportionalLoadManager();
+			//var loadManager = new LoadManager();
+			
+			var item:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+							new RootLoaderProxy(root.loaderInfo),
+							null,
+							null,
+							0.6);
+			
+			loadManager.addItem(item);
+			
+			return loadManager;
+		}
+		
+		protected function addListeners():void
+		{
+			_eventListenerCollection = new EventListenerCollection();
+			
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, Event.COMPLETE, loaderCompleteHandler);
+			_eventListenerCollection.createListener(this, Event.COMPLETE, preloaderPhaseCompleteHandler);
+		}
+		
+		protected function removeListeners():void
+		{
+			if(_eventListenerCollection)
+			{
+				_eventListenerCollection.destroy();
+				_eventListenerCollection = null;
+			}
+		}
+		
 		override protected function createChildren():void
 		{
 			super.createChildren();
-			
-			TraceNotifier.getInstance().dispatchEvent(new Trace("download prog createChildren"));
 		}
 		
 		override protected function showDisplayForDownloading(elapsedTime:int, event:ProgressEvent):Boolean
@@ -106,11 +134,7 @@ package com.layerglue.flex3.base.preloader
 		
 		protected function preloaderPhaseCompleteHandler(event:Event):void
 		{
-			if(_eventListenerCollection)
-			{
-				_eventListenerCollection.destroy();
-				_eventListenerCollection = null;
-			}
+			removeListeners();
 		}
 		
 		override protected function setProgress(completed:Number, total:Number):void
@@ -130,10 +154,7 @@ package com.layerglue.flex3.base.preloader
 		
 		public function destroy():void
 		{
-			if(_eventListenerCollection)
-			{
-				_eventListenerCollection.destroy();
-			}
+			removeListeners();
 			
 			if(parent)
 			{

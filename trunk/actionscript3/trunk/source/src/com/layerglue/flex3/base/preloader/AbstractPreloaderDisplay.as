@@ -3,6 +3,10 @@ package com.layerglue.flex3.base.preloader
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.io.FlashVars;
+	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.ProportionalLoadManager;
+	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
+	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -39,14 +43,46 @@ package com.layerglue.flex3.base.preloader
 		{
 			_creationTime = getTimer();
 			
-			PreloadManager.initialize(this);
+			PreloadManager.initialize(this, createLoadManager());
 			
 			FlashVars.initialize(root);
+			
+			addListeners();
+		}
+		
+		protected function createLoadManager():LoadManager
+		{
+			var loadManager:LoadManager = new ProportionalLoadManager();
+			//var loadManager = new LoadManager();
+			
+			var item:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+							new RootLoaderProxy(root.loaderInfo),
+							null,
+							null,
+							0.6);
+			
+			loadManager.addItem(item);
+			
+			return loadManager;
+		}
+		
+		protected function addListeners():void
+		{
+			_eventListenerCollection = new EventListenerCollection();
 			
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
 			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, Event.COMPLETE, loaderCompleteHandler);
-			_eventListenerCollection.createListener(stage, Event.RESIZE, stageSizeChangeHandler);
+			_eventListenerCollection.createListener(this, Event.COMPLETE, preloaderPhaseCompleteHandler);
+		}
+		
+		protected function removeListeners():void
+		{
+			if(_eventListenerCollection)
+			{
+				_eventListenerCollection.destroy();
+				_eventListenerCollection = null;
+			}
 		}
 		
 		protected function loaderChangeHandler(event:Event):void
@@ -54,6 +90,10 @@ package com.layerglue.flex3.base.preloader
 		}
 		
 		protected function loaderCompleteHandler(event:Event):void
+		{
+		}
+		
+		protected function preloaderPhaseCompleteHandler(event:Event):void
 		{
 		}
 		
@@ -217,11 +257,7 @@ package com.layerglue.flex3.base.preloader
 		
 		private function complete():void
 		{
-			if(_eventListenerCollection)
-			{
-				_eventListenerCollection.destroy();
-				_eventListenerCollection = null;
-			}
+			removeListeners();
 			
 			dispatchCompleteEvent();
 		}
@@ -233,12 +269,7 @@ package com.layerglue.flex3.base.preloader
 		
 		public function destroy():void
 		{
-			if(_eventListenerCollection)
-			{
-				_eventListenerCollection.destroy();
-				_eventListenerCollection = null;
-			}
-			
+			removeListeners();
 			
 			if(parent)
 			{

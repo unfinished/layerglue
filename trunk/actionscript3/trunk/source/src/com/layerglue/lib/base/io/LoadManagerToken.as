@@ -15,12 +15,21 @@ package com.layerglue.lib.base.io
 	{
 		protected var _listenerCollection:EventListenerCollection;
 		
-		public function LoadManagerToken(loader:ILoader, completeHandler:Function, errorHandler:Function)
+		public function LoadManagerToken(loader:ILoader, completeHandler:Function=null, errorHandler:Function=null)
 		{
 			this.loader = loader;
 			
 			_listenerCollection =  new EventListenerCollection();
-			_listenerCollection.createListener(loader, Event.COMPLETE, completeHandler);
+			
+			if(completeHandler != null)
+			{
+				_listenerCollection.createListener(loader, Event.COMPLETE, completeHandler);
+			}
+			
+			if(errorHandler != null)
+			{
+				//TODO listen for errors here
+			}
 		}
 		
 		public function destroy():void
