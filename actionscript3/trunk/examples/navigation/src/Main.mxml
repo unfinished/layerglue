@@ -1,4 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:structure="com.client.project.structure.*"
+	xmlns:vos="com.layerglue.lib.base.models.vos.*"
+	layout="absolute"
+	applicationComplete="appCompleteHandler()">
 	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.structure.IStructuralData;
+			import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
+			import com.layerglue.lib.base.io.xml.XMLDeserializer;
+			import com.client.project.structure.StructuralData;
+			import com.layerglue.lib.base.collections.HashMap;
+			import com.layerglue.lib.base.collections.strategies.DeserializerCollectionStrategyMap;
+			
+			public var structureRoot:IStructuralData;
+			
+			protected function appCompleteHandler():void
+			{
+				var map:XMLDeserializationMap = new XMLDeserializationMap();
+				map.addMapping("children", Array);
+				map.addMapping("structureRoot", StructuralData);
+				map.addMapping("home", StructuralData);
+				map.addMapping("gallery", StructuralData);
+				map.addMapping("page", StructuralData);
+				map.addMapping("contact", StructuralData);
+				
+				var d:XMLDeserializer = new XMLDeserializer();
+				d.map = map;
+				d.parentField = "parent";
+				structureRoot = d.deserialize(siteStructure);
+			}
+			
+			protected function doStuff():void
+			{
+				structureRoot.selected = true;
+				structureRoot.children[1].selected = true;
+				structureRoot.children[1].children[0].selected = true;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:XML id="siteStructure">
+		<structureRoot id="root" uriNode="" defaultChildId="home">
+			<title><![CDATA[LayerGlue website]]></title>
+			<children>
+				<home id="home" uriNode="home">
+					<title><![CDATA[Home]]></title>
+				</home>
+				<gallery id="gallery" uriNode="gallery" defaultChildId="page1">
+					<title><![CDATA[Gallery]]></title>
+					<children>
+						<page id="page1" uriNode="page1">
+							<title><![CDATA[Page 1]]></title>
+						</page>
+						<page>
+							<title><![CDATA[Page 2]]></title>
+						</page>
+					</children>
+				</gallery>
+				<contact>
+					<title><![CDATA[Contact]]></title>
+				</contact>
+			</children>
+		</structureRoot>
+	</mx:XML>
+	
+	<mx:Button click="doStuff()"/>
 </mx:Application>
