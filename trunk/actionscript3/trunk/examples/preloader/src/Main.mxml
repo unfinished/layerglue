@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application
+<lgviews:PreloadableApplication
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:local="*"
+	xmlns:lgviews="com.layerglue.flex3.base.views.*"
 	layout="absolute"
 	preinitialize="preinitializeHandler()"
 	creationPolicy="none"
 	backgroundColor="0xFFFFFF"
-	preloader="com.client.project.preloader.PreloaderView">
-	
+	preloader="com.layerglue.flex3.base.preloader.DownloadProgressBarExt"
+	loadManager="com.layerglue.lib.base.io.ProportionalLoadManager"
+	loadManagerTotalValue="1"
+	loadManagerMainSWFValue="0.6">
 	
 	<mx:Script>
 		<![CDATA[
@@ -118,4 +121,4 @@
 		</mx:HBox>
 	</mx:Box>
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
-</mx:Application>
+</lgviews:PreloadableApplication>

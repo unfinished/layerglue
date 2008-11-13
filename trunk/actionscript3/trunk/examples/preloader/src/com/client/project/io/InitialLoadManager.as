@@ -4,9 +4,10 @@ package com.client.project.io
 	import com.client.project.vo.StructureRoot;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
+	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
-	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
@@ -19,7 +20,6 @@ package com.client.project.io
 	import flash.net.URLRequest;
 	
 	import mx.core.Application;
-	import com.layerglue.lib.base.events.EventListener;
 	
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
@@ -65,35 +65,35 @@ package com.client.project.io
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
 			
-			var globalConfigItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+			var globalConfigItem:LoadManagerToken = new LoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
 										globalConfigCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(globalConfigItem);
 			
-			var localeConfigItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+			var localeConfigItem:LoadManagerToken = new LoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + FlashVars.getInstance().getValue("locale") + ".xml")),
 										localeConfigCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(localeConfigItem);
 					
-			var localeCopyItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+			var localeCopyItem:LoadManagerToken = new LoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + FlashVars.getInstance().getValue("locale") + ".xml")),
 										localeCopyCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(localeCopyItem);
 										
-			var structureItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+			var structureItem:LoadManagerToken = new LoadManagerToken(
 										new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 										structureUnpopulatedCompleteHandler,
 										errorHandler,
 										0.025);
 			_loader.addItem(structureItem);
 								
-			var regionalCSSItem:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+			var regionalCSSItem:LoadManagerToken = new LoadManagerToken(
 										_regionalCSSLoader,
 										regionalCompiledCSSCompleteHandler,
 										errorHandler,
