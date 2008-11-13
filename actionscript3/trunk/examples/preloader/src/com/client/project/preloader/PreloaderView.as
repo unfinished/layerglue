@@ -3,7 +3,9 @@ package com.client.project.preloader
 	import com.layerglue.flex3.base.preloader.AbstractPreloaderDisplay;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
 	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
+	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;

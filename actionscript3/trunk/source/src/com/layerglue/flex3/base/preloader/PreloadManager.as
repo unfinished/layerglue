@@ -12,6 +12,10 @@ package com.layerglue.flex3.base.preloader
 	 */
 	public class PreloadManager extends EventDispatcher
 	{
+		public static var LOAD_MANAGER:String = "com.layerglue.lib.base.io.ProportionalLoadManager";
+		public static var LOAD_MANAGER_TOTAL_VALUE:Number = 1;
+		public static var LOAD_MANAGER_MAIN_SWF_VALUE:Number = 0.6;
+		
 		private var _loadManager:LoadManager;
 		
 		public function PreloadManager(preloaderDisplay:IPreloaderDisplay, loadManager:LoadManager)

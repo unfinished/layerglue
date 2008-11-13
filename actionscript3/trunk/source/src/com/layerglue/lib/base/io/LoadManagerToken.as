@@ -15,9 +15,10 @@ package com.layerglue.lib.base.io
 	{
 		protected var _listenerCollection:EventListenerCollection;
 		
-		public function LoadManagerToken(loader:ILoader, completeHandler:Function=null, errorHandler:Function=null)
+		public function LoadManagerToken(loader:ILoader, completeHandler:Function=null, errorHandler:Function=null, proportion:Number=NaN)
 		{
 			this.loader = loader;
+			this.proportion = proportion;
 			
 			_listenerCollection =  new EventListenerCollection();
 			
@@ -51,6 +52,18 @@ package com.layerglue.lib.base.io
 		public function set loader(value:ILoader):void
 		{
 			_loader = value;
+		}
+		
+		private var _proportion:Number;
+		
+		public function get proportion():Number
+		{
+			return _proportion;
+		}
+		
+		public function set proportion(value:Number):void
+		{
+			_proportion = value;
 		}
 	}
 }

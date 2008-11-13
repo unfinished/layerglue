@@ -4,8 +4,8 @@ package com.layerglue.flex3.base.preloader
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.Sprite;
@@ -13,10 +13,12 @@ package com.layerglue.flex3.base.preloader
 	import flash.events.ProgressEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import flash.utils.getDefinitionByName;
 	import flash.utils.getTimer;
 	
 	import mx.events.FlexEvent;
 	import mx.events.RSLEvent;
+	import mx.managers.SystemManager;
 	import mx.preloaders.IPreloaderDisplay;
 	import mx.preloaders.Preloader;
 	
@@ -52,14 +54,24 @@ package com.layerglue.flex3.base.preloader
 		
 		protected function createLoadManager():LoadManager
 		{
-			var loadManager:LoadManager = new ProportionalLoadManager();
-			//var loadManager = new LoadManager();
+			var systemManagerInfo:Object = (root as SystemManager).info();
 			
-			var item:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+			var loadManagerClassRef:Class = getDefinitionByName( systemManagerInfo["loadManager"] ? systemManagerInfo["loadManager"] : PreloadManager.LOAD_MANAGER ) as Class;
+			var loadManagerTotalValue:Number = systemManagerInfo["loadManagerTotalValue"] ? systemManagerInfo["loadManagerTotalValue"] : PreloadManager.LOAD_MANAGER_TOTAL_VALUE;
+			var loadManagerMainSWFValue:Number = systemManagerInfo["loadManagerMainSWFValue"] ? systemManagerInfo["loadManagerMainSWFValue"] : PreloadManager.LOAD_MANAGER_MAIN_SWF_VALUE;
+			
+			var loadManager:LoadManager = new loadManagerClassRef();
+			
+			if(loadManager is ProportionalLoadManager)
+			{
+				(loadManager as ProportionalLoadManager).totalValue = loadManagerTotalValue;
+			}
+			
+			var item:LoadManagerToken = new LoadManagerToken(
 							new RootLoaderProxy(root.loaderInfo),
 							null,
 							null,
-							0.6);
+							loadManagerMainSWFValue);
 			
 			loadManager.addItem(item);
 			

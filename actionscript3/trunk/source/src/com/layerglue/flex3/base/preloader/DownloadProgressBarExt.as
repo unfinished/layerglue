@@ -4,15 +4,17 @@ package com.layerglue.flex3.base.preloader
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	import com.layerglue.lib.base.io.ProportionalLoadManagerToken;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.filters.BlurFilter;
+	import flash.utils.getDefinitionByName;
 	
+	import mx.managers.SystemManager;
 	import mx.preloaders.DownloadProgressBar;
 	import mx.preloaders.IPreloaderDisplay;
 	import mx.preloaders.Preloader;
@@ -26,14 +28,7 @@ package com.layerglue.flex3.base.preloader
 		{
 			super();
 			
-			addEventListener(Event.COMPLETE, tempCompleteHandler, false, 0);
-			
 			filters = [new BlurFilter(0.00001, 0.00001, 1)];
-		}
-		
-		private function tempCompleteHandler(event:Event):void
-		{
-			trace("DownloadProgressBarExt dispatched complete");
 		}
 		
 		override public function initialize():void
@@ -42,25 +37,35 @@ package com.layerglue.flex3.base.preloader
 			
 			FlashVars.initialize(root);
 			
+			minDisplayTime = 0;
+			
 			PreloadManager.initialize(this, createLoadManager());
 			
 			addListeners()
 			
 			setProgress(0, 0);
-			
-			minDisplayTime = 0;
 		}
 		
 		protected function createLoadManager():LoadManager
 		{
-			var loadManager:LoadManager = new ProportionalLoadManager();
-			//var loadManager = new LoadManager();
+			var systemManagerInfo:Object = (root as SystemManager).info();
 			
-			var item:ProportionalLoadManagerToken = new ProportionalLoadManagerToken(
+			var loadManagerClassRef:Class = getDefinitionByName( systemManagerInfo["loadManager"] ? systemManagerInfo["loadManager"] : PreloadManager.LOAD_MANAGER ) as Class;
+			var loadManagerTotalValue:Number = systemManagerInfo["loadManagerTotalValue"] ? systemManagerInfo["loadManagerTotalValue"] : PreloadManager.LOAD_MANAGER_TOTAL_VALUE;
+			var loadManagerMainSWFValue:Number = systemManagerInfo["loadManagerMainSWFValue"] ? systemManagerInfo["loadManagerMainSWFValue"] : PreloadManager.LOAD_MANAGER_MAIN_SWF_VALUE;
+			
+			var loadManager:LoadManager = new loadManagerClassRef();
+			
+			if(loadManager is ProportionalLoadManager)
+			{
+				(loadManager as ProportionalLoadManager).totalValue = loadManagerTotalValue;
+			}
+			
+			var item:LoadManagerToken = new LoadManagerToken(
 							new RootLoaderProxy(root.loaderInfo),
 							null,
 							null,
-							0.6);
+							loadManagerMainSWFValue);
 			
 			loadManager.addItem(item);
 			
