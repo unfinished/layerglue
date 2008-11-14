@@ -25,6 +25,19 @@ package com.layerglue.flex3.base.applications
 			_loadManager = value;
 		}
 		
+		private var _preloaderMinDisplayTime:Number
+		
+		[Inspectable(defaultValue="0")]
+		public function get preloaderMinDisplayTime():Number
+		{
+			return _preloaderMinDisplayTime;
+		}
+		
+		public function set preloaderMinDisplayTime(value:Number):void
+		{
+			_preloaderMinDisplayTime = value;
+		}
+		
 		private var _loadManagerTotalValue:Number
 		
 		/**

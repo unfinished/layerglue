@@ -12,7 +12,6 @@ package com.layerglue.flex3.base.preloader
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.filters.BlurFilter;
-	import flash.utils.getDefinitionByName;
 	
 	import mx.managers.SystemManager;
 	import mx.preloaders.DownloadProgressBar;
@@ -37,7 +36,7 @@ package com.layerglue.flex3.base.preloader
 			
 			FlashVars.initialize(root);
 			
-			minDisplayTime = 0;
+			minDisplayTime = PreloadManager.getLoadManagerClassReference(root as SystemManager);;
 			
 			PreloadManager.initialize(this, createLoadManager());
 			

@@ -1,5 +1,6 @@
 package com.client.project.io
 {
+	import com.client.project.locators.ModelLocator;
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.client.project.vo.StructureRoot;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
@@ -10,6 +11,7 @@ package com.client.project.io
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
+	import com.layerglue.lib.base.localisation.Locale;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
 	import com.layerglue.lib.base.substitution.XMLSubstitutor;
 	import com.layerglue.lib.base.substitution.sources.FlatXMLSubstitutionSource;
@@ -18,8 +20,6 @@ package com.client.project.io
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
-	
-	import mx.core.Application;
 	
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
@@ -45,7 +45,10 @@ package com.client.project.io
 			
 			_loader = PreloadManager.getInstance().initialLoadManager;
 			
-			_loadManagerListener = new EventListener(_loader, Event.COMPLETE, loaderCompleteHandler);
+			_loadManagerListener = new EventListener(
+						PreloadManager.getInstance().initialLoadManager,
+						Event.COMPLETE,
+						loaderCompleteHandler);
 			
 			initialize();
 		}
@@ -62,40 +65,44 @@ package com.client.project.io
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalCSSLoader = new CSSStyleLoader(new URLRequest());
 			
-			var globalConfigItem:LoadManagerToken = new LoadManagerToken(
-										new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
-										globalConfigCompleteHandler,
-										errorHandler,
-										0.025);
-			_loader.addItem(globalConfigItem);
+			var modelLocator:ModelLocator = ModelLocator.getInstance();
+			modelLocator.locale = new Locale(FlashVars.getInstance().getValue("locale"));
 			
-			var localeConfigItem:LoadManagerToken = new LoadManagerToken(
-										new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + FlashVars.getInstance().getValue("locale") + ".xml")),
-										localeConfigCompleteHandler,
-										errorHandler,
-										0.025);
-			_loader.addItem(localeConfigItem);
-					
-			var localeCopyItem:LoadManagerToken = new LoadManagerToken(
-										new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + FlashVars.getInstance().getValue("locale") + ".xml")),
-										localeCopyCompleteHandler,
-										errorHandler,
-										0.025);
-			_loader.addItem(localeCopyItem);
-										
-			var structureItem:LoadManagerToken = new LoadManagerToken(
-										new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
-										structureUnpopulatedCompleteHandler,
-										errorHandler,
-										0.025);
-			_loader.addItem(structureItem);
-								
-			var regionalCSSItem:LoadManagerToken = new LoadManagerToken(
-										_regionalCSSLoader,
-										regionalCompiledCSSCompleteHandler,
-										errorHandler,
-										0.3);
-			_loader.addItem(regionalCSSItem);
+			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
+					globalConfigCompleteHandler,
+					errorHandler,
+					0.025);
+			
+			var localeConfigToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml")),
+					localeConfigCompleteHandler,
+					errorHandler,
+					0.025);
+			
+			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),
+					localeCopyCompleteHandler,
+					errorHandler,
+					0.025);
+			
+			var unsubstitutedStructureToken:LoadManagerToken = new LoadManagerToken(
+					new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
+					structureUnpopulatedCompleteHandler,
+					errorHandler,
+					0.025);
+			
+			var regionalCSSToken:LoadManagerToken = new LoadManagerToken(
+					_regionalCSSLoader,
+					regionalCompiledCSSCompleteHandler,
+					errorHandler,
+					0.39);
+			
+			_loader.addItem(globalConfigToken);						
+			_loader.addItem(localeConfigToken);							
+			_loader.addItem(localeCopyToken);							
+			_loader.addItem(unsubstitutedStructureToken);							
+			_loader.addItem(regionalCSSToken);
 		}
 		
 		public function start():void
@@ -125,8 +132,10 @@ package com.client.project.io
 		{
 			populateStructuralDataXML((event.target as XmlLoader).typedData);
 			
+			var region:String = _localeConfigSource.getValueByReference("region");
+			
 			//Simulate availability of config data by setting the regional css path 
-			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/western.swf?cacheBuster=" + Math.random();
+			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/" + region + ".swf?cacheBuster=" + Math.random();
 			
 			_loader.loadNext();
 		}
