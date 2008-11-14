@@ -85,9 +85,9 @@ package com.layerglue.flex3.base.preloader
 		{
 			_eventListenerCollection = new EventListenerCollection();
 			
-			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
-			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
-			_eventListenerCollection.createListener(PreloadManager.getInstance().initialLoadManager, Event.COMPLETE, loaderCompleteHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().loadManager, MultiLoaderEvent.ITEM_PROGRESS, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().loadManager, MultiLoaderEvent.ITEM_COMPLETE, loaderChangeHandler);
+			_eventListenerCollection.createListener(PreloadManager.getInstance().loadManager, Event.COMPLETE, loaderCompleteHandler);
 			_eventListenerCollection.createListener(this, Event.COMPLETE, preloaderPhaseCompleteHandler);
 		}
 		
