@@ -8,6 +8,7 @@ package com.layerglue.lib.application.controllers
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
+	import com.layerglue.lib.base.collections.ICollection;
 	
 	[Bindable]
 	public interface IController extends
@@ -92,7 +93,7 @@ package com.layerglue.lib.application.controllers
 		/**
 		 * Creates this controllers children based on a list of structural data objects.
 		 */
-		function createChildren(structuralDataCollection:Array=null, structuralDataToControllerClassMap:HashMap=null, controllerToViewClassMap:ControllerToViewMap=null):void
+		function createChildren(structuralDataCollection:ICollection=null, structuralDataToControllerClassMap:HashMap=null, controllerToViewClassMap:ControllerToViewMap=null):void
 		
 		/**
 		 * Destroys all the children of this controller.

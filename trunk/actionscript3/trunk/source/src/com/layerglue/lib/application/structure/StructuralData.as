@@ -1,22 +1,43 @@
 package com.layerglue.lib.application.structure
 {
-	import com.layerglue.lib.base.collections.SelectableBusinessValueObjectCollection;
-	import com.layerglue.lib.base.core.ISelectable;
-	import com.layerglue.lib.base.events.EventListener;
-	import com.layerglue.lib.base.events.SelectionEvent;
-	import com.layerglue.lib.base.models.vos.BusinessValueObject;
 	import com.layerglue.lib.application.events.StructuralDataEvent;
+	import com.layerglue.lib.base.collections.ICollection;
+	import com.layerglue.lib.base.utils.ArrayUtils;
 	
+	import flash.events.EventDispatcher;
+	
+	
+	 // TODO: Put these events back in at the right places
+	/* 
 	[Event(name="subselectionChange", type="com.layerglue.lib.base.events.SelectionEvent")]
 	[Event(name="selectionStatusChange", type="com.layerglue.lib.base.events.SelectionEvent")]
 	[Event(name="childrenChange", type="com.layerglue.lib.base.events.StructuralDataEvent")]
+	 */
+	 
+	[DefaultProperty("children")]
 	
 	[Bindable]
-	public class StructuralData extends BusinessValueObject implements IStructuralData, ISelectable
+	// TODO: Look at BVO and what it prescribes
+	public class StructuralData extends EventDispatcher implements IStructuralData
 	{
 		public function StructuralData(id:String=null)
 		{
-			super(id);
+			super();
+			
+			this.id = id;
+			_selectedChildIndex = -1;
+		}
+		
+		private var _id:String;
+
+		public function get id():String
+		{
+			return _id;
+		}
+
+		public function set id(value:String):void
+		{
+			_id = value;
 		}
 		
 		private var _uriNode:String;
@@ -48,46 +69,19 @@ package com.layerglue.lib.application.structure
 			_title = value;
 		}
 		
-		private var _children:SelectableBusinessValueObjectCollection;
+		private var _children:ICollection;
 		
-		[Bindable(event="childrenChange")]
-		public function get children():SelectableBusinessValueObjectCollection
+		[ArrayElementType("com.client.project.structure.IStructuralData")]
+		public function get children():ICollection
 		{
 			return _children;
 		}
 
-		public function set children(value:SelectableBusinessValueObjectCollection):void
+		public function set children(value:ICollection):void
 		{
 			_children = value;
-			
-			//Make sure to stop listening to the previous value
-			removeChildrenSubselectionChangeListener();
-			
-			//If children exists listen for changes
-			if(_children)
-			{
-				_childrenSubselectionChangeListener = new EventListener(children, SelectionEvent.SUBSELECTION_CHANGE, childrenSubselectionChangeHandler);
-			}
-			
-			dispatchEvent(new StructuralDataEvent(StructuralDataEvent.CHILDREN_CHANGE));
 		}
-		
-		private var _childrenSubselectionChangeListener:EventListener;
-		
-		private function childrenSubselectionChangeHandler(event:SelectionEvent):void
-		{
-			dispatchEvent(new SelectionEvent(SelectionEvent.SUBSELECTION_CHANGE));
-		}
-		
-		private function removeChildrenSubselectionChangeListener():void
-		{
-			if(_childrenSubselectionChangeListener)
-			{
-				_childrenSubselectionChangeListener.destroy();
-				_childrenSubselectionChangeListener = null;
-			}
-		}
-		
+				
 		private var _defaultChildId:String;
 		
 		public function get defaultChildId():String
@@ -102,7 +96,7 @@ package com.layerglue.lib.application.structure
 				
 		public function get defaultChild():IStructuralData
 		{
-			return children ? children.getItemById(defaultChildId) as IStructuralData : null;
+			return children ? getChildById(defaultChildId) as IStructuralData : null;
 		}
 		
 		private var _parent:IStructuralData;
@@ -117,32 +111,122 @@ package com.layerglue.lib.application.structure
 			_parent = v;
 		}
 		
-		private var _selected:Boolean;
-
+		[Bindable(event="selectionChange")]
 		public function get selected():Boolean
 		{
-			return _selected;
+			return isRoot() || parent.selectedChild == this;
 		}
-
+		
 		public function set selected(value:Boolean):void
 		{
-			if(_selected != value)
+			//First check that the new value is different from the old one.
+			if (selected != value)
 			{
-				_selected = value;
-				dispatchEvent(new SelectionEvent(SelectionEvent.SELECTION_STATUS_CHANGE));
+				
+				if(value == true)
+				{
+					//If value is true, always try and set the parent's selectedChild to this instance.
+					parent.selectedChild = this;
+				}
+				else
+				{
+					//Otherwise the parent will always have this instance as its selectedChild, and
+					//setting the value to null is legitimate
+					if(parent.selectedChild == this)
+					{
+						parent.selectedChild = null;
+					}
+					else
+					{
+						throw new Error("Attempted to deselect a non-selected child on parent - parent: " + parent.uri + ", child: " + uri );
+					}
+					
+				}
 			}
 		}
 		
-		[Bindable(event="subselectionChange")]
+		[Bindable(event="childSelectionChange")]
 		public function get selectedChild():IStructuralData
 		{
-			return children ? children.selectedItem as IStructuralData : null;
+			if(children && selectedChildIndex > -1 && selectedChildIndex < children.getLength())
+			{
+				return children.getItemAt(selectedChildIndex) as IStructuralData;
+			}
+			
+			return null;
 		}
 		
 		public function set selectedChild(value:IStructuralData):void
 		{
-			children.selectedItem = value;
-			//TODO look at how whether subselectionChange is dispatched from this class when children collection changes its subselection
+			if(value)
+			{
+				if (!children.contains(value))
+				{
+					throw new Error("selectedChild does not exist in children: " + value + ", id: " + value.id);
+				}
+				
+				selectedChildIndex = children.getItemIndex(value);
+			}
+			else
+			{
+				selectedChildIndex = -1;
+			}
+			
+		}
+		
+		
+		private var _testValue:int;
+		
+		[Bindable(event="childSelectionChange")]
+		public function get testValue():int
+		{
+			return _testValue;
+		}
+		
+		public function set testValue(value:int):void
+		{
+			_testValue = value;
+		}
+		
+		protected var _selectedChildIndex:int;
+		
+		[Bindable(event="childSelectionChange")]
+		public function get selectedChildIndex():int
+		{
+			return _selectedChildIndex;
+		}
+		
+		public function set selectedChildIndex(value:int):void
+		{
+			//TODO Look at splitting this out into a separate method that will allow forced event
+			//dispatching regardless of whether anything has changed
+			if(selectedChildIndex != value)
+			{
+				if (value < -1 || value > children.getLength()-1)
+				{
+					throw new Error("selectedChildIndex value out of range [length: " + length + ", index: " + value + "]");
+				}
+				
+				if(selectedChild)
+				{
+					//Dispatching a change through the old selected item
+					selectedChild.dispatchEvent(new StructuralDataEvent(StructuralDataEvent.SELECTION_CHANGE));
+				}
+				
+				_selectedChildIndex = (isNaN(value)) ? -1 : value;
+				
+				//Before dispatching an event through the selectedChild, make sure that one exists,
+				//as the selectedIndex could have been set to -1.
+				if(selectedChild)
+				{
+					//Dispatching a change through the new selected item
+					selectedChild.dispatchEvent(new StructuralDataEvent(StructuralDataEvent.SELECTION_CHANGE));
+				}
+				
+				testValue = _selectedChildIndex;
+				
+				dispatchEvent(new StructuralDataEvent(StructuralDataEvent.CHILD_SELECTION_CHANGE));
+			}
 		}
 		
 		public function isRoot():Boolean
@@ -150,25 +234,15 @@ package com.layerglue.lib.application.structure
 			return !parent;
 		}
 		
+		//TODO Make this a lazy setter, so that first time depth is requested a queery is made but
+		//this should set a private _root value so the next time, no querying needs to be done.
 		public function get depth():uint
 		{
 			return isRoot() ? 0 : parent.depth + 1;
 		}
 		
-		private var _deserialized:Boolean;
-		
-		public function get deserialized():Boolean
-		{
-			return _deserialized;
-		}
-		
-		public function set deserialized(value:Boolean):void
-		{
-			_deserialized = value;
-		}
-		
 		private var _mapId:String;
-		
+		// TODO: property is ambiguous
 		public function get mapId():String
 		{
 			return _mapId;
@@ -180,7 +254,8 @@ package com.layerglue.lib.application.structure
 		}
 		
 		private var _branchOnly:Boolean
-		
+		// TODO: property is ambiguous
+		// it enforces the default child
 		public function get branchOnly():Boolean
 		{
 			return _branchOnly;
@@ -189,6 +264,19 @@ package com.layerglue.lib.application.structure
 		public function set branchOnly(value:Boolean):void
 		{
 			_branchOnly = value;
+		}
+		
+		public function getChildById(id:String):IStructuralData
+		{
+			var item:IStructuralData;
+			for each(item in children)
+			{
+				if(item.id == id)
+				{
+					return item;
+				}
+			}
+			return null;
 		}
 		
 		public function getChildByUriNode(nodeName:String):IStructuralData
@@ -201,14 +289,16 @@ package com.layerglue.lib.application.structure
 					return child;
 				}
 			}
-			
 			return null;
 		}
 		
-		//TODO check this isnt too naughty
-		public function deselect():void
+		public function getChildAt(index:int):IStructuralData
 		{
-			parent.children.deselect();
+			if(children)
+			{
+				return children.getItemAt(index) as IStructuralData;
+			}
+			return null;
 		}
 	}
 }

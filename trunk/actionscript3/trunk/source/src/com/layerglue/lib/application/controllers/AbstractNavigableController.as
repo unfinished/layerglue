@@ -77,7 +77,7 @@ package com.layerglue.lib.application.controllers
 			if(structuralData.parent)
 			{
 				//trace("setStructuralDataToUnselected: "+this);
-				structuralData.deselect();
+				structuralData.selected = false;
 			}
 		}
 		
