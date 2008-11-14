@@ -7,6 +7,8 @@ The library does not have to be used in it's entirety, and specific classes (or 
  # [TemplateDeserialization Deserialization]
  # [TemplateSubstitutionAndDeserialization Substitution and Deserialization]
  # [TemplateWorkflow Workflow]
+ # [ExampleStyling Styling]
+ # [ExamplePreloading Preloading]
 
 
 ==Navigation examples==
