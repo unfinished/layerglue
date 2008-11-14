@@ -15,6 +15,7 @@ package com.layerglue.flex3.base.preloader
 	 */
 	public class PreloadManager extends EventDispatcher
 	{
+		public static var DEFAULT_PRELOADER_MIN_DISPLAY_TIME:Number = 0;
 		public static var DEFAULT_LOAD_MANAGER:Class = ProportionalLoadManager;
 		public static var DEFAULT_LOAD_MANAGER_TOTAL_VALUE:Number = 1;
 		public static var DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE:Number = 0.6;
@@ -22,6 +23,11 @@ package com.layerglue.flex3.base.preloader
 		public static function getLoadManagerClassReference(systemManager:SystemManager):Class
 		{
 			return (systemManager.info()["loadManager"] ? getDefinitionByName( systemManager.info()["loadManager"] ) : DEFAULT_LOAD_MANAGER) as Class;
+		}
+		
+		public static function getPreloaderMinDisplayTime(systemManager:SystemManager):Number
+		{
+			return systemManager.info()["preloaderMinDisplayTime"] ? systemManager.info()["preloaderMinDisplayTime"] : DEFAULT_PRELOADER_MIN_DISPLAY_TIME;
 		}
 		
 		public static function getLoadManagerTotalValue(systemManager:SystemManager):Number

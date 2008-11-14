@@ -10,6 +10,11 @@ package com.layerglue.flex3.base.applications
 		 */
 		function get loadManager():Class;
 		function set loadManager(value:Class):void;
-
+		
+		/**
+		 * The minimum amount of time the preloader should be shown for, defaulting to 0.
+		 */
+		function get preloaderMinDisplayTime():Number
+		function set preloaderMinDisplayTime(value:Number):void
 	}
 }

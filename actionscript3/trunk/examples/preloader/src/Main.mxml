@@ -8,14 +8,14 @@
 	creationPolicy="none"
 	backgroundColor="0xFFFFFF"
 	preloader="com.client.project.preloader.PreloaderView"
-	loadManager="com.layerglue.lib.base.io.ProportionalLoadManager"
+	preloaderMinDisplayTime="1000"
+	loadManager="com.layerglue.lib.base.io.LoadManager"
 	loadManagerTotalValue="1"
 	loadManagerMainSWFValue="0.6">
 	
 	<mx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
-			import com.client.project.temp.Trace;
 			import mx.events.EffectEvent;
 			import com.layerglue.flex3.base.effects.FadeExt;
 			import mx.effects.Fade;

@@ -37,19 +37,24 @@ package com.layerglue.flex3.base.preloader
 			_eventListenerCollection = new EventListenerCollection();
 			
 			_backgroundAlpha = 1;
-			
-			minDisplayTime = 0;
 		}
 		
 		public function initialize():void
 		{
 			_creationTime = getTimer();
 			
+			_minimumDisplayTime = PreloadManager.getPreloaderMinDisplayTime(root as SystemManager);
+			
 			PreloadManager.initialize(this, createLoadManager());
 			
 			FlashVars.initialize(root);
 			
 			addListeners();
+		}
+		
+		public function get systemManager():SystemManager
+		{
+			return root as SystemManager;
 		}
 		
 		protected function createLoadManager():LoadManager
