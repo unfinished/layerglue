@@ -31,7 +31,6 @@ package com.layerglue.lib.base.collections.strategies
 		 */
 		override public function getItemAt(collection:*, index:int, prefetch:int = 0):Object
 		{
-			//TODO
 			return (collection as Array)[index];
 		}
 		

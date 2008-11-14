@@ -12,6 +12,7 @@ package com.layerglue.lib.application.controllers
 	import flash.events.EventDispatcher;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+	import com.layerglue.lib.base.collections.ICollection;
 
 	public class AbstractController extends EventDispatcher implements IController
 	{
@@ -190,7 +191,7 @@ package com.layerglue.lib.application.controllers
 			_structuralDataToControllerClassMap = value;
 		}
 		
-		public function createChildren(structuralDataCollection:Array=null, structuralDataToControllerClassMap:HashMap=null, controllerToViewClassMap:ControllerToViewMap=null):void
+		public function createChildren(structuralDataCollection:ICollection=null, structuralDataToControllerClassMap:HashMap=null, controllerToViewClassMap:ControllerToViewMap=null):void
 		{
 			this.structuralDataToControllerClassMap = structuralDataToControllerClassMap;
 			this.controllerToViewClassMap = controllerToViewClassMap;
