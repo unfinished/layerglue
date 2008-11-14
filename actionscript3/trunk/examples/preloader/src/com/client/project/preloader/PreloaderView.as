@@ -59,7 +59,7 @@ package com.client.project.preloader
 				_progressBar.graphics.drawRect(0, 0, _barWidth, _barHeight);
 				_progressBar.graphics.endFill()
 				
-				var loadManager:LoadManager = PreloadManager.getInstance().initialLoadManager;
+				var loadManager:LoadManager = PreloadManager.getInstance().loadManager;
 				
 				if(loadManager is ProportionalLoadManager)
 				{

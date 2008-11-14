@@ -43,10 +43,10 @@ package com.client.project.io
 		{
 			super();
 			
-			_loader = PreloadManager.getInstance().initialLoadManager;
+			_loader = PreloadManager.getInstance().loadManager;
 			
 			_loadManagerListener = new EventListener(
-						PreloadManager.getInstance().initialLoadManager,
+						PreloadManager.getInstance().loadManager,
 						Event.COMPLETE,
 						loaderCompleteHandler);
 			

@@ -91,7 +91,7 @@ package com.layerglue.flex3.base.preloader
 			_flexPreloader = value;
 		}
 		
-		public function get initialLoadManager():LoadManager
+		public function get loadManager():LoadManager
 		{
 			return _loadManager;
 		}
