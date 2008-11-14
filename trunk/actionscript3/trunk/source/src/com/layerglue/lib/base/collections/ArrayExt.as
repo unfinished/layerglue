@@ -6,7 +6,8 @@ package com.layerglue.lib.base.collections
 	/**
 	 * A subclass of Array that implements the ICollection interface.
 	 */
-	public class ArrayExt extends Array implements ICollection
+	//TODO Remove dynamicness when this changes to being a decorator
+	dynamic public class ArrayExt extends Array implements ICollection
 	{
 		private var _strategy:ICollectionStrategy; 
 		

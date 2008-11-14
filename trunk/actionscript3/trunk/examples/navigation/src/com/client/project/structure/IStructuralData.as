@@ -1,6 +1,7 @@
 package com.client.project.structure
 {
 	import com.layerglue.lib.application.navigation.INavigable;
+	import com.layerglue.lib.base.collections.ICollection;
 	import com.layerglue.lib.base.maps.IMapable;
 	
 	[Bindable]
@@ -15,8 +16,8 @@ package com.client.project.structure
 		function get title():String;
 		function set title(value:String):void
 		
-		function get children():Array
-		function set children(value:Array):void
+		function get children():ICollection
+		function set children(value:ICollection):void
 		
 		function get defaultChildId():String
 		function set defaultChildId(id:String):void
