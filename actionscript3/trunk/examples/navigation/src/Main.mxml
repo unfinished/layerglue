@@ -38,6 +38,8 @@
 				structureRoot.selected = true;
 				structureRoot.children[1].selected = true;
 				structureRoot.children[1].children[0].selected = true;
+				structureRoot.children[1].children[0].selected = false;
+				
 			}
 		]]>
 	</mx:Script>
