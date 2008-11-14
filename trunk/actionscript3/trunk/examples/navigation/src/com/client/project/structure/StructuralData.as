@@ -1,7 +1,9 @@
 package com.client.project.structure
 {
-	import com.layerglue.lib.base.models.vos.BusinessValueObject;
+	import com.layerglue.lib.application.events.StructuralDataEvent;
 	import com.layerglue.lib.base.utils.ArrayUtils;
+	
+	import flash.events.EventDispatcher;
 	
 	
 	 // TODO: Put these events back in at the right places
@@ -15,12 +17,26 @@ package com.client.project.structure
 	
 	[Bindable]
 	// TODO: Look at BVO and what it prescribes
-	public class StructuralData extends BusinessValueObject implements IStructuralData
+	public class StructuralData extends EventDispatcher implements IStructuralData
 	{
 		public function StructuralData(id:String=null)
 		{
-			super(id);
+			super();
+			
+			this.id = id;
 			_selectedChildIndex = -1;
+		}
+		
+		private var _id:String;
+
+		public function get id():String
+		{
+			return _id;
+		}
+
+		public function set id(value:String):void
+		{
+			_id = value;
 		}
 		
 		private var _uriNode:String;
@@ -94,60 +110,101 @@ package com.client.project.structure
 			_parent = v;
 		}
 		
-		private var _selected:Boolean;
-
+		[Bindable(event="selectionChange")]
 		public function get selected():Boolean
 		{
-			return _selected;
+			return isRoot() || parent.selectedChild == this;
 		}
 		
 		public function set selected(value:Boolean):void
 		{
-			if(_selected != value)
+			//First check that the new value is different from the old one.
+			if (selected != value)
 			{
-				_selected = value;
+				
+				if(value == true)
+				{
+					//If value is true, always try and set the parent's selectedChild to this instance.
+					parent.selectedChild = this;
+				}
+				else
+				{
+					//Otherwise the parent will always have this instance as its selectedChild, and
+					//setting the value to null is legitimate
+					if(parent.selectedChild == this)
+					{
+						parent.selectedChild = null;
+					}
+					else
+					{
+						throw new Error("Attempted to deselect a non-selected child on parent - parent: " + parent.uri + ", child: " + uri );
+					}
+					
+				}
 			}
-			// TODO: should parent structuraldata know about this change?
-			// What if there is no parent? is this unit-testable?
-			// Should it be read only?
-			
-			// Q: Should children be able to select themselves, or only the parent?
 		}
 		
+		[Bindable(event="childSelectionChange")]
 		public function get selectedChild():IStructuralData
 		{
-			// TODO: should test for valid selectedChildIndex
 			return children ? children[selectedChildIndex] as IStructuralData : null;
 		}
 		
 		public function set selectedChild(value:IStructuralData):void
 		{
-			if(!ArrayUtils.contains(children, value))
+			if(value)
 			{
-				throw new Error("selectedChild does not exist in children: " + value + ", id: " + value.id);
+				if (!ArrayUtils.contains(children, value))
+				{
+					throw new Error("selectedChild does not exist in children: " + value + ", id: " + value.id);
+				}
+				
+				selectedChildIndex = ArrayUtils.getIndex(children, value);
+			}
+			else
+			{
+				selectedChildIndex = -1;
 			}
 			
-			selectedChildIndex = ArrayUtils.getIndex(children, value);
-			// TODO: set selected prop on child (eg. something like refreshSubselections());
 		}
 		
 		protected var _selectedChildIndex:int;
 		
+		[Bindable(event="childSelectionChange")]
 		public function get selectedChildIndex():int
 		{
 			return _selectedChildIndex;
 		}
 		
-		// TODO: this property is acting as the lynch-pin for selection
-		// selectedChild defers to it, should the 'selected' property too?
 		public function set selectedChildIndex(value:int):void
 		{
-			if(value > children.length-1)
+			//TODO Look at splitting this out into a separate method that will allow forced event
+			//dispatching regardless of whether anything has changed
+			if(selectedChildIndex != value)
 			{
-				throw new Error("selectedChildIndex value out of range [length: " + length + ", index: " + value + "]");
+				if (value < -1 || value > children.length-1)
+				{
+					throw new Error("selectedChildIndex value out of range [length: " + length + ", index: " + value + "]");
+				}
+				
+				if(selectedChild)
+				{
+					//Dispatching a change through the old selected item
+					selectedChild.dispatchEvent(new StructuralDataEvent(StructuralDataEvent.SELECTION_CHANGE));
+				}
+				
+				_selectedChildIndex = (isNaN(value)) ? -1 : value;
+				
+				//Before dispatching an event through the selectedChild, make sure that one exists,
+				//as the selectedIndex could have been set to -1.
+				if(selectedChild)
+				{
+					//Dispatching a change through the new selected item
+					selectedChild.dispatchEvent(new StructuralDataEvent(StructuralDataEvent.SELECTION_CHANGE));
+				}
+				
+				dispatchEvent(new StructuralDataEvent(StructuralDataEvent.CHILD_SELECTION_CHANGE));
 			}
-			
-			_selectedChildIndex = (isNaN(value)) ? -1 : value;
 		}
 		
 		public function isRoot():Boolean
@@ -155,6 +212,8 @@ package com.client.project.structure
 			return !parent;
 		}
 		
+		//TODO Make this a lazy setter, so that first time depth is requested a queery is made but
+		//this should set a private _root value so the next time, no querying needs to be done.
 		public function get depth():uint
 		{
 			return isRoot() ? 0 : parent.depth + 1;
@@ -185,6 +244,19 @@ package com.client.project.structure
 			_branchOnly = value;
 		}
 		
+		public function getChildById(id:String):IStructuralData
+		{
+			var item:IStructuralData;
+			for each(item in children)
+			{
+				if(item.id == id)
+				{
+					return item;
+				}
+			}
+			return null;
+		}
+		
 		public function getChildByUriNode(nodeName:String):IStructuralData
 		{
 			var child:IStructuralData;
@@ -198,25 +270,5 @@ package com.client.project.structure
 			return null;
 		}
 		
-		//TODO check this isnt too naughty
-		public function deselect():void
-		{
-			// TODO: this may be the tricky bit
-			parent.children.deselect();
-		}
-		
-		// TODO: Should this be part of the public API?
-		protected function getChildById(id:String):IStructuralData
-		{
-			var item:IStructuralData;
-			for each(item in children)
-			{
-				if(item.id == id)
-				{
-					return item;
-				}
-			}
-			return null;
-		}
 	}
 }

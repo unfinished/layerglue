@@ -1,17 +1,16 @@
 package com.client.project.structure
 {
 	import com.layerglue.lib.application.navigation.INavigable;
-	import com.layerglue.lib.base.collections.SelectableBusinessValueObjectCollection;
 	import com.layerglue.lib.base.maps.IMapable;
-	import com.layerglue.lib.base.models.vos.IBusinessValueObject;
 	
 	[Bindable]
 	// TODO: take a look at these interfaces and what they're prescribing
 	public interface IStructuralData extends
-		IBusinessValueObject, 
 		INavigable,
 		IMapable
 	{
+		function get id():String;
+		function set id(value:String):void
 		
 		function get title():String;
 		function set title(value:String):void
@@ -27,12 +26,15 @@ package com.client.project.structure
 		function get parent():IStructuralData
 		function set parent(value:IStructuralData):void
 		
+		[Bindable(event="childSelectionChange")]
 		function get selectedChild():IStructuralData
 		function set selectedChild(value:IStructuralData):void
 		
+		[Bindable(event="childSelectionChange")]
 		function get selectedChildIndex():int;
 		function set selectedChildIndex(value:int):void
 		
+		[Bindable(event="selectionChange")]
 		function get selected():Boolean
 		function set selected(value:Boolean):void
 		
@@ -46,8 +48,7 @@ package com.client.project.structure
 		
 		function isRoot():Boolean
 		
-		function deselect():void;
-		
+		function getChildById(id:String):IStructuralData
 		function getChildByUriNode(nodeName:String):IStructuralData
 		
 	}

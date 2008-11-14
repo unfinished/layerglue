@@ -28,21 +28,5 @@ package com.layerglue.lib.base.models.vos
 			_id = value;
 		}
 		
-		public function deserialize(xml:XML):void
-		{
-			
-			for each(var prop:XML in xml.children())
-			{
-				
-				switch(prop.localName())
-				{
-					case "id":
-						id = prop.valueOf();	
-					break;
-				}
-			}
-		
-		}
-		
 	}
 }
