@@ -8,6 +8,10 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.flex3.base.collections.strategies.ArrayCollectionStrategy;
+			import com.layerglue.flex3.base.collections.strategies.FlexCollectionStrategyMap;
+			import com.layerglue.flex3.base.collections.ArrayCollectionExt;
+			import com.layerglue.lib.base.collections.ArrayExt;
 			import com.client.project.structure.IStructuralData;
 			import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
 			import com.layerglue.lib.base.io.xml.XMLDeserializer;
@@ -20,15 +24,19 @@
 			protected function appCompleteHandler():void
 			{
 				var map:XMLDeserializationMap = new XMLDeserializationMap();
-				map.addMapping("children", Array);
+				map.addMapping("children", ArrayExt);
 				map.addMapping("structureRoot", StructuralData);
 				map.addMapping("home", StructuralData);
 				map.addMapping("gallery", StructuralData);
 				map.addMapping("page", StructuralData);
 				map.addMapping("contact", StructuralData);
 				
+				var collectionStrategyMap:FlexCollectionStrategyMap = new FlexCollectionStrategyMap()
+				collectionStrategyMap.addItem(ArrayCollectionExt, new ArrayCollectionStrategy());
+				
 				var d:XMLDeserializer = new XMLDeserializer();
 				d.map = map;
+				d.collectionStrategyMap = collectionStrategyMap;
 				d.parentField = "parent";
 				structureRoot = d.deserialize(siteStructure);
 			}
@@ -36,9 +44,9 @@
 			protected function doStuff():void
 			{
 				structureRoot.selected = true;
-				structureRoot.children[1].selected = true;
-				structureRoot.children[1].children[0].selected = true;
-				structureRoot.children[1].children[0].selected = false;
+				structureRoot.children.getItemAt(1).selected = true;
+				structureRoot.children.getItemAt(1).children.getItemAt(0).selected = true;
+				structureRoot.children.getItemAt(1).children.getItemAt(0).selected = false;
 				
 			}
 		]]>

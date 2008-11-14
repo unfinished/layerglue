@@ -66,6 +66,7 @@ package com.layerglue.lib.base.collections
 		 /**
 		 * How many items are in the array.
 		 */
+		 //TODO: This should change to length once ArrayExt is a decorator instead of an subclass of Array
 		 function getLength():int
 	}
 }

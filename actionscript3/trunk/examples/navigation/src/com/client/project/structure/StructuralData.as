@@ -1,6 +1,7 @@
 package com.client.project.structure
 {
 	import com.layerglue.lib.application.events.StructuralDataEvent;
+	import com.layerglue.lib.base.collections.ICollection;
 	import com.layerglue.lib.base.utils.ArrayUtils;
 	
 	import flash.events.EventDispatcher;
@@ -68,15 +69,15 @@ package com.client.project.structure
 			_title = value;
 		}
 		
-		private var _children:Array;
+		private var _children:ICollection;
 		
 		[ArrayElementType("com.client.project.structure.IStructuralData")]
-		public function get children():Array
+		public function get children():ICollection
 		{
 			return _children;
 		}
 
-		public function set children(value:Array):void
+		public function set children(value:ICollection):void
 		{
 			_children = value;
 		}
@@ -147,19 +148,24 @@ package com.client.project.structure
 		[Bindable(event="childSelectionChange")]
 		public function get selectedChild():IStructuralData
 		{
-			return children ? children[selectedChildIndex] as IStructuralData : null;
+			if(children && selectedChildIndex > -1 && selectedChildIndex < children.getLength())
+			{
+				return children.getItemAt(selectedChildIndex) as IStructuralData;
+			}
+			
+			return null;
 		}
 		
 		public function set selectedChild(value:IStructuralData):void
 		{
 			if(value)
 			{
-				if (!ArrayUtils.contains(children, value))
+				if (!children.contains(value))
 				{
 					throw new Error("selectedChild does not exist in children: " + value + ", id: " + value.id);
 				}
 				
-				selectedChildIndex = ArrayUtils.getIndex(children, value);
+				selectedChildIndex = children.getItemIndex(value);
 			}
 			else
 			{
@@ -182,7 +188,7 @@ package com.client.project.structure
 			//dispatching regardless of whether anything has changed
 			if(selectedChildIndex != value)
 			{
-				if (value < -1 || value > children.length-1)
+				if (value < -1 || value > children.getLength()-1)
 				{
 					throw new Error("selectedChildIndex value out of range [length: " + length + ", index: " + value + "]");
 				}
