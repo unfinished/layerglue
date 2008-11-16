@@ -34,39 +34,13 @@ package com.layerglue.flex3.base.preloader
 		{
 			super.initialize();
 			
-			FlashVars.initialize(root);
+			minDisplayTime = PreloadManager.getPreloaderMinDisplayTime(root as SystemManager);
 			
-			minDisplayTime = PreloadManager.getLoadManagerClassReference(root as SystemManager);;
+			PreloadManager.initialize(this);
 			
-			PreloadManager.initialize(this, createLoadManager());
-			
-			addListeners()
+			addListeners();
 			
 			setProgress(0, 0);
-		}
-		
-		protected function createLoadManager():LoadManager
-		{
-			var loadManagerClassRef:Class = PreloadManager.getLoadManagerClassReference(root as SystemManager);
-			var loadManagerTotalValue:Number = PreloadManager.getLoadManagerTotalValue(root as SystemManager);
-			var loadManagerMainSWFValue:Number = PreloadManager.getLoadManagerMainSWFValue(root as SystemManager);
-			
-			var loadManager:LoadManager = new loadManagerClassRef();
-			
-			if(loadManager is ProportionalLoadManager)
-			{
-				(loadManager as ProportionalLoadManager).totalValue = loadManagerTotalValue;
-			}
-			
-			var item:LoadManagerToken = new LoadManagerToken(
-							new RootLoaderProxy(root.loaderInfo),
-							null,
-							null,
-							loadManagerMainSWFValue);
-			
-			loadManager.addItem(item);
-			
-			return loadManager;
 		}
 		
 		protected function addListeners():void

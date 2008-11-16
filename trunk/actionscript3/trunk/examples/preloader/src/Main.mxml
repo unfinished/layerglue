@@ -9,12 +9,11 @@
 	backgroundColor="0xFFFFFF"
 	preloader="com.client.project.preloader.PreloaderView"
 	preloaderMinDisplayTime="1000"
-	loadManager="com.layerglue.lib.base.io.LoadManager"
-	loadManagerTotalValue="1"
-	loadManagerMainSWFValue="0.6">
+	>
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.base.io.FlashVars;
 			import mx.events.FlexEvent;
 			import mx.events.EffectEvent;
 			import com.layerglue.flex3.base.effects.FadeExt;
@@ -39,6 +38,8 @@
 			
 			private function preinitializeHandler():void
 			{
+				FlashVars.initialize(systemManager as DisplayObject);
+				
 				startLoadProcess();
 				
 				PreloadManager.getInstance().flexPreloader.addEventListener(FlexEvent.PRELOADER_DONE, flexPreloaderDoneHandler);

@@ -45,9 +45,7 @@ package com.layerglue.flex3.base.preloader
 			
 			_minimumDisplayTime = PreloadManager.getPreloaderMinDisplayTime(root as SystemManager);
 			
-			PreloadManager.initialize(this, createLoadManager());
-			
-			FlashVars.initialize(root);
+			PreloadManager.initialize(this);
 			
 			addListeners();
 		}
@@ -55,30 +53,6 @@ package com.layerglue.flex3.base.preloader
 		public function get systemManager():SystemManager
 		{
 			return root as SystemManager;
-		}
-		
-		protected function createLoadManager():LoadManager
-		{
-			var loadManagerClassRef:Class = PreloadManager.getLoadManagerClassReference(root as SystemManager);
-			var loadManagerTotalValue:Number = PreloadManager.getLoadManagerTotalValue(root as SystemManager);
-			var loadManagerMainSWFValue:Number = PreloadManager.getLoadManagerMainSWFValue(root as SystemManager);
-			
-			var loadManager:LoadManager = new loadManagerClassRef();
-			
-			if(loadManager is ProportionalLoadManager)
-			{
-				(loadManager as ProportionalLoadManager).totalValue = loadManagerTotalValue;
-			}
-			
-			var item:LoadManagerToken = new LoadManagerToken(
-							new RootLoaderProxy(root.loaderInfo),
-							null,
-							null,
-							loadManagerMainSWFValue);
-			
-			loadManager.addItem(item);
-			
-			return loadManager;
 		}
 		
 		protected function addListeners():void
