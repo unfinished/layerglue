@@ -1,11 +1,15 @@
 package com.layerglue.flex3.base.preloader
 {
 	import com.layerglue.lib.base.io.LoadManager;
+	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
+	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
+	import flash.display.DisplayObject;
 	import flash.events.EventDispatcher;
 	import flash.utils.getDefinitionByName;
 	
+	import mx.managers.ISystemManager;
 	import mx.managers.SystemManager;
 	import mx.preloaders.IPreloaderDisplay;
 	import mx.preloaders.Preloader;
@@ -20,35 +24,59 @@ package com.layerglue.flex3.base.preloader
 		public static var DEFAULT_LOAD_MANAGER_TOTAL_VALUE:Number = 1;
 		public static var DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE:Number = 0.6;
 		
-		public static function getLoadManagerClassReference(systemManager:SystemManager):Class
+		public static function getLoadManagerClassReference(systemManager:ISystemManager):Class
 		{
 			return (systemManager.info()["loadManager"] ? getDefinitionByName( systemManager.info()["loadManager"] ) : DEFAULT_LOAD_MANAGER) as Class;
 		}
 		
-		public static function getPreloaderMinDisplayTime(systemManager:SystemManager):Number
+		public static function getPreloaderMinDisplayTime(systemManager:ISystemManager):Number
 		{
 			return systemManager.info()["preloaderMinDisplayTime"] ? systemManager.info()["preloaderMinDisplayTime"] : DEFAULT_PRELOADER_MIN_DISPLAY_TIME;
 		}
 		
-		public static function getLoadManagerTotalValue(systemManager:SystemManager):Number
+		public static function getLoadManagerTotalValue(systemManager:ISystemManager):Number
 		{
 			return systemManager.info()["loadManagerTotalValue"] ? systemManager.info()["loadManagerTotalValue"] : DEFAULT_LOAD_MANAGER_TOTAL_VALUE;
 		}
 		
-		public static function getLoadManagerMainSWFValue(systemManager:SystemManager):Number
+		public static function getLoadManagerMainSWFValue(systemManager:ISystemManager):Number
 		{
 			return systemManager.info()["loadManagerMainSWFValue"] ? systemManager.info()["loadManagerMainSWFValue"] : DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE;
 		}
 		
 		private var _loadManager:LoadManager;
 		
-		public function PreloadManager(preloaderDisplay:IPreloaderDisplay, loadManager:LoadManager)
+		public function PreloadManager(preloaderDisplay:IPreloaderDisplay)
 		{
 			super();
 			
 			_preloaderDisplay = preloaderDisplay;
 			
-			_loadManager = loadManager;
+			//------------------------------
+			
+			var systemManager:ISystemManager = (preloaderDisplay as DisplayObject).root as ISystemManager;
+			
+			var loadManagerClassRef:Class = getLoadManagerClassReference(systemManager);
+			var loadManagerTotalValue:Number = getLoadManagerTotalValue(systemManager);
+			var loadManagerMainSWFValue:Number = getLoadManagerMainSWFValue(systemManager);
+			
+			_loadManager = new loadManagerClassRef();
+			
+			if(_loadManager is ProportionalLoadManager)
+			{
+				(_loadManager as ProportionalLoadManager).totalValue = loadManagerTotalValue;
+			}
+			
+			//------------------------------
+							
+			var item:LoadManagerToken = new LoadManagerToken(
+							new RootLoaderProxy((preloaderDisplay as DisplayObject).root.loaderInfo),
+							null,
+							null,
+							getLoadManagerMainSWFValue((preloaderDisplay as DisplayObject).root as SystemManager));
+			
+			_loadManager.addItem(item);
+ 
 			
 			//Dont really need to do this, but some objects may be listening for a start event, so
 			//method is called here to ensure start event is dispatched.
@@ -57,11 +85,11 @@ package com.layerglue.flex3.base.preloader
 		 
 		private static var _instance:PreloadManager;
 		
-		public static function initialize(preloaderDisplay:IPreloaderDisplay, loadManager:LoadManager):PreloadManager
+		public static function initialize(preloaderDisplay:IPreloaderDisplay):PreloadManager
 		{
 			if(!_instance)
 			{
-				_instance = new PreloadManager(preloaderDisplay, loadManager);
+				_instance = new PreloadManager(preloaderDisplay);
 			}
 			
 			return _instance;
