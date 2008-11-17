@@ -14,18 +14,14 @@
 			
 			private function applicationCompleteHandler():void
 			{
-				testRunner.test = createSuite();
-				testRunner.startTest();
-			}
-			
-			private function createSuite():TestSuite
-			{
 				var testSuite:TestSuite = new TestSuite();
 				//testSuite.addTest( new StructuralDataTest("testId") );
 				//testSuite.addTest( new StructuralDataTest("testParent") );
 				//testSuite.addTest( new StructuralDataTest("testIsRoot") );
 				testSuite.addTestSuite( StructuralDataTest );
-				return testSuite;
+				
+				testRunner.test = testSuite;
+				testRunner.startTest();
 			}
 		]]>
 	</mx:Script>
