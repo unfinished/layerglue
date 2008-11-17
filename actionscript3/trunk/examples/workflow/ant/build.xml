@@ -67,6 +67,7 @@
 	<target name="createdocs">
 		<exec executable="${asdoc}" failonerror="true">
 			<arg line="-o ${docs.dir}" />
+			<arg line="-source-path ${libs.dir}/SWFAddress/src" />
 			<arg line="-doc-sources ${src.dir}" />
 		</exec>
 	</target>
