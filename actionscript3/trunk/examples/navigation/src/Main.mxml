@@ -8,14 +8,14 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.application.structure.IStructuralData;
+			import com.layerglue.lib.application.structure.StructuralData;
 			import com.layerglue.flex3.base.collections.strategies.ArrayCollectionStrategy;
 			import com.layerglue.flex3.base.collections.strategies.FlexCollectionStrategyMap;
 			import com.layerglue.flex3.base.collections.ArrayCollectionExt;
 			import com.layerglue.lib.base.collections.ArrayExt;
-			import com.client.project.structure.IStructuralData;
 			import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
 			import com.layerglue.lib.base.io.xml.XMLDeserializer;
-			import com.client.project.structure.StructuralData;
 			import com.layerglue.lib.base.collections.HashMap;
 			import com.layerglue.lib.base.collections.strategies.DeserializerCollectionStrategyMap;
 			
