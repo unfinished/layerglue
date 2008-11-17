@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.collections
 {
 	/**
-	 * 
+	 * Allows the seqential iteration of an Array instance.
 	 */
 	public class ArrayIterator extends Object
 	{

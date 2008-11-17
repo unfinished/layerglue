@@ -8,11 +8,12 @@
 	creationPolicy="none"
 	backgroundColor="0xFFFFFF"
 	preloader="com.client.project.preloader.PreloaderView"
-	preloaderMinDisplayTime="1000"
-	>
+	preloaderMinDisplayTime="1000">
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.flex3.base.preloader.PreloadManager;
+			import mx.collections.ArrayCollection;
 			import com.layerglue.lib.base.io.FlashVars;
 			import mx.events.FlexEvent;
 			import mx.events.EffectEvent;
@@ -20,11 +21,6 @@
 			import mx.effects.Fade;
 			import com.client.project.io.InitialLoadManager;
 			import mx.preloaders.DownloadProgressBar;
-			import com.layerglue.flex3.base.preloader.DownloadProgressBarExt;
-			import com.client.project.preloader.PreloaderView;
-			import flash.utils.setTimeout;
-			import com.layerglue.flex3.base.events.PreloadManagerEvent;
-			import com.layerglue.flex3.base.preloader.PreloadManager;
 			import com.client.project.vo.StructureRoot;
 			
 			//com.layerglue.flex3.base.preloader.DownloadProgressBarExt
