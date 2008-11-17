@@ -14,7 +14,7 @@ package com.layerglue.flex3.base.applications
 		/**
 		 * @inheritDoc
 		 */
-		[Inspectable(defaultValue="com.layerglue.flex3.base.preloader.DownloadProgressBarExt")]
+		[Inspectable(defaultValue="com.layerglue.lib.base.io.ProportionalLoadManager")]
 		public function get loadManager():Class
 		{
 			return _loadManager;

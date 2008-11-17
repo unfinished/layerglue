@@ -2,11 +2,7 @@ package com.layerglue.flex3.base.preloader
 {
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
-	import com.layerglue.lib.base.io.FlashVars;
-	import com.layerglue.lib.base.io.LoadManager;
-	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -96,12 +92,9 @@ package com.layerglue.flex3.base.preloader
 		
 		private function loaderChangeHandler(event:Event):void
 		{
-			var loadManager:LoadManager = PreloadManager.getInstance().loadManager;
+			var loadManager:ProportionalLoadManager = PreloadManager.getInstance().loadManager;
 			
-			if(loadManager is ProportionalLoadManager)
-			{
-				setProgress((loadManager as ProportionalLoadManager).currentValue, (loadManager as ProportionalLoadManager).totalValue);
-			}
+			setProgress(loadManager.currentValue, loadManager.totalValue);
 		}
 		
 		protected function loaderCompleteHandler(event:Event):void
@@ -115,11 +108,11 @@ package com.layerglue.flex3.base.preloader
 		
 		override protected function setProgress(completed:Number, total:Number):void
 		{
-			var loadManager:LoadManager = PreloadManager.getInstance().loadManager;
+			var loadManager:ProportionalLoadManager = PreloadManager.getInstance().loadManager;
 			
 			if( loadManager is ProportionalLoadManager)
 			{
-				if( completed == (loadManager as ProportionalLoadManager).currentValue && total == (loadManager as ProportionalLoadManager).totalValue )
+				if( completed == loadManager.currentValue && total == loadManager.totalValue )
 				{
 					super.setProgress(completed, total);
 				}

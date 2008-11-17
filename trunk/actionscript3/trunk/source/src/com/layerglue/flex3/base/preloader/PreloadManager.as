@@ -1,6 +1,5 @@
 package com.layerglue.flex3.base.preloader
 {
-	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
@@ -44,8 +43,6 @@ package com.layerglue.flex3.base.preloader
 			return systemManager.info()["loadManagerMainSWFValue"] ? systemManager.info()["loadManagerMainSWFValue"] : DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE;
 		}
 		
-		private var _loadManager:LoadManager;
-		
 		public function PreloadManager(preloaderDisplay:IPreloaderDisplay)
 		{
 			super();
@@ -57,15 +54,10 @@ package com.layerglue.flex3.base.preloader
 			var systemManager:ISystemManager = (preloaderDisplay as DisplayObject).root as ISystemManager;
 			
 			var loadManagerClassRef:Class = getLoadManagerClassReference(systemManager);
-			var loadManagerTotalValue:Number = getLoadManagerTotalValue(systemManager);
-			var loadManagerMainSWFValue:Number = getLoadManagerMainSWFValue(systemManager);
 			
 			_loadManager = new loadManagerClassRef();
 			
-			if(_loadManager is ProportionalLoadManager)
-			{
-				(_loadManager as ProportionalLoadManager).totalValue = loadManagerTotalValue;
-			}
+			_loadManager.totalValue = getLoadManagerTotalValue(systemManager);
 			
 			//------------------------------
 							
@@ -119,7 +111,9 @@ package com.layerglue.flex3.base.preloader
 			_flexPreloader = value;
 		}
 		
-		public function get loadManager():LoadManager
+		private var _loadManager:ProportionalLoadManager;
+		
+		public function get loadManager():ProportionalLoadManager
 		{
 			return _loadManager;
 		}

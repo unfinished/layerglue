@@ -3,9 +3,7 @@ package com.client.project.preloader
 	import com.layerglue.flex3.base.preloader.AbstractPreloaderDisplay;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
 	import com.layerglue.lib.base.io.LoadManager;
-	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -59,14 +57,11 @@ package com.client.project.preloader
 				_progressBar.graphics.drawRect(0, 0, _barWidth, _barHeight);
 				_progressBar.graphics.endFill()
 				
-				var loadManager:LoadManager = PreloadManager.getInstance().loadManager;
+				var loadManager:ProportionalLoadManager = PreloadManager.getInstance().loadManager;
 				
-				if(loadManager is ProportionalLoadManager)
-				{
-					_progressBar.graphics.beginFill(0xCCCCCC, 1);
-					_progressBar.graphics.drawRect(_barBorderThickness, _barBorderThickness, (_barWidth-(_barBorderThickness*2)) * (loadManager as ProportionalLoadManager).currentValue, (_barHeight-(_barBorderThickness*2)));
-					_progressBar.graphics.endFill()
-				}
+				_progressBar.graphics.beginFill(0xCCCCCC, 1);
+				_progressBar.graphics.drawRect(_barBorderThickness, _barBorderThickness, (_barWidth-(_barBorderThickness*2)) * loadManager.currentValue, (_barHeight-(_barBorderThickness*2)));
+				_progressBar.graphics.endFill();
 			}
 		}
 		
