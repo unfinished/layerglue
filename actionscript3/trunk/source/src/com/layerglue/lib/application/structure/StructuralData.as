@@ -6,18 +6,13 @@ package com.layerglue.lib.application.structure
 	
 	import flash.events.EventDispatcher;
 	
-	
-	 // TODO: Put these events back in at the right places
-	/* 
-	[Event(name="subselectionChange", type="com.layerglue.lib.base.events.SelectionEvent")]
-	[Event(name="selectionStatusChange", type="com.layerglue.lib.base.events.SelectionEvent")]
-	[Event(name="childrenChange", type="com.layerglue.lib.base.events.StructuralDataEvent")]
-	 */
+	[Event(name="selectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
+	[Event(name="childSelectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
+	// TODO: dispatch children collection change event (when contents of children change)
 	 
 	[DefaultProperty("children")]
 	
 	[Bindable]
-	// TODO: Look at BVO and what it prescribes
 	public class StructuralData extends EventDispatcher implements IStructuralData
 	{
 		public function StructuralData(id:String=null)
@@ -122,7 +117,6 @@ package com.layerglue.lib.application.structure
 			//First check that the new value is different from the old one.
 			if (selected != value)
 			{
-				
 				if(value == true)
 				{
 					//If value is true, always try and set the parent's selectedChild to this instance.
@@ -138,9 +132,8 @@ package com.layerglue.lib.application.structure
 					}
 					else
 					{
-						throw new Error("Attempted to deselect a non-selected child on parent - parent: " + parent.uri + ", child: " + uri );
+						throw new Error("Attempted to deselect a non-selected child through parent: parent=" + parent.uri + ", child=" + uri );
 					}
-					
 				}
 			}
 		}
@@ -152,7 +145,6 @@ package com.layerglue.lib.application.structure
 			{
 				return children.getItemAt(selectedChildIndex) as IStructuralData;
 			}
-			
 			return null;
 		}
 		
@@ -162,7 +154,7 @@ package com.layerglue.lib.application.structure
 			{
 				if (!children.contains(value))
 				{
-					throw new Error("selectedChild does not exist in children: " + value + ", id: " + value.id);
+					throw new Error("Attemped to set selectedChild that does not exist in children: " + value + ", id: " + value.id);
 				}
 				
 				selectedChildIndex = children.getItemIndex(value);
@@ -171,21 +163,6 @@ package com.layerglue.lib.application.structure
 			{
 				selectedChildIndex = -1;
 			}
-			
-		}
-		
-		
-		private var _testValue:int;
-		
-		[Bindable(event="childSelectionChange")]
-		public function get testValue():int
-		{
-			return _testValue;
-		}
-		
-		public function set testValue(value:int):void
-		{
-			_testValue = value;
 		}
 		
 		protected var _selectedChildIndex:int;
@@ -223,8 +200,6 @@ package com.layerglue.lib.application.structure
 					selectedChild.dispatchEvent(new StructuralDataEvent(StructuralDataEvent.SELECTION_CHANGE));
 				}
 				
-				testValue = _selectedChildIndex;
-				
 				dispatchEvent(new StructuralDataEvent(StructuralDataEvent.CHILD_SELECTION_CHANGE));
 			}
 		}
@@ -243,6 +218,7 @@ package com.layerglue.lib.application.structure
 		
 		private var _mapId:String;
 		// TODO: property is ambiguous
+		// it supposed to add further controller->view mapping solutions
 		public function get mapId():String
 		{
 			return _mapId;
@@ -255,7 +231,7 @@ package com.layerglue.lib.application.structure
 		
 		private var _branchOnly:Boolean
 		// TODO: property is ambiguous
-		// it enforces the default child
+		// it is supposed to enforce the default child
 		public function get branchOnly():Boolean
 		{
 			return _branchOnly;
