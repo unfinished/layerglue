@@ -1,5 +1,6 @@
 package com.layerglue.lib.base.collections.strategies
 {
+	import com.layerglue.lib.base.collections.ArrayExt;
 	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.utils.ReflectionUtils;
 	
@@ -17,6 +18,7 @@ package com.layerglue.lib.base.collections.strategies
 			_map = new HashMap();
 			
 			addMapping(Array, new ArrayStrategy());
+			addMapping(ArrayExt, new CollectionStrategy());
 		}
 		
 		/**
