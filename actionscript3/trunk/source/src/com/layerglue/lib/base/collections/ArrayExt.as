@@ -3,6 +3,9 @@ package com.layerglue.lib.base.collections
 	import com.layerglue.lib.base.collections.strategies.ArrayStrategy;
 	import com.layerglue.lib.base.collections.strategies.ICollectionStrategy;
 	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	
 	/**
 	 * A subclass of Array that implements the ICollection interface.
 	 */
@@ -90,6 +93,38 @@ package com.layerglue.lib.base.collections
 			return _strategy.getLength(this);
 		}
 		
+		// Implementation of IEventDispatcher ------------------------------------------------------
+		
+		private var _eventDispatcher:EventDispatcher;
+		
+		public function addEventListener(
+				type:String, listener:Function,
+				useCapture:Boolean=false,
+				priority:int=0.0,
+				useWeakReference:Boolean=false):void
+		{
+			_eventDispatcher.addEventListener(type, listener,useCapture, priority, useWeakReference);
+		}
+		
+		public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false):void
+		{
+			_eventDispatcher.removeEventListener(type, listener, useCapture);
+		}
+		
+		public function dispatchEvent(event:Event):Boolean
+		{
+			return _eventDispatcher.dispatchEvent(event);
+		}
+		
+		public function hasEventListener(type:String):Boolean
+		{
+			return _eventDispatcher.hasEventListener(type);
+		}
+		
+		public function willTrigger(type:String):Boolean
+		{
+			return _eventDispatcher.willTrigger(type);
+		}
 		
 	}
 }
