@@ -7,6 +7,8 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import tests.com.layerglue.lib.collections.FlexCollectionTest;
+			import tests.com.layerglue.lib.collections.CollectionTest;
 			import com.layerglue.lib.application.structure.StructuralData;
 			import flexunit.framework.TestCase;
 			import tests.StructuralDataTest;
@@ -19,6 +21,8 @@
 				//testSuite.addTest( new StructuralDataTest("testParent") );
 				//testSuite.addTest( new StructuralDataTest("testIsRoot") );
 				testSuite.addTestSuite( StructuralDataTest );
+				testSuite.addTestSuite( CollectionTest );
+				testSuite.addTestSuite( FlexCollectionTest );
 				
 				testRunner.test = testSuite;
 				testRunner.startTest();
