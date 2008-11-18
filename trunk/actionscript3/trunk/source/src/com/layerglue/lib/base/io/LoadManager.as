@@ -9,7 +9,49 @@ package com.layerglue.lib.base.io
 	import flash.events.EventDispatcher;
 	
 	/**
+	 * Provides a controlled way to sequentially load multiple items, with a simple callback
+	 * mechanism for triggering specific methods at the completion of each item.
 	 * 
+	 * <pre>
+		private var _loader:LoadManager;
+		private var _configXML:XML;
+		private var _copyXML:XML;
+		
+		
+		private function setup()
+		{
+			_loadManager = new LoadManager();
+		
+			var configToken:LoadManagerToken = new LoadManagerToken(
+				new XmlLoader(new URLRequest("flash-assets/xml/config.xml")),
+				copyCompleteHandler,
+				errorHandler);
+			
+			_loadManager.addItem(configToken);
+			
+			var copyToken:LoadManagerToken = new LoadManagerToken(
+				new XmlLoader(new URLRequest("flash-assets/xml/copy.xml")),
+				copyCompleteHandler,
+				errorHandler);
+			
+			_loadManager.addItem(copyToken);	
+			
+		}
+		
+		private function copyCompleteHandler(event:Event):void
+		{
+			_configXML = (event.target as XmlLoader).data as XML;
+			
+			_loadManager.loadNext();
+		}
+		
+		private function copyCompleteHandler(event:Event):void
+		{
+			_copyXML = (event.target as XmlLoader).data as XML;
+			
+			_loadManager.loadNext();
+		}
+	 * <pre>
 	 */
 	public class LoadManager extends EventDispatcher
 	{
