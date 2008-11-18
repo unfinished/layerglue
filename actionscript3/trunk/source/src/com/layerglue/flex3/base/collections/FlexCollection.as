@@ -10,11 +10,11 @@ package com.layerglue.flex3.base.collections
 	 * A subclass of ArrayCollection that implements the ICollection interface.
 	 */
 	[Bindable]
-	public class ArrayCollectionExt extends ArrayCollection implements ICollection
+	public class FlexCollection extends ArrayCollection implements ICollection
 	{
 		private var _strategy:ICollectionStrategy;
 		
-		public function ArrayCollectionExt(source:Array = null)
+		public function FlexCollection(source:Array = null)
 		{
 			super(source);
 			
