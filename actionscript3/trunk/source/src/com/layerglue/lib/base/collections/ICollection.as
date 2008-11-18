@@ -9,7 +9,7 @@ package com.layerglue.lib.base.collections
 	 * <p>ICollection is designed to allow different classes such as Array and ArrayCollection to
 	 * be subclassed, implement a common interface, and be used interchangeabley.</p>
 	 */
-	public interface ICollection
+	public interface ICollection extends IEventDispatcher
 	{
 		/**
 		 * Adds an item to the end of collection.
