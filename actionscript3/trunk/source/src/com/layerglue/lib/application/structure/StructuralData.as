@@ -80,7 +80,7 @@ package com.layerglue.lib.application.structure
 			
 			// Children added through the ArrayCollection constructor never fire COLLECTION_CHANGE events,
 			// so we need to force parenting here:
-			refreshChildParenting();
+			setChildParenting(children);
 			
 			// TODO: Move this event and handler out into FlexCollection because CollectionEvent is reliant on Flex
 			_children.addEventListener(CollectionEvent.COLLECTION_CHANGE, childrenChangeHandler, false, 0, true);
@@ -286,15 +286,12 @@ package com.layerglue.lib.application.structure
 			return null;
 		}
 		
-		// TODO: Refreshing the entire child list is time consuming and unnecessary.
-		// We need to find out how to refresh only the NEWLY added children, but do it
-		// in a way that's accessible from both the children setter and child added events
-		protected function refreshChildParenting():void
+		// newChildren is untyped because the children setter sends through an instance of ICollection
+		// whereas the childrenChangeHandler sends through an instance of Array
+		protected function setChildParenting(newChildren:*):void
 		{
-			if (!children) return;
-			
 			var child:IStructuralData;
-			for each (child in children)
+			for each (child in newChildren)
 			{
 				child.parent = this;
 			}
@@ -308,7 +305,7 @@ package com.layerglue.lib.application.structure
 			{
 				case CollectionEventKind.ADD:
 				{
-					refreshChildParenting();
+					setChildParenting(event.items);
 					break;
 				}
 				case CollectionEventKind.REMOVE:
