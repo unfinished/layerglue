@@ -1,6 +1,6 @@
 package tests
 {
-	import com.layerglue.flex3.base.collections.ArrayCollectionExt;
+	import com.layerglue.flex3.base.collections.FlexCollection;
 	import com.layerglue.lib.application.structure.StructuralData;
 	
 	import flexunit.framework.TestCase;
@@ -76,7 +76,7 @@ package tests
 			var structureRoot:StructuralData = new StructuralData();
 			assertNull("defaultChild is null when it's instantiated", structureRoot.defaultChild);
 			
-			structureRoot.children = new ArrayCollectionExt();
+			structureRoot.children = new FlexCollection();
 			assertNull("defaultChild is null when children is instantiated but empty", structureRoot.defaultChild);
 			
 			structureRoot.defaultChildId = "gallery";
