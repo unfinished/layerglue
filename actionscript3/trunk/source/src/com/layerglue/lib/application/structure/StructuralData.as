@@ -2,14 +2,17 @@ package com.layerglue.lib.application.structure
 {
 	import com.layerglue.lib.application.events.StructuralDataEvent;
 	import com.layerglue.lib.base.collections.ICollection;
-	import com.layerglue.lib.base.utils.ArrayUtils;
 	
 	import flash.events.EventDispatcher;
+	import flash.utils.getTimer;
+	
+	import mx.events.CollectionEvent;
+	import mx.events.CollectionEventKind;
 	
 	[Event(name="selectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
 	[Event(name="childSelectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
 	// TODO: dispatch children collection change event (when contents of children change)
-	 
+	
 	[DefaultProperty("children")]
 	
 	[Bindable]
@@ -66,7 +69,6 @@ package com.layerglue.lib.application.structure
 		
 		private var _children:ICollection;
 		
-		[ArrayElementType("com.client.project.structure.IStructuralData")]
 		public function get children():ICollection
 		{
 			return _children;
@@ -75,6 +77,13 @@ package com.layerglue.lib.application.structure
 		public function set children(value:ICollection):void
 		{
 			_children = value;
+			
+			// Children added through the ArrayCollection constructor never fire COLLECTION_CHANGE events,
+			// so we need to force parenting here:
+			refreshChildParenting();
+			
+			// TODO: Move this event and handler out into FlexCollection because CollectionEvent is reliant on Flex
+			_children.addEventListener(CollectionEvent.COLLECTION_CHANGE, childrenChangeHandler, false, 0, true);
 		}
 				
 		private var _defaultChildId:String;
@@ -276,5 +285,43 @@ package com.layerglue.lib.application.structure
 			}
 			return null;
 		}
+		
+		// TODO: Refreshing the entire child list is time consuming and unnecessary.
+		// We need to find out how to refresh only the NEWLY added children, but do it
+		// in a way that's accessible from both the children setter and child added events
+		protected function refreshChildParenting():void
+		{
+			if (!children) return;
+			
+			var child:IStructuralData;
+			for each (child in children)
+			{
+				child.parent = this;
+			}
+		}
+		
+		// TODO: Move the event.kind switch out into FlexCollection when we can be
+		// bothered to get the whole thing working in Flash
+		protected function childrenChangeHandler(event:CollectionEvent):void
+		{
+			switch (event.kind)
+			{
+				case CollectionEventKind.ADD:
+				{
+					refreshChildParenting();
+					break;
+				}
+				case CollectionEventKind.REMOVE:
+				{
+					var child:IStructuralData;
+					for each (child in event.items)
+					{
+						child.parent = null;
+					}
+					break;
+				}
+			}
+		}
+		
 	}
 }
