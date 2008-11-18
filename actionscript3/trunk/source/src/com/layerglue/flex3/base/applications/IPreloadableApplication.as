@@ -1,5 +1,8 @@
 package com.layerglue.flex3.base.applications
 {
+	/**
+	 * 
+	 */
 	public interface IPreloadableApplication
 	{
 		/**

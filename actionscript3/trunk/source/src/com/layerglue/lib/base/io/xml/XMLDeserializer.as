@@ -1,6 +1,6 @@
 package com.layerglue.lib.base.io.xml
 {
-	import com.layerglue.lib.base.collections.strategies.DeserializerCollectionStrategyMap;
+	import com.layerglue.lib.base.collections.strategies.CollectionStrategyMap;
 	import com.layerglue.lib.base.utils.ArrayUtils;
 	import com.layerglue.lib.base.utils.ReflectionUtils;
 	import com.layerglue.lib.base.utils.XMLUtils;
@@ -29,7 +29,7 @@ package com.layerglue.lib.base.io.xml
 			anonymousCollectionType = Array;
 			
 			
-			collectionStrategyMap = new DeserializerCollectionStrategyMap();
+			collectionStrategyMap = new CollectionStrategyMap();
 		}
 		
 		private var _map:XMLDeserializationMap;
@@ -48,16 +48,16 @@ package com.layerglue.lib.base.io.xml
 			_map = v;
 		}
 		
-		private var _collectionStrategyMap:DeserializerCollectionStrategyMap;
+		private var _collectionStrategyMap:CollectionStrategyMap;
 		/**
 		 * 
 		 */
-		public function get collectionStrategyMap():DeserializerCollectionStrategyMap
+		public function get collectionStrategyMap():CollectionStrategyMap
 		{
 			return _collectionStrategyMap;
 		}
 
-		public function set collectionStrategyMap(v:DeserializerCollectionStrategyMap):void
+		public function set collectionStrategyMap(v:CollectionStrategyMap):void
 		{
 			_collectionStrategyMap = v;
 		}
