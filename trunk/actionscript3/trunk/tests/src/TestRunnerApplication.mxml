@@ -7,6 +7,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import tests.com.layerglue.lib.collections.ArrayExtTest;
 			import tests.com.layerglue.lib.collections.FlexCollectionTest;
 			import tests.com.layerglue.lib.collections.CollectionTest;
 			import com.layerglue.lib.application.structure.StructuralData;
@@ -22,6 +23,7 @@
 				//testSuite.addTest( new StructuralDataTest("testIsRoot") );
 				testSuite.addTestSuite( StructuralDataTest );
 				testSuite.addTestSuite( CollectionTest );
+				//testSuite.addTestSuite( ArrayExtTest );
 				testSuite.addTestSuite( FlexCollectionTest );
 				
 				testRunner.test = testSuite;
