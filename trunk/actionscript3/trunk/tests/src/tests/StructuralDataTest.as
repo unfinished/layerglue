@@ -12,21 +12,25 @@ package tests
 			super(methodName);
 		}
 		
-		protected var complexStructuralData:StructuralData;
+		//protected var complexStructuralData:StructuralData;
 		
 		override public function setUp():void
 		{
 			super.setUp();
-			complexStructuralData = new StructuralData();
-			// TODO by setting up complex data here half these tests are redundant,
-			// because the functionality will be tested here...
+			//complexStructuralData = new StructuralData();
 		}
 		
 		override public function tearDown():void
 		{
 			super.tearDown();
-			complexStructuralData = null;
+			//complexStructuralData = null;
 		}
+		
+		public function testSelectedChild():void
+		{
+			
+		}
+		
 		
 		public function testId():void
 		{
@@ -106,15 +110,21 @@ package tests
 		
 		public function testParent():void
 		{
-			var s:StructuralData;
-			s = new StructuralData();
-			assertNull("parent is null when structural data is instantiated", s.parent);
+			var structureRoot:StructuralData;
+			structureRoot = new StructuralData();
+			assertNull("parent is null when root structural data is instantiated", structureRoot.parent);
 			
-			var p:StructuralData = new StructuralData();
-			s.parent = p;
-			assertStrictlyEquals("parent should point to an instance of StructuralData", p, s.parent);
+			var child:StructuralData;
+			child = new StructuralData();
+			assertNull("parent is null when child structural data is instantiated", child.parent);
 			
-			// test via deserializer?
+			child.parent = structureRoot;
+			assertStrictlyEquals("parent is set through child parent property", structureRoot, child.parent);
+			
+			child.parent = null;
+			structureRoot.children = new FlexCollection();
+			structureRoot.children.addItem(child);
+			assertStrictlyEquals("parent is set when child is added to children collection", structureRoot, child.parent);
 		}
 		
 		public function testIsRoot():void
@@ -130,5 +140,6 @@ package tests
 			s.parent = null;
 			assertTrue("isRoot is true when parent is null", s.isRoot());
 		}
+		
 	}
 }
