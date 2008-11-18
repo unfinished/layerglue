@@ -30,19 +30,19 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function addItemAt(collection:*, item:Object, index:int):void
-		{
-			throw new Error("addItemAt() needs to be overriden in concrete implementations");
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
 		public function addItem(collection:*, item:Object):void
 		{
 			throw new Error("addItem() needs to be overriden in concrete implementations");
 		}
 		
+		/**
+		 * @inheritDoc
+		 */
+		public function addItemAt(collection:*, item:Object, index:int):void
+		{
+			throw new Error("addItemAt() needs to be overriden in concrete implementations");
+		}
+				
 		/**
 		 * @inheritDoc
 		 */
