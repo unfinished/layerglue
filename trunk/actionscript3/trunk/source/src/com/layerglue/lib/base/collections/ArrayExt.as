@@ -19,14 +19,12 @@ package com.layerglue.lib.base.collections
 			super();
 			
 			_strategy = new ArrayStrategy();
-			
-			if(source)
+		
+			for each(var item:* in source)
 			{
-				for each(var item:* in source)
-				{
-					addItem(item);
-				}
+				addItem(item);
 			}
+			
 		}
 		
 		/**
