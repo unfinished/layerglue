@@ -14,10 +14,15 @@ package com.layerglue.lib.base.collections
 	{
 		private var _strategy:ICollectionStrategy; 
 		
-		public function ArrayExt(numElements:int=0)
+		public function ArrayExt(source:Array=null)
 		{
-			super(numElements);
-			
+			super();
+			/* 
+			for each(var item:* in source)
+			{
+				addItem(item);
+			}
+			 */
 			_strategy = new ArrayStrategy();
 		}
 		

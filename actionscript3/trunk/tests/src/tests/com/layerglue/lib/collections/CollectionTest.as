@@ -10,9 +10,9 @@ package tests.com.layerglue.lib.collections
 			super(methodName);
 		}
 		
-		override protected function createCollection():ICollection
+		override protected function createCollection(itemsToAdd:Array=null):ICollection
 		{
-			return new Collection();
-		}		
+			return new com.layerglue.lib.base.collections.Collection(itemsToAdd);
+		}	
 	}
 }

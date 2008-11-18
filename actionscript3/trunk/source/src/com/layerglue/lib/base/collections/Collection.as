@@ -15,11 +15,11 @@ package com.layerglue.lib.base.collections
 		private var _strategy:ICollectionStrategy; 
 		private var _array:Array;
 		
-		public function Collection(numElements:int=0)
+		public function Collection(source:Array=null)
 		{
 			super();
 			
-			_array = new Array(numElements);
+			_array = source ? source : new Array();
 			_strategy = new ArrayStrategy();
 		}
 		
