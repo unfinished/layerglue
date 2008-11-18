@@ -44,7 +44,7 @@ package tests.com.layerglue.lib.collections
 			assertEquals("Adding one item", 1, c2.getLength());
 			
 			var c3:ICollection = createCollection(["a", "b", "c"]);
-			assertEquals("Adding one item", 3, c3.getLength());
+			assertEquals("Adding three items", 3, c3.getLength());
 		}
 		
 		public function testAddItem():void

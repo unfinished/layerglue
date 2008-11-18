@@ -23,7 +23,7 @@
 				//testSuite.addTest( new StructuralDataTest("testIsRoot") );
 				testSuite.addTestSuite( StructuralDataTest );
 				testSuite.addTestSuite( CollectionTest );
-				//testSuite.addTestSuite( ArrayExtTest );
+				testSuite.addTestSuite( ArrayExtTest );
 				testSuite.addTestSuite( FlexCollectionTest );
 				
 				testRunner.test = testSuite;

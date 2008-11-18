@@ -17,13 +17,16 @@ package com.layerglue.lib.base.collections
 		public function ArrayExt(source:Array=null)
 		{
 			super();
-			/* 
-			for each(var item:* in source)
-			{
-				addItem(item);
-			}
-			 */
+			
 			_strategy = new ArrayStrategy();
+			
+			if(source)
+			{
+				for each(var item:* in source)
+				{
+					addItem(item);
+				}
+			}
 		}
 		
 		/**
