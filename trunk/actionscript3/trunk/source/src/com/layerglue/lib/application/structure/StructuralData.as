@@ -437,6 +437,7 @@ package com.layerglue.lib.application.structure
 				}
 				case CollectionEventKind.REMOVE:
 				{
+					// TODO: update any selection properties if the selectedChild was removed
 					var child:IStructuralData;
 					for each (child in event.items)
 					{
