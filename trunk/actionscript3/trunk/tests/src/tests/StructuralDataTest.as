@@ -244,6 +244,8 @@ package tests
 			assertTrue("Structure gallery is selected when home is selected", structureGallery.selected);
 			assertFalse("Structural galleryPage is not selected when home is selected", structureGalleryPage.selected);
 			assertFalse("Structural about is not selected when home is selected", structureAbout.selected);
+			assertStrictlyEquals("Structure gallery is selectedChild of root when selected", structureGallery, structureRoot.selectedChild);
+			assertEquals("The root.selectedChildIndex is 1 when gallery is selectedChild of root", structureRoot.selectedChildIndex, 1);
 			
 			structureAbout.selected = true;
 			assertTrue("Structure root is selected when about is selected", structureRoot.selected);
@@ -251,6 +253,8 @@ package tests
 			assertFalse("Structure gallery is not selected when about is selected", structureGallery.selected);
 			assertFalse("Structural galleryPage is not selected when about is selected", structureGalleryPage.selected);
 			assertTrue("Structural about is selected when about is selected", structureAbout.selected);
+			assertStrictlyEquals("Structure about is selectedChild of root when selected", structureAbout, structureRoot.selectedChild);
+			assertEquals("The root.selectedChildIndex is 2 when about is selectedChild of root", structureRoot.selectedChildIndex, 2);
 			
 			structureGalleryPage.selected = true;
 			assertTrue("Structure root is selected when galleryPage is selected", structureRoot.selected);
@@ -258,6 +262,10 @@ package tests
 			assertFalse("Structure gallery is not selected when galleryPage is selected", structureGallery.selected);
 			assertTrue("Structural galleryPage is selected when galleryPage is selected", structureGalleryPage.selected);
 			assertTrue("Structural about is selected when galleryPage is selected", structureAbout.selected);
+			assertStrictlyEquals("Structure about is selectedChild of root when selected", structureAbout, structureRoot.selectedChild);
+			assertStrictlyEquals("Structure galleryPage is selectedChild of gallery when selected", structureGalleryPage, structureGallery.selectedChild);
+			assertEquals("The root.selectedChildIndex is 2 when about is selectedChild of root", structureRoot.selectedChildIndex, 2);
+			assertEquals("The gallery.selectedChildIndex is 0 when galleryPage is selectedChild of gallery", structureGallery.selectedChildIndex, 0);
 			
 			structureGallery.selected = true;
 			assertTrue("Structure root is selected when gallery.galleryPage is selected", structureRoot.selected);
@@ -265,8 +273,16 @@ package tests
 			assertTrue("Structure gallery is selected when gallery.galleryPage is selected", structureGallery.selected);
 			assertTrue("Structural galleryPage is selected when gallery.galleryPage is selected", structureGalleryPage.selected);
 			assertFalse("Structural about is not selected when gallery.galleryPage is selected", structureAbout.selected);
+			assertStrictlyEquals("Structure gallery is selectedChild of root when selected", structureGallery, structureRoot.selectedChild);
+			assertStrictlyEquals("Structure galleryPage is selectedChild of gallery when selected", structureGalleryPage, structureGallery.selectedChild);
+			assertEquals("The root.selectedChildIndex is 1 when gallery is selectedChild of root", structureRoot.selectedChildIndex, 1);
 			
-			// TODO: test selectedChildIndex and selectedChild gets set when these do
+			structureGalleryPage.selected = false;
+			assertTrue("Structure gallery is selected when gallery.galleryPage is selected", structureGallery.selected);
+			assertFalse("Structural galleryPage is not selected when gallery.galleryPage is selected", structureGalleryPage.selected);
+			assertStrictlyEquals("Structure gallery is selectedChild of root when selected", structureGallery, structureRoot.selectedChild);
+			assertNull("Structure gallery.selectedChild is null when gallery page is not selected", structureGallery.selectedChild);
+			assertEquals("The gallery.selectedChildIndex is -1 when galleryPage is not selected", structureGallery.selectedChildIndex, -1);
 		}
 		
 		public function testSelectedChild():void
@@ -343,6 +359,8 @@ package tests
 			assertEquals("Structure gallery has 0 selectedChildIndex when gallery is selected", 0, structureGallery.selectedChildIndex);
 			assertEquals("Structure galleryPage has -1 selectedChildIndex when gallery is selected", -1, structureGalleryPage.selectedChildIndex);
 			assertEquals("Structure about has -1 selectedChildIndex when gallery is selected", -1, structureAbout.selectedChildIndex);
+			
+			// TODO: check setting index out of bounds
 		}
 		
 	}
