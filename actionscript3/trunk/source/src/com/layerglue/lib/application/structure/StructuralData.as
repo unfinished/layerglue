@@ -16,8 +16,29 @@ package com.layerglue.lib.application.structure
 	[DefaultProperty("children")]
 	
 	[Bindable]
+	/**
+	 * At it's simplest implementation StructuralData represents a piece of model data.
+	 * It is commonly considered the 'model' in the Presentation Model pattern.
+	 * However it can also be used in conjunction with other parts of the LayerGlue framework
+	 * to provide the following featurs:
+	 * <ul>
+	 * <li>Is a navigable location within the application</li>
+	 * <li>Has a URI that forms part of the deep-linkable address</li>
+	 * </ul>
+	 * In most applications StructuralData will be used to create a hierarchy of 'presentation
+	 * models', which map directly to views. The navigation system (controllers) traverses
+	 * the structural data hierarchy, revealing and hiding views as it goes.
+	 * --EXPLANATION OF DESERIALIZER--
+	 * --USUALLY SUBCLASSED--
+	 * --EXPLANATION OF SELECTED STRANDS--
+	 * --INSTANCES PASSED TO NAVIGATION SYSTEM AS LOCATIONS--
+	 */
 	public class StructuralData extends EventDispatcher implements IStructuralData
 	{
+		/**
+		 * Creates an instance of StructuralData. This is usually done by the XMLDeserializer,
+		 * which will create a complex structural hierarchy and ensuring all properties are populated.
+		 */
 		public function StructuralData(id:String=null)
 		{
 			super();
@@ -26,8 +47,12 @@ package com.layerglue.lib.application.structure
 			_selectedChildIndex = -1;
 		}
 		
-		private var _id:String;
-
+		protected var _id:String;
+		/**
+		 * A reference to the StructuralData. This should be unique for each level of the structural
+		 * hierarchy.
+		 * @see defaultChildId
+		 */
 		public function get id():String
 		{
 			return _id;
@@ -38,8 +63,13 @@ package com.layerglue.lib.application.structure
 			_id = value;
 		}
 		
-		private var _uriNode:String;
-		
+		protected var _uriNode:String;
+		/**
+		 * A string representing the URI of this StructuralData. It is used to create a chain of URI nodes
+		 * that represent a browser navigable location within the application.
+		 * --EXAMPLE HERE--
+		 * @see uri
+		 */
 		public function get uriNode():String
 		{
 			return _uriNode;
@@ -49,14 +79,23 @@ package com.layerglue.lib.application.structure
 		{
 			_uriNode = v;
 		}
-		
+		/**
+		 * Returns the chain of URI nodes that make up the navigable location of this StructuralData.
+		 * In most applications this is a concatenation of all parent nodes starting from the root.
+		 * --EXAMPLE HERE--
+		 * @see uriNode
+		 */
 		public function get uri():String
 		{
 			return isRoot() ? "/" : (parent.uri + uriNode + "/");
 		}
 		
-		private var _title:String;
-
+		protected var _title:String;
+		/**
+		 * A string representing the title of a StrucrualData location. This is commonly used in
+		 * browser integration, for example page titling, or for generating other navigable elements,
+		 * such as crumb trails.
+		 */
 		public function get title():String
 		{
 			return _title;
@@ -67,8 +106,18 @@ package com.layerglue.lib.application.structure
 			_title = value;
 		}
 		
-		private var _children:ICollection;
-		
+		protected var _children:ICollection;
+		/**
+		 * An array containing instances of StructuralData that are hierarchically children of
+		 * this one. In traditional Presentation Model architecture StructuralData is considered the
+		 * 'model' and it's arranged in a hierachy that reflects the views.
+		 * Each child represents a navigable location that's one level deeper than it's parent, much
+		 * like the 'page' paridigm in HTML website design. The LayerGlue navigation system uses
+		 * StructuralData as a 'framework' to traverse, showing and hiding views as it goes.
+		 * 
+		 * @see selectedChild
+		 * @see defaultChild
+		 */
 		public function get children():ICollection
 		{
 			return _children;
@@ -86,8 +135,21 @@ package com.layerglue.lib.application.structure
 			_children.addEventListener(CollectionEvent.COLLECTION_CHANGE, childrenChangeHandler, false, 0, true);
 		}
 				
-		private var _defaultChildId:String;
-		
+		protected var _defaultChildId:String;
+		/**
+		 * A string representing the <code>id</code> of one of the children.
+		 * This is used to determine which child should be deferred to when navigating to this piece
+		 * of StructuralData. Sometimes a 'location' (in Presentation Model this is considered both the
+		 * model and the view) may not have anything in it - it may simply be a shell or container
+		 * to help display content nested deeper in the hierarchy. In this instance navigation will be
+		 * forced down a level to the <code>defaultChild</code>.
+		 * 
+		 * --EXAMPLE HERE--
+		 * 
+		 * Child with the id must be present for <code>defaultChild</code> to return a valid reference.
+		 * 
+		 * @see defaultChild
+		 */
 		public function get defaultChildId():String
 		{
 			return _defaultChildId;
@@ -97,14 +159,25 @@ package com.layerglue.lib.application.structure
 		{
 			_defaultChildId = value;
 		}
-				
+		
+		/**
+		 * The child deferred to in cases of navigation to this StructuralData. This is commonly used
+		 * when a 'location' only serves as a shell or container for content nested deeper.
+		 * 
+		 * @see defaultChildId
+		 */
 		public function get defaultChild():IStructuralData
 		{
 			return children ? getChildById(defaultChildId) as IStructuralData : null;
 		}
 		
-		private var _parent:IStructuralData;
-
+		protected var _parent:IStructuralData;
+		/**
+		 * Parent is always the instance of StructuralData immediately one palce higher in the hierarchy.
+		 * The top-most instance of StructuralData (i.e. the root) has no parent and will return null.
+		 * This property is automatically set whenever you add an instance of StructuralData to the
+		 * children array.
+		 */
 		public function get parent():IStructuralData
 		{
 			return _parent;
@@ -116,6 +189,13 @@ package com.layerglue.lib.application.structure
 		}
 		
 		[Bindable(event="selectionChange")]
+		/**
+		 * Whether this instance of StructuralData is selected.
+		 * --WRITE MORE OF AN EXPLANATION--
+		 * 
+		 * @see selectedChild
+		 * @see selectedChildIndex
+		 */
 		public function get selected():Boolean
 		{
 			return isRoot() || parent.selectedChild == this;
@@ -148,6 +228,14 @@ package com.layerglue.lib.application.structure
 		}
 		
 		[Bindable(event="childSelectionChange")]
+		/**
+		 * The instance of StructuralData held within the children collection that's considered
+		 * selected by the navigation system.
+		 * --WRITE MORE OF AN EXPLANATION--
+		 * 
+		 * @see selected
+		 * @see selectedChildIndex
+		 */
 		public function get selectedChild():IStructuralData
 		{
 			if(children && selectedChildIndex > -1 && selectedChildIndex < children.getLength())
@@ -177,6 +265,13 @@ package com.layerglue.lib.application.structure
 		protected var _selectedChildIndex:int;
 		
 		[Bindable(event="childSelectionChange")]
+		/**
+		 * The collection index of the selected child.
+		 * --WRITE MORE OF AN EXPLANATION--
+		 * 
+		 * @see selected
+		 * @see selectedChild
+		 */
 		public function get selectedChildIndex():int
 		{
 			return _selectedChildIndex;
@@ -213,11 +308,19 @@ package com.layerglue.lib.application.structure
 			}
 		}
 		
+		/**
+		 * Whether this instance of StructuralData is considered the top-most 'root'.
+		 * (Note: An instance of StructuralData is considered root if it has not parent. Children
+		 * always have parents and therefore cannot be roots.)
+		 */
 		public function isRoot():Boolean
 		{
 			return !parent;
 		}
 		
+		/**
+		 * An integer representing the depth of this instance of StructuralData in the hierachy.
+		 */
 		//TODO Make this a lazy setter, so that first time depth is requested a queery is made but
 		//this should set a private _root value so the next time, no querying needs to be done.
 		public function get depth():uint
@@ -225,7 +328,7 @@ package com.layerglue.lib.application.structure
 			return isRoot() ? 0 : parent.depth + 1;
 		}
 		
-		private var _mapId:String;
+		protected var _mapId:String;
 		// TODO: property is ambiguous
 		// it supposed to add further controller->view mapping solutions
 		public function get mapId():String
@@ -238,7 +341,7 @@ package com.layerglue.lib.application.structure
 			_mapId = value;
 		}
 		
-		private var _branchOnly:Boolean
+		protected var _branchOnly:Boolean
 		// TODO: property is ambiguous
 		// it is supposed to enforce the default child
 		public function get branchOnly():Boolean
@@ -251,6 +354,14 @@ package com.layerglue.lib.application.structure
 			_branchOnly = value;
 		}
 		
+		/**
+		 * Returns a StructuralData child based on id. Returns null if child with id doesn't exist.
+		 * 
+		 * @param id String representing the <code>id</code>
+		 * @see id
+		 * @see children
+		 */
+		// TODO: Not sure if this is getting event updates when children change
 		public function getChildById(id:String):IStructuralData
 		{
 			var item:IStructuralData;
@@ -264,12 +375,20 @@ package com.layerglue.lib.application.structure
 			return null;
 		}
 		
-		public function getChildByUriNode(nodeName:String):IStructuralData
+		/**
+		 * Returns a StructuralData child based on uriNode. Returns null if child with uriNode doesn't exist.
+		 * 
+		 * @param uriNode String representing the <code>uriNode</code>
+		 * @see uriNode
+		 * @see uri
+		 */
+		// TODO: Not sure if this is getting event updates when children change
+		public function getChildByUriNode(uriNode:String):IStructuralData
 		{
 			var child:IStructuralData;
 			for each(child in children)
 			{
-				if(child.uriNode == nodeName)
+				if(child.uriNode == uriNode)
 				{
 					return child;
 				}
@@ -277,6 +396,14 @@ package com.layerglue.lib.application.structure
 			return null;
 		}
 		
+		/**
+		 * Returns a StructuralData child based on it's index within the children collection.
+		 * This is preferable to using <code>children.getItemAt()</code> because it casts the
+		 * result to IStructuralData.
+		 * 
+		 * @param index Number representing the index of the children collection
+		 */
+		// TODO: Not sure if this is getting event updates when children change
 		public function getChildAt(index:int):IStructuralData
 		{
 			if(children)
@@ -286,8 +413,8 @@ package com.layerglue.lib.application.structure
 			return null;
 		}
 		
-		// newChildren is untyped because the children setter sends through an instance of ICollection
-		// whereas the childrenChangeHandler sends through an instance of Array
+		// newChildren parameter is untyped because the children setter sends through an instance
+		// of ICollection whereas the childrenChangeHandler sends through an instance of Array
 		protected function setChildParenting(newChildren:*):void
 		{
 			var child:IStructuralData;
