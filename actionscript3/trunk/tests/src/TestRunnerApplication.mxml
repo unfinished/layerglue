@@ -18,10 +18,7 @@
 			private function applicationCompleteHandler():void
 			{
 				var testSuite:TestSuite = new TestSuite();
-				//testSuite.addTest( new StructuralDataTest("testId") );
-				//testSuite.addTest( new StructuralDataTest("testParent") );
-				//testSuite.addTest( new StructuralDataTest("testIsRoot") );
-				testSuite.addTestSuite( StructuralDataTest );
+				testSuite.addTest( StructuralDataTest.suite() );
 				testSuite.addTestSuite( CollectionTest );
 				testSuite.addTestSuite( ArrayExtTest );
 				testSuite.addTestSuite( FlexCollectionTest );
