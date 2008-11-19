@@ -57,11 +57,10 @@ package tests
 		{
 			var structureRoot:StructuralData = new StructuralData();
 			structureRoot.uriNode = "structureRoot";
-			assertEquals("uri is / when it's instantiated", "/", structureRoot.uri);
+			assertEquals("uri is / when it's instantiated and has no parent", "/", structureRoot.uri);
 			
 			var home:StructuralData = new StructuralData();
 			home.uriNode = "home";
-			// TODO: You can set 'parent' without it actually being in the children array
 			home.parent = structureRoot;
 			assertEquals("First level child's uri is /home/ when it has a parent", "/home/", home.uri);
 			
