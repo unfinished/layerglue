@@ -285,7 +285,7 @@ package com.layerglue.lib.application.structure
 			{
 				if (value < -1 || value > children.getLength()-1)
 				{
-					throw new Error("selectedChildIndex value out of range [length: " + length + ", index: " + value + "]");
+					throw new Error("selectedChildIndex value out of range [length: " + children.getLength() + ", index: " + value + "]");
 				}
 				
 				if(selectedChild)
