@@ -28,7 +28,7 @@ package com.layerglue.lib.application.commands
 		{
 			super.execute(request);
 			
-			if(typedRequest.hideFromHistory)
+			if(typedRequest.hideFromBrowser)
 			{
 				(new RawNavigationRequest(typedRequest.destination.uri)).dispatch();
 			}
