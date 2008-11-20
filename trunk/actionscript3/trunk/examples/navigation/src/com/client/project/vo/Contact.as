@@ -1,14 +1,16 @@
 package com.client.project.vo
 {
-	public class Contact
+	import com.layerglue.lib.application.structure.StructuralData;
+	
+	public class Contact extends StructuralData
 	{
-		public var title:String;
-		public var bodyCopy:String;
+		public var imageUrl:String;
+		public var address:String;
 		public var email:String;
 		
-		public function Contact()
+		public function Contact(id:String=null)
 		{
-			
+			super(id);
 		}
 
 	}

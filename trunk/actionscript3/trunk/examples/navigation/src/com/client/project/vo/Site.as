@@ -2,14 +2,15 @@ package com.client.project.vo
 {
 	import com.layerglue.lib.application.structure.StructuralData;
 	
-	public class Image extends StructuralData
+	[Bindable]
+	public class Site extends StructuralData
 	{
-		public var url:String;
+		public var copyright:String;
 		
-		public function Image(id:String=null)
+		public function Site(id:String=null)
 		{
 			super(id);
 		}
-
+		
 	}
 }
