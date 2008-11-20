@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<structureRoot>
-	<title><![CDATA[@project.title@]]></title>
+<site id="root" defaultChildId="home">
+	<title>@site.title@</title>
+	<copyright>@site.copyright@</copyright>
 	<children>
-		<home>
-			<title><![CDATA[@project.home.title@]]></title>
-			<bodyCopy><![CDATA[@project.home.bodyCopy@]]></bodyCopy>
-			<imageUrl><![CDATA[@project.home.imageUrl@]]></imageUrl>
+		<home id="home" uriNode="home">
+			<title>@home.title@</title>
+			<imageUrl>@home.imageUrl@</imageUrl>
+			<newsTitle>home.newsTitle</newsTitle>
+			<newsBody>home.newsBody</newsBody>
+			<featuredArtistTitle>home.featuredArtistTitle</featuredArtistTitle>
+			<featuredArtistBody>home.featuredArtistBody</featuredArtistBody>
+			<somethingTitle>home.somethingTitle</somethingTitle>
+			<somethingBody>home.somethingBody</somethingBody>
 		</home>
-		<gallery type="images">
-			<title><![CDATA[@project.gallery.title@]]></title>
-			<bodyCopy><![CDATA[@project.gallery.bodyCopy@]]></bodyCopy>
+		<gallery id="gallery" uriNode="gallery" defaultChildId="artist1">
+			<title>@gallery.title@</title>
 			<children>
-				<page>
-					<title><![CDATA[@project.gallery.page1.title@]]></title>
-					<bodyCopy><![CDATA[@project.gallery.page1.bodyCopy@]]></bodyCopy>
+				<artist id="artist1" uriNode="jamiecopeland" defaultChildId="1">
+					<title>@gallery.artist1.title@</title>
 					<children>
-						<image>
-							<title><![CDATA[@project.gallery.page1.image1.title@]]></title>
-							<imageUrl><![CDATA[@project.gallery.page1.image1.imageUrl@]]></imageUrl>
+						<image id="1" uriNode="1">
+							<url>@gallery.artist1.image1.url@</url>
 						</image>
-						<image>
-							<title><![CDATA[@project.gallery.page1.image2.title@]]></title>
-							<imageUrl><![CDATA[@project.gallery.page1.image2.imageUrl@]]></imageUrl>
+						<image id="2" uriNode="2">
+							<url>@gallery.artist1.image2.url@</url>
+						</image>
+						<image id="3" uriNode="3">
+							<url>@gallery.artist1.image3.url@</url>
 						</image>
 					</children>
-				</page>
-				<page>
-					<title><![CDATA[@project.gallery.page2.title@]]></title>
-					<bodyCopy><![CDATA[@project.gallery.page2.bodyCopy@]]></bodyCopy>
+				</artist>
+				<artist id="artist2" uriNode="mattsweetman" defaultChildId="1">
+					<title>@gallery.artist2.title@</title>
 					<children>
-						<image>
-							<title><![CDATA[@project.gallery.page2.image1.title@]]></title>
-							<imageUrl><![CDATA[@project.gallery.page2.image1.imageUrl@]]></imageUrl>
+						<image id="1" uriNode="1">
+							<url>@gallery.artist2.image1.url@</url>
 						</image>
-						<image>
-							<title><![CDATA[@project.gallery.page2.image2.title@]]></title>
-							<imageUrl><![CDATA[@project.gallery.page2.image2.imageUrl@]]></imageUrl>
+						<image id="2" uriNode="2">
+							<url>@gallery.artist2.image2.url@</url>
+						</image>
+						<image id="3" uriNode="3">
+							<url>@gallery.artist2.image3.url@</url>
 						</image>
 					</children>
-				</page>
+				</artist>
 			</children>
 		</gallery>
-		<contact>
-			<title><![CDATA[@project.contact.title@]]></title>
-			<bodyCopy><![CDATA[@project.contact.bodyCopy@]]></bodyCopy>
-			<email><![CDATA[@project.contact.imageUrl@]]></email>
+		<contact id="contact" uriNode="contact">
+			<title>@contact.title@</title>
+			<imageUrl>@contact.imageUrl@</imageUrl>
+			<address>@contact.address@</address>
+			<email>@contact.email@</email>
 		</contact>
 	</children>
-</structureRoot>
+</site>

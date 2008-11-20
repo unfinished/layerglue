@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xml>
-	<item id="project.title">Layer Glue website</item>
+	<item id="site.title"><![CDATA[Layer Glue Gallery]]></item>
+	<item id="site.copyright"><![CDATA[© 2008 Layer Glue]]></item>
 	
-	<item id="project.home.title">Home</item>
-	<item id="project.home.bodyCopy">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.</item>
-	<item id="project.home.imageUrl">images/image.jpg</item>
+	<item id="home.title"><![CDATA[Home]]></item>
+	<item id="home.imageUrl"><![CDATA[images/image.jpg]]></item>
+	<item id="home.newsTitle"><![CDATA[News]]></item>
+	<item id="home.newsBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.]]></item>
+	<item id="home.featuredArtistTitle"><![CDATA[Featured Artist]]></item>
+	<item id="home.featuredArtistBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.]]></item>
+	<item id="home.somethingTitle"><![CDATA[Something Interesting]]></item>
+	<item id="home.somethingBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.]]></item>
 	
-	<item id="project.gallery.title">Gallery</item>
-	<item id="project.gallery.bodyCopy">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.</item>
+	<item id="gallery.title"><![CDATA[Gallery]]></item>
+	<item id="gallery.artist1.title"><![CDATA[Jamie Copeland]]></item>
+	<item id="gallery.artist1.image1.url"><![CDATA[images/image.jpg]]></item>
+	<item id="gallery.artist1.image2.url"><![CDATA[images/image.jpg]]></item>
+	<item id="gallery.artist1.image3.url"><![CDATA[images/image.jpg]]></item>
+	<item id="gallery.artist2.title"><![CDATA[Matt Sweetman]]></item>
+	<item id="gallery.artist2.image1.url"><![CDATA[images/image.jpg]]></item>
+	<item id="gallery.artist2.image2.url"><![CDATA[images/image.jpg]]></item>
+	<item id="gallery.artist2.image3.url"><![CDATA[images/image.jpg]]></item>
 	
-	<item id="project.gallery.page1.title">Animals</item>
-	<item id="project.gallery.page1.bodyCopy">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</item>
-	<item id="project.gallery.page1.image1.title">Cow</item>
-	<item id="project.gallery.page1.image1.imageUrl">image/gallery/image.jpg</item>
-	<item id="project.gallery.page1.image2.title">Duck</item>
-	<item id="project.gallery.page1.image2.imageUrl">image/gallery/image.jpg</item>
-	
-	<item id="project.gallery.page2.title">Minerals</item>
-	<item id="project.gallery.page2.bodyCopy">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</item>
-	<item id="project.gallery.page2.image1.title">Diamond</item>
-	<item id="project.gallery.page2.image1.imageUrl">image/gallery/image.jpg</item>
-	<item id="project.gallery.page2.image2.title">Graphite</item>
-	<item id="project.gallery.page2.image2.imageUrl">image/gallery/image.jpg</item>
-	
-	<item id="project.contact.title">Contact</item>
-	<item id="project.contact.bodyCopy">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.</item>
-	<item id="project.contact.email">test@test.com</item>
-	<item id="project.contact.imageUrl">images/image.jpg</item>
+	<item id="contact.title"><![CDATA[Contact]]></item>
+	<item id="contact.imageUrl"><![CDATA[images/image.jpg]]></item>
+	<item id="contact.address"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit.]]></item>
+	<item id="contact.email"><![CDATA[info@layerglue.com]]></item>
 </xml>

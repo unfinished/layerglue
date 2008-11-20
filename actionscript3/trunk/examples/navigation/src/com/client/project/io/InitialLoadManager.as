@@ -2,7 +2,7 @@ package com.client.project.io
 {
 	import com.client.project.locators.ModelLocator;
 	import com.client.project.maps.StructureDeserializationMap;
-	import com.client.project.vo.StructureRoot;
+	import com.layerglue.flex3.base.collections.strategies.FlexCollectionStrategyMap;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
 	import com.layerglue.lib.base.events.EventListener;
@@ -34,10 +34,7 @@ package com.client.project.io
 		
 		private var _loadManagerListener:EventListener;
 		
-		public var structureRoot:StructureRoot;
-		
 		private var _regionalCSSLoader:CSSStyleLoader;
-		
 		
 		public function InitialLoadManager()
 		{
@@ -164,6 +161,7 @@ package com.client.project.io
 			
 			var substitutor:XMLSubstitutor = new XMLSubstitutor("@", "@");
 			var populatedXML:XML = substitutor.process(xml, source);
+			trace("Missing substitution source keys: " + substitutor.getMissingSourceKeys(xml, source));
 			
 			deserializeStructuralData(populatedXML);
 		}
@@ -172,8 +170,8 @@ package com.client.project.io
 		{
 			var deserializer:XMLDeserializer = new XMLDeserializer();
 			deserializer.map = new StructureDeserializationMap();
-			var structure:* = deserializer.deserialize(xml);
-			structureRoot = structure;			
+			deserializer.collectionStrategyMap = new FlexCollectionStrategyMap();
+			ModelLocator.getInstance().siteStructure = deserializer.deserialize(xml);
 		}
 		
 	}
