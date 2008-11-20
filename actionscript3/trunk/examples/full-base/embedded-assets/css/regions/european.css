@@ -1,0 +1,39 @@
+/* CSS - Western region */
+
+@font-face
+{
+	fontFamily: "RegionalFont";
+	fontWeight: normal;
+	src: url("../../fonts/Diavlo_MEDIUM_II_37.otf");
+	
+	
+	/*unicode-range:*/
+		/* U+0020-U+0040, */ /* Punctuation, Numbers */
+		/* U+0041-U+005A, */ /* Upper-Case A-Z */
+		/* U+005B-U+0060, */ /* Punctuation and Symbols */
+		/* U+0061-U+007A, */ /* Lower-Case a-z */
+		/* U+007B-U+007E; */ /* Punctuation and Symbols */
+}
+
+@font-face
+{
+	fontFamily: "RegionalFont";
+	fontWeight: bold;
+	src: url("../../fonts/Diavlo_BOLD_II_37.otf");
+	
+	
+	/*unicode-range:*/
+		/* U+0020-U+0040, */ /* Punctuation, Numbers */
+		/* U+0041-U+005A, */ /* Upper-Case A-Z */
+		/* U+005B-U+0060, */ /* Punctuation and Symbols */
+		/* U+0061-U+007A, */ /* Lower-Case a-z */
+		/* U+007B-U+007E; */ /* Punctuation and Symbols */
+}
+
+/* Since regional css is loaded after main css then styles here will override */
+global
+{
+	color: #993333;
+}
+
+/* Font provided by: http://www.josbuivenga.demon.nl/index.html */
