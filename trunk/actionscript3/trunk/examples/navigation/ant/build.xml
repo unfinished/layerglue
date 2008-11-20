@@ -23,8 +23,7 @@
 	<target name="_debug_refresh_bin"
 		depends="	debug_delete_contents,
 					debug_copy_assets,
-					debug_compile_regional_css_western,
-					debug_compile_regional_css_european" />
+					debug_compile_regional_css_western" />
 	
 	<target name="debug_delete_contents">
 		<delete includeemptydirs="true">
@@ -47,21 +46,13 @@
 			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
 		</exec>
 	</target>
-
-	<target name="debug_compile_regional_css_european">
-		<exec executable="${mxmlc}" failonerror="true">
-			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/european.swf"/>
-			<arg line="${embeddedassets.dir}/css/regions/european.css"/>
-		</exec>
-	</target>
 			
 	<!-- Release targets ======================================================================= -->
 	
 	<target name="_release_refresh_bin"
 		depends="	release_delete_assets,
 					release_copy_assets,
-					release_compile_regional_css_western,
-					release_compile_regional_css_european" />
+					release_compile_regional_css_western" />
 		
 	<target name="release_delete_assets">
 		<delete includeemptydirs="true">
@@ -82,13 +73,6 @@
 		<exec executable="${mxmlc}" failonerror="true">
 			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/western.swf"/>
 			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
-		</exec>
-	</target>
-
-	<target name="release_compile_regional_css_european">
-		<exec executable="${mxmlc}" failonerror="true">
-			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/european.swf"/>
-			<arg line="${embeddedassets.dir}/css/regions/european.css"/>
 		</exec>
 	</target>
 	
