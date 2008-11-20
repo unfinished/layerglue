@@ -12,6 +12,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.preloader.PreloaderView;
 			import com.layerglue.flex3.base.preloader.PreloadManager;
 			import mx.collections.ArrayCollection;
 			import com.layerglue.lib.base.io.FlashVars;
@@ -22,9 +23,6 @@
 			import com.client.project.io.InitialLoadManager;
 			import mx.preloaders.DownloadProgressBar;
 			import com.client.project.vo.StructureRoot;
-			
-			//com.layerglue.flex3.base.preloader.DownloadProgressBarExt
-			//com.client.project.preloader.PreloaderView
 			
 			private var _initialLoadManager:InitialLoadManager;
 						
@@ -72,7 +70,7 @@
 			
 			private function preloaderHideComplete(event:EffectEvent):void
 			{
-				//PreloadManager.getInstance().preloaderDisplay.destroy();
+				(PreloadManager.getInstance().preloaderDisplay as PreloaderView).destroy();
 				removeChild(preloaderContainer);
 			}
 			
