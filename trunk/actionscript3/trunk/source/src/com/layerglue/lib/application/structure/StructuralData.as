@@ -5,9 +5,8 @@ package com.layerglue.lib.application.structure
 	
 	import flash.events.EventDispatcher;
 	import flash.utils.getTimer;
-	
-	import mx.events.CollectionEvent;
-	import mx.events.CollectionEventKind;
+	import com.layerglue.lib.application.events.CollectionEvent;
+	import com.layerglue.lib.application.events.CollectionEventKind;
 	
 	[Event(name="selectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
 	[Event(name="childSelectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
