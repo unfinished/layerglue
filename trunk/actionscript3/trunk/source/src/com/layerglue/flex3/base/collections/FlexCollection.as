@@ -63,7 +63,7 @@ package com.layerglue.flex3.base.collections
 			if(removedItem != null)
 			{
 				var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-				e.kind = CollectionEventKind.ADD;
+				e.kind = CollectionEventKind.REMOVE;
 				e.items = [removedItem];
 				e.location = index;
 				dispatchEvent(e);
