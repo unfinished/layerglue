@@ -1,12 +1,9 @@
 package com.layerglue.lib.base.collections
 {
-	import com.layerglue.lib.base.collections.strategies.ArrayStrategy;
-	import com.layerglue.lib.base.collections.strategies.ICollectionStrategy;
-	
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import com.layerglue.lib.application.events.CollectionEvent;
 	import com.layerglue.lib.application.events.CollectionEventKind;
+	
+	import flash.events.EventDispatcher;
 	
 	/**
 	 * A subclass of Array that implements the ICollection interface.
@@ -14,7 +11,6 @@ package com.layerglue.lib.base.collections
 	//TODO Remove dynamicness when this changes to being a decorator
 	public class Collection extends EventDispatcher implements ICollection
 	{
-		private var _strategy:ICollectionStrategy; 
 		private var _array:Array;
 		
 		public function Collection(source:Array=null)
@@ -22,7 +18,6 @@ package com.layerglue.lib.base.collections
 			super();
 			
 			_array = source ? source : new Array();
-			_strategy = new ArrayStrategy();
 		}
 		
 		/**
@@ -30,7 +25,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function addItemAt(item:Object, index:int):void
 		{
-			_strategy.addItemAt(_array, item, index);
+			_array.splice(index, 0, item);
 			
 			var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
 			e.kind = CollectionEventKind.ADD;
@@ -44,7 +39,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function addItem(item:Object):void
 		{
-			_strategy.addItem(_array, item);
+			_array.push(item);
 			
 			var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
 			e.kind = CollectionEventKind.ADD;
@@ -66,7 +61,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function getItemIndex(item:Object):int
 		{
-			return _strategy.getItemIndex(_array, item);
+			return _array.indexOf(item);
 		}
 		
 		/**
@@ -74,36 +69,26 @@ package com.layerglue.lib.base.collections
 		 */
 		public function removeItemAt(index:int):Object
 		{
-			var removedItem = _strategy.removeItemAt(_array, index);
+			var removedItem:Object = _array.splice(index, 1);
 			
 			if(removedItem != null)
 			{
 				var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
 				e.kind = CollectionEventKind.ADD;
-				e.items = [item];
+				e.items = [removedItem];
 				e.location = index;
 				dispatchEvent(e);
 			}
 			
-			return _strategy.removeItemAt(_array, index);
+			return removedItem;
 		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		/*
-		public function removeItem(item:Object):Object
-		{
-			return _strategy.removeItem(_array, item);
-		}
-		*/
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function removeAll():void
 		{
-			for each(var i:int=_array.length ; i>=0 ; i--)
+			for(var i:int=_array.length ; i>=0 ; i--)
 			{
 				var item:Object = _array[i];
 				removeItemAt(i);
@@ -115,7 +100,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function contains(item:Object):Boolean
 		{
-			return _strategy.contains(_array, item);
+			return _array.indexOf(item) != -1;
 		}
 		
 		/**
@@ -123,7 +108,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function getLength():int
 		{
-			return _strategy.getLength(_array);
+			return _array.length;
 		}
 	}
 }
