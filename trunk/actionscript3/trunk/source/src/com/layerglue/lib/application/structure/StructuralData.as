@@ -424,6 +424,7 @@ package com.layerglue.lib.application.structure
 			}
 		}
 		
+		// TODO: Check duplicate id's or uri's when each child is added
 		// TODO: Move the event.kind switch out into FlexCollection when we can be
 		// bothered to get the whole thing working in Flash
 		protected function childrenChangeHandler(event:CollectionEvent):void
