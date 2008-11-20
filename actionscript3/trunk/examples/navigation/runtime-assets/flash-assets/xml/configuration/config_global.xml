@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<configuration>
-	<item id="testValue" type="string">Hello from global</item>
-</configuration>
