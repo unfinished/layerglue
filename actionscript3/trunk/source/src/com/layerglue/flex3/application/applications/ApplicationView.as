@@ -1,12 +1,12 @@
-package com.layerglue.lib.application.views
+package com.layerglue.flex3.application.applications
 {
-	import com.layerglue.lib.base.core.RequestCommandConnector;
-	import com.layerglue.lib.base.events.DestroyEvent;
-	import com.layerglue.lib.base.events.SelectionEvent;
 	import com.layerglue.lib.application.controllers.INavigableApplicationController;
 	import com.layerglue.lib.application.events.StructuralDataListenerEvent;
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
+	import com.layerglue.lib.base.core.RequestCommandConnector;
+	import com.layerglue.lib.base.events.DestroyEvent;
+	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
