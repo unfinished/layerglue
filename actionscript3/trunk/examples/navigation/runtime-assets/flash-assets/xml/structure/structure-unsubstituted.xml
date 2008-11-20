@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<site id="root" defaultChildId="home">
+<site id="site" defaultChildId="home">
 	<title>@site.title@</title>
 	<copyright>@site.copyright@</copyright>
 	<children>
