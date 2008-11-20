@@ -24,10 +24,12 @@ package com.layerglue.flex3.base.collections
 		/**
 		 * @inheritDoc
 		 */
+		/*
 		public function removeItem(item:Object):Object
 		{
 			return _strategy.removeItem(this, item);
 		}
+		*/
 		
 		/**
 		 * @inheritDoc
