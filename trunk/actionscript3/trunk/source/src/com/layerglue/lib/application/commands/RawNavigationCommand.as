@@ -1,10 +1,10 @@
 package com.layerglue.lib.application.commands
 {
-	import com.layerglue.lib.base.commands.AbstractCommand;
-	import com.layerglue.lib.base.requests.IRequest;
+	import com.layerglue.flex3.application.applications.NavigableApplicationView;
 	import com.layerglue.lib.application.controllers.NavigableApplicationController;
 	import com.layerglue.lib.application.requests.RawNavigationRequest;
-	import com.layerglue.lib.application.views.NavigableApplicationView;
+	import com.layerglue.lib.base.commands.AbstractCommand;
+	import com.layerglue.lib.base.requests.IRequest;
 	
 	import mx.core.Application;
 	

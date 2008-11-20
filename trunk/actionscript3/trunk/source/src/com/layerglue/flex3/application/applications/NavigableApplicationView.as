@@ -1,4 +1,4 @@
-package com.layerglue.lib.application.views
+package com.layerglue.flex3.application.applications
 {
 	import com.asual.swfaddress.SWFAddress;
 	import com.asual.swfaddress.SWFAddressEvent;
