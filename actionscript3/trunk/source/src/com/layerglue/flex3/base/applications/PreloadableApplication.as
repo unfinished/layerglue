@@ -2,9 +2,9 @@ package com.layerglue.flex3.base.applications
 {
 	import mx.core.Application;
 
-	public class ProportionallyPreloadableApplication extends Application implements IProportionallyPreloadableApplication
+	public class PreloadableApplication extends Application implements IPreloadableApplication
 	{
-		public function ProportionallyPreloadableApplication()
+		public function PreloadableApplication()
 		{
 			super();
 		}
@@ -27,6 +27,9 @@ package com.layerglue.flex3.base.applications
 		
 		private var _preloaderMinDisplayTime:Number
 		
+		/**
+		 * @inheritDoc
+		 */
 		[Inspectable(defaultValue="0")]
 		public function get preloaderMinDisplayTime():Number
 		{
