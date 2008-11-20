@@ -1,39 +1,35 @@
-package com.layerglue.lib.application.views.extensions
+package com.layerglue.flex3.base.views
 {
-	import com.layerglue.flex3.base.views.showHide.ShowHideBox;
-	import com.layerglue.lib.base.events.SelectionEvent;
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.base.events.DestroyEvent;
+	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
-	public class ShowHideBoxExt extends ShowHideBox implements IView
+	import mx.core.UIComponent;
+
+	public class UIComponentExt extends UIComponent implements IView
 	{
+		protected var _structuralDataListenerUtil:StructuralDataListenerUtil;
 		
-		protected var _structualDataListenerUtil:StructuralDataListenerUtil;
-		
-		public function ShowHideBoxExt()
+		public function UIComponentExt()
 		{
 			super();
 			
-			_structualDataListenerUtil = new StructuralDataListenerUtil(this);
-		}
+			_structuralDataListenerUtil = new StructuralDataListenerUtil(this);
+		}		
 		
 		[Bindable(event="structuralDataChange")]
 		public function get structuralData():IStructuralData
 		{
-			return _structualDataListenerUtil.structuralData;
+			return _structuralDataListenerUtil.structuralData;
 		}
 
 		public function set structuralData(value:IStructuralData):void
 		{
-			_structualDataListenerUtil.structuralData = value;
-		}
-		
-		public function structuralDataPropertyChangeHandler(oldStructuralData:IStructuralData, newStructuralData:IStructuralData):void
-		{
-			invalidateProperties();
+			_structuralDataListenerUtil.structuralData = value;
 		}
 		
 		private var _childViewContainer:DisplayObjectContainer
@@ -48,6 +44,11 @@ package com.layerglue.lib.application.views.extensions
 			_childViewContainer = value;
 		}
 		
+		public function structuralDataPropertyChangeHandler(oldStructuralData:IStructuralData, newStructuralData:IStructuralData):void
+		{
+			invalidateProperties();
+		}
+		
 		public function structuralDataSubselectionChangeHandler(event:SelectionEvent):void
 		{
 		}
@@ -58,24 +59,21 @@ package com.layerglue.lib.application.views.extensions
 		
 		public function startTransitionIn():void
 		{
-			show();
 		}
 		
 		public function startTransitionOut():void
 		{
-			hide();
 		}
 		
 		public function stopTransition():void
 		{
-			_showHideTransitionUtil.stopCurrentEffect();
 		}
 		
-		override public function destroy():void
+		public function destroy():void
 		{
-			_structualDataListenerUtil.destroy();
-			super.destroy();
+			_structuralDataListenerUtil.destroy();
+			
+			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
 		}
-
 	}
 }
