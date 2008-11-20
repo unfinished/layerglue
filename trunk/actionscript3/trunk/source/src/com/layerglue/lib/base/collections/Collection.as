@@ -5,6 +5,8 @@ package com.layerglue.lib.base.collections
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import com.layerglue.lib.application.events.CollectionEvent;
+	import com.layerglue.lib.application.events.CollectionEventKind;
 	
 	/**
 	 * A subclass of Array that implements the ICollection interface.
@@ -29,6 +31,12 @@ package com.layerglue.lib.base.collections
 		public function addItemAt(item:Object, index:int):void
 		{
 			_strategy.addItemAt(_array, item, index);
+			
+			var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+			e.kind = CollectionEventKind.ADD;
+			e.items = [item];
+			e.location = index;
+			dispatchEvent(e);
 		}
 		
 		/**
@@ -37,6 +45,12 @@ package com.layerglue.lib.base.collections
 		public function addItem(item:Object):void
 		{
 			_strategy.addItem(_array, item);
+			
+			var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+			e.kind = CollectionEventKind.ADD;
+			e.items = [item];
+			e.location = length-1;
+			dispatchEvent(e);
 		}
 		
 		/**
@@ -60,6 +74,17 @@ package com.layerglue.lib.base.collections
 		 */
 		public function removeItemAt(index:int):Object
 		{
+			var removedItem = _strategy.removeItemAt(_array, index);
+			
+			if(removedItem != null)
+			{
+				var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+				e.kind = CollectionEventKind.ADD;
+				e.items = [item];
+				e.location = index;
+				dispatchEvent(e);
+			}
+			
 			return _strategy.removeItemAt(_array, index);
 		}
 		
@@ -76,7 +101,11 @@ package com.layerglue.lib.base.collections
 		 */
 		public function removeAll():void
 		{
-			_strategy.removeAll(_array);
+			for each(var i:int=_array.length ; i>=0 ; i--)
+			{
+				var item:Object = _array[i];
+				removeItemAt(i);
+			}
 		}
 		
 		/**
