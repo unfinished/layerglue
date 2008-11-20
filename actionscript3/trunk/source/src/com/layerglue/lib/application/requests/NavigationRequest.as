@@ -14,7 +14,7 @@ package com.layerglue.lib.application.requests
 			super();
 			
 			this.destination = destination;
-			this.hideFromHistory = hideFromHistory;
+			this.hideFromBrowser = hideFromHistory;
 		}
 		
 		private var _destination:INavigable;
@@ -32,20 +32,20 @@ package com.layerglue.lib.application.requests
 			_destination = value;
 		}
 		
-		private var _hideFromHistory:Boolean;
+		private var _hideFromBrowser:Boolean;
 		
 		/**
 		 * Whether or not the request should go through SWFAddress and be registered in the
 		 * browser's history.
 		 */
-		public function get hideFromHistory():Boolean
+		public function get hideFromBrowser():Boolean
 		{
-			return _hideFromHistory;
+			return _hideFromBrowser;
 		}
 
-		public function set hideFromHistory(value:Boolean):void
+		public function set hideFromBrowser(value:Boolean):void
 		{
-			_hideFromHistory = value;
+			_hideFromBrowser = value;
 		}
 	}
 }
