@@ -49,18 +49,13 @@ package com.layerglue.flex3.base.preloader
 			
 			_preloaderDisplay = preloaderDisplay;
 			
-			//------------------------------
-			
+			//Set up the load manager
 			var systemManager:ISystemManager = (preloaderDisplay as DisplayObject).root as ISystemManager;
-			
 			var loadManagerClassRef:Class = getLoadManagerClassReference(systemManager);
-			
 			_loadManager = new loadManagerClassRef();
-			
 			_loadManager.totalValue = getLoadManagerTotalValue(systemManager);
 			
-			//------------------------------
-							
+			//Create the RootLoaderProxy and add it to the load manager				
 			var item:LoadManagerToken = new LoadManagerToken(
 							new RootLoaderProxy((preloaderDisplay as DisplayObject).root.loaderInfo),
 							null,
@@ -68,10 +63,9 @@ package com.layerglue.flex3.base.preloader
 							getLoadManagerMainSWFValue((preloaderDisplay as DisplayObject).root as SystemManager));
 			
 			_loadManager.addItem(item);
- 
 			
-			//Dont really need to do this, but some objects may be listening for a start event, so
-			//method is called here to ensure start event is dispatched.
+			//This method doesnt start the load process as the main swf is already loading, but it
+			//firest the load start event, which some objects will be listening for.
 			_loadManager.start();
 		}
 		 
@@ -94,6 +88,9 @@ package com.layerglue.flex3.base.preloader
 		
 		private var _preloaderDisplay:IPreloaderDisplay;
 		
+		/**
+		 * The IPreloaderDisplay instance being used by to show load progress.
+		 */
 		public function get preloaderDisplay():IPreloaderDisplay
 		{
 			return _preloaderDisplay;
@@ -101,6 +98,9 @@ package com.layerglue.flex3.base.preloader
 		
 		private var _flexPreloader:Preloader;
 		
+		/**
+		 * The Preloader instance created by the Flex SystemManager.
+		 */
 		public function get flexPreloader():Preloader
 		{
 			return _flexPreloader;
