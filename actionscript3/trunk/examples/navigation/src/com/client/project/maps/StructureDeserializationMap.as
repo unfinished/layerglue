@@ -1,11 +1,11 @@
 package com.client.project.maps
 {
-	import com.client.project.vo.Artist;
-	import com.client.project.vo.Contact;
-	import com.client.project.vo.Gallery;
-	import com.client.project.vo.Home;
-	import com.client.project.vo.Image;
-	import com.client.project.vo.Site;
+	import com.client.project.model.structure.Artist;
+	import com.client.project.model.structure.Contact;
+	import com.client.project.model.structure.Gallery;
+	import com.client.project.model.structure.Home;
+	import com.client.project.model.structure.Image;
+	import com.client.project.model.structure.Site;
 	import com.layerglue.flex3.base.collections.FlexCollection;
 	import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
 
