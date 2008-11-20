@@ -1,20 +1,20 @@
-package com.layerglue.lib.application.views.extensions
+package com.layerglue.flex3.base.views
 {
-	import com.layerglue.lib.base.events.DestroyEvent;
-	import com.layerglue.lib.base.events.SelectionEvent;
+	import com.layerglue.flex3.base.views.showHide.ShowHideCanvas;
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.base.events.DestroyEvent;
+	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
-	import mx.containers.Canvas;
-
-	public class CanvasExt extends Canvas implements IView
+	public class ShowHideCanvasExt extends ShowHideCanvas implements IView
 	{
+		
 		protected var _structualDataListenerUtil:StructuralDataListenerUtil;
 		
-		public function CanvasExt()
+		public function ShowHideCanvasExt()
 		{
 			super();
 			
@@ -59,26 +59,29 @@ package com.layerglue.lib.application.views.extensions
 		
 		public function startTransitionIn():void
 		{
+			trace("############### ShowHideCanvasExt.startTransitionIn()");
+			show();
 		}
 		
 		public function startTransitionOut():void
 		{
+			trace("############### ShowHideCanvasExt.startTransitionOut()");
+			hide();
 		}
 		
 		public function stopTransition():void
 		{
+			_showHideTransitionUtil.stopCurrentEffect();
 		}
 		
-		public function destroy():void
+		override public function destroy():void
 		{
-			if(parent)
-			{
-				parent.removeChild(this);
-			}
+			super.destroy();
 			
 			_structualDataListenerUtil.destroy();
 			
 			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
 		}
+
 	}
 }
