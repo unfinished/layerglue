@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.collections
 {
-	import com.layerglue.lib.base.collections.strategies.ArrayStrategy;
-	import com.layerglue.lib.base.collections.strategies.ICollectionStrategy;
+	import com.layerglue.lib.application.events.CollectionEvent;
+	import com.layerglue.lib.application.events.CollectionEventKind;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -12,7 +12,6 @@ package com.layerglue.lib.base.collections
 	//TODO Remove dynamicness when this changes to being a decorator
 	dynamic public class ArrayExt extends Array implements ICollection
 	{
-		private var _strategy:ICollectionStrategy; 
 		
 		public function ArrayExt(source:Array=null)
 		{
@@ -20,20 +19,26 @@ package com.layerglue.lib.base.collections
 			
 			_eventDispatcher = new EventDispatcher();
 			
-			_strategy = new ArrayStrategy();
-		
 			for each(var item:* in source)
 			{
 				addItem(item);
 			}
 		}
 		
+		////////////////////////////////////
+		
 		/**
 		 * @inheritDoc
 		 */
 		public function addItemAt(item:Object, index:int):void
 		{
-			_strategy.addItemAt(this, item, index);
+			splice(index, 0, item);
+			
+			var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+			e.kind = CollectionEventKind.ADD;
+			e.items = [item];
+			e.location = index;
+			dispatchEvent(e);
 		}
 		
 		/**
@@ -41,7 +46,13 @@ package com.layerglue.lib.base.collections
 		 */
 		public function addItem(item:Object):void
 		{
-			_strategy.addItem(this, item);
+			push(item);
+			
+			var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+			e.kind = CollectionEventKind.ADD;
+			e.items = [item];
+			e.location = length-1;
+			dispatchEvent(e);
 		}
 		
 		/**
@@ -49,7 +60,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function getItemAt(index:int, prefetch:int=0):Object
 		{
-			return _strategy.getItemAt(this, index, prefetch);
+			return this[index];
 		}
 		
 		/**
@@ -57,7 +68,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function getItemIndex(item:Object):int
 		{
-			return _strategy.getItemIndex(this, item);
+			return indexOf(item);
 		}
 		
 		/**
@@ -65,15 +76,18 @@ package com.layerglue.lib.base.collections
 		 */
 		public function removeItemAt(index:int):Object
 		{
-			return _strategy.removeItemAt(this, index);
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function removeItem(item:Object):Object
-		{
-			return _strategy.removeItem(this, item);
+			var removedItem:Object = splice(index, 1);
+			
+			if(removedItem != null)
+			{
+				var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+				e.kind = CollectionEventKind.ADD;
+				e.items = [removedItem];
+				e.location = index;
+				dispatchEvent(e);
+			}
+			
+			return removedItem;
 		}
 		
 		/**
@@ -81,7 +95,11 @@ package com.layerglue.lib.base.collections
 		 */
 		public function removeAll():void
 		{
-			_strategy.removeAll(this);
+			for(var i:int=length ; i>=0 ; i--)
+			{
+				var item:Object = this[i];
+				removeItemAt(i);
+			}
 		}
 		
 		/**
@@ -89,7 +107,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function contains(item:Object):Boolean
 		{
-			return _strategy.contains(this, item);
+			return indexOf(item) != -1;
 		}
 		
 		/**
@@ -97,8 +115,10 @@ package com.layerglue.lib.base.collections
 		 */
 		public function getLength():int
 		{
-			return _strategy.getLength(this);
+			return length;
 		}
+		
+		////////////////////////////////////
 		
 		// Implementation of IEventDispatcher ------------------------------------------------------
 		
