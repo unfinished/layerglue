@@ -45,12 +45,8 @@ package com.layerglue.flex3.base.collections
 		override public function addItem(item:Object):void
 		{
 			super.addItem(item);
-			
-			var e:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-			e.kind = CollectionEventKind.ADD;
-			e.items = [item];
-			e.location = length-1;
-			dispatchEvent(e);
+			//Dont need to dispatch CollectionEvent here as this method calls addItemAt() which
+			//dispatches it.
 		}
 		
 		/**
