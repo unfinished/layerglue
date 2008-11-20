@@ -58,7 +58,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function getItemAt(index:int, prefetch:int=0):Object
 		{
-			return _strategy.getItemAt(_array, index, prefetch);
+			return _array[index];
 		}
 		
 		/**
