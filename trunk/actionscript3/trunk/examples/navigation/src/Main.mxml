@@ -12,7 +12,7 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.client.project.locators.ModelLocator;
+			import com.client.project.model.ModelLocator;
 			import com.client.project.preloader.PreloaderView;
 			import com.layerglue.flex3.base.preloader.PreloadManager;
 			import mx.collections.ArrayCollection;

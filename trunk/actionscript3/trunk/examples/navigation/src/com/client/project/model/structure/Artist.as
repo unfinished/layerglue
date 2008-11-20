@@ -1,4 +1,4 @@
-package com.client.project.vo
+package com.client.project.model.structure
 {
 	import com.layerglue.lib.application.structure.StructuralData;
 

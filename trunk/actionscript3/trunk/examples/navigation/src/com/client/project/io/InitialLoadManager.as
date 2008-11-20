@@ -1,7 +1,7 @@
 package com.client.project.io
 {
-	import com.client.project.locators.ModelLocator;
 	import com.client.project.maps.StructureDeserializationMap;
+	import com.client.project.model.ModelLocator;
 	import com.layerglue.flex3.base.collections.strategies.FlexCollectionStrategyMap;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.flex3.base.preloader.PreloadManager;

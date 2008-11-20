@@ -1,4 +1,4 @@
-package com.client.project.locators
+package com.client.project.model
 {
 	import com.layerglue.lib.application.structure.StructuralData;
 	import com.layerglue.lib.base.collections.HashMap;
