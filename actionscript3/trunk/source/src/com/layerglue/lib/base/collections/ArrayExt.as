@@ -18,13 +18,14 @@ package com.layerglue.lib.base.collections
 		{
 			super();
 			
+			_eventDispatcher = new EventDispatcher();
+			
 			_strategy = new ArrayStrategy();
 		
 			for each(var item:* in source)
 			{
 				addItem(item);
 			}
-			
 		}
 		
 		/**

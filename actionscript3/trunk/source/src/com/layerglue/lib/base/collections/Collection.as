@@ -91,10 +91,12 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
+		/*
 		public function removeItem(item:Object):Object
 		{
 			return _strategy.removeItem(_array, item);
 		}
+		*/
 		
 		/**
 		 * @inheritDoc
