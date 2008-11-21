@@ -2,7 +2,7 @@ package com.layerglue.lib.application.commands
 {
 	import com.asual.swfaddress.SWFAddress;
 	import com.layerglue.lib.application.navigation.NavigationManager;
-	import com.layerglue.lib.application.requests.StructuralNavigationRequest;
+	import com.layerglue.lib.application.requests.NavigationRequest;
 	import com.layerglue.lib.application.requests.RawNavigationRequest;
 	import com.layerglue.lib.base.commands.AbstractCommand;
 	import com.layerglue.lib.base.requests.IRequest;
@@ -20,9 +20,9 @@ package com.layerglue.lib.application.commands
 			super();
 		}
 		
-		private function get typedRequest():StructuralNavigationRequest
+		private function get typedRequest():NavigationRequest
 		{
-			return request as StructuralNavigationRequest;
+			return request as NavigationRequest;
 		}
 		
 		override public function execute(request:IRequest):void
