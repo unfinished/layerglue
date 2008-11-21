@@ -1,15 +1,15 @@
 package com.layerglue.lib.application.requests
 {
+	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.requests.AbstractRequest;
-	import com.layerglue.lib.application.navigation.INavigable;
 	
 	/**
 	 * A navigation request specifying a destination and whether or not it should be passed via
 	 * SWFAddress and be registered in the browser history
 	 */
-	public class NavigationRequest extends AbstractRequest
+	public class StructuralNavigationRequest extends AbstractRequest
 	{
-		public function NavigationRequest(destination:INavigable, hideFromHistory:Boolean=false)
+		public function StructuralNavigationRequest(destination:IStructuralData, hideFromHistory:Boolean=false)
 		{
 			super();
 			
@@ -17,17 +17,17 @@ package com.layerglue.lib.application.requests
 			this.hideFromBrowser = hideFromHistory;
 		}
 		
-		private var _destination:INavigable;
+		private var _destination:IStructuralData;
 		
 		/**
 		 * The node in the structural data hierarchy that should be navigated to 
 		 */
-		public function get destination():INavigable
+		public function get destination():IStructuralData
 		{
 			return _destination;
 		}
 		
-		public function set destination(value:INavigable):void
+		public function set destination(value:IStructuralData):void
 		{
 			_destination = value;
 		}

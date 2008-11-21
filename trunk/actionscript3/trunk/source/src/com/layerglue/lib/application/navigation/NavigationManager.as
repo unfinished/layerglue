@@ -2,9 +2,9 @@ package com.layerglue.lib.application.navigation
 {
 	import com.asual.swfaddress.SWFAddress;
 	import com.asual.swfaddress.SWFAddressEvent;
+	import com.layerglue.lib.application.structure.IStructuralData;
 	
 	import flash.events.EventDispatcher;
-	import com.layerglue.lib.application.requests.RawNavigationRequest;
 	
 	public class NavigationManager extends EventDispatcher
 	{
@@ -36,12 +36,18 @@ package com.layerglue.lib.application.navigation
 		private function swfAddressChangeHandler(event:SWFAddressEvent):void
 		{
 			//Create new style navpackets here
-			trace("NavigationManager.swfAddressChangeHandler");	
+			//trace("NavigationManager.swfAddressChangeHandler");	
+			processURINavigation(event.path);
 		}
 		
-		public function processRawNavigation(uri:String):void
+		public function processURINavigation(uri:String):void
 		{
 			trace("NavigationManager.processRawNavigation: " + uri);
+		}
+		
+		public function processStructuralNavigation(structuralData:IStructuralData):void
+		{
+			trace("NavigationManager.processStructuralNavigation: " + structuralData + " - " + structuralData.uri);
 		}
 
 	}
