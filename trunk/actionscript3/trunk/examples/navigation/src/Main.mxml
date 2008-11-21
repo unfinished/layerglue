@@ -12,6 +12,10 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.maps.MainRequestCommandMap;
+			import com.layerglue.lib.base.core.RequestCommandConnector;
+			import com.layerglue.lib.application.requests.NavigationRequest;
+			import com.layerglue.lib.application.navigation.NavigationManager;
 			import com.client.project.model.ModelLocator;
 			import com.client.project.preloader.PreloaderView;
 			import com.layerglue.flex3.base.preloader.PreloadManager;
@@ -23,15 +27,21 @@
 			import mx.effects.Fade;
 			import com.client.project.io.InitialLoadManager;
 			import mx.preloaders.DownloadProgressBar;
+			import com.layerglue.lib.application.navigation.NavigationManager;
 			
 			[Bindable]
 			public var modelLocator:ModelLocator = ModelLocator.getInstance();
+			
+			[Bindable]
+			public var navigationManager:NavigationManager = NavigationManager.getInstance();
 			
 			private var _initialLoadManager:InitialLoadManager;
 			
 			private function preinitializeHandler():void
 			{
 				FlashVars.initialize(systemManager as DisplayObject);
+				
+				RequestCommandConnector.initialize([new MainRequestCommandMap()]);
 				
 				startLoadProcess();
 				
@@ -76,6 +86,11 @@
 				preloaderContainer.addChild(PreloadManager.getInstance().preloaderDisplay as DisplayObject);
 			}
 			
+			private function doNav():void
+			{
+				//trace("modelLocator.siteStructure.constructor: "+modelLocator.siteStructure.getChildAt(0).title);
+				(new NavigationRequest(modelLocator.siteStructure.getChildAt(0))).dispatch();
+			}
 			
 		]]>
 	</mx:Script>
@@ -86,6 +101,7 @@
 			<mx:Tree id="projectTree" dataProvider="{modelLocator.siteStructure}" width="220" height="280"/>
 			<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
 		</mx:HBox>
+		<mx:Button label="Do nav" click="doNav()" />
 	</mx:Box>
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
 </lgapps:PreloadableApplication>
