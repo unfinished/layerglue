@@ -17,6 +17,13 @@ package com.layerglue.lib.application.controllers
 			view.structuralData = structuralData;
 		}
 		
+		
+		
+		
+		
+		
+		
+		
 		private var _currentAddressPacket:NavigationPacket;
 		
 		[Bindable (event="currentAddressChange")]
@@ -25,13 +32,18 @@ package com.layerglue.lib.application.controllers
 			return _currentAddressPacket;
 		}
 		
-		private var _previousAddressPacket:NavigationPacket;
-		
-		[Bindable (event="previousAddressChange")]
-		public function get previousAddressPacket():NavigationPacket
+		protected function setCurrentAddress(value:NavigationPacket):void
 		{
-			return _previousAddressPacket;
+			_currentAddressPacket = value;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		private var _navigationCounter:int;
 		
@@ -39,16 +51,6 @@ package com.layerglue.lib.application.controllers
 		public function get navigationCounter():int
 		{
 			return _navigationCounter;
-		}
-		
-		protected function setCurrentAddress(value:NavigationPacket):void
-		{
-			_currentAddressPacket = value;
-		}
-		
-		protected function setPreviousAddress(value:NavigationPacket):void
-		{
-			_previousAddressPacket = value;
 		}
 		
 		protected function incrementNavigationCounter():void
@@ -67,7 +69,7 @@ package com.layerglue.lib.application.controllers
 		public function processRawNavigation(uri:String):void
 		{
 			incrementNavigationCounter();
-			setPreviousAddress(currentAddressPacket);
+			//setPreviousAddress(currentAddressPacket);
 			setCurrentAddress(new NavigationPacket(uri));
 			
 			dispatchEvent(new NavigableApplicationControllerEvent(NavigableApplicationControllerEvent.PREVIOUS_ADDRESS_CHANGE));
