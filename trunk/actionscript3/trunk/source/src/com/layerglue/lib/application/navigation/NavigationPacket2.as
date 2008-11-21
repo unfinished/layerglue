@@ -4,6 +4,8 @@ package com.layerglue.lib.application.navigation
 	
 	public class NavigationPacket2 extends EventDispatcher
 	{
+		public var controllerStrand
+		
 		public function NavigationPacket2()
 		{
 			super();

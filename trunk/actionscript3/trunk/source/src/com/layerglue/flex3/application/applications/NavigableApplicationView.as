@@ -9,15 +9,12 @@ package com.layerglue.flex3.application.applications
 	
 	public class NavigableApplicationView extends ApplicationView
 	{
-		public var navigationManager:NavigationManager;
 		
 		public function NavigableApplicationView()
 		{
 			super();
 			
 			initializeSWFAddress();
-			
-			navigationManager = NavigationManager.getInstance();
 			
 			_isFirstNavigation = true;
 		}
