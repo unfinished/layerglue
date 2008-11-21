@@ -28,7 +28,7 @@ package com.layerglue.lib.application.commands
 			((Application.application as NavigableApplicationView).controller as NavigableApplicationController).processRawNavigation(typedRequest.uri)
 			
 			//--------------
-			NavigationManager.getInstance().processRawNavigation(typedRequest.uri);
+			NavigationManager.getInstance().processURINavigation(typedRequest.uri);
 		}
 	}
 }

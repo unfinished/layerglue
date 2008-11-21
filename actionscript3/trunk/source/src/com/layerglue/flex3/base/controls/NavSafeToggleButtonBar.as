@@ -51,7 +51,7 @@ package com.layerglue.flex3.base.controls
     	// set by the binding to the structuralData.
     	override protected function clickHandler(event:MouseEvent):void
     	{
-    		trace(event.type);
+    		//trace(event.type);
     		// We JUST dispatch the ItemClick event here, and don't do super.clickHandler
     		// which is usually responsible for immediately setting the selected index
 	    	var index:int = getChildIndex(DisplayObject(event.currentTarget));

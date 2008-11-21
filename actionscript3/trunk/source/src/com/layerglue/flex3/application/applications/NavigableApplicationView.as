@@ -5,14 +5,19 @@ package com.layerglue.flex3.application.applications
 	import com.layerglue.lib.application.requests.RawNavigationRequest;
 	
 	import flash.events.Event;
+	import com.layerglue.lib.application.navigation.NavigationManager;
 	
 	public class NavigableApplicationView extends ApplicationView
 	{
+		public var navigationManager:NavigationManager;
+		
 		public function NavigableApplicationView()
 		{
 			super();
 			
 			initializeSWFAddress();
+			
+			navigationManager = NavigationManager.getInstance();
 			
 			_isFirstNavigation = true;
 		}
