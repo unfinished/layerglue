@@ -3,7 +3,7 @@ package com.layerglue.lib.application.controllers
 	import com.layerglue.lib.application.navigation.NavigationPacket;
 	
 	[Bindable]
-	public interface INavigableApplicationController extends INavigableController
+	public interface INavigableApplicationController extends INavigableController, IApplicationController
 	{
 		function processRawNavigation(uri:String):void;
 		function unnavigationCompleteHandler(controller:INavigableController):void

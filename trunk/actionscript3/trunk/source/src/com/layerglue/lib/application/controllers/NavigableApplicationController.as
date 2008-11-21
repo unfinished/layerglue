@@ -7,11 +7,14 @@ package com.layerglue.lib.application.controllers
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.IView;
 
-	public class NavigableApplicationController extends ApplicationController implements INavigableApplicationController
+	public class NavigableApplicationController extends AbstractNavigableController implements INavigableApplicationController
 	{
 		public function NavigableApplicationController(structuralData:IStructuralData, view:IView)
 		{
-			super(structuralData, view);
+			super();
+			
+			this.structuralData = structuralData;
+			view.structuralData = structuralData;
 		}
 		
 		private var _currentAddressPacket:NavigationPacket;
@@ -84,7 +87,6 @@ package com.layerglue.lib.application.controllers
 		protected function startNavigation(packet:NavigationPacket):void
 		{
 			navigate(packet);
-			//SWFAddress.setTitle(getPageTitleFromPacket(packet));
 		}
 		
 		//TODO Look at how this works as a defautl
@@ -98,6 +100,37 @@ package com.layerglue.lib.application.controllers
 		private function test():void
 		{
 			(new RawNavigationRequest(SWFAddress.getValue())).dispatch();
+		}
+		
+		public function getControllerHierarchyStrand(packet:NavigationPacket):Array
+		{
+			//TODO Tidy this up and look at how packet.hasChildAtDepth(0) always returns false
+			  
+			var strand:Array = [];
+			var controller:INavigableController = this;
+			var depth:int = 1;
+			
+			//trace(">>>>>>>>>>>>>>>>>>>>>> getControllerHierarchyStrand: " + packet.uri);
+			
+			while(packet.hasChildAtDepth(depth))
+			{
+				controller = controller.getChildByUriNode(packet.getUriNodeStringAtDepth(depth));
+				
+				//Deals with 404 references returning null for the controller
+				if(controller)
+				{
+					strand.push(controller);
+					depth++;
+				}
+				else
+				{
+					break;
+				}
+				
+			}
+			strand.unshift(this);
+			
+			return strand
 		}
 		
 	}
