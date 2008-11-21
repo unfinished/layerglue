@@ -7,9 +7,9 @@ package com.layerglue.lib.application.requests
 	 * A navigation request specifying a destination and whether or not it should be passed via
 	 * SWFAddress and be registered in the browser history
 	 */
-	public class StructuralNavigationRequest extends AbstractRequest
+	public class NavigationRequest extends AbstractRequest
 	{
-		public function StructuralNavigationRequest(destination:IStructuralData, hideFromHistory:Boolean=false)
+		public function NavigationRequest(destination:IStructuralData, hideFromHistory:Boolean=false)
 		{
 			super();
 			
