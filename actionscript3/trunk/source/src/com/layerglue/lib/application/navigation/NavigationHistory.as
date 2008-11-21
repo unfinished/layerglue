@@ -20,7 +20,7 @@ package com.layerglue.lib.application.navigation
 		
 		public function getPreviousItem():IStructuralData
 		{
-			return getItemAt(length-1);
+			return getItemAt(length-2);
 		}
 		
 		public function getItemAt(index:int):IStructuralData

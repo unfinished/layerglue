@@ -7,6 +7,8 @@ package com.layerglue.lib.application.navigation
 	import com.layerglue.lib.base.utils.StringUtils;
 	
 	import flash.events.EventDispatcher;
+	import com.layerglue.lib.base.navigation.QueryString;
+	import mx.controls.Alert;
 	
 	public class NavigationManager extends EventDispatcher
 	{
@@ -32,7 +34,10 @@ package com.layerglue.lib.application.navigation
 			
 			this.rootController = rootController;
 			
-			initializeSWFAddress()
+			initializeSWFAddress();
+			
+			//TODO This will need to change for deeplinking so that initial url is processed as a real navigation request.
+			_history.addItem(rootController.structuralData);
 		}
 		
 		private static var _instance:NavigationManager;
@@ -63,29 +68,50 @@ package com.layerglue.lib.application.navigation
 		
 		private function swfAddressChangeHandler(event:SWFAddressEvent):void
 		{
+			//TODO Investigate swf address parameters and changing how query is deserialized
 			//Create new style navpackets here
-			processURINavigation(event.path);
+			processURINavigation(event.value);
 		}
 		
 		public function processURINavigation(uri:String):void
 		{
 			trace("NavigationManager.processURINavigation: " + uri);
 			
-			processNavigation(getStructuralDataStrandFromURI(uri));
+			var split:Array = uri.split("?");
+			var addressPortion:String = split[0];
+			var queryPortion:String = split[1];
+			
+			var structuralDataStrand:Array = getStructuralDataStrandFromURI(addressPortion);
+			var controllerStrand:Array = getControllerStrandFromStructuralDataStrand(structuralDataStrand);
+			var packet:NavigationPacket2 = new NavigationPacket2(controllerStrand)
+			
+			if(queryPortion)
+			{
+				packet.query = new QueryString(queryPortion);	
+			}
+			
+			processNavigation(packet);
 		}
 		
 		public function processStructuralNavigation(structuralData:IStructuralData):void
 		{
 			trace("NavigationManager.processStructuralNavigation: " + structuralData + " - " + structuralData.uri);
 			
-			processNavigation(getStructuralDataStrandFromStructuralData(structuralData));
+			var structuralDataStrand:Array = getStructuralDataStrandFromStructuralData(structuralData);
+			var controllerStrand:Array = getControllerStrandFromStructuralDataStrand(structuralDataStrand);
+			var packet:NavigationPacket2 = new NavigationPacket2(controllerStrand);
+			
+			processNavigation(packet);
 		}
 		
-		protected function processNavigation(structuralDataStrand:Array):void
+		protected function processNavigation(packet:NavigationPacket2):void
 		{
-			history.addItem(structuralDataStrand[structuralDataStrand.length-1] as IStructuralData);
+			setCurrentAddress(packet);
 			
-			trace("NavigationManager.processNavigation: " + getControllerStrandFromStructuralDataStrand(structuralDataStrand));
+			//Add the deepest structural data to the history
+			var deepestController:INavigableController = packet.controllerStrand[packet.controllerStrand.length-1] as INavigableController;
+			history.addItem(deepestController.structuralData);
+			trace(">>>>>>>>>>>>>>>>>>>> NavigationManager.processNavigation: " + deepestController.structuralData);
 			
 			//Call navigate on rootController passing in packet
 			//rootController.navigate2(packet);
@@ -150,6 +176,20 @@ package com.layerglue.lib.application.navigation
 			}
 			
 			return structuralDataStrand;
+		}
+		
+		//--------------------
+		
+		private var _currentAddressPacket:NavigationPacket2;
+		
+		public function get currentAddressPacket():NavigationPacket2
+		{
+			return _currentAddressPacket;
+		}
+		
+		public function setCurrentAddress(value:NavigationPacket2):void
+		{
+			_currentAddressPacket = value;
 		}
 		
 	}

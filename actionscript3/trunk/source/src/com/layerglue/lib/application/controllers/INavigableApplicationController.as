@@ -9,6 +9,6 @@ package com.layerglue.lib.application.controllers
 		function unnavigationCompleteHandler(controller:INavigableController):void
 		
 		function get currentAddressPacket():NavigationPacket
-		function get previousAddressPacket():NavigationPacket
+		//function get previousAddressPacket():NavigationPacket
 	}
 }
