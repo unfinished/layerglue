@@ -3,7 +3,6 @@ package com.layerglue.lib.application.commands
 	import com.asual.swfaddress.SWFAddress;
 	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.requests.NavigationRequest;
-	import com.layerglue.lib.application.requests.RawNavigationRequest;
 	import com.layerglue.lib.base.commands.AbstractCommand;
 	import com.layerglue.lib.base.requests.IRequest;
 
@@ -31,9 +30,9 @@ package com.layerglue.lib.application.commands
 			
 			if(typedRequest.hideFromBrowser)
 			{
-				(new RawNavigationRequest(typedRequest.destination.uri)).dispatch();
+				//(new RawNavigationRequest(typedRequest.destination.uri)).dispatch();
 				
-				//NavigationManager.getInstance().processStructuralNavigation(typedRequest.destination);
+				NavigationManager.getInstance().processStructuralNavigation(typedRequest.destination);
 			}
 			else
 			{

@@ -30,6 +30,7 @@ package com.layerglue.lib.application.controllers
 		
 		public function navigate2():void
 		{
+			trace("AbstractNavigableController.navigate2: " + this.structuralData);
 			structuralData.selected = true;
 			
 			startTransitionIn();
@@ -37,12 +38,8 @@ package com.layerglue.lib.application.controllers
 		
 		override public function startTransitionIn():void
 		{
+			trace("?????????????????????????????????????????")
 			//This will be asynchronous in subclasses
-			
-			//Try to jump down to the next node in the address (if present)
-			//tryDeeperNavigation(_packet);
-			
-			//setTimeout(tryDeeperNavigation, 1000, _packet);
 			throw new Error("AbstractNavigableController: startTransitionIn() must be overriden in subclasses");
 		}
 		
@@ -112,11 +109,17 @@ package com.layerglue.lib.application.controllers
 		
 		protected function tryDeeperNavigation2():void
 		{
+			var n:NavigationManager = NavigationManager.getInstance();
 			var p:NavigationPacket2 = NavigationManager.getInstance().currentAddressPacket;
 			
-			if(p.hasControllerAtDepth(depth+1))
+			trace("p.hasControllerAtDepth(depth+1) = "+p.hasControllerAtDepth(depth+1));
+			
+			var c:INavigableController = p.getControllerAtDepth(depth+1);
+			trace("c = "+c);
+			
+			if(c)
 			{
-				navigate2();
+				c.navigate2();
 			}
 		}
 		

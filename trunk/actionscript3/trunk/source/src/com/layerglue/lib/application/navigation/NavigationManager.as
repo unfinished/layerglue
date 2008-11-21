@@ -9,6 +9,7 @@ package com.layerglue.lib.application.navigation
 	import flash.events.EventDispatcher;
 	import com.layerglue.lib.base.navigation.QueryString;
 	import mx.controls.Alert;
+	import com.layerglue.lib.application.requests.NavigationRequest;
 	
 	public class NavigationManager extends EventDispatcher
 	{
@@ -111,10 +112,25 @@ package com.layerglue.lib.application.navigation
 			//Add the deepest structural data to the history
 			var deepestController:INavigableController = packet.controllerStrand[packet.controllerStrand.length-1] as INavigableController;
 			history.addItem(deepestController.structuralData);
-			trace(">>>>>>>>>>>>>>>>>>>> NavigationManager.processNavigation: " + deepestController.structuralData);
+			trace(">>>>>>>>>>>>>>>>>>>> NavigationManager.processNavigation: " + deepestController.structuralData.uri);
 			
-			//Call navigate on rootController passing in packet
-			//rootController.navigate2(packet);
+			
+			
+			if(rootController.deepestSelectedChild && rootController.deepestSelectedChild != rootController)
+			{
+				trace("Trying to unnavigate from: " + rootController.deepestSelectedChild.structuralData.uri);
+				
+				//unnavigate
+				//var unnavigationPacket:NavigationPacket = currentAddressPacket;
+				
+				//(deepestSelectedChild as INavigableController).unnavigateToCommonNode(unnavigationPacket);
+				(rootController.deepestSelectedChild as INavigableController).unnavigateToCommonNode2();
+			}
+			else
+			{
+				//Call navigate on rootController passing in packet
+				rootController.navigate2();
+			}
 		}
 		
 		public function getControllerStrandFromStructuralDataStrand(structuralDataStrand:Array):Array
@@ -192,5 +208,14 @@ package com.layerglue.lib.application.navigation
 			_currentAddressPacket = value;
 		}
 		
+		public function doFirstNavigation():void
+		{
+			
+			var arr:Array = getStructuralDataStrandFromURI(SWFAddress.getPath());
+			var sd:IStructuralData = arr[arr.length-1] as IStructuralData;
+			
+			trace("doFirstNavigation: "+sd);
+			(new NavigationRequest(sd, true)).dispatch();
+		}
 	}
 }

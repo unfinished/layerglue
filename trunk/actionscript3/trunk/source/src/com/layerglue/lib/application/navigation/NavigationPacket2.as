@@ -19,12 +19,12 @@ package com.layerglue.lib.application.navigation
 		
 		public function getControllerAtDepth(depth:int):INavigableController
 		{
-			return controllerStrand[int];
+			return controllerStrand[depth];
 		}
 		
 		public function hasControllerAtDepth(depth:int):Boolean
 		{
-			return controllerStrand[int] != null;
+			return controllerStrand[depth] != null;
 		}
 		
 		public function get strandLength():int
