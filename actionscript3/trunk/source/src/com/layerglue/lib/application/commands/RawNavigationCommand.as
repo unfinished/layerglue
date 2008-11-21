@@ -24,8 +24,8 @@ package com.layerglue.lib.application.commands
 		override public function execute(request:IRequest):void
 		{
 			super.execute(request);
-			
-			((Application.application as NavigableApplicationView).controller as NavigableApplicationController).processRawNavigation(typedRequest.uri)
+			//NavigationManager.getInstance().processStructuralNavigation(typedRequest.
+			//((Application.application as NavigableApplicationView).controller as NavigableApplicationController).processRawNavigation(typedRequest.uri)
 		}
 	}
 }
