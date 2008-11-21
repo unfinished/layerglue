@@ -15,9 +15,8 @@ package com.layerglue.lib.application.controllers
 			super();
 		}
 		
-		public function navigate2():void
+		public function navigate():void
 		{
-			trace("AbstractNavigableController.navigate2: " + this.structuralData);
 			structuralData.selected = true;
 			
 			startTransitionIn();
@@ -25,7 +24,6 @@ package com.layerglue.lib.application.controllers
 		
 		override public function startTransitionIn():void
 		{
-			trace("?????????????????????????????????????????")
 			//This will be asynchronous in subclasses
 			throw new Error("AbstractNavigableController: startTransitionIn() must be overriden in subclasses");
 		}
@@ -36,7 +34,7 @@ package com.layerglue.lib.application.controllers
 			throw new Error("AbstractNavigableController: startTransitionOut() must be overriden in subclasses");
 		}
 		
-		public function unnavigateToCommonNode2():void
+		public function unnavigateToCommonNode():void
 		{
 			var currentAddressPacketControllerAtOurDepth:INavigableController = NavigationManager.getInstance().currentAddressPacket.getControllerAtDepth(depth) 
 			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
@@ -49,10 +47,10 @@ package com.layerglue.lib.application.controllers
 			}
 		}
 		
-		protected function tryShallowerUnnavigation2():void
+		protected function tryShallowerUnnavigation():void
 		{
 			structuralData.selected = false;
-			(parent as INavigableController).unnavigateToCommonNode2();
+			(parent as INavigableController).unnavigateToCommonNode();
 		}
 		
 		protected function setStructuralDataToUnselected():void
@@ -64,7 +62,7 @@ package com.layerglue.lib.application.controllers
 			}
 		}
 		
-		protected function tryDeeperNavigation2():void
+		protected function tryDeeperNavigation():void
 		{
 			var n:NavigationManager = NavigationManager.getInstance();
 			var p:NavigationPacket2 = NavigationManager.getInstance().currentAddressPacket;
@@ -76,7 +74,7 @@ package com.layerglue.lib.application.controllers
 			
 			if(c)
 			{
-				c.navigate2();
+				c.navigate();
 			}
 		}
 		

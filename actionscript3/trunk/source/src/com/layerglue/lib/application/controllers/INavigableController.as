@@ -9,8 +9,8 @@ package com.layerglue.lib.application.controllers
 		function getChildByUriNode(string:String):INavigableController;
 		function getChildById(string:String):INavigableController;
 		
-		function navigate2():void;
-		function unnavigateToCommonNode2():void;
+		function navigate():void;
+		function unnavigateToCommonNode():void;
 		
 	}
 }

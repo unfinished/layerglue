@@ -83,7 +83,7 @@ package com.layerglue.lib.application.controllers
 			trace("NavigableApplicationController.unnavigationCompleteHandler: " + controller);
 			
 			//Start inwards navigation
-			navigate2();
+			navigate();
 		}
 		
 		//TODO Look at how this works as a defautl
