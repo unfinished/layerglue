@@ -29,25 +29,28 @@ package com.layerglue.lib.application.navigation
 		
 		private function initializeSWFAddress():void
 		{
-			trace("NavigationManager.initializeSWFAddress");
 			SWFAddress.addEventListener(SWFAddressEvent.CHANGE, swfAddressChangeHandler);
 		}
 		
 		private function swfAddressChangeHandler(event:SWFAddressEvent):void
 		{
 			//Create new style navpackets here
-			//trace("NavigationManager.swfAddressChangeHandler");	
 			processURINavigation(event.path);
 		}
 		
 		public function processURINavigation(uri:String):void
 		{
-			trace("NavigationManager.processRawNavigation: " + uri);
+			trace("NavigationManager.processURINavigation: " + uri);
 		}
 		
 		public function processStructuralNavigation(structuralData:IStructuralData):void
 		{
 			trace("NavigationManager.processStructuralNavigation: " + structuralData + " - " + structuralData.uri);
+		}
+		
+		protected function processNavigation(packet:NavigationPacket2):void
+		{
+			trace("NavigationManager.processNavigation: " + packet);
 		}
 
 	}
