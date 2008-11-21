@@ -7,6 +7,7 @@ package com.layerglue.lib.application.commands
 	import com.layerglue.lib.base.requests.IRequest;
 	
 	import mx.core.Application;
+	import com.layerglue.lib.application.navigation.NavigationManager;
 	
 	public class RawNavigationCommand extends AbstractCommand
 	{
@@ -25,6 +26,9 @@ package com.layerglue.lib.application.commands
 			super.execute(request);
 			
 			((Application.application as NavigableApplicationView).controller as NavigableApplicationController).processRawNavigation(typedRequest.uri)
+			
+			//--------------
+			NavigationManager.getInstance().processRawNavigation(typedRequest.uri);
 		}
 	}
 }

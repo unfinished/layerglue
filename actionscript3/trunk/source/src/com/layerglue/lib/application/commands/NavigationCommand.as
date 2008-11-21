@@ -31,6 +31,7 @@ package com.layerglue.lib.application.commands
 			if(typedRequest.hideFromBrowser)
 			{
 				(new RawNavigationRequest(typedRequest.destination.uri)).dispatch();
+				//NavigationManager.getInstance().processRawNavigation(typedRequest.destination.uri);
 			}
 			else
 			{
