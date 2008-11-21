@@ -5,10 +5,6 @@ package com.layerglue.lib.application.controllers
 	[Bindable]
 	public interface INavigableApplicationController extends INavigableController, IApplicationController
 	{
-		function processRawNavigation(uri:String):void;
 		function unnavigationCompleteHandler(controller:INavigableController):void
-		
-		function get currentAddressPacket():NavigationPacket
-		//function get previousAddressPacket():NavigationPacket
 	}
 }
