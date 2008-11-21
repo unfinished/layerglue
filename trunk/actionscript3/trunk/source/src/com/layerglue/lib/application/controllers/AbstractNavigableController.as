@@ -1,6 +1,8 @@
 package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.navigation.NavigationPacket;
+	import com.layerglue.lib.application.navigation.NavigationPacket2;
+	import com.layerglue.lib.application.navigation.NavigationManager;
 	/**
 	 * The abstract base class for all Navigable controllers.
 	 */
@@ -26,6 +28,13 @@ package com.layerglue.lib.application.controllers
 			startTransitionIn();
 		}
 		
+		public function navigate2():void
+		{
+			structuralData.selected = true;
+			
+			startTransitionIn();
+		}
+		
 		override public function startTransitionIn():void
 		{
 			//This will be asynchronous in subclasses
@@ -41,6 +50,19 @@ package com.layerglue.lib.application.controllers
 		{
 			//trace("AbstractNavigableController.startTransitionOut: " + structuralData.uri + " - " + this);
 			throw new Error("AbstractNavigableController: startTransitionOut() must be overriden in subclasses");
+		}
+		
+		public function unnavigateToCommonNode2():void
+		{
+			var currentAddressPacketControllerAtOurDepth:INavigableController = NavigationManager.getInstance().currentAddressPacket.getControllerAtDepth(depth) 
+			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
+			{
+				(root as INavigableApplicationController).unnavigationCompleteHandler(this);
+			}
+			else
+			{
+				startTransitionOut();
+			}
 		}
 		
 		public function unnavigateToCommonNode(packet:NavigationPacket):void
@@ -65,6 +87,13 @@ package com.layerglue.lib.application.controllers
 			}
 		}
 		
+		
+		protected function tryShallowerUnnavigation2():void
+		{
+			structuralData.selected = false;
+			(parent as INavigableController).unnavigateToCommonNode2();
+		}
+		
 		protected function tryShallowerUnnavigation(packet:NavigationPacket):void
 		{
 			// Before we navigate up a level un-set our selected indexes
@@ -78,6 +107,16 @@ package com.layerglue.lib.application.controllers
 			{
 				//trace("setStructuralDataToUnselected: "+this);
 				structuralData.selected = false;
+			}
+		}
+		
+		protected function tryDeeperNavigation2():void
+		{
+			var p:NavigationPacket2 = NavigationManager.getInstance().currentAddressPacket;
+			
+			if(p.hasControllerAtDepth(depth+1))
+			{
+				navigate2();
 			}
 		}
 		
