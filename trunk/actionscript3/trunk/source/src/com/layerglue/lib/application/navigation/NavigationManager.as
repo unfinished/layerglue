@@ -12,9 +12,23 @@ package com.layerglue.lib.application.navigation
 	{
 		public var rootController:INavigableController;
 		
+		/**
+		 * TODO This isn't related to browser history and is purely a list of navigation locations
+		 * that have been processed by the system - If the user clicks back in the browser another
+		 * item will be added to this rather than one being removed from the end of the list.
+		 */
+		private var _history:NavigationHistory;
+		
+		public function get history():NavigationHistory
+		{
+			return _history;
+		}
+		
 		public function NavigationManager(rootController:INavigableController)
 		{
 			super();
+			
+			_history = new NavigationHistory();
 			
 			this.rootController = rootController;
 			
@@ -69,6 +83,8 @@ package com.layerglue.lib.application.navigation
 		
 		protected function processNavigation(structuralDataStrand:Array):void
 		{
+			history.addItem(structuralDataStrand[structuralDataStrand.length-1] as IStructuralData);
+			
 			trace("NavigationManager.processNavigation: " + getControllerStrandFromStructuralDataStrand(structuralDataStrand));
 			
 			//Call navigate on rootController passing in packet
@@ -135,6 +151,6 @@ package com.layerglue.lib.application.navigation
 			
 			return structuralDataStrand;
 		}
-
+		
 	}
 }
