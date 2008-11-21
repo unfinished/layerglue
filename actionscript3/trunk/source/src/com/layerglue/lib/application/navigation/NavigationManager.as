@@ -120,10 +120,6 @@ package com.layerglue.lib.application.navigation
 			{
 				trace("Trying to unnavigate from: " + rootController.deepestSelectedChild.structuralData.uri);
 				
-				//unnavigate
-				//var unnavigationPacket:NavigationPacket = currentAddressPacket;
-				
-				//(deepestSelectedChild as INavigableController).unnavigateToCommonNode(unnavigationPacket);
 				(rootController.deepestSelectedChild as INavigableController).unnavigateToCommonNode2();
 			}
 			else

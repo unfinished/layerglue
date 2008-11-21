@@ -83,23 +83,11 @@ package com.layerglue.lib.application.controllers
 			trace("NavigableApplicationController.unnavigationCompleteHandler: " + controller);
 			
 			//Start inwards navigation
-			startNavigation(currentAddressPacket);
-		}
-		
-		protected function startNavigation(packet:NavigationPacket):void
-		{
-			navigate(packet);
+			navigate2();
 		}
 		
 		//TODO Look at how this works as a defautl
 		public function doFirstNavigation():void
-		{
-			//(new RawNavigationRequest(SWFAddress.getValue())).dispatch();
-			//setTimeout(test, 10);
-			test();
-		}
-		
-		private function test():void
 		{
 			(new RawNavigationRequest(SWFAddress.getValue())).dispatch();
 		}
