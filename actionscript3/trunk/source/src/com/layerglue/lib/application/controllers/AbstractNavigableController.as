@@ -39,7 +39,8 @@ package com.layerglue.lib.application.controllers
 			var currentAddressPacketControllerAtOurDepth:INavigableController = NavigationManager.getInstance().currentAddressPacket.getControllerAtDepth(depth) 
 			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
 			{
-				(root as INavigableApplicationController).unnavigationCompleteHandler(this);
+				//(root as INavigableApplicationController).unnavigationCompleteHandler(this);
+				NavigationManager.getInstance().unnavigationCompleteHandler(this);
 			}
 			else
 			{

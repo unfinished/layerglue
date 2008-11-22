@@ -1,18 +1,18 @@
 package com.layerglue.lib.application.controllers
 {
-	import com.layerglue.lib.base.collections.HashMap;
-	import com.layerglue.lib.base.events.DestroyEvent;
 	import com.layerglue.lib.application.maps.ControllerToViewMap;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.structure.IStructuralDataListener;
 	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.base.collections.HashMap;
+	import com.layerglue.lib.base.collections.ICollection;
+	import com.layerglue.lib.base.events.DestroyEvent;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.EventDispatcher;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
-	import com.layerglue.lib.base.collections.ICollection;
 
 	public class AbstractController extends EventDispatcher implements IController
 	{
@@ -34,9 +34,9 @@ package com.layerglue.lib.application.controllers
 			return !parent;
 		}
 		
-		public function get root():IApplicationController
+		public function get root():IController
 		{
-			return isRoot() ? this as IApplicationController : parent.root;
+			return isRoot() ? this as IController : parent.root;
 		}
 		
 		private var _structuralData:IStructuralData;

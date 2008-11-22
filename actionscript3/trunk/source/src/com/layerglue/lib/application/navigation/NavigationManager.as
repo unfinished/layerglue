@@ -190,6 +190,14 @@ package com.layerglue.lib.application.navigation
 			return structuralDataStrand;
 		}
 		
+		public function unnavigationCompleteHandler(controller:INavigableController):void
+		{
+			trace("NavigationManager.unnavigationCompleteHandler: " + controller);
+			
+			//Start inwards navigation
+			rootController.navigate();
+		}
+		
 		//--------------------
 		
 		private var _currentAddressPacket:NavigationPacket2;
