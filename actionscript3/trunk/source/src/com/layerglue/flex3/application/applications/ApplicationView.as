@@ -1,6 +1,6 @@
 package com.layerglue.flex3.application.applications
 {
-	import com.layerglue.lib.application.controllers.INavigableApplicationController;
+	import com.layerglue.lib.application.controllers.INavigableController;
 	import com.layerglue.lib.application.events.StructuralDataListenerEvent;
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
@@ -37,14 +37,14 @@ package com.layerglue.flex3.application.applications
 			//This should be overridden in subclasses
 		}
 		
-		private var _controller:INavigableApplicationController;
+		private var _controller:INavigableController;
 		
-		public function get controller():INavigableApplicationController
+		public function get controller():INavigableController
 		{
 			return _controller;
 		}
 		
-		public function set controller(value:INavigableApplicationController):void
+		public function set controller(value:INavigableController):void
 		{
 			_controller = value;
 		}

@@ -12,14 +12,5 @@ package com.layerglue.lib.application.controllers
 			this.structuralData = structuralData;
 			view.structuralData = structuralData;
 		}
-		/* 
-		public function unnavigationCompleteHandler(controller:INavigableController):void
-		{
-			trace("NavigableApplicationController.unnavigationCompleteHandler: " + controller);
-			
-			//Start inwards navigation
-			navigate();
-		}
-		 */
 	}
 }
