@@ -1,14 +1,14 @@
 package com.layerglue.lib.application.controllers
 {
-	import com.layerglue.lib.base.collections.HashMap;
-	import com.layerglue.lib.base.core.IDestroyable;
 	import com.layerglue.lib.application.maps.ControllerToViewMap;
 	import com.layerglue.lib.application.structure.IStructuralDataOwner;
 	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.base.collections.HashMap;
+	import com.layerglue.lib.base.collections.ICollection;
+	import com.layerglue.lib.base.core.IDestroyable;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
-	import com.layerglue.lib.base.collections.ICollection;
 	
 	[Bindable]
 	public interface IController extends
@@ -24,7 +24,7 @@ package com.layerglue.lib.application.controllers
 		/**
 		 * Returns the root controller
 		 */
-		function get root():IApplicationController;
+		function get root():IController;
 		
 		/**
 		 * Returns the view instance that this controllers view should be created within.

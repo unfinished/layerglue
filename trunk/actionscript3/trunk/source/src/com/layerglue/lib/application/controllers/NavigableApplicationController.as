@@ -1,13 +1,9 @@
 package com.layerglue.lib.application.controllers
 {
-	import com.asual.swfaddress.SWFAddress;
-	import com.layerglue.lib.application.events.NavigableApplicationControllerEvent;
-	import com.layerglue.lib.application.navigation.NavigationPacket;
-	import com.layerglue.lib.application.requests.RawNavigationRequest;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.IView;
 
-	public class NavigableApplicationController extends AbstractNavigableController implements INavigableApplicationController
+	public class NavigableApplicationController extends AbstractNavigableController
 	{
 		public function NavigableApplicationController(structuralData:IStructuralData, view:IView)
 		{
@@ -16,7 +12,7 @@ package com.layerglue.lib.application.controllers
 			this.structuralData = structuralData;
 			view.structuralData = structuralData;
 		}
-		
+		/* 
 		public function unnavigationCompleteHandler(controller:INavigableController):void
 		{
 			trace("NavigableApplicationController.unnavigationCompleteHandler: " + controller);
@@ -24,6 +20,6 @@ package com.layerglue.lib.application.controllers
 			//Start inwards navigation
 			navigate();
 		}
-		
+		 */
 	}
 }
