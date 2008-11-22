@@ -9,8 +9,6 @@ package com.layerglue.lib.application.commands
 	/**
 	 * <p>A command dealing with navigation requests by the system.</p>
 	 * 
-	 * <p>Note: If navigation needs to be hidden from history a RawNavigationRequest is dispatched
-	 * immediately instead of going through SWFAddress.</p>
 	 */
 	public class NavigationCommand extends AbstractCommand
 	{
@@ -30,8 +28,6 @@ package com.layerglue.lib.application.commands
 			
 			if(typedRequest.hideFromBrowser)
 			{
-				//(new RawNavigationRequest(typedRequest.destination.uri)).dispatch();
-				
 				NavigationManager.getInstance().processStructuralNavigation(typedRequest.destination);
 			}
 			else
