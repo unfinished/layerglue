@@ -66,10 +66,7 @@ package com.layerglue.lib.application.controllers
 		{
 			var p:NavigationPacket2 = navigationManager.currentAddressPacket;
 			
-			trace("p.hasControllerAtDepth(depth+1) = "+p.hasControllerAtDepth(depth+1));
-			
 			var c:INavigableController = p.getControllerAtDepth(depth+1);
-			trace("c = "+c);
 			
 			if(c)
 			{

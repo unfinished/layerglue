@@ -7,29 +7,29 @@ package com.layerglue.lib.application.requests
 	 * A navigation request specifying a destination and whether or not it should be passed via
 	 * SWFAddress and be registered in the browser history
 	 */
-	public class NavigationRequest extends AbstractRequest
+	public class StructuralDataNavigationRequest extends AbstractRequest
 	{
-		public function NavigationRequest(destination:IStructuralData, hideFromHistory:Boolean=false)
+		public function StructuralDataNavigationRequest(destination:IStructuralData, hideFromBrowser:Boolean=false)
 		{
 			super();
 			
-			this.destination = destination;
-			this.hideFromBrowser = hideFromHistory;
+			this.structuralData = destination;
+			this.hideFromBrowser = hideFromBrowser;
 		}
 		
-		private var _destination:IStructuralData;
+		private var _structuralData:IStructuralData;
 		
 		/**
 		 * The node in the structural data hierarchy that should be navigated to 
 		 */
-		public function get destination():IStructuralData
+		public function get structuralData():IStructuralData
 		{
-			return _destination;
+			return _structuralData;
 		}
 		
-		public function set destination(value:IStructuralData):void
+		public function set structuralData(value:IStructuralData):void
 		{
-			_destination = value;
+			_structuralData = value;
 		}
 		
 		private var _hideFromBrowser:Boolean;

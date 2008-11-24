@@ -3,7 +3,7 @@ package com.layerglue.lib.application.navigation
 	import com.asual.swfaddress.SWFAddress;
 	import com.asual.swfaddress.SWFAddressEvent;
 	import com.layerglue.lib.application.controllers.INavigableController;
-	import com.layerglue.lib.application.requests.NavigationRequest;
+	import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.navigation.QueryString;
@@ -94,7 +94,7 @@ package com.layerglue.lib.application.navigation
 			processNavigation(packet);
 		}
 		
-		public function processStructuralNavigation(structuralData:IStructuralData):void
+		public function processStructuralDataNavigation(structuralData:IStructuralData):void
 		{
 			trace("NavigationManager.processStructuralNavigation: " + structuralData + " - " + structuralData.uri);
 			
@@ -219,7 +219,7 @@ package com.layerglue.lib.application.navigation
 			var sd:IStructuralData = arr[arr.length-1] as IStructuralData;
 			
 			trace("doFirstNavigation: "+sd);
-			(new NavigationRequest(sd, true)).dispatch();
+			(new StructuralDataNavigationRequest(sd, true)).dispatch();
 		}
 	}
 }
