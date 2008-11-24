@@ -3,9 +3,9 @@ package com.layerglue.lib.application.maps
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.utils.ReflectionUtils;
 	
-	public class StructureToContollerMap extends ClassMap
+	public class StructuralDataToContollerMap extends ClassMap
 	{
-		public function StructureToContollerMap()
+		public function StructuralDataToContollerMap()
 		{
 			super();
 		}
