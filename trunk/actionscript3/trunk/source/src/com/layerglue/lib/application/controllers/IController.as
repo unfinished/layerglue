@@ -1,10 +1,7 @@
 package com.layerglue.lib.application.controllers
 {
-	import com.layerglue.lib.application.maps.ControllerToViewMap;
 	import com.layerglue.lib.application.structure.IStructuralDataOwner;
 	import com.layerglue.lib.application.views.IView;
-	import com.layerglue.lib.base.collections.HashMap;
-	import com.layerglue.lib.base.collections.ICollection;
 	import com.layerglue.lib.base.core.IDestroyable;
 	
 	import flash.display.DisplayObjectContainer;
@@ -25,6 +22,9 @@ package com.layerglue.lib.application.controllers
 		 * Returns the root controller
 		 */
 		function get root():IController;
+		
+		function get viewClassReference():Class
+		function set viewClassReference(value:Class):void
 		
 		/**
 		 * Returns the view instance that this controllers view should be created within.
@@ -66,21 +66,6 @@ package com.layerglue.lib.application.controllers
 		function get depth():uint
 		
 		/**
-		 * Returns a Hashmap describing which views are associated to which controllers. This is used in the
-		 * automatic creation of views by controllers.
-		 */
-		function get controllerToViewClassMap():ControllerToViewMap
-		function set controllerToViewClassMap(value:ControllerToViewMap):void
-		
-		/**
-		 * Returns a Hashmap describing which controllers are associated with which types of structral data.
-		 * This is used in the automatic creation of controllers based on the deserialized
-		 * structural data during application startup.
-		 */
-		function get structuralDataToControllerClassMap():HashMap
-		function set structuralDataToControllerClassMap(value:HashMap):void
-		
-		/**
 		 * Which one of the child controllers is selected
 		 */
 		function get selectedChild():IController;
@@ -89,11 +74,6 @@ package com.layerglue.lib.application.controllers
 		 * Returns the deepest selected child in the controller hierarchy.
 		 */
 		function get deepestSelectedChild():IController;
-		
-		/**
-		 * Creates this controllers children based on a list of structural data objects.
-		 */
-		function createChildren(structuralDataCollection:ICollection=null, structuralDataToControllerClassMap:HashMap=null, controllerToViewClassMap:ControllerToViewMap=null):void
 		
 		/**
 		 * Destroys all the children of this controller.

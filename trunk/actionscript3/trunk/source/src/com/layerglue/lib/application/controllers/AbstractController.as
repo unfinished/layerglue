@@ -1,33 +1,23 @@
 package com.layerglue.lib.application.controllers
 {
-	import com.layerglue.lib.application.maps.ControllerToViewMap;
 	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.structure.IStructuralDataListener;
 	import com.layerglue.lib.application.views.IView;
-	import com.layerglue.lib.base.collections.HashMap;
-	import com.layerglue.lib.base.collections.ICollection;
 	import com.layerglue.lib.base.events.DestroyEvent;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.EventDispatcher;
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
 
 	public class AbstractController extends EventDispatcher implements IController
 	{
 		
-		public function AbstractController
-		(
-			structuralDataToControllerClassMap:HashMap=null,
-			controllerToViewClassMap:ControllerToViewMap=null)
+		public function AbstractController()
 		{
 			super();
 			
 			_children = new Array();
-			_structuralDataToControllerClassMap = structuralDataToControllerClassMap;
-			_controllerToViewClassMap = controllerToViewClassMap;
 		}
 		
 		public function get navigationManager():NavigationManager
@@ -185,57 +175,7 @@ package com.layerglue.lib.application.controllers
 			
 			return null;
 		}
-		
-		private var _controllerToViewClassMap:ControllerToViewMap;
-
-		public function get controllerToViewClassMap():ControllerToViewMap
-		{
-			return _controllerToViewClassMap;
-		}
-
-		public function set controllerToViewClassMap(v:ControllerToViewMap):void
-		{
-			_controllerToViewClassMap = v;
-		}
-		
-		private var _structuralDataToControllerClassMap:HashMap;
-
-		public function get structuralDataToControllerClassMap():HashMap
-		{
-			return _structuralDataToControllerClassMap;
-		}
-
-		public function set structuralDataToControllerClassMap(value:HashMap):void
-		{
-			_structuralDataToControllerClassMap = value;
-		}
-		
-		public function createChildren(structuralDataCollection:ICollection=null, structuralDataToControllerClassMap:HashMap=null, controllerToViewClassMap:ControllerToViewMap=null):void
-		{
-			this.structuralDataToControllerClassMap = structuralDataToControllerClassMap;
-			this.controllerToViewClassMap = controllerToViewClassMap;
 			
-			var structuralDataNode:IStructuralData;
-			for each( structuralDataNode in structuralDataCollection )
-			{
-				var classRef:Class = getDefinitionByName(getQualifiedClassName(structuralDataNode)) as Class;
-				var controllerClassRef:Class = structuralDataToControllerClassMap.get(classRef);
-				
-				if(!controllerClassRef)
-				{
-					throw new Error("Tried to create child controller but couldn't find matching controller for structural data: " + structuralDataNode);
-				}
-				
-				var controller:IController = new controllerClassRef();
-				controller.parent = this;
-				controller.structuralData = structuralDataNode;
-				controller.controllerToViewClassMap = controllerToViewClassMap;
-				children.push(controller);
-				
-				controller.createChildren(structuralDataNode.children, structuralDataToControllerClassMap, controllerToViewClassMap);
-			}
-		}
-		
 		public function destroyChildren():void
 		{
 			var c:IController;
@@ -259,14 +199,12 @@ package com.layerglue.lib.application.controllers
 		
 		public function createView(shouldAdd:Boolean=false):IView
 		{
-			var viewClassRef:Class = controllerToViewClassMap.getViewClassReference(this);
-			
-			if(!viewClassRef)
+			if(!viewClassReference)
 			{
 				throw new Error("Tried to create a view from a controller when no controller-to-view mapping was specified: " + this);
 			}
 			
-			var viewInstance:IView = new viewClassRef();
+			var viewInstance:IView = new viewClassReference();
 			(viewInstance as IStructuralDataListener).structuralData = structuralData;
 			
 			if(shouldAdd)
