@@ -1,5 +1,6 @@
 package com.layerglue.lib.application.controllers
 {
+	import com.layerglue.lib.application.LayerGlueLocator;
 	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.structure.IStructuralDataListener;
@@ -22,7 +23,7 @@ package com.layerglue.lib.application.controllers
 		
 		public function get navigationManager():NavigationManager
 		{
-			return NavigationManager.getInstance();
+			return LayerGlueLocator.getInstance().navigationManager;
 		}
 		
 		public function isRoot():Boolean

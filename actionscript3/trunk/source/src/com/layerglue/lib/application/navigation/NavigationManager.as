@@ -41,8 +41,8 @@ package com.layerglue.lib.application.navigation
 			_history.addItem(rootController.structuralData);
 		}
 		
+		/* 
 		private static var _instance:NavigationManager;
-		
 		public static function initialize(rootController:INavigableController):NavigationManager
 		{
 			if(!_instance)
@@ -60,7 +60,7 @@ package com.layerglue.lib.application.navigation
 				throw new Error("Attempted access of NavigationManager singleton before initialization.");
 			}
 			return _instance;
-		}
+		} */
 		
 		private function initializeSWFAddress():void
 		{

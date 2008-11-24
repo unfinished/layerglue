@@ -1,7 +1,7 @@
 package com.layerglue.lib.application.commands
 {
 	import com.asual.swfaddress.SWFAddress;
-	import com.layerglue.lib.application.navigation.NavigationManager;
+	import com.layerglue.lib.application.LayerGlueLocator;
 	import com.layerglue.lib.application.requests.URINavigationRequest;
 	import com.layerglue.lib.base.commands.AbstractCommand;
 	import com.layerglue.lib.base.requests.IRequest;
@@ -24,7 +24,7 @@ package com.layerglue.lib.application.commands
 			
 			if(typedRequest.hideFromBrowser)
 			{
-				NavigationManager.getInstance().processURINavigation(typedRequest.uri);
+				LayerGlueLocator.getInstance().navigationManager.processURINavigation(typedRequest.uri);
 			}
 			else
 			{
