@@ -1,6 +1,7 @@
 package com.layerglue.lib.application
 {
 	import com.layerglue.lib.application.controllers.IController;
+	import com.layerglue.lib.application.controllers.INavigableController;
 	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	
@@ -39,16 +40,16 @@ package com.layerglue.lib.application
 			_structuralData = value;
 		}
 		
-		private var _controller:IController;
+		private var _controller:INavigableController;
 		/**
 		 * 
 		 */
-		public function get controller():IController
+		public function get controller():INavigableController
 		{
 			return _controller;
 		}
 		
-		public function set controller(value:IController):void
+		public function set controller(value:INavigableController):void
 		{
 			_controller = value;
 		}
