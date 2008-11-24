@@ -1,16 +1,14 @@
 package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.maps.ControllerToViewMap;
+	import com.layerglue.lib.application.maps.StructureToContollerMap;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.base.collections.HashMap;
-	import com.layerglue.lib.base.utils.ReflectionUtils;
-	import com.wildside.maps.WildSideControllerToViewMap;
 	
 	public class ControllerHierarchyCreator
 	{
 		public var defaultController:Class;
 		
-		public var structureToControllerMap:HashMap;
+		public var structureToControllerMap:StructureToContollerMap;
 		public var controllerToViewMap:ControllerToViewMap;
 		
 		public function ControllerHierarchyCreator()
@@ -46,15 +44,15 @@ package com.layerglue.lib.application.controllers
 		
 		protected function createControllerInstance(structuralData:IStructuralData, parent:IController=null):IController
 		{
-			var structuralClassRef:Class = ReflectionUtils.getClassReference(structuralData);
-			var controllerClassRef:Class = structureToControllerMap.get(structuralClassRef);
+			var controllerClassRef:Class = structureToControllerMap.getClassReference(structuralData);
 			
 			var controller:IController = new controllerClassRef();
 			controller.parent = parent;
 			controller.structuralData = structuralData;
 			
 			//TODO: remove line below later
-			controller.controllerToViewClassMap = new WildSideControllerToViewMap();
+			//controller.controllerToViewClassMap = new WildSideControllerToViewMap();
+			controller.viewClassReference = controllerToViewMap.getClassReference(controller);
 			
 			return controller;
 		}
