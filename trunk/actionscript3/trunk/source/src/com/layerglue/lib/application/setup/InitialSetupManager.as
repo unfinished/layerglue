@@ -69,12 +69,12 @@ package com.layerglue.lib.application.setup
 		public function setup(structuralDataXML:XML):void
 		{
 			var lgl:LayerGlueLocator = LayerGlueLocator.getInstance();
-			lgl.structuralData = createStructuralData(structuralDataXML, xmlToStructuralDataMap);
-			lgl.controller = createControllerHierarchy(lgl.structuralData, structuralDataToControllerMap, controllerToViewMap);
+			lgl.structuralData = createStructuralData(structuralDataXML);
+			lgl.controller = createControllerHierarchy(lgl.structuralData);
 			lgl.navigationManager = new NavigationManager(lgl.controller);
 		}
 		
-		protected function createStructuralData(xml:XML, map:XMLDeserializationMap):IStructuralData
+		protected function createStructuralData(xml:XML):IStructuralData
 		{
 			var collectionStrategyMap:FlexCollectionStrategyMap = new FlexCollectionStrategyMap();
 			collectionStrategyMap.addMapping(FlexCollection, new CollectionStrategy());
@@ -83,17 +83,17 @@ package com.layerglue.lib.application.setup
 			collectionStrategyMap.addMapping(ArrayExt, new CollectionStrategy());
 			
 			var d:XMLDeserializer = new XMLDeserializer();
-			d.map = map;
+			d.map = xmlToStructuralDataMap;
 			d.collectionStrategyMap = collectionStrategyMap;
 			
 			return d.deserialize(xml);
 		}
 		
-		protected function createControllerHierarchy(structuralData:IStructuralData, controllerMap:StructuralDataToContollerMap, viewMap:ControllerToViewMap):INavigableController
+		protected function createControllerHierarchy(structuralData:IStructuralData):INavigableController
 		{
 			var chc:ControllerHierarchyCreator = new ControllerHierarchyCreator();
-			chc.structureToControllerMap = controllerMap;
-			chc.controllerToViewMap = viewMap;
+			chc.structureToControllerMap = structuralDataToControllerMap;
+			chc.controllerToViewMap = controllerToViewMap;
 			var c:INavigableController = chc.createHierarchy(structuralData) as INavigableController;
 			
 			return c;
