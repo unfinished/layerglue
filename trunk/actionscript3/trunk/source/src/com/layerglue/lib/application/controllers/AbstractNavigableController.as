@@ -36,10 +36,10 @@ package com.layerglue.lib.application.controllers
 		
 		public function unnavigateToCommonNode():void
 		{
-			var currentAddressPacketControllerAtOurDepth:INavigableController = NavigationManager.getInstance().currentAddressPacket.getControllerAtDepth(depth) 
+			var currentAddressPacketControllerAtOurDepth:INavigableController = navigationManager.currentAddressPacket.getControllerAtDepth(depth) 
 			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
 			{
-				NavigationManager.getInstance().unnavigationCompleteHandler(this);
+				navigationManager.unnavigationCompleteHandler(this);
 			}
 			else
 			{
@@ -64,8 +64,7 @@ package com.layerglue.lib.application.controllers
 		
 		protected function tryDeeperNavigation():void
 		{
-			var n:NavigationManager = NavigationManager.getInstance();
-			var p:NavigationPacket2 = NavigationManager.getInstance().currentAddressPacket;
+			var p:NavigationPacket2 = navigationManager.currentAddressPacket;
 			
 			trace("p.hasControllerAtDepth(depth+1) = "+p.hasControllerAtDepth(depth+1));
 			
