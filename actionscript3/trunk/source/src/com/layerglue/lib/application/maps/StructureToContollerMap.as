@@ -12,8 +12,7 @@ package com.layerglue.lib.application.maps
 		
 		public function getClassReference(structuralData:IStructuralData):Class
 		{
-			// TODO: implement controller id mapping
-			/* var idMapping:Class = getFromIdMap(controller.mapId)
+			var idMapping:Class = getFromIdMap(structuralData.structuralDataToControllerMapId)
 			
 			if(idMapping)
 			{
@@ -21,11 +20,8 @@ package com.layerglue.lib.application.maps
 			}
 			else
 			{
-				return getFromClassReferenceMap(ReflectionUtils.getClassReference(controller));
+				return getFromClassReferenceMap(ReflectionUtils.getClassReference(structuralData));
 			}
-			 */
-			
-			return getFromClassReferenceMap(ReflectionUtils.getClassReference(structuralData));
 		}
 		
 	}
