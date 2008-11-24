@@ -2,12 +2,9 @@ package com.layerglue.lib.application.structure
 {
 	import com.layerglue.lib.application.navigation.INavigable;
 	import com.layerglue.lib.base.collections.ICollection;
-	import com.layerglue.lib.base.maps.IMapable;
 	
 	// TODO: take a look at these interfaces and what they're prescribing
-	public interface IStructuralData extends
-		INavigable,
-		IMapable
+	public interface IStructuralData extends INavigable
 	{
 		[Bindable(event="propertyChange")]
 		function get id():String;
@@ -54,6 +51,12 @@ package com.layerglue.lib.application.structure
 		[Bindable(event="propertyChange")]
 		function get branchOnly():Boolean
 		function set branchOnly(value:Boolean):void
+		
+		function get structuralDataToControllerMapId():String
+		function set structuralDataToControllerMapId(value:String):void
+		
+		function get controllerToViewMapId():String
+		function set controllerToViewMapId(value:String):void
 		
 		function isRoot():Boolean
 		

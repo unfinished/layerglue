@@ -327,17 +327,32 @@ package com.layerglue.lib.application.structure
 			return isRoot() ? 0 : parent.depth + 1;
 		}
 		
-		protected var _mapId:String;
-		// TODO: property is ambiguous
-		// it supposed to add further controller->view mapping solutions
-		public function get mapId():String
+		protected var _structuralDataToControllerMapId:String;
+		/**
+		 * Overrides Class based structural data to controller mappings
+		 */
+		public function get structuralDataToControllerMapId():String
 		{
-			return _mapId;
+			return _structuralDataToControllerMapId;
 		}
 		
-		public function set mapId(value:String):void
+		public function set structuralDataToControllerMapId(value:String):void
 		{
-			_mapId = value;
+			_structuralDataToControllerMapId = value;
+		}
+		
+		protected var _controllerToViewMapId:String;
+		/**
+		 * Overrides Class based controller to view mappings
+		 */
+		public function get controllerToViewMapId():String
+		{
+			return _controllerToViewMapId;
+		}
+		
+		public function set controllerToViewMapId(value:String):void
+		{
+			_controllerToViewMapId = value;
 		}
 		
 		protected var _branchOnly:Boolean

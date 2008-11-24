@@ -12,7 +12,7 @@ package com.layerglue.lib.application.maps
 		
 		public function getClassReference(controller:IController):Class
 		{
-			var idMapping:Class = getFromIdMap(controller.structuralData.mapId)
+			var idMapping:Class = getFromIdMap(controller.structuralData.controllerToViewMapId)
 			
 			if(idMapping)
 			{
