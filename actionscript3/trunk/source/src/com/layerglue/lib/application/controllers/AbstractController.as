@@ -60,7 +60,7 @@ package com.layerglue.lib.application.controllers
 		}
 		
 		private var _viewParent:DisplayObjectContainer;
-
+		// Unused??
 		public function get viewParent():DisplayObjectContainer
 		{
 			return _viewParent ? _viewParent : (parent ? parent.childViewContainer : null);
@@ -82,6 +82,19 @@ package com.layerglue.lib.application.controllers
 		{
 			_childViewContainer = value;
 		}
+		
+		protected var _viewClassReference:Class; 
+		
+		public function get viewClassReference():Class
+		{
+			return _viewClassReference;
+		}
+		
+		public function set viewClassReference(value:Class):void
+		{
+			_viewClassReference = value;
+		}
+		
 		 
 		private var _view:IView;
 
