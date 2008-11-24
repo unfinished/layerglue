@@ -1,6 +1,7 @@
 package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.maps.ControllerToViewMap;
+	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.structure.IStructuralDataListener;
 	import com.layerglue.lib.application.views.IView;
@@ -27,6 +28,11 @@ package com.layerglue.lib.application.controllers
 			_children = new Array();
 			_structuralDataToControllerClassMap = structuralDataToControllerClassMap;
 			_controllerToViewClassMap = controllerToViewClassMap;
+		}
+		
+		public function get navigationManager():NavigationManager
+		{
+			return NavigationManager.getInstance();
 		}
 		
 		public function isRoot():Boolean
