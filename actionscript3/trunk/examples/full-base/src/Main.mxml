@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<lgapps:ProportionallyPreloadableApplication
+<lgapps:PreloadableApplication
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:local="*"
 	xmlns:lgapps="com.layerglue.flex3.base.applications.*"
@@ -12,6 +12,13 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.vo.StructureRoot;
+			import com.layerglue.lib.base.substitution.XMLSubstitutor;
+			import com.layerglue.lib.base.substitution.sources.MultiSubstitutionSource;
+			import com.layerglue.lib.application.structure.IStructuralData;
+			import com.layerglue.lib.base.io.xml.XMLDeserializer;
+			import com.client.project.maps.StructureDeserializationMap;
+			import com.layerglue.lib.application.setup.InitialSetupManager;
 			import com.layerglue.flex3.base.preloader.PreloadManager;
 			import mx.collections.ArrayCollection;
 			import com.layerglue.lib.base.io.FlashVars;
@@ -21,12 +28,12 @@
 			import mx.effects.Fade;
 			import com.client.project.io.InitialLoadManager;
 			import mx.preloaders.DownloadProgressBar;
-			import com.client.project.vo.StructureRoot;
 			
 			//com.layerglue.flex3.base.preloader.DownloadProgressBarExt
 			//com.client.project.preloader.PreloaderView
 			
 			private var _initialLoadManager:InitialLoadManager;
+			private var _initialSetupManager:InitialSetupManager;
 						
 			// The object that will contain the deserialized xml data
 			[Bindable]
@@ -56,23 +63,16 @@
 			
 			private function initialLoadCompleteHandler(event:Event):void
 			{
-				structureRoot = _initialLoadManager.structureRoot;
+				var populatedStructuralData:XML = populateStructuralDataXML(_initialLoadManager.unpopulatedStructuralDataXML);
+				
+				structureRoot = deserializeStructuralData(populatedStructuralData);
 				
 				createComponentsFromDescriptors();
 			}
 			
 			private function hidePreloader():void
 			{
-				//preloaderContainer.visible = false;
-				
-				var effect:Fade = new FadeExt(preloaderContainer, 1, 0, 500);
-				effect.addEventListener(EffectEvent.EFFECT_END, preloaderHideComplete);
-				effect.play();
-			}
-			
-			private function preloaderHideComplete(event:EffectEvent):void
-			{
-				//PreloadManager.getInstance().preloaderDisplay.destroy();
+				preloaderContainer.visible = false;
 				removeChild(preloaderContainer);
 			}
 			
@@ -81,6 +81,26 @@
 				preloaderContainer.addChild(PreloadManager.getInstance().preloaderDisplay as DisplayObject);
 			}
 			
+			private function populateStructuralDataXML(xml:XML):XML
+			{
+				//Create MultiSubstitution source from multiple sources
+				var source:MultiSubstitutionSource = new MultiSubstitutionSource();
+				source.addItem(_initialLoadManager.globalConfigSource);
+				source.addItem(_initialLoadManager.localeConfigSource);
+				source.addItem(_initialLoadManager.localeCopySource);
+				
+				var substitutor:XMLSubstitutor = new XMLSubstitutor("@", "@");
+				
+				return substitutor.process(xml, source);
+			}
+			
+			private function deserializeStructuralData(xml:XML):StructureRoot
+			{
+				var deserializer:XMLDeserializer = new XMLDeserializer();
+				deserializer.map = new StructureDeserializationMap();
+				
+				return deserializer.deserialize(xml);
+			}
 			
 		]]>
 	</mx:Script>
@@ -93,4 +113,4 @@
 		</mx:HBox>
 	</mx:Box>
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
-</lgapps:ProportionallyPreloadableApplication>
+</lgapps:PreloadableApplication>

@@ -2,9 +2,9 @@ package com.client.project.io
 {
 	import com.client.project.locators.ModelLocator;
 	import com.client.project.maps.StructureDeserializationMap;
-	import com.client.project.vo.StructureRoot;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
+	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
@@ -28,13 +28,12 @@ package com.client.project.io
 	public class InitialLoadManager extends EventDispatcher
 	{
 		//Defining properties to hold XML Substitutors
-		private var _globalConfigSource:ISubstitutionSource;
-		private var _localeConfigSource:ISubstitutionSource;
-		private var _copySource:ISubstitutionSource;
+		public var globalConfigSource:ISubstitutionSource;
+		public var localeConfigSource:ISubstitutionSource;
+		public var localeCopySource:ISubstitutionSource;
+		public var unpopulatedStructuralDataXML:XML;
 		
 		private var _loadManagerListener:EventListener;
-		
-		public var structureRoot:StructureRoot;
 		
 		private var _regionalCSSLoader:CSSStyleLoader;
 		
@@ -112,30 +111,31 @@ package com.client.project.io
 		
 		private function globalConfigCompleteHandler(event:Event):void
 		{
-			_globalConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			globalConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
 			_loader.loadNext();
 		}
 		
 		private function localeConfigCompleteHandler(event:Event):void
 		{
-			_localeConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			localeConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			
+			//Locale config data contains the region for the css and has loaded, so set the url for
+			//the compiled css swf to load  
+			var region:String = localeConfigSource.getValueByReference("region");
+			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/" + region + ".swf?cacheBuster=" + Math.random();
+			
 			_loader.loadNext();
 		}
 		
 		private function localeCopyCompleteHandler(event:Event):void
 		{
-			_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			localeCopySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
 			_loader.loadNext();
 		}
 		
 		private function structureUnpopulatedCompleteHandler(event:Event):void
 		{
 			populateStructuralDataXML((event.target as XmlLoader).typedData);
-			
-			var region:String = _localeConfigSource.getValueByReference("region");
-			
-			//Simulate availability of config data by setting the regional css path 
-			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/" + region + ".swf?cacheBuster=" + Math.random();
 			
 			_loader.loadNext();
 		}
@@ -158,22 +158,14 @@ package com.client.project.io
 		private function populateStructuralDataXML(xml:XML):void
 		{
 			var source:MultiSubstitutionSource = new MultiSubstitutionSource();
-			source.addItem(_globalConfigSource);
-			source.addItem(_localeConfigSource);
-			source.addItem(_copySource);
+			source.addItem(globalConfigSource);
+			source.addItem(localeConfigSource);
+			source.addItem(localeCopySource);
 			
 			var substitutor:XMLSubstitutor = new XMLSubstitutor("@", "@");
-			var populatedXML:XML = substitutor.process(xml, source);
 			
-			deserializeStructuralData(populatedXML);
-		}
-		
-		private function deserializeStructuralData(xml:XML):void
-		{
-			var deserializer:XMLDeserializer = new XMLDeserializer();
-			deserializer.map = new StructureDeserializationMap();
-			var structure:* = deserializer.deserialize(xml);
-			structureRoot = structure;			
+			unpopulatedStructuralDataXML  = substitutor.process(xml, source);
+			
 		}
 		
 	}
