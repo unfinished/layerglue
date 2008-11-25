@@ -9,27 +9,27 @@ package com.layerglue.lib.base.core
 	 * A singleton class through which all requests are dispatched. When a request is dispatched,
 	 * this class attempts to execute its matching command.
 	 */
-	public class RequestCommandConnector extends Object
+	public class FrontController extends Object
 	{
-		public function RequestCommandConnector(requestCommandMaps:Array=null)
+		public function FrontController(requestCommandMaps:Array=null)
 		{
 			super();
 			
 			this.requestCommandMaps = requestCommandMaps;
 		}
 		 
-		private static var _instance:RequestCommandConnector;
+		private static var _instance:FrontController;
 		
 		/**
 		 * Creates the singleton instance of this class.
 		 * 
 		 * @param requestCommandMaps An array of maps to be used in connecting requests to commands.
 		 */
-		public static function initialize(requestCommandMaps:Array=null):RequestCommandConnector
+		public static function initialize(requestCommandMaps:Array=null):FrontController
 		{
 			if(!_instance)
 			{
-				_instance = new RequestCommandConnector(requestCommandMaps);
+				_instance = new FrontController(requestCommandMaps);
 			}
 			
 			return _instance;
@@ -38,7 +38,7 @@ package com.layerglue.lib.base.core
 		/**
 		 * A reference to this singleton instance.
 		 */
-		public static function getInstance():RequestCommandConnector
+		public static function getInstance():FrontController
 		{
 			return initialize();
 		}
