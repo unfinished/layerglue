@@ -1,6 +1,6 @@
 package com.layerglue.lib.application.command.requests
 {
-	import com.layerglue.lib.base.requests.AbstractRequest;
+	import com.layerglue.lib.base.command.requests.AbstractRequest;
 
 	public class URINavigationRequest extends AbstractRequest
 	{

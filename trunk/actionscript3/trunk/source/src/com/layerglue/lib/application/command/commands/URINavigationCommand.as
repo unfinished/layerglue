@@ -3,8 +3,8 @@ package com.layerglue.lib.application.command.commands
 	import com.asual.swfaddress.SWFAddress;
 	import com.layerglue.lib.application.LayerGlueLocator;
 	import com.layerglue.lib.application.command.requests.URINavigationRequest;
-	import com.layerglue.lib.base.commands.AbstractCommand;
-	import com.layerglue.lib.base.requests.IRequest;
+	import com.layerglue.lib.base.command.commands.AbstractCommand;
+	import com.layerglue.lib.base.command.requests.IRequest;
 
 	public class URINavigationCommand extends AbstractCommand
 	{
