@@ -17,26 +17,35 @@ package com.layerglue.lib.application.structure
 	[Bindable]
 	/**
 	 * At it's simplest implementation StructuralData represents a piece of model data.
-	 * It is commonly considered the 'model' in the Presentation Model pattern.
-	 * However it can also be used in conjunction with other parts of the LayerGlue framework
-	 * to provide the following featurs:
-	 * <ul>
-	 * <li>Is a navigable location within the application</li>
-	 * <li>Has a URI that forms part of the deep-linkable address</li>
-	 * </ul>
+	 * In the LayerGlue framework it is considered the 'model' part of the Presentation Model pattern.
+	 * It is responsible for being a single navigable point in the application. This means it usually
+	 * has a URI node, which is a portion of the browsers address URL that relates to it.
 	 * In most applications StructuralData will be used to create a hierarchy of 'presentation
-	 * models', which map directly to views. The navigation system (controllers) traverses
-	 * the structural data hierarchy, revealing and hiding views as it goes.
-	 * --EXPLANATION OF DESERIALIZER--
-	 * --USUALLY SUBCLASSED--
-	 * --EXPLANATION OF SELECTED STRANDS--
-	 * --INSTANCES PASSED TO NAVIGATION SYSTEM AS LOCATIONS--
+	 * models', which map directly to views. The navigation system consists of an identical hierarchy
+	 * of controllers, which create and destroy views based on what parts of the structural data
+	 * hierarchy are selected.
+	 *
+	 * StructuralData is usually subclassed to become 'presentation models' for each navigable
+	 * part of your application. 
+	 *
+	 * Instances of StructuralData (and subclasses) can be passed to the navigation system in order
+	 * to make the system navigate. See NavigationManager for more information.
+	 *
+	 * At any point during the running of an application a 'strand' of the Structural data hierarchy
+	 * is selected, which identifies the current location. See NavigationManager for more information.
+	 *
+	 * Children is an array containing instances of StructuralData that are hierarchically children of
+	 * this one. In traditional Presentation Model architecture StructuralData is considered the
+	 * 'model' and it's arranged in a hierachy that is reflected in the views.
+	 * Each child represents a navigable location that's one level deeper than it's parent, much
+	 * like the 'page' paridigm in HTML website design. The LayerGlue navigation system uses
+	 * StructuralData as a 'framework' to traverse, showing and hiding views as it goes.
 	 */
 	public class StructuralData extends EventDispatcher implements IStructuralData
 	{
 		/**
 		 * Creates an instance of StructuralData. This is usually done by the XMLDeserializer,
-		 * which will create a complex structural hierarchy and ensuring all properties are populated.
+		 * which will create a complex structural hierarchy and ensure all properties are populated.
 		 */
 		public function StructuralData(id:String=null)
 		{
@@ -64,9 +73,9 @@ package com.layerglue.lib.application.structure
 		
 		protected var _uriNode:String;
 		/**
-		 * A string representing the URI of this StructuralData. It is used to create a chain of URI nodes
-		 * that represent a browser navigable location within the application.
-		 * --EXAMPLE HERE--
+		 * A string representing the URI node of this StructuralData. It is used to create a chain of URI nodes
+		 * that represent a browser navigable location.
+		 * 
 		 * @see uri
 		 */
 		public function get uriNode():String
@@ -81,7 +90,9 @@ package com.layerglue.lib.application.structure
 		/**
 		 * Returns the chain of URI nodes that make up the navigable location of this StructuralData.
 		 * In most applications this is a concatenation of all parent nodes starting from the root.
-		 * --EXAMPLE HERE--
+		 * For example, imagine a 4-level hierarchy of StructuralData's with the uriNodes 'home', 'gallery',
+		 * 'artist' and 'image', if you queried the 3rd deep StructuralData for it's uri it would
+		 * return "/home/gallery/artist/"
 		 * @see uriNode
 		 */
 		public function get uri():String
@@ -109,7 +120,7 @@ package com.layerglue.lib.application.structure
 		/**
 		 * An array containing instances of StructuralData that are hierarchically children of
 		 * this one. In traditional Presentation Model architecture StructuralData is considered the
-		 * 'model' and it's arranged in a hierachy that reflects the views.
+		 * 'model' and it's arranged in a hierachy that is reflected in the views.
 		 * Each child represents a navigable location that's one level deeper than it's parent, much
 		 * like the 'page' paridigm in HTML website design. The LayerGlue navigation system uses
 		 * StructuralData as a 'framework' to traverse, showing and hiding views as it goes.
@@ -141,11 +152,9 @@ package com.layerglue.lib.application.structure
 		 * of StructuralData. Sometimes a 'location' (in Presentation Model this is considered both the
 		 * model and the view) may not have anything in it - it may simply be a shell or container
 		 * to help display content nested deeper in the hierarchy. In this instance navigation will be
-		 * forced down a level to the <code>defaultChild</code>.
+		 * forced down a level to the <code>defaultChild</code> with the matching <code>id</code>.
 		 * 
 		 * --EXAMPLE HERE--
-		 * 
-		 * Child with the id must be present for <code>defaultChild</code> to return a valid reference.
 		 * 
 		 * @see defaultChild
 		 */
@@ -172,7 +181,7 @@ package com.layerglue.lib.application.structure
 		
 		protected var _parent:IStructuralData;
 		/**
-		 * Parent is always the instance of StructuralData immediately one palce higher in the hierarchy.
+		 * The instance of StructuralData immediately one place level in the hierarchy.
 		 * The top-most instance of StructuralData (i.e. the root) has no parent and will return null.
 		 * This property is automatically set whenever you add an instance of StructuralData to the
 		 * children array.
@@ -189,8 +198,15 @@ package com.layerglue.lib.application.structure
 		
 		[Bindable(event="selectionChange")]
 		/**
-		 * Whether this instance of StructuralData is selected.
-		 * --WRITE MORE OF AN EXPLANATION--
+		 * A Boolean that determines whether the instance StructuralData is considered 'selected' in
+		 * the structural hierarchy. A 'selected' StructuralData means that it's either the current
+		 * end-point of the navigation, or part of the hierarchical chain that leads down to the point.
+		 * 
+		 * If set to <code>true</code> the parent's corresponding <code>selectedChild</code> and
+		 * <code>selectedChildIndex</code> will be set too. It won't traverse the chain further upwards
+		 * than that.
+		 * 
+		 * Selection is usually managed by the NavigationManager and need rarely be set manually.
 		 * 
 		 * @see selectedChild
 		 * @see selectedChildIndex
@@ -228,9 +244,7 @@ package com.layerglue.lib.application.structure
 		
 		[Bindable(event="childSelectionChange")]
 		/**
-		 * The instance of StructuralData held within the children collection that's considered
-		 * selected by the navigation system.
-		 * --WRITE MORE OF AN EXPLANATION--
+		 * The child that's considered 'selected' by the navigation system.
 		 * 
 		 * @see selected
 		 * @see selectedChildIndex
@@ -239,6 +253,7 @@ package com.layerglue.lib.application.structure
 		{
 			if(children && selectedChildIndex > -1 && selectedChildIndex < children.getLength())
 			{
+				// TODO: error check if child is actually in children
 				return children.getItemAt(selectedChildIndex) as IStructuralData;
 			}
 			return null;
@@ -265,8 +280,7 @@ package com.layerglue.lib.application.structure
 		
 		[Bindable(event="childSelectionChange")]
 		/**
-		 * The collection index of the selected child.
-		 * --WRITE MORE OF AN EXPLANATION--
+		 * The index of the selected child in the children collection.
 		 * 
 		 * @see selected
 		 * @see selectedChild
@@ -309,7 +323,7 @@ package com.layerglue.lib.application.structure
 		
 		/**
 		 * Whether this instance of StructuralData is considered the top-most 'root'.
-		 * (Note: An instance of StructuralData is considered root if it has not parent. Children
+		 * (Note: An instance of StructuralData is considered root if it has no parent. Children
 		 * always have parents and therefore cannot be roots.)
 		 */
 		public function isRoot():Boolean
@@ -329,7 +343,13 @@ package com.layerglue.lib.application.structure
 		
 		protected var _structuralDataToControllerMapId:String;
 		/**
-		 * Overrides Class based structural data to controller mappings
+		 * This can be used as an alternative to Class-to-Class reference mapping. It is useful
+		 * for creating exceptions to mapping rules, e.g. the structural data class 'Artist' is
+		 * usually mapped to 'ArtistController', but in one specific instance you'd like to map
+		 * it to 'SpecialArtistController'. If you add a <code>structuralDataToControllerMapId</code>
+		 * it will be used as a lookup in preference to Class reference mappings.
+		 * 
+		 * @see controllerToViewMapId
 		 */
 		public function get structuralDataToControllerMapId():String
 		{
@@ -343,7 +363,13 @@ package com.layerglue.lib.application.structure
 		
 		protected var _controllerToViewMapId:String;
 		/**
-		 * Overrides Class based controller to view mappings
+		 * This can be used as an alternative to Class-to-Class reference mapping. It is useful
+		 * for creating exceptions to mapping rules, e.g. the controller class 'ArtistController' is
+		 * usually mapped to 'ArtistView', but in one specific instance you'd like to map
+		 * it to 'SpecialArtistView'. If you add a <code>controllerToViewMapId</code>
+		 * it will be used as a lookup in preference to Class reference mappings.
+		 * 
+		 * @see controllerToViewMapId
 		 */
 		public function get controllerToViewMapId():String
 		{
@@ -353,19 +379,6 @@ package com.layerglue.lib.application.structure
 		public function set controllerToViewMapId(value:String):void
 		{
 			_controllerToViewMapId = value;
-		}
-		
-		protected var _branchOnly:Boolean
-		// TODO: property is ambiguous
-		// it is supposed to enforce the default child
-		public function get branchOnly():Boolean
-		{
-			return _branchOnly;
-		}
-		
-		public function set branchOnly(value:Boolean):void
-		{
-			_branchOnly = value;
 		}
 		
 		/**
@@ -427,6 +440,7 @@ package com.layerglue.lib.application.structure
 			return null;
 		}
 		
+		// This ensures that whenever a child is added to the children collection it's parent property is set.
 		// newChildren parameter is untyped because the children setter sends through an instance
 		// of ICollection whereas the childrenChangeHandler sends through an instance of Array
 		protected function setChildParenting(newChildren:*):void
@@ -439,8 +453,7 @@ package com.layerglue.lib.application.structure
 		}
 		
 		// TODO: Check duplicate id's or uri's when each child is added
-		// TODO: Move the event.kind switch out into FlexCollection when we can be
-		// bothered to get the whole thing working in Flash
+		// TODO: Check that child is valid instance of StructuralData?
 		protected function childrenChangeHandler(event:CollectionEvent):void
 		{
 			switch (event.kind)
@@ -452,7 +465,7 @@ package com.layerglue.lib.application.structure
 				}
 				case CollectionEventKind.REMOVE:
 				{
-					// TODO: update any selection properties if the selectedChild was removed
+					// TODO: update any selected/selectedChild properties if the selectedChild was removed
 					var child:IStructuralData;
 					for each (child in event.items)
 					{

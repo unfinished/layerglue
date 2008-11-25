@@ -48,10 +48,6 @@ package com.layerglue.lib.application.structure
 		[Bindable(event="propertyChange")]
 		function get depth():uint
 		
-		[Bindable(event="propertyChange")]
-		function get branchOnly():Boolean
-		function set branchOnly(value:Boolean):void
-		
 		function get structuralDataToControllerMapId():String
 		function set structuralDataToControllerMapId(value:String):void
 		
