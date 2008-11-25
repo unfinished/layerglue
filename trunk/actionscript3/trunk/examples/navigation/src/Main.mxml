@@ -12,9 +12,9 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
 			import com.client.project.maps.MainRequestCommandMap;
 			import com.layerglue.lib.base.core.RequestCommandConnector;
-			import com.layerglue.lib.application.requests.NavigationRequest;
 			import com.layerglue.lib.application.navigation.NavigationManager;
 			import com.client.project.model.ModelLocator;
 			import com.client.project.preloader.PreloaderView;
@@ -33,7 +33,7 @@
 			public var modelLocator:ModelLocator = ModelLocator.getInstance();
 			
 			[Bindable]
-			public var navigationManager:NavigationManager = NavigationManager.getInstance();
+			//public var navigationManager:NavigationManager = NavigationManager.getInstance();
 			
 			private var _initialLoadManager:InitialLoadManager;
 			
@@ -89,7 +89,7 @@
 			private function doNav():void
 			{
 				//trace("modelLocator.siteStructure.constructor: "+modelLocator.siteStructure.getChildAt(0).title);
-				(new NavigationRequest(modelLocator.siteStructure.getChildAt(0))).dispatch();
+				(new StructuralDataNavigationRequest(modelLocator.siteStructure.getChildAt(0))).dispatch();
 			}
 			
 		]]>
