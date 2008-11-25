@@ -2,10 +2,9 @@ package com.layerglue.lib.application.navigation
 {
 	import com.asual.swfaddress.SWFAddress;
 	import com.asual.swfaddress.SWFAddressEvent;
+	import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
 	import com.layerglue.lib.application.controllers.INavigableController;
-	import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.navigation.QueryString;
 	import com.layerglue.lib.base.utils.StringUtils;
 	
@@ -125,7 +124,7 @@ package com.layerglue.lib.application.navigation
 			else
 			{
 				//Call navigate on rootController passing in packet
-				rootController.navigate();
+				//rootController.navigate();
 			}
 		}
 		

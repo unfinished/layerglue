@@ -12,6 +12,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
 			import com.layerglue.lib.application.LayerGlueLocator;
 			import com.client.project.maps.ProjectControllerToViewMap;
 			import com.layerglue.lib.application.maps.ControllerToViewMap;
@@ -19,7 +20,6 @@
 			import com.client.project.command.MainRequestCommandMap;
 			import com.client.project.maps.ProjectStructureDeserializationMap;
 			import com.layerglue.lib.application.setup.InitialSetupManager;
-			import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
 			import com.layerglue.lib.base.core.RequestCommandConnector;
 			import com.layerglue.lib.application.navigation.NavigationManager;
 			import com.client.project.model.ModelLocator;
