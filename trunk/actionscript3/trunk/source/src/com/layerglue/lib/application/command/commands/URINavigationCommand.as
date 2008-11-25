@@ -1,8 +1,8 @@
-package com.layerglue.lib.application.commands
+package com.layerglue.lib.application.command.commands
 {
 	import com.asual.swfaddress.SWFAddress;
 	import com.layerglue.lib.application.LayerGlueLocator;
-	import com.layerglue.lib.application.requests.URINavigationRequest;
+	import com.layerglue.lib.application.command.requests.URINavigationRequest;
 	import com.layerglue.lib.base.commands.AbstractCommand;
 	import com.layerglue.lib.base.requests.IRequest;
 

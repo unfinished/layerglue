@@ -1,4 +1,4 @@
-package com.layerglue.lib.application.requests
+package com.layerglue.lib.application.command.requests
 {
 	import com.layerglue.lib.base.requests.AbstractRequest;
 
