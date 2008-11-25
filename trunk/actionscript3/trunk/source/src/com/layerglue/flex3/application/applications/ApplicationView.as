@@ -4,7 +4,7 @@ package com.layerglue.flex3.application.applications
 	import com.layerglue.lib.application.events.StructuralDataListenerEvent;
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.base.core.FrontController;
+	import com.layerglue.lib.base.command.FrontController;
 	import com.layerglue.lib.base.events.DestroyEvent;
 	import com.layerglue.lib.base.events.SelectionEvent;
 	

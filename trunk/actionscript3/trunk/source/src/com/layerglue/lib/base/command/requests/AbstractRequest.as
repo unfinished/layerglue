@@ -1,6 +1,6 @@
 package com.layerglue.lib.base.command.requests
 {
-	import com.layerglue.lib.base.core.FrontController;
+	import com.layerglue.lib.base.command.FrontController;
 	
 	/**
 	 * This class is the abstract base for requests that can be used trigger commands through via
