@@ -8,8 +8,6 @@ package com.layerglue.lib.application.controllers
 	 */
 	public class AbstractNavigableController extends AbstractController implements INavigableController
 	{	
-		protected var _packet:NavigationPacket;
-		
 		public function AbstractNavigableController()
 		{
 			super();
@@ -82,7 +80,7 @@ package com.layerglue.lib.application.controllers
 			}
 		}
 		
-		public function getSelectedChildFromPacket(packet:NavigationPacket):IController
+		/* public function getSelectedChildFromPacket(packet:NavigationPacket):IController
 		{
 			var child:IController;
 			if(packet.hasChildAtDepth(depth+1))
@@ -90,7 +88,7 @@ package com.layerglue.lib.application.controllers
 				child = getChildByUriNode(packet.getUriNodeStringAtDepth(depth+1));
 			}
 			return child;
-		}
+		} */
 		
 		/**
 		 * Searches contained children for an item with a structuralData.uriNode property matching
