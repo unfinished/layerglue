@@ -12,8 +12,10 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.control.MainRequestCommandMap;
+			import com.client.project.maps.StructureDeserializationMap;
+			import com.layerglue.lib.application.setup.InitialSetupManager;
 			import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
-			import com.client.project.maps.MainRequestCommandMap;
 			import com.layerglue.lib.base.core.RequestCommandConnector;
 			import com.layerglue.lib.application.navigation.NavigationManager;
 			import com.client.project.model.ModelLocator;
@@ -64,6 +66,11 @@
 			private function initialLoadCompleteHandler(event:Event):void
 			{
 				createComponentsFromDescriptors();
+				
+				var initialSetupManager:InitialSetupManager = new InitialSetupManager();
+				initialSetupManager.xmlToStructuralDataMap = new StructureDeserializationMap();
+				
+				
 			}
 			
 			private function hidePreloader():void
