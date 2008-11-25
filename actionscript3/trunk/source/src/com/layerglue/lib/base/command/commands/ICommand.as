@@ -1,6 +1,6 @@
-package com.layerglue.lib.base.commands
+package com.layerglue.lib.base.command.commands
 {
-	import com.layerglue.lib.base.requests.IRequest;
+	import com.layerglue.lib.base.command.requests.IRequest;
 	
 	/**
 	 * An interface to be implemented by all commands triggered by the request-command connector system.

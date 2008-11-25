@@ -1,8 +1,8 @@
 package com.layerglue.lib.base.core
 {
-	import com.layerglue.lib.base.commands.ICommand;
+	import com.layerglue.lib.base.command.commands.ICommand;
+	import com.layerglue.lib.base.command.requests.IRequest;
 	import com.layerglue.lib.base.maps.FrontControllerMap;
-	import com.layerglue.lib.base.requests.IRequest;
 	import com.layerglue.lib.base.utils.ArrayUtils;
 	
 	/**

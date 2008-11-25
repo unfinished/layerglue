@@ -1,4 +1,4 @@
-package com.layerglue.lib.base.requests
+package com.layerglue.lib.base.command.requests
 {
 	import com.layerglue.lib.base.core.FrontController;
 	

@@ -1,4 +1,4 @@
-package com.layerglue.lib.base.requests
+package com.layerglue.lib.base.command.requests
 {
 	/**
 	 * An interface to be implemented by all requests used to trigger commands by the request-command
