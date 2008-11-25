@@ -1,4 +1,4 @@
-package com.layerglue.lib.application.command
+package com.layerglue.lib.application.maps
 {
 	import com.layerglue.lib.application.command.commands.StructuralDataNavigationCommand;
 	import com.layerglue.lib.application.command.commands.URINavigationCommand;
