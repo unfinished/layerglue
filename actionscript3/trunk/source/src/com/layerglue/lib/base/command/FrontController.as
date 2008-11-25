@@ -1,4 +1,4 @@
-package com.layerglue.lib.base.core
+package com.layerglue.lib.base.command
 {
 	import com.layerglue.lib.base.command.commands.ICommand;
 	import com.layerglue.lib.base.command.requests.IRequest;
