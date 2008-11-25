@@ -2,7 +2,7 @@ package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.navigation.NavigationPacket;
-	import com.layerglue.lib.application.navigation.NavigationPacket2;
+	import com.layerglue.lib.application.navigation.NavigationPacket;
 	/**
 	 * The abstract base class for all Navigable controllers.
 	 */
@@ -62,7 +62,7 @@ package com.layerglue.lib.application.controllers
 		
 		protected function tryDeeperNavigation():void
 		{
-			var p:NavigationPacket2 = navigationManager.currentAddressPacket;
+			var p:NavigationPacket = navigationManager.currentAddressPacket;
 			
 			var c:INavigableController = p.getControllerAtDepth(depth+1);
 			

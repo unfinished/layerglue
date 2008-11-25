@@ -4,12 +4,12 @@ package com.layerglue.lib.application.navigation
 	import com.layerglue.lib.base.navigation.QueryString;
 	import com.layerglue.lib.application.controllers.INavigableController;
 	
-	public class NavigationPacket2 extends EventDispatcher
+	public class NavigationPacket extends EventDispatcher
 	{
 		public var controllerStrand:Array;
 		public var query:QueryString;
 		
-		public function NavigationPacket2(controllerStrand:Array, query:QueryString=null)
+		public function NavigationPacket(controllerStrand:Array, query:QueryString=null)
 		{
 			super();
 			
