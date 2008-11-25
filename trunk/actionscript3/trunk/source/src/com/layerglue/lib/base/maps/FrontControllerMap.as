@@ -8,11 +8,11 @@ package com.layerglue.lib.base.maps
 	 * A class that performs the basic functionality to map requests to commands. Subclasses of this
 	 * should use the initialize method to set up the mappings.
 	 */
-	public class AbstractRequestCommandMap extends Object
+	public class FrontControllerMap extends Object
 	{
 		private var _map:HashMap;
 		
-		public function AbstractRequestCommandMap()
+		public function FrontControllerMap()
 		{
 			super();
 			

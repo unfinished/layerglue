@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.core
 {
 	import com.layerglue.lib.base.commands.ICommand;
-	import com.layerglue.lib.base.maps.AbstractRequestCommandMap;
+	import com.layerglue.lib.base.maps.FrontControllerMap;
 	import com.layerglue.lib.base.requests.IRequest;
 	import com.layerglue.lib.base.utils.ArrayUtils;
 	
@@ -61,7 +61,7 @@ package com.layerglue.lib.base.core
 		/**
 		 * Adds the specified request command map
 		 */
-		public function addRequestCommandMap(map:AbstractRequestCommandMap):void
+		public function addRequestCommandMap(map:FrontControllerMap):void
 		{
 			_requestCommandMaps.push(map);
 		}
@@ -69,7 +69,7 @@ package com.layerglue.lib.base.core
 		/**
 		 * Removes the specified request command map
 		 */
-		public function removeRequestCommandMap(map:AbstractRequestCommandMap):void
+		public function removeRequestCommandMap(map:FrontControllerMap):void
 		{
 			ArrayUtils.removeItem(_requestCommandMaps, map);
 		}
@@ -85,7 +85,7 @@ package com.layerglue.lib.base.core
 		/**
 		 * Executes the related command to the specified request if it exists.
 		 */
-		public function attemptExecution(map:AbstractRequestCommandMap, request:IRequest):Boolean
+		public function attemptExecution(map:FrontControllerMap, request:IRequest):Boolean
 		{
 			var commandClassReference:Class = map.getCommandClassReferenceByRequest(request);
 		 	
@@ -105,7 +105,7 @@ package com.layerglue.lib.base.core
 		public function dispatchRequest(request:IRequest):void
 		{
 			var matchFound:Boolean = false;
-			var map:AbstractRequestCommandMap;
+			var map:FrontControllerMap;
 			for each(map in requestCommandMaps)
 			{
 				if( attemptExecution(map, request) )
