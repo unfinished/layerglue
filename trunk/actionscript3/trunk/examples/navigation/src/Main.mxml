@@ -12,8 +12,12 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.application.LayerGlueLocator;
+			import com.client.project.maps.ProjectControllerToViewMap;
+			import com.layerglue.lib.application.maps.ControllerToViewMap;
+			import com.client.project.maps.ProjectStructureToControllerMap;
 			import com.client.project.command.MainRequestCommandMap;
-			import com.client.project.maps.StructureDeserializationMap;
+			import com.client.project.maps.ProjectStructureDeserializationMap;
 			import com.layerglue.lib.application.setup.InitialSetupManager;
 			import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
 			import com.layerglue.lib.base.core.RequestCommandConnector;
@@ -45,7 +49,9 @@
 				
 				RequestCommandConnector.initialize([new MainRequestCommandMap()]);
 				
-				startLoadProcess();
+				_initialLoadManager = new InitialLoadManager();
+				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
+				_initialLoadManager.start();
 				
 				PreloadManager.getInstance().flexPreloader.addEventListener(FlexEvent.PRELOADER_DONE, flexPreloaderDoneHandler);
 			}
@@ -56,21 +62,15 @@
 				callLater(hidePreloader);
 			}
 			
-			private function startLoadProcess():void
-			{
-				_initialLoadManager = new InitialLoadManager();
-				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
-				_initialLoadManager.start();
-			}
-			
 			private function initialLoadCompleteHandler(event:Event):void
 			{
-				createComponentsFromDescriptors();
-				
 				var initialSetupManager:InitialSetupManager = new InitialSetupManager();
-				initialSetupManager.xmlToStructuralDataMap = new StructureDeserializationMap();
+				initialSetupManager.xmlToStructuralDataMap = new ProjectStructureDeserializationMap();
+				initialSetupManager.structuralDataToControllerMap = new ProjectStructureToControllerMap();
+				initialSetupManager.controllerToViewMap = new ProjectControllerToViewMap();
+				initialSetupManager.setup(_initialLoadManager.structuralXML);
 				
-				
+				createComponentsFromDescriptors();
 			}
 			
 			private function hidePreloader():void
@@ -105,7 +105,7 @@
 	<mx:Box width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" direction="vertical">
 		<!-- The Tree and DataGrid controls are good for exploring object hierarchies -->
 		<mx:HBox>
-			<mx:Tree id="projectTree" dataProvider="{modelLocator.siteStructure}" width="220" height="280"/>
+			<mx:Tree id="projectTree" dataProvider="{LayerGlueLocator.getInstance().structuralData}" width="220" height="280"/>
 			<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
 		</mx:HBox>
 		<mx:Button label="Do nav" click="doNav()" />
