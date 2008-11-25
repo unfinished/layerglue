@@ -2,7 +2,6 @@ package com.layerglue.lib.application.command.commands
 {
 	import com.asual.swfaddress.SWFAddress;
 	import com.layerglue.lib.application.LayerGlueLocator;
-	import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.commands.AbstractCommand;
 	import com.layerglue.lib.base.requests.IRequest;
