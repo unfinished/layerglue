@@ -1,4 +1,4 @@
-package com.client.project.control
+package com.client.project.command
 {
 	import com.layerglue.lib.application.commands.StructuralDataNavigationCommand;
 	import com.layerglue.lib.application.commands.URINavigationCommand;

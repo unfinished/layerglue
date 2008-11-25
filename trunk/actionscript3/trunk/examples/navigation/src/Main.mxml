@@ -12,7 +12,7 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.client.project.control.MainRequestCommandMap;
+			import com.client.project.command.MainRequestCommandMap;
 			import com.client.project.maps.StructureDeserializationMap;
 			import com.layerglue.lib.application.setup.InitialSetupManager;
 			import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
