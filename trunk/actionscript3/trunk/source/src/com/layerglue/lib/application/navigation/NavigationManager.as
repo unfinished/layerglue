@@ -83,7 +83,7 @@ package com.layerglue.lib.application.navigation
 			
 			var structuralDataStrand:Array = getStructuralDataStrandFromURI(addressPortion);
 			var controllerStrand:Array = getControllerStrandFromStructuralDataStrand(structuralDataStrand);
-			var packet:NavigationPacket2 = new NavigationPacket2(controllerStrand)
+			var packet:NavigationPacket = new NavigationPacket(controllerStrand)
 			
 			if(queryPortion)
 			{
@@ -99,12 +99,12 @@ package com.layerglue.lib.application.navigation
 			
 			var structuralDataStrand:Array = getStructuralDataStrandFromStructuralData(structuralData);
 			var controllerStrand:Array = getControllerStrandFromStructuralDataStrand(structuralDataStrand);
-			var packet:NavigationPacket2 = new NavigationPacket2(controllerStrand);
+			var packet:NavigationPacket = new NavigationPacket(controllerStrand);
 			
 			processNavigation(packet);
 		}
 		
-		protected function processNavigation(packet:NavigationPacket2):void
+		protected function processNavigation(packet:NavigationPacket):void
 		{
 			setCurrentAddress(packet);
 			
@@ -199,14 +199,14 @@ package com.layerglue.lib.application.navigation
 		
 		//--------------------
 		
-		private var _currentAddressPacket:NavigationPacket2;
+		private var _currentAddressPacket:NavigationPacket;
 		
-		public function get currentAddressPacket():NavigationPacket2
+		public function get currentAddressPacket():NavigationPacket
 		{
 			return _currentAddressPacket;
 		}
 		
-		public function setCurrentAddress(value:NavigationPacket2):void
+		public function setCurrentAddress(value:NavigationPacket):void
 		{
 			_currentAddressPacket = value;
 		}
