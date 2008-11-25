@@ -1,9 +1,9 @@
 package com.client.project.maps
 {
-	import com.layerglue.lib.application.commands.NavigationCommand;
-	import com.layerglue.lib.application.commands.RawNavigationCommand;
-	import com.layerglue.lib.application.requests.NavigationRequest;
-	import com.layerglue.lib.application.requests.RawNavigationRequest;
+	import com.layerglue.lib.application.commands.StructuralDataNavigationCommand;
+	import com.layerglue.lib.application.commands.URINavigationCommand;
+	import com.layerglue.lib.application.requests.StructuralDataNavigationRequest;
+	import com.layerglue.lib.application.requests.URINavigationRequest;
 	import com.layerglue.lib.base.maps.AbstractRequestCommandMap;
 	
 		
@@ -18,8 +18,8 @@ package com.client.project.maps
 		
 		override protected function initialize():void
 		{
-			addMapping(NavigationRequest, NavigationCommand);
-			addMapping(RawNavigationRequest, RawNavigationCommand);
+			addMapping(StructuralDataNavigationRequest, StructuralDataNavigationCommand);
+			addMapping(URINavigationRequest, URINavigationCommand);
 		}
 
 	}
