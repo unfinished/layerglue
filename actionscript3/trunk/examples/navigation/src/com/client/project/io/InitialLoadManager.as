@@ -1,15 +1,12 @@
 package com.client.project.io
 {
-	import com.client.project.maps.StructureDeserializationMap;
 	import com.client.project.model.ModelLocator;
-	import com.layerglue.flex3.base.collections.strategies.FlexCollectionStrategyMap;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
 	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.LoadManagerToken;
-	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
 	import com.layerglue.lib.base.localisation.Locale;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
@@ -35,6 +32,8 @@ package com.client.project.io
 		private var _loadManagerListener:EventListener;
 		
 		private var _regionalCSSLoader:CSSStyleLoader;
+		
+		public var structuralXML:XML;
 		
 		public function InitialLoadManager()
 		{
@@ -160,18 +159,8 @@ package com.client.project.io
 			source.addItem(_copySource);
 			
 			var substitutor:XMLSubstitutor = new XMLSubstitutor("@", "@");
-			var populatedXML:XML = substitutor.process(xml, source);
+			structuralXML = substitutor.process(xml, source);
 			trace("Missing substitution source keys: " + substitutor.getMissingSourceKeys(xml, source));
-			
-			deserializeStructuralData(populatedXML);
-		}
-		
-		private function deserializeStructuralData(xml:XML):void
-		{
-			var deserializer:XMLDeserializer = new XMLDeserializer();
-			deserializer.map = new StructureDeserializationMap();
-			deserializer.collectionStrategyMap = new FlexCollectionStrategyMap();
-			ModelLocator.getInstance().siteStructure = deserializer.deserialize(xml);
 		}
 		
 	}

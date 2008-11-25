@@ -46,13 +46,21 @@ package com.layerglue.lib.application.controllers
 		{
 			var controllerClassRef:Class = structureToControllerMap.getClassReference(structuralData);
 			
+			if (!controllerClassRef)
+			{
+				throw new Error("No structure to controller mapping found for: " + structuralData + " id="+structuralData.id); 
+			}
+			
 			var controller:IController = new controllerClassRef();
 			controller.parent = parent;
 			controller.structuralData = structuralData;
 			
-			//TODO: remove line below later
-			//controller.controllerToViewClassMap = new WildSideControllerToViewMap();
-			controller.viewClassReference = controllerToViewMap.getClassReference(controller);
+			var viewClassRef:Class = controllerToViewMap.getClassReference(controller);
+			if (!viewClassRef)
+			{
+				throw new Error("No controller to view mapping found for: " + controller + " id=" + controller.structuralData.id);
+			}
+			controller.viewClassReference = viewClassRef;
 			
 			return controller;
 		}

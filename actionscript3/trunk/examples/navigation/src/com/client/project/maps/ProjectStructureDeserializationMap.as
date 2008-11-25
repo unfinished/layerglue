@@ -9,9 +9,9 @@ package com.client.project.maps
 	import com.layerglue.flex3.base.collections.FlexCollection;
 	import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
 
-	public class StructureDeserializationMap extends XMLDeserializationMap
+	public class ProjectStructureDeserializationMap extends XMLDeserializationMap
 	{
-		public function StructureDeserializationMap()
+		public function ProjectStructureDeserializationMap()
 		{
 			super();
 			
