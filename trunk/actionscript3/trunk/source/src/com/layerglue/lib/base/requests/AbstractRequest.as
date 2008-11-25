@@ -1,6 +1,6 @@
 package com.layerglue.lib.base.requests
 {
-	import com.layerglue.lib.base.core.RequestCommandConnector;
+	import com.layerglue.lib.base.core.FrontController;
 	
 	/**
 	 * This class is the abstract base for requests that can be used trigger commands through via
@@ -18,7 +18,7 @@ package com.layerglue.lib.base.requests
 		 */
 		public function dispatch():void
 		{
-			RequestCommandConnector.getInstance().dispatchRequest(this);
+			FrontController.getInstance().dispatchRequest(this);
 		}
 	}
 }

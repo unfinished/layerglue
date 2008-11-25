@@ -4,7 +4,7 @@ package com.layerglue.flex3.application.applications
 	import com.layerglue.lib.application.events.StructuralDataListenerEvent;
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.base.core.RequestCommandConnector;
+	import com.layerglue.lib.base.core.FrontController;
 	import com.layerglue.lib.base.events.DestroyEvent;
 	import com.layerglue.lib.base.events.SelectionEvent;
 	
@@ -103,7 +103,7 @@ package com.layerglue.flex3.application.applications
 		
 		protected function initializeRequestCommandConnector():void
 		{
-			RequestCommandConnector.initialize([]);
+			FrontController.initialize([]);
 		}
 		
 		override protected function createChildren():void
