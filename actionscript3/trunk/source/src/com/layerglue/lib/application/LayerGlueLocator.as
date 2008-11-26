@@ -1,6 +1,5 @@
 package com.layerglue.lib.application
 {
-	import com.layerglue.lib.application.controllers.IController;
 	import com.layerglue.lib.application.controllers.INavigableController;
 	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.structure.IStructuralData;

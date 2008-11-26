@@ -188,28 +188,29 @@ package com.layerglue.lib.application.controllers
 		
 		public function createView(shouldAdd:Boolean=false):IView
 		{
-			if(!viewClassReference)
-			{
-				throw new Error("Tried to create a view from a controller when no controller-to-view mapping was specified: " + this);
-			}
-			
 			var viewInstance:IView = new viewClassReference();
 			(viewInstance as IStructuralDataListener).structuralData = structuralData;
 			
 			if(shouldAdd)
 			{
-				if(!viewContainer)
-				{
-					throw new Error("Attempted to add a view to a non-existent viewContainer.");
-				}
-				viewContainer.addChild(view as DisplayObject);
+				addView();
 			}
 			
 			return viewInstance;
 		}
 		
+		public function addView():void
+		{
+			if(!viewContainer)
+			{
+				throw new Error("Attempted to add a view to a non-existent viewContainer.");
+			}
+			viewContainer.addChild(view as DisplayObject);
+		}
+		
 		public function startTransitionIn():void
 		{
+			
 		}
 		
 		public function startTransitionOut():void

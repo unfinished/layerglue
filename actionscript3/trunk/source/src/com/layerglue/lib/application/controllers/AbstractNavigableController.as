@@ -1,8 +1,7 @@
 package com.layerglue.lib.application.controllers
 {
-	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.navigation.NavigationPacket;
-	import com.layerglue.lib.application.navigation.NavigationPacket;
+
 	/**
 	 * The abstract base class for all Navigable controllers.
 	 */
@@ -51,15 +50,6 @@ package com.layerglue.lib.application.controllers
 			(parent as INavigableController).unnavigateToCommonNode();
 		}
 		
-		protected function setStructuralDataToUnselected():void
-		{
-			if(structuralData.parent)
-			{
-				//trace("setStructuralDataToUnselected: "+this);
-				structuralData.selected = false;
-			}
-		}
-		
 		protected function tryDeeperNavigation():void
 		{
 			var p:NavigationPacket = navigationManager.currentAddressPacket;
@@ -79,16 +69,6 @@ package com.layerglue.lib.application.controllers
 				structuralData.parent.selectedChild = structuralData;
 			}
 		}
-		
-		/* public function getSelectedChildFromPacket(packet:NavigationPacket):IController
-		{
-			var child:IController;
-			if(packet.hasChildAtDepth(depth+1))
-			{
-				child = getChildByUriNode(packet.getUriNodeStringAtDepth(depth+1));
-			}
-			return child;
-		} */
 		
 		/**
 		 * Searches contained children for an item with a structuralData.uriNode property matching
