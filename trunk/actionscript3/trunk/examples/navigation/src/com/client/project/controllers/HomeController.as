@@ -1,8 +1,8 @@
 package com.client.project.controllers
 {
-	import com.layerglue.lib.application.controllers.AbstractNavigableController;
+	import com.layerglue.lib.application.controllers.NavigableController;
 
-	public class HomeController extends AbstractNavigableController
+	public class HomeController extends NavigableController
 	{
 		public function HomeController()
 		{
