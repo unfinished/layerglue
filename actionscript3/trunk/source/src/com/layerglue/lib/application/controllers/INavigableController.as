@@ -72,7 +72,7 @@ package com.layerglue.lib.application.controllers
 		function getChildById(string:String):INavigableController;
 		
 		function navigate():void;
-		function unnavigateToCommonNode():void;
+		function unnavigate():void;
 		
 	}
 }

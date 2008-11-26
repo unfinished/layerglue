@@ -119,7 +119,7 @@ package com.layerglue.lib.application.navigation
 			if(deepest && deepest != rootController)
 			{
 				//trace("Trying to unnavigate from: " + deepestSelectedController.structuralData.uri);
-				(deepest as INavigableController).unnavigateToCommonNode();
+				(deepest as INavigableController).unnavigate();
 			}
 			else
 			{
