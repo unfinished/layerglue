@@ -50,28 +50,16 @@ package com.layerglue.lib.application.controllers
 			setViewDataProvider();
 		}
 		
-		private var _viewParent:DisplayObjectContainer;
-		// Unused??
-		public function get viewParent():DisplayObjectContainer
+		private var _viewContainer:DisplayObjectContainer;
+		
+		public function get viewContainer():DisplayObjectContainer
 		{
-			return _viewParent ? _viewParent : (parent ? parent.childViewContainer : null);
+			return _viewContainer ? _viewContainer : (parent && parent.view ? parent.view.childViewContainer : null);
 		}
 		
-		public function set viewParent(v:DisplayObjectContainer):void
+		public function set viewContainer(value:DisplayObjectContainer):void
 		{
-			_viewParent = v;
-		}
-		
-		private var _childViewContainer:DisplayObjectContainer;
-		
-		public function get childViewContainer():DisplayObjectContainer
-		{
-			return _childViewContainer;
-		}
-		
-		public function set childViewContainer(value:DisplayObjectContainer):void
-		{
-			_childViewContainer = value;
+			_viewContainer = value;
 		}
 		
 		protected var _viewClassReference:Class; 
@@ -124,7 +112,7 @@ package com.layerglue.lib.application.controllers
 		}
 		
 		private var _children:Array;
-
+		
 		public function get children():Array
 		{
 			return _children;
@@ -210,44 +198,15 @@ package com.layerglue.lib.application.controllers
 			
 			if(shouldAdd)
 			{
-				viewParent.addChild(view as DisplayObject);
+				if(!viewContainer)
+				{
+					throw new Error("Attempted to add a view to a non-existent viewContainer.");
+				}
+				viewContainer.addChild(view as DisplayObject);
 			}
 			
 			return viewInstance;
 		}
-		
-		/*
-		public function createView(viewParent:IView, controllerToViewClassMap:HashMap=null):void
-		{
-			var map:HashMap = controllerToViewClassMap ? controllerToViewClassMap : (this.controllerToViewClassMap ? this.controllerToViewClassMap : ApplicationController.getInstance().controllerToViewClassMap)
-			
-			if(!map){
-				throw new Error("No controllerToViewClassMap was supplied (either as a persistent class variable or passed directly into this method)");
-			}
-			
-			var viewClassRef:Class = map.get(ReflectionUtils.getClassReference(this));
-			
-			if(!viewClassRef){
-				throw new Error("No view class in map :" + map + " mapped to this controller: " + this);	
-			}
-			
-			view = new viewClassRef();
-			(viewParent as DisplayObjectContainer).addChild(view as DisplayObject);
-			//trace("creating view: " + view + ", view.dataProvider: " + view.dataProvider);
-			
-			createChildViews();
-		}
-		
-		
-		private function createChildViews():void
-		{
-			var c:IController;
-			for each(c in children)
-			{
-				c.createView(view);
-			}
-		}
-		*/
 		
 		public function startTransitionIn():void
 		{
