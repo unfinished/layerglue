@@ -21,14 +21,14 @@ package com.layerglue.lib.application.controllers
 		/**
 		 * Returns the root controller
 		 */
-		function get root():INavigableController;
+		//function get root():INavigableController;
 		
 		function get viewClassReference():Class
 		function set viewClassReference(value:Class):void
 		
 		/**
-		 * Returns the view instance that this view's children should be created in. So for example
-		 * if you were making a menu, this property might point to a button holder canvas.
+		 * The container in which to create this controller's view, defaulting to the parent
+		 * controller's view's childViewContainer.
 		 */
 		function get viewContainer():DisplayObjectContainer
 		function set viewContainer(value:DisplayObjectContainer):void
@@ -72,7 +72,7 @@ package com.layerglue.lib.application.controllers
 		function destroyChildren():void
 		
 		
-		function createView(shouldAdd:Boolean=false):IView
+		function createView(shouldAdd:Boolean=false):void
 		function addView():void
 		
 		function destroyView():void;
