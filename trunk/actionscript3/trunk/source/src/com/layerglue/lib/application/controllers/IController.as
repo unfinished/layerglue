@@ -73,6 +73,7 @@ package com.layerglue.lib.application.controllers
 		
 		
 		function createView(shouldAdd:Boolean=false):IView
+		function addView():void
 		
 		function destroyView():void;
 		

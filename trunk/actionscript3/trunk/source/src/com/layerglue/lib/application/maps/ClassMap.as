@@ -1,8 +1,6 @@
 package com.layerglue.lib.application.maps
 {
 	import com.layerglue.lib.base.collections.HashMap;
-	import com.layerglue.lib.base.utils.ReflectionUtils;
-	import com.layerglue.lib.application.controllers.IController;
 
 	public class ClassMap extends Object
 	{
