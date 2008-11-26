@@ -29,7 +29,7 @@ package com.layerglue.lib.application.controllers
 			tryDeeperNavigation();
 		}
 		
-		public function unnavigateToCommonNode():void
+		public function unnavigate():void
 		{
 			var currentAddressPacketControllerAtOurDepth:INavigableController = navigationManager.currentAddressPacket.getControllerAtDepth(depth) 
 			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
@@ -45,7 +45,7 @@ package com.layerglue.lib.application.controllers
 		protected function tryShallowerUnnavigation():void
 		{
 			structuralData.selected = false;
-			(parent as INavigableController).unnavigateToCommonNode();
+			(parent as INavigableController).unnavigate();
 		}
 		
 		protected function tryDeeperNavigation():void

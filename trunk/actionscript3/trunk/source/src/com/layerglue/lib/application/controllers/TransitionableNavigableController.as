@@ -19,7 +19,7 @@ package com.layerglue.lib.application.controllers
 			startTransitionIn();
 		}
 		
-		override public function unnavigateToCommonNode():void
+		override public function unnavigate():void
 		{
 			var currentAddressPacketControllerAtOurDepth:INavigableController = navigationManager.currentAddressPacket.getControllerAtDepth(depth) 
 			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
