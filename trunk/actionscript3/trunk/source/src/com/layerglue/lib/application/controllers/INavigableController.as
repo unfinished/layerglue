@@ -62,11 +62,6 @@ package com.layerglue.lib.application.controllers
 		function get selectedChild():INavigableController;
 		
 		/**
-		 * Returns the deepest selected child in the controller hierarchy.
-		 */
-		function get deepestSelectedChild():INavigableController;
-		
-		/**
 		 * Destroys all the children of this controller.
 		 */
 		function destroyChildren():void
