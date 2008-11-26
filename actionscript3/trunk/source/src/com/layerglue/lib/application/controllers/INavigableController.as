@@ -2,7 +2,6 @@ package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.structure.IStructuralDataOwner;
 	import com.layerglue.lib.application.views.IView;
-	import com.layerglue.lib.base.core.IDestroyable;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
@@ -10,18 +9,12 @@ package com.layerglue.lib.application.controllers
 	[Bindable]
 	public interface INavigableController  extends
 		IEventDispatcher,
-		IStructuralDataOwner,
-		IDestroyable
+		IStructuralDataOwner
 	{
 		/**
 		 * Returns whether or not this is a root-level (primary) controller
 		 */
 		function isRoot():Boolean
-		
-		/**
-		 * Returns the root controller
-		 */
-		//function get root():INavigableController;
 		
 		function get viewClassReference():Class
 		function set viewClassReference(value:Class):void
@@ -61,18 +54,9 @@ package com.layerglue.lib.application.controllers
 		 */
 		function get selectedChild():INavigableController;
 		
-		/**
-		 * Destroys all the children of this controller.
-		 */
-		function destroyChildren():void
-		
-		
 		function createView(shouldAdd:Boolean=false):void
-		function addView():void
 		
 		function destroyView():void;
-		
-		function viewPropertyChangeHandler(oldValue:IView, newValue:IView):void
 		
 		/**
 		 * 

@@ -4,9 +4,7 @@ package com.layerglue.lib.application.controllers
 	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.navigation.NavigationPacket;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.application.structure.IStructuralDataListener;
 	import com.layerglue.lib.application.views.IView;
-	import com.layerglue.lib.base.events.DestroyEvent;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -197,7 +195,6 @@ package com.layerglue.lib.application.controllers
 			
 			_view = value;
 			setViewDataProvider();
-			viewPropertyChangeHandler(oldValue, value);
 		}
 		
 		protected function setViewDataProvider():void
@@ -251,53 +248,46 @@ package com.layerglue.lib.application.controllers
 			return null;
 		}
 		
-		public function destroyChildren():void
+		public function createView(shouldAdd:Boolean=true):void
 		{
-			var c:INavigableController;
-			for (var i:int=children.length ; i>-1 ; i--)
-			{
-				(children[i] as INavigableController).destroy();
-				children.splice(i, 1);
-			}
-		}
-		
-		public function viewPropertyChangeHandler(oldValue:IView, newValue:IView):void
-		{
-			//Handle changes in view here
-		}
-		
-		public function destroy():void
-		{
-			destroyChildren();
-			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
-		}
-		
-		public function createView(shouldAdd:Boolean=false):void
-		{
-			var viewInstance:IView = new viewClassReference();
-			(viewInstance as IStructuralDataListener).structuralData = structuralData;
+			var viewInstance:IView = createViewInstance();
 			
+			viewInstance.structuralData = structuralData;
 			view = viewInstance;
 			
 			if(shouldAdd)
 			{
-				addView();
+				addViewInstance(viewInstance)
 			}
 		}
 		
-		public function addView():void
+		protected function createViewInstance():IView
+		{
+			return new viewClassReference() as IView;
+		}
+		
+		protected function addViewInstance(viewInstance:IView):void
 		{
 			if(!viewContainer)
 			{
 				throw new Error("Attempted to add a view to a non-existent viewContainer.");
 			}
-			viewContainer.addChild(view as DisplayObject);
+			viewContainer.addChild(viewInstance as DisplayObject);
+		}
+		
+		public function removeView():void
+		{
+			if(view && viewContainer && viewContainer.contains(view as DisplayObject))
+			{
+				viewContainer.removeChild(view as DisplayObject);
+			}
 		}
 		
 		public function destroyView():void
 		{
 			if(view)
 			{
+				removeView();
 				view.destroy();
 				view = null;
 			}
