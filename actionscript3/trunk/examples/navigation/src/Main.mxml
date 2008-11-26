@@ -12,6 +12,8 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.base.collections.EventListenerCollection;
+			import com.layerglue.flex3.base.events.PreloadManagerEvent;
 			import com.layerglue.lib.base.command.FrontController;
 			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
 			import com.layerglue.lib.application.LayerGlueLocator;
@@ -43,21 +45,29 @@
 			
 			private var _initialLoadManager:InitialLoadManager;
 			
+			private var _preloadListenerCollection:EventListenerCollection;
+			
 			private function preinitializeHandler():void
 			{
+				//Initialize the FlashVars instance to be sure the variables being passed in are available
 				FlashVars.initialize(systemManager as DisplayObject);
 				
+				//Hookup requests with commands via the FrontController
 				FrontController.initialize([new ProjectFrontControllerMap()]);
 				
 				_initialLoadManager = new InitialLoadManager();
-				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
-				_initialLoadManager.start();
 				
-				PreloadManager.getInstance().flexPreloader.addEventListener(FlexEvent.PRELOADER_DONE, flexPreloaderDoneHandler);
+				_preloadListenerCollection = new EventListenerCollection();
+				_preloadListenerCollection.createListener(_initialLoadManager, Event.COMPLETE, initialLoadCompleteHandler);
+				_preloadListenerCollection.createListener(PreloadManager.getInstance(), Event.COMPLETE, preloaderDoneHandler); 
+				
+				_initialLoadManager.start();
 			}
 			
-			private function flexPreloaderDoneHandler(event:Event):void
+			private function preloaderDoneHandler(event:Event):void
 			{
+				_preloadListenerCollection.destroy();
+				
 				reparentPreloader();
 				callLater(hidePreloader);
 			}
