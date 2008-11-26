@@ -251,29 +251,6 @@ package com.layerglue.lib.application.controllers
 			return null;
 		}
 		
-		public function get deepestSelectedChild():INavigableController
-		{
-			
-			if(selectedChild)
-			{
-				if(selectedChild.selectedChild)
-				{
-					return selectedChild.deepestSelectedChild;
-				}
-				
-				return selectedChild;
-			}
-			else
-			{
-				if(structuralData.selected)
-				{
-					return this;
-				}
-			}
-			
-			return null;
-		}
-			
 		public function destroyChildren():void
 		{
 			var c:INavigableController;

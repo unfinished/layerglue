@@ -114,18 +114,36 @@ package com.layerglue.lib.application.navigation
 			trace(">>>>>>>>>>>>>>>>>>>> NavigationManager.processNavigation: " + deepestController.structuralData.uri);
 			
 			
+			var deepest:INavigableController = deepestSelectedController;
 			
-			if(rootController.deepestSelectedChild && rootController.deepestSelectedChild != rootController)
+			if(deepest && deepest != rootController)
 			{
-				trace("Trying to unnavigate from: " + rootController.deepestSelectedChild.structuralData.uri);
-				
-				(rootController.deepestSelectedChild as INavigableController).unnavigateToCommonNode();
+				//trace("Trying to unnavigate from: " + deepestSelectedController.structuralData.uri);
+				(deepest as INavigableController).unnavigateToCommonNode();
 			}
 			else
 			{
 				//Call navigate on rootController passing in packet
 				rootController.navigate();
 			}
+		}
+		
+		public function get deepestSelectedController():INavigableController
+		{
+			var controller:INavigableController = rootController;
+			
+			while(controller.selectedChild)
+			{
+				if(controller.selectedChild)
+				{
+					controller = controller.selectedChild;
+				}
+				else
+				{
+					break;
+				}
+			}
+			return controller;
 		}
 		
 		public function getControllerStrandFromStructuralDataStrand(structuralDataStrand:Array):Array
@@ -217,7 +235,7 @@ package com.layerglue.lib.application.navigation
 			var arr:Array = getStructuralDataStrandFromURI(SWFAddress.getPath());
 			var sd:IStructuralData = arr[arr.length-1] as IStructuralData;
 			
-			trace("doFirstNavigation: "+sd);
+			//trace("doFirstNavigation: "+sd);
 			(new StructuralDataNavigationRequest(sd, true)).dispatch();
 		}
 	}
