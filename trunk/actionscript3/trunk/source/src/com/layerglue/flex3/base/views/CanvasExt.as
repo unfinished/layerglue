@@ -1,10 +1,8 @@
 package com.layerglue.flex3.base.views
 {
-	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.ITransitionableNavigableView;
 	import com.layerglue.lib.base.events.DestroyEvent;
-	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
@@ -12,13 +10,9 @@ package com.layerglue.flex3.base.views
 
 	public class CanvasExt extends Canvas implements ITransitionableNavigableView
 	{
-		protected var _structualDataListenerUtil:StructuralDataListenerUtil;
-		
 		public function CanvasExt()
 		{
 			super();
-			
-			_structualDataListenerUtil = new StructuralDataListenerUtil(this);
 		}
 		
 		[Bindable(event="structuralDataChange")]
@@ -30,10 +24,6 @@ package com.layerglue.flex3.base.views
 		public function set structuralData(value:IStructuralData):void
 		{
 			_structualDataListenerUtil.structuralData = value;
-		}
-		
-		public function structuralDataPropertyChangeHandler(oldStructuralData:IStructuralData, newStructuralData:IStructuralData):void
-		{
 			invalidateProperties();
 		}
 		
@@ -47,14 +37,6 @@ package com.layerglue.flex3.base.views
 		public function set childViewContainer(value:DisplayObjectContainer):void
 		{
 			_childViewContainer = value;
-		}
-		
-		public function structuralDataSubselectionChangeHandler(event:SelectionEvent):void
-		{
-		}
-		
-		public function structuralDataSelectionStatusChangeHandler(event:SelectionEvent):void
-		{
 		}
 		
 		public function startTransitionIn():void
