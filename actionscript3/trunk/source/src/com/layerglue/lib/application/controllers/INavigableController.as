@@ -1,7 +1,7 @@
 package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.structure.IStructuralDataOwner;
-	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.application.views.INavigableView;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
@@ -29,8 +29,8 @@ package com.layerglue.lib.application.controllers
 		/**
 		 * Returns an instance of this controller instance's view
 		 */
-		function get view():IView
-		function set view(value:IView):void
+		function get view():INavigableView
+		function set view(value:INavigableView):void
 		
 		/**
 		 * Returns the parent controller of this instance

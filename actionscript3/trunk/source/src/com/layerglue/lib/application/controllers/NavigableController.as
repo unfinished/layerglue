@@ -4,7 +4,7 @@ package com.layerglue.lib.application.controllers
 	import com.layerglue.lib.application.navigation.NavigationManager;
 	import com.layerglue.lib.application.navigation.NavigationPacket;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.application.views.INavigableView;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -170,16 +170,16 @@ package com.layerglue.lib.application.controllers
 		}
 		
 		 
-		private var _view:IView;
+		private var _view:INavigableView;
 
-		public function get view():IView
+		public function get view():INavigableView
 		{
 			return _view;
 		}
 		
-		public function set view(value:IView):void
+		public function set view(value:INavigableView):void
 		{
-			var oldValue:IView = _view;
+			var oldValue:INavigableView = _view;
 			
 			_view = value;
 			setViewDataProvider();
@@ -238,7 +238,7 @@ package com.layerglue.lib.application.controllers
 		
 		public function createView(shouldAdd:Boolean=true):void
 		{
-			var viewInstance:IView = createViewInstance();
+			var viewInstance:INavigableView = createViewInstance();
 			
 			viewInstance.structuralData = structuralData;
 			view = viewInstance;
@@ -249,12 +249,12 @@ package com.layerglue.lib.application.controllers
 			}
 		}
 		
-		protected function createViewInstance():IView
+		protected function createViewInstance():INavigableView
 		{
-			return new viewClassReference() as IView;
+			return new viewClassReference() as INavigableView;
 		}
 		
-		protected function addViewInstance(viewInstance:IView):void
+		protected function addViewInstance(viewInstance:INavigableView):void
 		{
 			if(!viewContainer)
 			{
