@@ -26,19 +26,7 @@ package com.layerglue.lib.application.controllers
 		{
 			structuralData.selected = true;
 			
-			startTransitionIn();
-		}
-		
-		public function startTransitionIn():void
-		{
-			//This will be asynchronous in subclasses
-			throw new Error("AbstractNavigableController: startTransitionIn() must be overriden in subclasses");
-		}
-		
-		public function startTransitionOut():void
-		{
-			//trace("AbstractNavigableController.startTransitionOut: " + structuralData.uri + " - " + this);
-			throw new Error("AbstractNavigableController: startTransitionOut() must be overriden in subclasses");
+			tryDeeperNavigation();
 		}
 		
 		public function unnavigateToCommonNode():void
@@ -50,7 +38,7 @@ package com.layerglue.lib.application.controllers
 			}
 			else
 			{
-				startTransitionOut();
+				tryShallowerUnnavigation();
 			}
 		}
 		

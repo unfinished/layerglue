@@ -61,12 +61,12 @@ package com.layerglue.lib.application.controllers
 		/**
 		 * 
 		 */
-		function startTransitionIn():void
+		//function startTransitionIn():void
 		
 		/**
 		 * 
 		 */
-		function startTransitionOut():void
+		//function startTransitionOut():void
 		
 		function getChildByUriNode(string:String):INavigableController;
 		function getChildById(string:String):INavigableController;
