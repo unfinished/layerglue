@@ -27,20 +27,11 @@ package com.layerglue.lib.application.controllers
 		function set viewClassReference(value:Class):void
 		
 		/**
-		 * Returns the view instance that this controllers view should be created within.
-		 * 
-		 * In AbstractController this is implemented to default to parent.childViewContainer if no
-		 * value has been set on the class.
-		 */
-		function get viewParent():DisplayObjectContainer
-		function set viewParent(value:DisplayObjectContainer):void
-		
-		/**
 		 * Returns the view instance that this view's children should be created in. So for example
 		 * if you were making a menu, this property might point to a button holder canvas.
 		 */
-		function get childViewContainer():DisplayObjectContainer
-		function set childViewContainer(value:DisplayObjectContainer):void
+		function get viewContainer():DisplayObjectContainer
+		function set viewContainer(value:DisplayObjectContainer):void
 		
 		/**
 		 * Returns an instance of this controller instance's view
@@ -82,7 +73,6 @@ package com.layerglue.lib.application.controllers
 		
 		
 		function createView(shouldAdd:Boolean=false):IView
-		//function createView(viewParent:IView, controllerToViewClassMap:HashMap=null):void
 		
 		function destroyView():void;
 		
