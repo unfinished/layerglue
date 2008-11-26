@@ -1,10 +1,8 @@
 package com.layerglue.flex3.base.views
 {
-	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.ITransitionableNavigableView;
 	import com.layerglue.lib.base.events.DestroyEvent;
-	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
@@ -12,13 +10,10 @@ package com.layerglue.flex3.base.views
 
 	public class UIComponentExt extends UIComponent implements ITransitionableNavigableView
 	{
-		protected var _structuralDataListenerUtil:StructuralDataListenerUtil;
 		
 		public function UIComponentExt()
 		{
 			super();
-			
-			_structuralDataListenerUtil = new StructuralDataListenerUtil(this);
 		}		
 		
 		[Bindable(event="structuralDataChange")]
@@ -30,6 +25,7 @@ package com.layerglue.flex3.base.views
 		public function set structuralData(value:IStructuralData):void
 		{
 			_structuralDataListenerUtil.structuralData = value;
+			invalidateProperties();
 		}
 		
 		private var _childViewContainer:DisplayObjectContainer
@@ -42,19 +38,6 @@ package com.layerglue.flex3.base.views
 		public function set childViewContainer(value:DisplayObjectContainer):void
 		{
 			_childViewContainer = value;
-		}
-		
-		public function structuralDataPropertyChangeHandler(oldStructuralData:IStructuralData, newStructuralData:IStructuralData):void
-		{
-			invalidateProperties();
-		}
-		
-		public function structuralDataSubselectionChangeHandler(event:SelectionEvent):void
-		{
-		}
-		
-		public function structuralDataSelectionStatusChangeHandler(event:SelectionEvent):void
-		{
 		}
 		
 		public function startTransitionIn():void

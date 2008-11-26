@@ -2,11 +2,9 @@ package com.layerglue.flex3.application.applications
 {
 	import com.layerglue.lib.application.controllers.INavigableController;
 	import com.layerglue.lib.application.events.StructuralDataListenerEvent;
-	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.command.FrontController;
 	import com.layerglue.lib.base.events.DestroyEvent;
-	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
@@ -14,13 +12,10 @@ package com.layerglue.flex3.application.applications
 	[Bindable]
 	public class ApplicationView extends Application implements IApplicationView
 	{
-		private var _structuralDataListenerUtil:StructuralDataListenerUtil;
 		
 		public function ApplicationView():void
 		{
 			super();
-			
-			_structuralDataListenerUtil = new StructuralDataListenerUtil(this);
 			
 			initializeRequestCommandConnector();
 			
@@ -49,18 +44,16 @@ package com.layerglue.flex3.application.applications
 			_controller = value;
 		}
 		
-		[Bindable(event="structuralDataChange")]
+		private var _structuralData:IStructuralData;
+		
 		public function get structuralData():IStructuralData
 		{
-			return _structuralDataListenerUtil.structuralData;
+			return _structuralData;
 		}
 
 		public function set structuralData(value:IStructuralData):void
 		{
-			_structuralDataListenerUtil.structuralData = value;
-			
-			trace("ApplicationView set structuralData");
-			dispatchEvent(new StructuralDataListenerEvent(StructuralDataListenerEvent.STRUCTURAL_DATA_CHANGE));
+			_structuralData = value;
 		}
 		
 		private var _childViewContainer:DisplayObjectContainer
@@ -73,18 +66,6 @@ package com.layerglue.flex3.application.applications
 		public function set childViewContainer(value:DisplayObjectContainer):void
 		{
 			_childViewContainer = value;
-		}
-		
-		public function structuralDataPropertyChangeHandler(oldStructuralData:IStructuralData, newStructuralData:IStructuralData):void
-		{
-		}
-		
-		public function structuralDataSubselectionChangeHandler(event:SelectionEvent):void
-		{
-		}
-		
-		public function structuralDataSelectionStatusChangeHandler(event:SelectionEvent):void
-		{
 		}
 		
 		public function startTransitionIn():void
@@ -112,9 +93,7 @@ package com.layerglue.flex3.application.applications
 		}
 		
 		public function destroy():void
-		{
-			_structuralDataListenerUtil.destroy();
-			
+		{			
 			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
 		}	
 	}

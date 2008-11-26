@@ -1,7 +1,7 @@
 package com.layerglue.lib.application.views
 {
+	import com.layerglue.lib.application.structure.IStructuralDataOwner;
 	import com.layerglue.lib.base.core.IDestroyable;
-	import com.layerglue.lib.application.structure.IStructuralDataListener;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
@@ -12,9 +12,9 @@ package com.layerglue.lib.application.views
 	public interface INavigableView extends
 		
 		//Implementing interfaces needed by the framework
-		IStructuralDataListener,
-		IDestroyable,
 		IEventDispatcher,
+		IStructuralDataOwner,
+		IDestroyable,
 		
 		//Bringing in line with Flex components
 		IUIComponent,

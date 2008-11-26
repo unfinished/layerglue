@@ -1,37 +1,30 @@
 package com.layerglue.flex3.base.views.showHide
 {
-	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.ITransitionableNavigableView;
-	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
 	public class ShowHideBoxExt extends ShowHideBox implements ITransitionableNavigableView
 	{
 		
-		protected var _structualDataListenerUtil:StructuralDataListenerUtil;
-		
 		public function ShowHideBoxExt()
 		{
 			super();
 			
-			_structualDataListenerUtil = new StructuralDataListenerUtil(this);
 		}
+		
+		private var _structuralData:IStructuralData;
 		
 		[Bindable(event="structuralDataChange")]
 		public function get structuralData():IStructuralData
 		{
-			return _structualDataListenerUtil.structuralData;
+			return _structuralData;
 		}
 
 		public function set structuralData(value:IStructuralData):void
 		{
-			_structualDataListenerUtil.structuralData = value;
-		}
-		
-		public function structuralDataPropertyChangeHandler(oldStructuralData:IStructuralData, newStructuralData:IStructuralData):void
-		{
+			_structuralData = value;
 			invalidateProperties();
 		}
 		
@@ -45,14 +38,6 @@ package com.layerglue.flex3.base.views.showHide
 		public function set childViewContainer(value:DisplayObjectContainer):void
 		{
 			_childViewContainer = value;
-		}
-		
-		public function structuralDataSubselectionChangeHandler(event:SelectionEvent):void
-		{
-		}
-		
-		public function structuralDataSelectionStatusChangeHandler(event:SelectionEvent):void
-		{
 		}
 		
 		public function startTransitionIn():void
@@ -72,7 +57,6 @@ package com.layerglue.flex3.base.views.showHide
 		
 		override public function destroy():void
 		{
-			_structualDataListenerUtil.destroy();
 			super.destroy();
 		}
 
