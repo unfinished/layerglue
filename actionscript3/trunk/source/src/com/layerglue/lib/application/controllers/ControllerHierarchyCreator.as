@@ -16,14 +16,14 @@ package com.layerglue.lib.application.controllers
 			
 		}
 		
-		public function createHierarchy(structuralData:IStructuralData, controller:IController=null):IController
+		public function createHierarchy(structuralData:IStructuralData, controller:INavigableController=null):INavigableController
 		{
 			if (!structureToControllerMap)
 			{
 				throw new Error("Attempted controller hierarchy creation with no map specified.");
 			}
 			
-			var controller:IController;
+			var controller:INavigableController;
 			if (controller == null)
 			{
 				controller = createControllerInstance(structuralData);
@@ -32,7 +32,7 @@ package com.layerglue.lib.application.controllers
 			var structuralDataNode:IStructuralData;
 			for each(structuralDataNode in structuralData.children)
 			{
-				var childController:IController = createControllerInstance(structuralDataNode, controller);
+				var childController:INavigableController = createControllerInstance(structuralDataNode, controller);
 				controller.children.push(childController);
 				createHierarchy(structuralDataNode, childController);
 			}
@@ -42,7 +42,7 @@ package com.layerglue.lib.application.controllers
 			// throw error if no default class is specified
 		}
 		
-		protected function createControllerInstance(structuralData:IStructuralData, parent:IController=null):IController
+		protected function createControllerInstance(structuralData:IStructuralData, parent:INavigableController=null):INavigableController
 		{
 			var controllerClassRef:Class = structureToControllerMap.getClassReference(structuralData);
 			
@@ -51,7 +51,7 @@ package com.layerglue.lib.application.controllers
 				throw new Error("No structure to controller mapping found for: " + structuralData + " id="+structuralData.id); 
 			}
 			
-			var controller:IController = new controllerClassRef();
+			var controller:INavigableController = new controllerClassRef();
 			controller.parent = parent;
 			controller.structuralData = structuralData;
 			

@@ -1,6 +1,6 @@
 package com.layerglue.lib.application.maps
 {
-	import com.layerglue.lib.application.controllers.IController;
+	import com.layerglue.lib.application.controllers.INavigableController;
 	import com.layerglue.lib.base.utils.ReflectionUtils;
 	
 	public class ControllerToViewMap extends ClassMap
@@ -10,7 +10,7 @@ package com.layerglue.lib.application.maps
 			super();
 		}
 		
-		public function getClassReference(controller:IController):Class
+		public function getClassReference(controller:INavigableController):Class
 		{
 			var idMapping:Class = getFromIdMap(controller.structuralData.controllerToViewMapId)
 			
