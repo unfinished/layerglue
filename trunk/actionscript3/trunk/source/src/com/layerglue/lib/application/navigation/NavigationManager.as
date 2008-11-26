@@ -124,7 +124,7 @@ package com.layerglue.lib.application.navigation
 			else
 			{
 				//Call navigate on rootController passing in packet
-				rootController.navigate();
+				//rootController.navigate();
 			}
 		}
 		

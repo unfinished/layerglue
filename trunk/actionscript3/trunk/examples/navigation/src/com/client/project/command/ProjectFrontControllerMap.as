@@ -15,6 +15,8 @@ package com.client.project.command
 		override protected function initialize():void
 		{
 			super.initialize();
+			
+			//Put in project specific mappings here
 		}
 
 	}

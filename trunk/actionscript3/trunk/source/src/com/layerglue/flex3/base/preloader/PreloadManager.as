@@ -1,13 +1,16 @@
 package com.layerglue.flex3.base.preloader
 {
+	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.DisplayObject;
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.utils.getDefinitionByName;
 	
+	import mx.events.FlexEvent;
 	import mx.managers.ISystemManager;
 	import mx.managers.SystemManager;
 	import mx.preloaders.IPreloaderDisplay;
@@ -43,11 +46,16 @@ package com.layerglue.flex3.base.preloader
 			return systemManager.info()["loadManagerMainSWFValue"] ? systemManager.info()["loadManagerMainSWFValue"] : DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE;
 		}
 		
+		private var _listenerCollection:EventListenerCollection;
+		
 		public function PreloadManager(preloaderDisplay:IPreloaderDisplay)
 		{
 			super();
 			
 			_preloaderDisplay = preloaderDisplay;
+			
+			_listenerCollection = new EventListenerCollection();
+			
 			
 			//Set up the load manager
 			var systemManager:ISystemManager = (preloaderDisplay as DisplayObject).root as ISystemManager;
@@ -67,6 +75,11 @@ package com.layerglue.flex3.base.preloader
 			//This method doesnt start the load process as the main swf is already loading, but it
 			//firest the load start event, which some objects will be listening for.
 			_loadManager.start();
+		}
+		
+		protected function flexPreloaderDoneHandler(event:FlexEvent):void
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		 
 		private static var _instance:PreloadManager;
@@ -109,6 +122,8 @@ package com.layerglue.flex3.base.preloader
 		public function set flexPreloader(value:Preloader):void
 		{
 			_flexPreloader = value;
+			
+			_listenerCollection.createListener(flexPreloader, FlexEvent.PRELOADER_DONE, flexPreloaderDoneHandler);
 		}
 		
 		private var _loadManager:ProportionalLoadManager;
@@ -116,6 +131,14 @@ package com.layerglue.flex3.base.preloader
 		public function get loadManager():ProportionalLoadManager
 		{
 			return _loadManager;
+		}
+		
+		public function destroy():void
+		{
+			if(_listenerCollection)
+			{
+				_listenerCollection.destroy();
+			}
 		}
 	}
 }
