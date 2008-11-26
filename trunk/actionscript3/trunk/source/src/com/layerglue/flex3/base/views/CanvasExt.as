@@ -2,7 +2,7 @@ package com.layerglue.flex3.base.views
 {
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.application.views.ITransitionableNavigableView;
 	import com.layerglue.lib.base.events.DestroyEvent;
 	import com.layerglue.lib.base.events.SelectionEvent;
 	
@@ -10,7 +10,7 @@ package com.layerglue.flex3.base.views
 	
 	import mx.containers.Canvas;
 
-	public class CanvasExt extends Canvas implements IView
+	public class CanvasExt extends Canvas implements ITransitionableNavigableView
 	{
 		protected var _structualDataListenerUtil:StructuralDataListenerUtil;
 		

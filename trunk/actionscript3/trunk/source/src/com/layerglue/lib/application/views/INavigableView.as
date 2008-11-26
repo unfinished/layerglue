@@ -9,7 +9,7 @@ package com.layerglue.lib.application.views
 	import mx.core.IChildList;
 	import mx.core.IUIComponent;
 	
-	public interface IView extends
+	public interface INavigableView extends
 		
 		//Implementing interfaces needed by the framework
 		IStructuralDataListener,
@@ -21,9 +21,5 @@ package com.layerglue.lib.application.views
 		IChildList
 	{
 		function get childViewContainer():DisplayObjectContainer;
-		
-		function startTransitionIn():void
-		function startTransitionOut():void
-		function stopTransition():void;
 	}
 }

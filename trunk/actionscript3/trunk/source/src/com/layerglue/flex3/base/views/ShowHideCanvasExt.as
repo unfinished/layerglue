@@ -3,13 +3,13 @@ package com.layerglue.flex3.base.views
 	import com.layerglue.flex3.base.views.showHide.ShowHideCanvas;
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.application.views.ITransitionableNavigableView;
 	import com.layerglue.lib.base.events.DestroyEvent;
 	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
-	public class ShowHideCanvasExt extends ShowHideCanvas implements IView
+	public class ShowHideCanvasExt extends ShowHideCanvas implements ITransitionableNavigableView
 	{
 		
 		protected var _structualDataListenerUtil:StructuralDataListenerUtil;

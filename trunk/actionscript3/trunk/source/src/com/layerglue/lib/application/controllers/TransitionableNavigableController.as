@@ -2,6 +2,7 @@ package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.events.FrameworkTransitionEvent;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
+	import com.layerglue.lib.application.views.ITransitionableNavigableView;
 	
 	public class TransitionableNavigableController extends NavigableController
 	{
@@ -42,7 +43,7 @@ package com.layerglue.lib.application.controllers
 			{ 
 				createView();
 				
-				view.startTransitionIn();
+				(view as ITransitionableNavigableView).startTransitionIn();
 			}			
 		}
 		
@@ -50,7 +51,7 @@ package com.layerglue.lib.application.controllers
 		{
 			if(view)
 			{
-				view.startTransitionOut();
+				(view as ITransitionableNavigableView).startTransitionOut();
 			}
 			else
 			{

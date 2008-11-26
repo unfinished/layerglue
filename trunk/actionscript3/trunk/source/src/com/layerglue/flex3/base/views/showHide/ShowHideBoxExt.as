@@ -2,12 +2,12 @@ package com.layerglue.flex3.base.views.showHide
 {
 	import com.layerglue.lib.application.proxies.StructuralDataListenerUtil;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.application.views.IView;
+	import com.layerglue.lib.application.views.ITransitionableNavigableView;
 	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
-	public class ShowHideBoxExt extends ShowHideBox implements IView
+	public class ShowHideBoxExt extends ShowHideBox implements ITransitionableNavigableView
 	{
 		
 		protected var _structualDataListenerUtil:StructuralDataListenerUtil;
