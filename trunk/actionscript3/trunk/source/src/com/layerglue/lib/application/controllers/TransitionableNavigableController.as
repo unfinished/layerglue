@@ -3,7 +3,7 @@ package com.layerglue.lib.application.controllers
 	import com.layerglue.lib.application.events.FrameworkTransitionEvent;
 	import com.layerglue.lib.base.collections.EventListenerCollection;
 	
-	public class TransitionableNavigableController extends AbstractNavigableController
+	public class TransitionableNavigableController extends NavigableController
 	{
 		protected var _viewTransitionListenerCollection:EventListenerCollection;
 		
