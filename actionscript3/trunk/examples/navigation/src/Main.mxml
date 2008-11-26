@@ -8,7 +8,7 @@
 	creationPolicy="none"
 	backgroundColor="0xFFFFFF"
 	preloader="com.client.project.preloader.PreloaderView"
-	preloaderMinDisplayTime="1000">
+	preloaderMinDisplayTime="1000" xmlns:setup="com.layerglue.lib.application.setup.*">
 	
 	<mx:Script>
 		<![CDATA[
@@ -39,9 +39,6 @@
 			
 			[Bindable]
 			public var modelLocator:ModelLocator = ModelLocator.getInstance();
-			
-			[Bindable]
-			//public var navigationManager:NavigationManager = NavigationManager.getInstance();
 			
 			private var _initialLoadManager:InitialLoadManager;
 			
@@ -111,7 +108,6 @@
 			
 		]]>
 	</mx:Script>
-	
 	<mx:Box width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" direction="vertical">
 		<!-- The Tree and DataGrid controls are good for exploring object hierarchies -->
 		<mx:HBox>
