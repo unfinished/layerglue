@@ -32,7 +32,7 @@ package com.layerglue.lib.application.controllers
 			}
 		}
 		
-		public function startTransitionIn():void
+		protected function startTransitionIn():void
 		{
 			if (view)
 			{
@@ -46,7 +46,7 @@ package com.layerglue.lib.application.controllers
 			}			
 		}
 		
-		public function startTransitionOut():void
+		protected function startTransitionOut():void
 		{
 			if(view)
 			{
