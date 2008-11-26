@@ -16,15 +16,16 @@ package com.layerglue.flex3.base.views
 			super();
 		}		
 		
-		[Bindable(event="structuralDataChange")]
+		private var _structuralData:IStructuralData;
+		
 		public function get structuralData():IStructuralData
 		{
-			return _structuralDataListenerUtil.structuralData;
+			return _structualData
 		}
 
 		public function set structuralData(value:IStructuralData):void
 		{
-			_structuralDataListenerUtil.structuralData = value;
+			_structuralData = value;
 			invalidateProperties();
 		}
 		

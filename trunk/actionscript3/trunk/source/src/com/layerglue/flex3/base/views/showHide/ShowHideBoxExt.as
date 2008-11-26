@@ -16,7 +16,6 @@ package com.layerglue.flex3.base.views.showHide
 		
 		private var _structuralData:IStructuralData;
 		
-		[Bindable(event="structuralDataChange")]
 		public function get structuralData():IStructuralData
 		{
 			return _structuralData;
