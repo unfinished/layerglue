@@ -1,10 +1,11 @@
 package com.layerglue.lib.application.structure
 {
-	import com.layerglue.lib.application.navigation.INavigable;
 	import com.layerglue.lib.base.collections.ICollection;
 	
+	import flash.events.IEventDispatcher;
+	
 	// TODO: take a look at these interfaces and what they're prescribing
-	public interface IStructuralData extends INavigable
+	public interface IStructuralData extends IEventDispatcher
 	{
 		[Bindable(event="propertyChange")]
 		function get id():String;
@@ -44,6 +45,9 @@ package com.layerglue.lib.application.structure
 		[Bindable(event="propertyChange")]
 		function get uriNode():String
 		function set uriNode(value:String):void
+		
+		[Bindable(event="propertyChange")]
+		function get uri():String;
 		
 		[Bindable(event="propertyChange")]
 		function get depth():uint
