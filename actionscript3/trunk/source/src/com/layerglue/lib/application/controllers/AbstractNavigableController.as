@@ -136,11 +136,11 @@ package com.layerglue.lib.application.controllers
 		{
 			return !parent;
 		}
-		
+		/* 
 		public function get root():INavigableController
 		{
 			return isRoot() ? this as INavigableController : parent.root;
-		}
+		} */
 		
 		private var _structuralData:IStructuralData;
 
@@ -158,6 +158,9 @@ package com.layerglue.lib.application.controllers
 		
 		private var _viewContainer:DisplayObjectContainer;
 		
+		/**
+		 * @inheritDoc
+		 */
 		public function get viewContainer():DisplayObjectContainer
 		{
 			return _viewContainer ? _viewContainer : (parent && parent.view ? parent.view.childViewContainer : null);
@@ -292,17 +295,17 @@ package com.layerglue.lib.application.controllers
 			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
 		}
 		
-		public function createView(shouldAdd:Boolean=false):IView
+		public function createView(shouldAdd:Boolean=false):void
 		{
 			var viewInstance:IView = new viewClassReference();
 			(viewInstance as IStructuralDataListener).structuralData = structuralData;
+			
+			view = viewInstance;
 			
 			if(shouldAdd)
 			{
 				addView();
 			}
-			
-			return viewInstance;
 		}
 		
 		public function addView():void
