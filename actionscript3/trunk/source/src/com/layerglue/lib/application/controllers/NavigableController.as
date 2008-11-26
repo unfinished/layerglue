@@ -13,9 +13,9 @@ package com.layerglue.lib.application.controllers
 	/**
 	 * The abstract base class for all Navigable controllers.
 	 */
-	public class AbstractNavigableController extends EventDispatcher implements INavigableController
+	public class NavigableController extends EventDispatcher implements INavigableController
 	{	
-		public function AbstractNavigableController()
+		public function NavigableController()
 		{
 			super();
 			
