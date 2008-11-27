@@ -12,6 +12,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.application.command.requests.URINavigationRequest;
 			import com.layerglue.lib.base.collections.EventListenerCollection;
 			import com.layerglue.flex3.base.events.PreloadManagerEvent;
 			import com.layerglue.lib.base.command.FrontController;
@@ -76,8 +77,10 @@
 				initialSetupManager.structuralDataToControllerMap = new ProjectStructureToControllerMap();
 				initialSetupManager.controllerToViewMap = new ProjectControllerToViewMap();
 				initialSetupManager.setup(_initialLoadManager.structuralXML);
-				
+								
 				createComponentsFromDescriptors();
+				
+				LayerGlueLocator.getInstance().navigationManager.rootController.viewContainer = rootViewCotainer;
 			}
 			
 			private function hidePreloader():void
@@ -108,13 +111,21 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Box width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" direction="vertical">
-		<!-- The Tree and DataGrid controls are good for exploring object hierarchies -->
+	
+	<mx:VBox>
 		<mx:HBox>
-			<mx:Tree id="projectTree" dataProvider="{LayerGlueLocator.getInstance().structuralData}" width="220" height="280"/>
-			<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
+			<mx:Button label="Goto Home" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('home'), true)).dispatch()"/>
+			<mx:Button label="Goto Gallery" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery'), true)).dispatch()"/>
+			<mx:Button label="Goto Artist1" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery').getChildById('artist1'), true)).dispatch()"/>
+			<mx:Button label="Goto Artist2" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery').getChildById('artist2'), true)).dispatch()"/>
+			<mx:Button label="Goto Contact" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('contact'), true)).dispatch()"/>
 		</mx:HBox>
-		<mx:Button label="Do nav" click="doNav()" />
-	</mx:Box>
+		
+		<mx:Text text="Application (one level above anything that's navigable)"/>
+		<mx:Box id="rootViewCotainer"/>
+		
+	</mx:VBox>
+	
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
+	
 </lgapps:PreloadableApplication>
