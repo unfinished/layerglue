@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ShowHideBoxExt xmlns="com.layerglue.flex3.base.views.showHide.*" xmlns:mx="http://www.adobe.com/2006/mxml">
-	<mx:Label text="{'Artist view : ' + structuralData.title}"/>
-	<mx:Box id="childViewContainer"/>
+<ShowHideBoxExt
+	xmlns="com.layerglue.flex3.base.views.showHide.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:controls="com.layerglue.flex3.base.controls.*"
+	width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import com.layerglue.lib.application.structure.IStructuralData;
+			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%">
+		<mx:Box id="childViewContainer" width="100%" height="100%"/>
+		<controls:NavSafeToggleButtonBar
+			dataProvider="{structuralData.children}"
+			selectedIndex="{structuralData.selectedChildIndex}" 
+			itemClick="{(new StructuralDataNavigationRequest(event.item as IStructuralData)).dispatch()}"
+			labelField="id" />	
+	</mx:VBox>
 </ShowHideBoxExt>
