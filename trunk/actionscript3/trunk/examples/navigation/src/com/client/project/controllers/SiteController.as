@@ -1,8 +1,8 @@
 package com.client.project.controllers
 {
-	import com.layerglue.lib.application.controllers.NavigableController;
+	import com.layerglue.lib.application.controllers.TransitionableNavigableController;
 
-	public class SiteController extends NavigableController
+	public class SiteController extends TransitionableNavigableController
 	{
 		public function SiteController()
 		{
