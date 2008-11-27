@@ -56,13 +56,13 @@
 				_initialAssetManager = new InitialAssetManager();
 				
 				_preloadListenerCollection = new EventListenerCollection();
-				_preloadListenerCollection.createListener(PreloadManager.getInstance(), PreloadManagerEvent.ASSETS_LOAD_COMPLETE, assetsLoadComplete);
+				_preloadListenerCollection.createListener(PreloadManager.getInstance(), PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetsLoadComplete);
 				_preloadListenerCollection.createListener(PreloadManager.getInstance(), Event.COMPLETE, preloaderDoneHandler); 
 				
 				_initialAssetManager.start();
 			}
 			
-			private function assetsLoadComplete(event:PreloadManagerEvent):void
+			private function initialAssetsLoadComplete(event:PreloadManagerEvent):void
 			{
 				var initialSetupManager:InitialSetupManager = new InitialSetupManager();
 				initialSetupManager.xmlToStructuralDataMap = new ProjectStructureDeserializationMap();
