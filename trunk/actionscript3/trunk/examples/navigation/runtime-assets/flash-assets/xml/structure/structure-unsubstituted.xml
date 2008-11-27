@@ -45,7 +45,7 @@
 							<url>@gallery.artist2.image2.url@</url>
 						</image>
 						<image id="3" uriNode="3">
-							<title>@gallery.artist2.image2.title@</title>
+							<title>@gallery.artist2.image3.title@</title>
 							<url>@gallery.artist2.image3.url@</url>
 						</image>
 					</children>
