@@ -83,7 +83,8 @@
 				
 				//TODO Make sure this doesnt need to be on a callLater
 				hidePreloader();
-				trace("/////// preloading complete");
+				
+				LayerGlueLocator.getInstance().navigationManager.connectBrowserNavigation();
 			}
 			
 			private function hidePreloader():void
@@ -113,11 +114,11 @@
 	
 	<mx:VBox>
 		<mx:HBox>
-			<mx:Button label="Goto Home" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('home'), true)).dispatch()"/>
-			<mx:Button label="Goto Gallery" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery'), true)).dispatch()"/>
-			<mx:Button label="Goto Artist1" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery').getChildById('artist1'), true)).dispatch()"/>
-			<mx:Button label="Goto Artist2" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery').getChildById('artist2'), true)).dispatch()"/>
-			<mx:Button label="Goto Contact" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('contact'), true)).dispatch()"/>
+			<mx:Button label="Goto Home" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('home'))).dispatch()"/>
+			<mx:Button label="Goto Gallery" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery'))).dispatch()"/>
+			<mx:Button label="Goto Artist1" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery').getChildById('artist1'))).dispatch()"/>
+			<mx:Button label="Goto Artist2" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery').getChildById('artist2'))).dispatch()"/>
+			<mx:Button label="Goto Contact" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('contact'))).dispatch()"/>
 		</mx:HBox>
 		
 		<mx:Text text="Application (one level above anything that's navigable)"/>

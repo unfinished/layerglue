@@ -9,7 +9,9 @@ package com.layerglue.lib.application.navigation
 	import com.layerglue.lib.base.utils.StringUtils;
 	
 	import flash.events.EventDispatcher;
+	import mx.controls.Alert;
 	
+	[Bindable]
 	public class NavigationManager extends EventDispatcher
 	{
 		public var rootController:INavigableController;
@@ -33,37 +35,16 @@ package com.layerglue.lib.application.navigation
 			_history = new NavigationHistory();
 			
 			this.rootController = rootController;
-			
-			initializeSWFAddress();
-			
-			//TODO This will need to change for deeplinking so that initial url is processed as a real navigation request.
-			_history.addItem(rootController.structuralData);
 		}
 		
-		/* 
-		private static var _instance:NavigationManager;
-		public static function initialize(rootController:INavigableController):NavigationManager
-		{
-			if(!_instance)
-			{
-				_instance = new NavigationManager(rootController);
-			}
-			
-			return _instance;
-		}
-		
-		public static function getInstance():NavigationManager
-		{
-			if(!_instance)
-			{
-				throw new Error("Attempted access of NavigationManager singleton before initialization.");
-			}
-			return _instance;
-		} */
-		
-		private function initializeSWFAddress():void
+		public function connectBrowserNavigation():void
 		{
 			SWFAddress.addEventListener(SWFAddressEvent.CHANGE, swfAddressChangeHandler);
+		}
+		
+		public function disconnectBrowserNavigation():void
+		{
+			SWFAddress.removeEventListener(SWFAddressEvent.CHANGE, swfAddressChangeHandler);
 		}
 		
 		private function swfAddressChangeHandler(event:SWFAddressEvent):void
@@ -238,7 +219,7 @@ package com.layerglue.lib.application.navigation
 			var arr:Array = getStructuralDataStrandFromURI(SWFAddress.getPath());
 			var sd:IStructuralData = arr[arr.length-1] as IStructuralData;
 			
-			//trace("doFirstNavigation: "+sd);
+			trace("doFirstNavigation: "+sd);
 			(new StructuralDataNavigationRequest(sd, true)).dispatch();
 		}
 	}

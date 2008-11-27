@@ -28,6 +28,8 @@ package com.layerglue.lib.application.command.commands
 		{
 			super.execute(request);
 			
+			trace("typedRequest.hideFromBrowser:" + typedRequest.hideFromBrowser)
+			
 			if(typedRequest.hideFromBrowser)
 			{
 				LayerGlueLocator.getInstance().navigationManager.processStructuralDataNavigation(typedRequest.structuralData);
@@ -46,8 +48,9 @@ package com.layerglue.lib.application.command.commands
 						}
 						structuralData = structuralData.parent;
 					}
-					
+					trace("StructuralDataNavigationCommand before SWFAddress.setValue");
 					SWFAddress.setValue(typedRequest.structuralData.uri);
+					trace("StructuralDataNavigationCommand after SWFAddress.setValue");
 				}
 			}
 		}
