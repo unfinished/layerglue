@@ -15,15 +15,37 @@ package com.layerglue.flex3.base.preloader
 	import mx.managers.SystemManager;
 	import mx.preloaders.IPreloaderDisplay;
 	import mx.preloaders.Preloader;
+	import com.layerglue.flex3.base.events.PreloadManagerEvent;
 	
 	/**
 	 * A proxy to sit between the preloader and the main application
+	 * 
+	 * <p></p>
 	 */
 	public class PreloadManager extends EventDispatcher
 	{
+		/**
+		 * The default time in milliseconds to show the preloader display if a value is not set in
+		 * the main application
+		 */
 		public static var DEFAULT_PRELOADER_MIN_DISPLAY_TIME:Number = 0;
+		
+		/**
+		 * The default class to be used to manage and measure loading initial site assets if  a
+		 * value is not set in the main application
+		 */
 		public static var DEFAULT_LOAD_MANAGER:Class = ProportionalLoadManager;
+		
+		/**
+		 * The default arbitrary total value used by the loadManager if a value is not set in the
+		 * main application
+		 */
 		public static var DEFAULT_LOAD_MANAGER_TOTAL_VALUE:Number = 1;
+		
+		/**
+		 * The default proportion of the main swf as a segment the overall filesize being loaded
+		 * before the site is initialized. 
+		 */
 		public static var DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE:Number = 0.6;
 		
 		public static function getLoadManagerClassReference(systemManager:ISystemManager):Class
@@ -72,16 +94,31 @@ package com.layerglue.flex3.base.preloader
 			
 			_loadManager.addItem(item);
 			
+			_listenerCollection.createListener(_loadManager, Event.COMPLETE, loadManagerCompleteHandler);
+			
 			//This method doesnt start the load process as the main swf is already loading, but it
 			//firest the load start event, which some objects will be listening for.
 			_loadManager.start();
 		}
 		
+		/**
+		 * Hooked up to the complete event of the loadManager, and dispatching a custom
+		 * PreloadManagerEvent signifying that all user defined assets have finished loading.
+		 */
+		protected function loadManagerCompleteHandler(event:Event):void
+		{
+			dispatchEvent(new PreloadManagerEvent(PreloadManagerEvent.ASSETS_LOAD_COMPLETE));
+		}
+		
+		/**
+		 * Hooked up to the FlexEvent.PRELOADER_DONE of the Flex system Preloader, and dispatching a
+		 * complete event, signifying that all preloading and initilization is complete.
+		 */
 		protected function flexPreloaderDoneHandler(event:FlexEvent):void
 		{
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
-		 
+		
 		private static var _instance:PreloadManager;
 		
 		public static function initialize(preloaderDisplay:IPreloaderDisplay):PreloadManager
@@ -128,6 +165,12 @@ package com.layerglue.flex3.base.preloader
 		
 		private var _loadManager:ProportionalLoadManager;
 		
+		/**
+		 * The ProportionalLoadManager responsible for the managing and measuring the initial assets
+		 * to be loaded in to the site.
+		 * 
+		 * <p></p>
+		 */
 		public function get loadManager():ProportionalLoadManager
 		{
 			return _loadManager;
