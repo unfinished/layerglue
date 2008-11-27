@@ -5,6 +5,7 @@ package com.layerglue.flex3.base.views.showHide
 	
 	import flash.display.DisplayObjectContainer;
 	
+	[Bindable]
 	public class ShowHideBoxExt extends ShowHideBox implements ITransitionableNavigableView
 	{
 		
