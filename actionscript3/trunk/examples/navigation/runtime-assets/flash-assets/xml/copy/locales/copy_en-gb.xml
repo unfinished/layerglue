@@ -14,13 +14,20 @@
 	
 	<item id="gallery.title"><![CDATA[Gallery]]></item>
 	<item id="gallery.artist1.title"><![CDATA[Jamie Copeland]]></item>
-	<item id="gallery.artist1.image1.url"><![CDATA[images/image.jpg]]></item>
-	<item id="gallery.artist1.image2.url"><![CDATA[images/image.jpg]]></item>
-	<item id="gallery.artist1.image3.url"><![CDATA[images/image.jpg]]></item>
+	<item id="gallery.artist1.image1.title"><![CDATA[Dogs]]></item>
+	<item id="gallery.artist1.image1.url"><![CDATA[images/jamie-1.jpg]]></item>
+	<item id="gallery.artist1.image2.title"><![CDATA[Cats]]></item>
+	<item id="gallery.artist1.image2.url"><![CDATA[images/jamie-2.jpg]]></item>
+	<item id="gallery.artist1.image3.title"><![CDATA[Monkeys]]></item>
+	<item id="gallery.artist1.image3.url"><![CDATA[images/jamie-3.jpg]]></item>
+	
 	<item id="gallery.artist2.title"><![CDATA[Matt Sweetman]]></item>
-	<item id="gallery.artist2.image1.url"><![CDATA[images/image.jpg]]></item>
-	<item id="gallery.artist2.image2.url"><![CDATA[images/image.jpg]]></item>
-	<item id="gallery.artist2.image3.url"><![CDATA[images/image.jpg]]></item>
+	<item id="gallery.artist2.image1.title"><![CDATA[Apples]]></item>
+	<item id="gallery.artist2.image1.url"><![CDATA[images/matt-1.jpg]]></item>
+	<item id="gallery.artist2.image2.title"><![CDATA[Oranges]]></item>
+	<item id="gallery.artist2.image2.url"><![CDATA[images/matt-2.jpg]]></item>
+	<item id="gallery.artist2.image3.title"><![CDATA[Bananas]]></item>
+	<item id="gallery.artist2.image3.url"><![CDATA[images/matt-3.jpg]]></item>
 	
 	<item id="contact.title"><![CDATA[Contact]]></item>
 	<item id="contact.imageUrl"><![CDATA[images/image.jpg]]></item>
