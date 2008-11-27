@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ShowHideBoxExt xmlns="com.layerglue.flex3.base.views.showHide.*" xmlns:mx="http://www.adobe.com/2006/mxml">
-	<mx:Label text="Site view"/>
-	<mx:Box id="childViewContainer"/>
+
+<ShowHideBoxExt
+	xmlns="com.layerglue.flex3.base.views.showHide.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:controls="com.layerglue.flex3.base.controls.*"
+	width="900" height="700" backgroundColor="0xCCCCCC">
+	<mx:Script>
+		<![CDATA[
+			import com.layerglue.lib.application.structure.IStructuralData;
+			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
+			
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%">
+		
+		<mx:HBox width="100%">
+			<mx:Text text="Site view"/>
+			<mx:Spacer width="100%" />
+			<controls:NavSafeToggleButtonBar
+				dataProvider="{structuralData.children}"
+				selectedIndex="{structuralData.selectedChildIndex}"
+				labelField="title"
+				itemClick="{(new StructuralDataNavigationRequest(event.item as IStructuralData)).dispatch()}" />	
+		</mx:HBox>
+		<mx:Box id="childViewContainer"/>
+		<!-- TODO put footer view in here -->
+	</mx:VBox>
+	
 </ShowHideBoxExt>
