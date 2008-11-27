@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ShowHideBoxExt xmlns="com.layerglue.flex3.base.views.showHide.*" xmlns:mx="http://www.adobe.com/2006/mxml">
-	<mx:Text text="{'Image view : ' + structuralData.id}"/>
+	<mx:Label text="{'Image view : ' + structuralData.id}"/>
 </ShowHideBoxExt>

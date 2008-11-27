@@ -5,6 +5,8 @@ global
 	fontFamily: "RegionalFont";
 	embedFonts: true;
 	fontAntiAliasType: advanced;
+	fontSize: 11;
+	fontWeight: normal;
 	color: #444444;
 }
 

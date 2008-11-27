@@ -10,6 +10,8 @@
 	preloader="com.client.project.preloader.PreloaderView"
 	preloaderMinDisplayTime="1000" xmlns:setup="com.layerglue.lib.application.setup.*">
 	
+	<mx:Style source="../embedded-assets/css/main.css"/>
+	
 	<mx:Script>
 		<![CDATA[
 			import com.layerglue.lib.application.command.requests.URINavigationRequest;
@@ -103,12 +105,6 @@
 				removeChild(preloaderContainer);
 			}
 			
-			private function doNav():void
-			{
-				//trace("modelLocator.siteStructure.constructor: "+modelLocator.siteStructure.getChildAt(0).title);
-				(new StructuralDataNavigationRequest(modelLocator.siteStructure.getChildAt(0))).dispatch();
-			}
-			
 		]]>
 	</mx:Script>
 	
@@ -121,8 +117,8 @@
 			<mx:Button label="Goto Contact" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('contact'))).dispatch()"/>
 		</mx:HBox>
 		
-		<mx:Text text="Application (one level above anything that's navigable)"/>
-		<mx:Box id="rootViewCotainer"/>
+		<mx:Label text="Application (one level above anything that's navigable)"/>
+		<mx:Box id="rootViewCotainer" width="200" height="300"/>
 		
 	</mx:VBox>
 	

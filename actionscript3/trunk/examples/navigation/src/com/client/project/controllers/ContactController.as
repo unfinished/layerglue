@@ -1,8 +1,8 @@
 package com.client.project.controllers
 {
-	import com.layerglue.lib.application.controllers.NavigableController;
+	import com.layerglue.lib.application.controllers.TransitionableNavigableController;
 
-	public class ContactController extends NavigableController
+	public class ContactController extends TransitionableNavigableController
 	{
 		public function ContactController()
 		{
