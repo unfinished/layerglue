@@ -17,6 +17,18 @@ package com.layerglue.flex3.base.preloader
 	import mx.preloaders.Preloader;
 	import com.layerglue.flex3.base.events.PreloadManagerEvent;
 	
+	
+	/**
+	 * Dispatched when all assets added to the loadManager are loaded
+	 */
+	[Event(name="initialAssetsLoadComplete", type="com.layerglue.flex3.base.events.PreloadManagerEvent")]
+	
+	/**
+	 * Dispatched when the entire load process, including minimumDisplayTime of IPreloaderDisplay is
+	 * complete.
+	 */
+	[Event(name="complete", type="flash.events.Event")]
+	
 	/**
 	 * A proxy to sit between the preloader and the main application
 	 * 
@@ -107,7 +119,7 @@ package com.layerglue.flex3.base.preloader
 		 */
 		protected function loadManagerCompleteHandler(event:Event):void
 		{
-			dispatchEvent(new PreloadManagerEvent(PreloadManagerEvent.ASSETS_LOAD_COMPLETE));
+			dispatchEvent(new PreloadManagerEvent(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE));
 		}
 		
 		/**
