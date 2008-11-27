@@ -17,7 +17,7 @@ package com.layerglue.lib.application.setup
 	
 	import flash.events.EventDispatcher;
 	
-	// Not sure this needs an interface - it's not ever used in a capacity that requires one
+	// TODO: Not sure this needs an interface - it's never used in a capacity that requires one
 	public class InitialSetupManager extends EventDispatcher implements IInitialSetupManager
 	{
 		public function InitialSetupManager()

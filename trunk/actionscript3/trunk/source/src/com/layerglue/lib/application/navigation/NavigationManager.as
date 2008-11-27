@@ -75,7 +75,7 @@ package com.layerglue.lib.application.navigation
 		
 		public function processURINavigation(uri:String):void
 		{
-			trace("NavigationManager.processURINavigation: " + uri);
+			trace(">>>>>>> NavigationManager.processURINavigation: " + uri);
 			
 			var split:Array = uri.split("?");
 			var addressPortion:String = split[0];
@@ -95,7 +95,7 @@ package com.layerglue.lib.application.navigation
 		
 		public function processStructuralDataNavigation(structuralData:IStructuralData):void
 		{
-			trace("NavigationManager.processStructuralNavigation: " + structuralData + " - " + structuralData.uri);
+			trace(">>>>>>> NavigationManager.processStructuralNavigation: " + structuralData + " - " + structuralData.uri);
 			
 			var structuralDataStrand:Array = getStructuralDataStrandFromStructuralData(structuralData);
 			var controllerStrand:Array = getControllerStrandFromStructuralDataStrand(structuralDataStrand);
@@ -111,7 +111,7 @@ package com.layerglue.lib.application.navigation
 			//Add the deepest structural data to the history
 			var deepestController:INavigableController = packet.controllerStrand[packet.controllerStrand.length-1] as INavigableController;
 			history.addItem(deepestController.structuralData);
-			trace(">>>>>>>>>>>>>>>>>>>> NavigationManager.processNavigation: " + deepestController.structuralData.uri);
+			trace(">>>>>>> NavigationManager.processNavigation: " + deepestController.structuralData.uri);
 			
 			
 			var deepest:INavigableController = deepestSelectedController;
@@ -162,6 +162,8 @@ package com.layerglue.lib.application.navigation
 			return validateControllerStrand(controllerStrand);
 		}
 		
+		// Adds any default child's onto the place we're about to navigate
+		// TODO: rename this? it's not really validating, it's adding default childs
 		private function validateControllerStrand(controllerStrand:Array):Array
 		{
 			var deepestController:INavigableController = controllerStrand[controllerStrand.length-1];
@@ -200,7 +202,7 @@ package com.layerglue.lib.application.navigation
 			{
 				var uriNode:String = split[i];
 				
-				currentStructuralData = currentStructuralData.getChildById(uriNode)
+				currentStructuralData = currentStructuralData.getChildByUriNode(uriNode)
 				structuralDataStrand.push(currentStructuralData)
 			}
 			
@@ -209,9 +211,10 @@ package com.layerglue.lib.application.navigation
 		
 		public function unnavigationCompleteHandler(controller:INavigableController):void
 		{
-			trace("NavigationManager.unnavigationCompleteHandler: " + controller);
+			trace("NavigationManager.unnavigationCompleteHandler - commonController: " + controller);
 			
-			//Start inwards navigation
+			// Start inwards navigation
+			// Should inwards navigation start from root controller or common-unnavigable controller?
 			rootController.navigate();
 		}
 		

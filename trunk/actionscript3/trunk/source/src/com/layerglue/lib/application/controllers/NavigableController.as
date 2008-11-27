@@ -24,13 +24,19 @@ package com.layerglue.lib.application.controllers
 		
 		public function navigate():void
 		{
+			trace("NavigableController.navigate: " + this + " id=" + structuralData.id);
 			structuralData.selected = true;
-			
+			if (!view)
+			{
+				createView();
+			}
+			addView();
 			tryDeeperNavigation();
 		}
 		
 		public function unnavigate():void
 		{
+			trace("NavigableController.unnavigate: " + this + " id=" + structuralData.id);
 			var currentAddressPacketControllerAtOurDepth:INavigableController = navigationManager.currentAddressPacket.getControllerAtDepth(depth) 
 			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
 			{
@@ -38,6 +44,9 @@ package com.layerglue.lib.application.controllers
 			}
 			else
 			{
+				// TODO: Which should be default? Should it be switchable?
+				//removeView();
+				destroyView();
 				tryShallowerUnnavigation();
 			}
 		}
@@ -122,11 +131,6 @@ package com.layerglue.lib.application.controllers
 		{
 			return !parent;
 		}
-		/* 
-		public function get root():INavigableController
-		{
-			return isRoot() ? this as INavigableController : parent.root;
-		} */
 		
 		private var _structuralData:IStructuralData;
 
@@ -236,31 +240,25 @@ package com.layerglue.lib.application.controllers
 			return null;
 		}
 		
-		public function createView(shouldAdd:Boolean=true):void
+		public function createView():void
 		{
-			var viewInstance:INavigableView = createViewInstance();
-			
+			var viewInstance:INavigableView = new viewClassReference() as INavigableView;
+			if (!viewInstance)
+			{
+				throw new Error("Cannot create view instance from viewClassReference: " + this + " id=" + structuralData.id);
+			}
 			viewInstance.structuralData = structuralData;
 			view = viewInstance;
-			
-			if(shouldAdd)
-			{
-				addViewInstance(viewInstance)
-			}
+			trace("NavigableController.createView: "+view);
 		}
 		
-		protected function createViewInstance():INavigableView
+		protected function addView():void
 		{
-			return new viewClassReference() as INavigableView;
-		}
-		
-		protected function addViewInstance(viewInstance:INavigableView):void
-		{
-			if(!viewContainer)
+			if (view && viewContainer && !viewContainer.contains(view as DisplayObject))
 			{
-				throw new Error("Attempted to add a view to a non-existent viewContainer.");
+				trace("NavigableController.addView: "+view);
+				viewContainer.addChild(view as DisplayObject);
 			}
-			viewContainer.addChild(viewInstance as DisplayObject);
 		}
 		
 		public function removeView():void
@@ -268,6 +266,7 @@ package com.layerglue.lib.application.controllers
 			if(view && viewContainer && viewContainer.contains(view as DisplayObject))
 			{
 				viewContainer.removeChild(view as DisplayObject);
+				trace("NavigableController.removeView: "+view);
 			}
 		}
 		
@@ -276,7 +275,9 @@ package com.layerglue.lib.application.controllers
 			if(view)
 			{
 				removeView();
+				trace("NavigableController.destroyView: "+view);
 				view.destroy();
+				view.structuralData = null;
 				view = null;
 			}
 		}

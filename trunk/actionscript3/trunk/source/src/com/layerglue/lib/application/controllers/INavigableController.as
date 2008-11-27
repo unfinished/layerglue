@@ -1,16 +1,20 @@
 package com.layerglue.lib.application.controllers
 {
-	import com.layerglue.lib.application.structure.IStructuralDataOwner;
+	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.INavigableView;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
 	
 	[Bindable]
-	public interface INavigableController  extends
-		IEventDispatcher,
-		IStructuralDataOwner
+	public interface INavigableController extends IEventDispatcher
 	{
+		/**
+		 * The structural data for this view.
+		 */
+		function get structuralData():IStructuralData
+		function set structuralData(value:IStructuralData):void
+		
 		/**
 		 * Returns whether or not this is a root-level (primary) controller
 		 */
@@ -54,7 +58,7 @@ package com.layerglue.lib.application.controllers
 		 */
 		function get selectedChild():INavigableController;
 		
-		function createView(shouldAdd:Boolean=false):void
+		function createView():void
 		
 		function destroyView():void;
 		
