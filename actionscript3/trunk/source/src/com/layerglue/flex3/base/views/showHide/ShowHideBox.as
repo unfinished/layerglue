@@ -48,12 +48,6 @@ package com.layerglue.flex3.base.views.showHide
 		
 		public function destroy():void
 		{
-			if(parent)
-			{
-				//trace('remove view: ' + this);
-				parent.removeChild(this);
-			}
-			
 			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
 		}
 		
