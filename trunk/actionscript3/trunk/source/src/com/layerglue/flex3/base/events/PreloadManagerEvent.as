@@ -6,7 +6,7 @@ package com.layerglue.flex3.base.events
 	{
 		public static const APPLICATION_LOAD_COMPLETE:String = "applicationLoadComplete";
 		public static const APPLICATION_INIT_COMPLETE:String = "applicationInitComplete";
-		public static const INITIAL_ASSETS_LOAD_COMPLETE:String = "initAssetsLoadComplete";
+		public static const ASSETS_LOAD_COMPLETE:String = "loadManagerComplete";
 		
 		public function PreloadManagerEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{

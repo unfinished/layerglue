@@ -34,14 +34,14 @@
 			import mx.events.EffectEvent;
 			import com.layerglue.flex3.base.effects.FadeExt;
 			import mx.effects.Fade;
-			import com.client.project.io.InitialLoadManager;
+			import com.client.project.io.InitialAssetManager;
 			import mx.preloaders.DownloadProgressBar;
 			import com.layerglue.lib.application.navigation.NavigationManager;
 			
 			[Bindable]
 			public var modelLocator:ModelLocator = ModelLocator.getInstance();
 			
-			private var _initialLoadManager:InitialLoadManager;
+			private var _initialAssetManager:InitialAssetManager;
 			
 			private var _preloadListenerCollection:EventListenerCollection;
 			
@@ -53,13 +53,26 @@
 				//Hookup requests with commands via the FrontController
 				FrontController.initialize([new ProjectFrontControllerMap()]);
 				
-				_initialLoadManager = new InitialLoadManager();
+				_initialAssetManager = new InitialAssetManager();
 				
 				_preloadListenerCollection = new EventListenerCollection();
-				_preloadListenerCollection.createListener(_initialLoadManager, Event.COMPLETE, initialLoadCompleteHandler);
+				_preloadListenerCollection.createListener(PreloadManager.getInstance(), PreloadManagerEvent.ASSETS_LOAD_COMPLETE, assetsLoadComplete);
 				_preloadListenerCollection.createListener(PreloadManager.getInstance(), Event.COMPLETE, preloaderDoneHandler); 
 				
-				_initialLoadManager.start();
+				_initialAssetManager.start();
+			}
+			
+			private function assetsLoadComplete(event:PreloadManagerEvent):void
+			{
+				var initialSetupManager:InitialSetupManager = new InitialSetupManager();
+				initialSetupManager.xmlToStructuralDataMap = new ProjectStructureDeserializationMap();
+				initialSetupManager.structuralDataToControllerMap = new ProjectStructureToControllerMap();
+				initialSetupManager.controllerToViewMap = new ProjectControllerToViewMap();
+				initialSetupManager.setup(_initialAssetManager.structuralXML);
+								
+				createComponentsFromDescriptors();
+				
+				LayerGlueLocator.getInstance().navigationManager.rootController.viewContainer = rootViewCotainer;
 			}
 			
 			private function preloaderDoneHandler(event:Event):void
@@ -67,40 +80,26 @@
 				_preloadListenerCollection.destroy();
 				
 				reparentPreloader();
-				callLater(hidePreloader);
-			}
-			
-			private function initialLoadCompleteHandler(event:Event):void
-			{
-				var initialSetupManager:InitialSetupManager = new InitialSetupManager();
-				initialSetupManager.xmlToStructuralDataMap = new ProjectStructureDeserializationMap();
-				initialSetupManager.structuralDataToControllerMap = new ProjectStructureToControllerMap();
-				initialSetupManager.controllerToViewMap = new ProjectControllerToViewMap();
-				initialSetupManager.setup(_initialLoadManager.structuralXML);
-								
-				createComponentsFromDescriptors();
 				
-				LayerGlueLocator.getInstance().navigationManager.rootController.viewContainer = rootViewCotainer;
+				//TODO Make sure this doesnt need to be on a callLater
+				hidePreloader();
+				trace("/////// preloading complete");
 			}
 			
 			private function hidePreloader():void
 			{
-				//preloaderContainer.visible = false;
-				
-				var effect:Fade = new FadeExt(preloaderContainer, 1, 0, 500);
-				effect.addEventListener(EffectEvent.EFFECT_END, preloaderHideComplete);
-				effect.play();
-			}
-			
-			private function preloaderHideComplete(event:EffectEvent):void
-			{
-				(PreloadManager.getInstance().preloaderDisplay as PreloaderView).destroy();
-				removeChild(preloaderContainer);
+				destroyPreloader();
 			}
 			
 			private function reparentPreloader():void
 			{
 				preloaderContainer.addChild(PreloadManager.getInstance().preloaderDisplay as DisplayObject);
+			}
+			
+			private function destroyPreloader():void
+			{
+				(PreloadManager.getInstance().preloaderDisplay as PreloaderView).destroy();
+				removeChild(preloaderContainer);
 			}
 			
 			private function doNav():void

@@ -3,10 +3,9 @@ package com.client.project.io
 	import com.client.project.model.ModelLocator;
 	import com.layerglue.flex3.base.loaders.CSSStyleLoader;
 	import com.layerglue.flex3.base.preloader.PreloadManager;
-	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
-	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.LoadManagerToken;
+	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.loaders.XmlLoader;
 	import com.layerglue.lib.base.localisation.Locale;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
@@ -22,38 +21,30 @@ package com.client.project.io
 	 * Handles the loading, substitution and deserialization of any XML data that's
 	 * required before the application begins. 
 	 */
-	public class InitialLoadManager extends EventDispatcher
+	public class InitialAssetManager extends EventDispatcher
 	{
 		//Defining properties to hold XML Substitutors
 		private var _globalConfigSource:ISubstitutionSource;
 		private var _localeConfigSource:ISubstitutionSource;
 		private var _copySource:ISubstitutionSource;
 		
-		private var _loadManagerListener:EventListener;
-		
 		private var _regionalCSSLoader:CSSStyleLoader;
 		
 		public var structuralXML:XML;
 		
-		public function InitialLoadManager()
+		public function InitialAssetManager()
 		{
 			super();
-			
-			_loader = PreloadManager.getInstance().loadManager;
-			
-			_loadManagerListener = new EventListener(
-						PreloadManager.getInstance().loadManager,
-						Event.COMPLETE,
-						loaderCompleteHandler);
 			
 			initialize();
 		}
 		
-		private var _loader:LoadManager;
-		
-		public function get loader():LoadManager
+		/**
+		 * A reference to the PreloadManager singleton's loadManager
+		 */
+		private function get loadManager():ProportionalLoadManager
 		{
-			return _loader;
+			return PreloadManager.getInstance().loadManager;
 		}
 		
 		public function initialize():void
@@ -94,34 +85,34 @@ package com.client.project.io
 					errorHandler,
 					0.39);
 			
-			_loader.addItem(globalConfigToken);						
-			_loader.addItem(localeConfigToken);							
-			_loader.addItem(localeCopyToken);							
-			_loader.addItem(unsubstitutedStructureToken);							
-			_loader.addItem(regionalCSSToken);
+			loadManager.addItem(globalConfigToken);						
+			loadManager.addItem(localeConfigToken);							
+			loadManager.addItem(localeCopyToken);							
+			loadManager.addItem(unsubstitutedStructureToken);							
+			loadManager.addItem(regionalCSSToken);
 		}
 		
 		public function start():void
 		{
-			_loader.start();
+			loadManager.start();
 		}
 		
 		private function globalConfigCompleteHandler(event:Event):void
 		{
 			_globalConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			_loader.loadNext();
+			loadManager.loadNext();
 		}
 		
 		private function localeConfigCompleteHandler(event:Event):void
 		{
 			_localeConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			_loader.loadNext();
+			loadManager.loadNext();
 		}
 		
 		private function localeCopyCompleteHandler(event:Event):void
 		{
 			_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			_loader.loadNext();
+			loadManager.loadNext();
 		}
 		
 		private function structureUnpopulatedCompleteHandler(event:Event):void
@@ -133,17 +124,12 @@ package com.client.project.io
 			//Simulate availability of config data by setting the regional css path 
 			_regionalCSSLoader.request.url = "flash-assets/compiled-css/regions/" + region + ".swf?cacheBuster=" + Math.random();
 			
-			_loader.loadNext();
+			loadManager.loadNext();
 		}
 		
 		private function regionalCompiledCSSCompleteHandler(event:Event):void
 		{
-			_loader.loadNext();
-		}
-		
-		private function loaderCompleteHandler(event:Event):void
-		{
-			dispatchEvent(new Event(Event.COMPLETE));
+			loadManager.loadNext();
 		}
 		
 		private function errorHandler(event:Event):void
@@ -160,7 +146,24 @@ package com.client.project.io
 			
 			var substitutor:XMLSubstitutor = new XMLSubstitutor("@", "@");
 			structuralXML = substitutor.process(xml, source);
-			trace("Missing substitution source keys: " + substitutor.getMissingSourceKeys(xml, source));
+			
+			var missingSourceKeys:Array = substitutor.getMissingSourceKeys(xml, source);
+			
+			if(missingSourceKeys.length > 0)
+			{
+				trace("********** XML SUBSTITUION KEYS ARE MISSING **********");
+				var key:String;
+				for each(key in missingSourceKeys)
+				{
+					trace(key)
+				}
+				trace("******************************************************");
+			}
+			else
+			{
+				//trace("********** ALL XML SUBSTITUION KEYS ARE PRESENT **********");
+			}
+			
 		}
 		
 	}
