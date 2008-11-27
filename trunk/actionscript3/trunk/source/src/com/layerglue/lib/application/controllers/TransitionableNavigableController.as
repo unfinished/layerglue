@@ -1,8 +1,10 @@
 package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.events.FrameworkTransitionEvent;
-	import com.layerglue.lib.base.collections.EventListenerCollection;
 	import com.layerglue.lib.application.views.ITransitionableNavigableView;
+	import com.layerglue.lib.base.collections.EventListenerCollection;
+	
+	import flash.display.DisplayObject;
 	
 	public class TransitionableNavigableController extends NavigableController
 	{
@@ -15,13 +17,30 @@ package com.layerglue.lib.application.controllers
 		
 		override public function navigate():void
 		{
+			trace("TransitionableNavigableController.navigate: " + this + " id=" + structuralData.id);
 			structuralData.selected = true;
 			
-			startTransitionIn();
+			// Simply having a view is too much of an assumption for going forwards with navigation
+			// We need to inspect something like the ShowHideState to determine if the view is visible
+			if (view && viewContainer.contains(view as DisplayObject))
+			{
+				tryDeeperNavigation();
+			}
+			else
+			{
+				if (!view)
+				{
+					createView();
+					createViewTransitionListenerCollection();
+				}
+				addView();
+				startTransitionIn();
+			}
 		}
 		
 		override public function unnavigate():void
 		{
+			trace("TransitionableNavigableController.unnavigate: " + this + " id=" + structuralData.id);
 			var currentAddressPacketControllerAtOurDepth:INavigableController = navigationManager.currentAddressPacket.getControllerAtDepth(depth) 
 			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
 			{
@@ -29,34 +48,27 @@ package com.layerglue.lib.application.controllers
 			}
 			else
 			{
-				startTransitionOut();
+				if (view && viewContainer && viewContainer.contains(view as DisplayObject))
+				{
+					startTransitionOut();
+				}
+				else
+				{
+					viewTransitionOutCompleteHandler(null);
+				}
 			}
 		}
 		
 		protected function startTransitionIn():void
 		{
-			if (view)
-			{
-				tryDeeperNavigation();
-			}
-			else
-			{ 
-				createView();
-				
-				(view as ITransitionableNavigableView).startTransitionIn();
-			}			
+			trace("TransitionableNavigableController.startTransitionIn");
+			(view as ITransitionableNavigableView).startTransitionIn();		
 		}
 		
 		protected function startTransitionOut():void
 		{
-			if(view)
-			{
-				(view as ITransitionableNavigableView).startTransitionOut();
-			}
-			else
-			{
-				tryShallowerUnnavigation();
-			}
+			trace("TransitionableNavigableController.startTransitionOut");
+			(view as ITransitionableNavigableView).startTransitionOut();
 		}
 		
 		protected function createViewTransitionListenerCollection():void
@@ -93,6 +105,7 @@ package com.layerglue.lib.application.controllers
 		
 		protected function viewTransitionInCompleteHandler(event:FrameworkTransitionEvent):void
 		{
+			trace("TransitionableNavigableController.viewTransitionInCompleteHandler");
 			tryDeeperNavigation();
 		}
 		
@@ -106,9 +119,11 @@ package com.layerglue.lib.application.controllers
 		
 		protected function viewTransitionOutCompleteHandler(event:FrameworkTransitionEvent):void
 		{
+			trace("TransitionableNavigableController.viewTransitionOutCompleteHandler");
 			if(view)
 			{
-				view.destroy();
+				//removeView();
+				destroyView();
 				view = null;
 			}
 			
