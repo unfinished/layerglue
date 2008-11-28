@@ -33,4 +33,6 @@
 	<item id="contact.imageUrl"><![CDATA[images/image.jpg]]></item>
 	<item id="contact.address"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit.]]></item>
 	<item id="contact.email"><![CDATA[info@layerglue.com]]></item>
+	
+	<item id="footer.copyright"><![CDATA[© 2008 Layer Glue]]></item>
 </xml>
