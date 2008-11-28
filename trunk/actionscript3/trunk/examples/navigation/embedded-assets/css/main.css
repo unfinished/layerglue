@@ -19,3 +19,28 @@ Application
 {
 	fontSize: 16;
 }
+
+.siteMenu
+{
+	backgroundAlpha:0;
+}
+
+.siteMenuButton
+{
+	font-size:20;
+	skin:ClassReference(null);
+	color:#333333;
+	textSelectedColor:#FF3300;
+	textRollOverColor:#FF3300;
+	
+}
+
+.galleryMenu
+{
+	
+}
+
+.galleryMenuButton
+{
+	
+}
