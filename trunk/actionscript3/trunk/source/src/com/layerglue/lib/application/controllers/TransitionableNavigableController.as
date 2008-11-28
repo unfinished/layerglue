@@ -124,7 +124,6 @@ package com.layerglue.lib.application.controllers
 			{
 				//removeView();
 				destroyView();
-				view = null;
 			}
 			
 			tryShallowerUnnavigation();
