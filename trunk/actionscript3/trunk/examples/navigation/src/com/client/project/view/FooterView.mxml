@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="31">
+<mx:Script>
+	<![CDATA[
+		import com.client.project.model.domain.Footer;
+	
+		[Bindable]
+		public var dataProvider:Footer;
+	]]>
+</mx:Script>
+	<mx:Label text="{dataProvider.copyright}" />
+</mx:HBox>

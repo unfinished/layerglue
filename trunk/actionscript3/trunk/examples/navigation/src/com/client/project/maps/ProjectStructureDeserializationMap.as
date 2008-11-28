@@ -1,5 +1,6 @@
 package com.client.project.maps
 {
+	import com.client.project.model.domain.Footer;
 	import com.client.project.model.structure.Artist;
 	import com.client.project.model.structure.Contact;
 	import com.client.project.model.structure.Gallery;
@@ -25,6 +26,8 @@ package com.client.project.maps
 			addMapping("artist", Artist);
 			addMapping("image", Image);
 			addMapping("contact", Contact);
+			
+			addMapping("footer", Footer);
 		}
 		
 	}

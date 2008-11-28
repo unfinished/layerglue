@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <site id="site" defaultChildId="home">
 	<title>@site.title@</title>
-	<copyright>@site.copyright@</copyright>
+	
 	<children>
 		<home id="home" uriNode="home">
 			<title>@home.title@</title>
@@ -59,4 +59,8 @@
 			<email>@contact.email@</email>
 		</contact>
 	</children>
+	
+	<footer>
+		<copyright>@footer.copyright@</copyright>
+	</footer>
 </site>
