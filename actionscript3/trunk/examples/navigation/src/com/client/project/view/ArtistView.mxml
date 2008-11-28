@@ -16,6 +16,6 @@
 			dataProvider="{structuralData.children}"
 			selectedIndex="{structuralData.selectedChildIndex}" 
 			itemClick="{(new StructuralDataNavigationRequest(event.item as IStructuralData)).dispatch()}"
-			labelField="id" />	
+			labelField="title" />	
 	</mx:VBox>
 </ShowHideBoxExt>
