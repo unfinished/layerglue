@@ -19,7 +19,7 @@ package com.layerglue.flex3.base.views
 		
 		public function get structuralData():IStructuralData
 		{
-			return _structualData
+			return _structuralData;
 		}
 
 		public function set structuralData(value:IStructuralData):void
@@ -60,8 +60,6 @@ package com.layerglue.flex3.base.views
 		override public function destroy():void
 		{
 			super.destroy();
-			
-			_structualDataListenerUtil.destroy();
 			
 			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
 		}

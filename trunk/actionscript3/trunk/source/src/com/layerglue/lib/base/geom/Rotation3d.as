@@ -1,4 +1,4 @@
-package com.layerglue.controls.geom
+package com.layerglue.lib.base.geom
 {
 	public class Rotation3d extends Abstract3d
 	{
