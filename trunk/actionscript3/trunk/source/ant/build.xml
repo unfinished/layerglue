@@ -24,25 +24,29 @@
 	
 	<!-- Targets -->
 	
-	<target name="create-docs">
+	<target name="create_docs">
 		<exec executable="${asdoc}" failonerror="true">
-			<arg line="-o ${docs.dir}" />
+			<arg line="-output ${docs.dir}" />
+			<arg line="-source-path ${src.dir}"/>
 			<arg line="-doc-sources ${src.dir}" />
+			<arg line="-doc-sources ../libs/SWFAddress/src" />
+			<arg line="-main-title 'LayerGlue API Documentation'"/>
+			<arg line="-window-title 'LayerGlue API Documentation'"/>
 		</exec>
 	</target>
 	
-	<target name="delete-docs">
+	<target name="delete_docs">
 		<delete includeemptydirs="true">
 			<fileset dir="${docs.dir}" includes="**/*" excludes="Main.swf"/>
 		</delete>
 	</target>
 	
-	<target name="create-swc">
+	<target name="create_swc">
 		<exec executable="${compc}">
+			<arg line="-output ${bin.dir}/LayerGlue.swc"/>
 			<arg line="-source-path ${src.dir}"/>
-			<arg line="-output ${basedir}/LayerGlue.swc"/>
 			<arg line="-include-sources ${src.dir}"/>
+			<arg line="-include-sources ../libs/SWFAddress/src"/>
 		</exec>
 	</target>
-	
 </project>
