@@ -4,7 +4,7 @@
 {
 	fontFamily: "RegionalFont";
 	fontWeight: normal;
-	src: url("../../fonts/Fontin-Regular.otf");
+	src: url("../../fonts/Swansea.ttf");
 	
 	
 	/*unicode-range:*/
@@ -19,7 +19,7 @@
 {
 	fontFamily: "RegionalFont";
 	fontWeight: bold;
-	src: url("../../fonts/Fontin-Bold.otf");
+	src: url("../../fonts/Swansea-Bold.ttf");
 	
 	
 	/*unicode-range:*/
@@ -33,7 +33,9 @@
 /* Since regional css is loaded after main css then styles here will override */
 global
 {
-	color: #333333;
+	embedFonts: true;
+	fontAntiAliasType: advanced;
+	fontWeight: normal;
 }
 
-/* Font provided by: http://www.josbuivenga.demon.nl/index.html */
+/* Swansea font created by Roger White */
