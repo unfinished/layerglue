@@ -1,4 +1,4 @@
-package com.layerglue.controls.geom
+package com.layerglue.lib.base.geom
 {
 	public class Description3d extends Object
 	{

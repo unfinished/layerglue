@@ -1,4 +1,4 @@
-package com.layerglue.controls.geom
+package com.layerglue.lib.base.geom
 {
 	public class Size3d extends Object
 	{
