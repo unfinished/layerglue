@@ -15,7 +15,7 @@ package com.layerglue.flex3.base.views.showHide
 		protected var _eventsBubble:Boolean;
 		
 		// A show/hide control is always visible (shown) at the start
-		protected var _state:String = ShowHideState.SHOWN;
+		protected var _state:String = ShowHideState.HIDDEN;
 		
 		public function ShowHideTransitionUtil(host:IShowHideable, eventsBubble:Boolean=false)
 		{

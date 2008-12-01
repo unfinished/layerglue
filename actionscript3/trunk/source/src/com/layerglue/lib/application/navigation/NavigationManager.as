@@ -190,13 +190,14 @@ package com.layerglue.lib.application.navigation
 			return structuralDataStrand;
 		}
 		
-		public function unnavigationCompleteHandler(controller:INavigableController):void
+		public function unnavigationCompleteHandler(commonController:INavigableController):void
 		{
-			trace("NavigationManager.unnavigationCompleteHandler - commonController: " + controller);
+			trace("NavigationManager.unnavigationCompleteHandler - commonController: " + commonController);
 			
 			// Start inwards navigation
 			// Should inwards navigation start from root controller or common-unnavigable controller?
-			rootController.navigate();
+			//rootController.navigate();
+			commonController.navigate();
 		}
 		
 		//--------------------

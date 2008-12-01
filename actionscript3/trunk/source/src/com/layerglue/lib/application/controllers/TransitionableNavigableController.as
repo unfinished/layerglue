@@ -20,22 +20,15 @@ package com.layerglue.lib.application.controllers
 			trace("TransitionableNavigableController.navigate: " + this + " id=" + structuralData.id);
 			structuralData.selected = true;
 			
-			// Simply having a view is too much of an assumption for going forwards with navigation
-			// We need to inspect something like the ShowHideState to determine if the view is visible
-			if (view && viewContainer.contains(view as DisplayObject))
+			// Currently the view is responsible for transition decisions
+			// Some of the decision making could possibly move out into here
+			if (!view)
 			{
-				tryDeeperNavigation();
+				createView();
+				createViewTransitionListenerCollection();
 			}
-			else
-			{
-				if (!view)
-				{
-					createView();
-					createViewTransitionListenerCollection();
-				}
-				addView();
-				startTransitionIn();
-			}
+			addView();
+			startTransitionIn();
 		}
 		
 		override public function unnavigate():void
@@ -54,6 +47,7 @@ package com.layerglue.lib.application.controllers
 				}
 				else
 				{
+					throw new Error("Should never get here?");
 					viewTransitionOutCompleteHandler(null);
 				}
 			}
