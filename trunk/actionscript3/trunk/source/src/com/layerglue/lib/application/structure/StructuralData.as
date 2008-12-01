@@ -139,7 +139,7 @@ package com.layerglue.lib.application.structure
 			
 			// Children added through the ArrayCollection constructor never fire COLLECTION_CHANGE events,
 			// so we need to force parenting here:
-			setChildParenting(children);
+			validateNewChildren(children);
 			
 			// TODO: Move this event and handler out into FlexCollection because CollectionEvent is reliant on Flex
 			_children.addEventListener(CollectionEvent.COLLECTION_CHANGE, childrenChangeHandler, false, 0, true);
@@ -443,9 +443,10 @@ package com.layerglue.lib.application.structure
 		// This ensures that whenever a child is added to the children collection it's parent property is set.
 		// newChildren parameter is untyped because the children setter sends through an instance
 		// of ICollection whereas the childrenChangeHandler sends through an instance of Array
-		protected function setChildParenting(newChildren:*):void
+		protected function validateNewChildren(newChildren:*):void
 		{
 			var child:IStructuralData;
+			// If you get a Type Coercion failed error here it means one of your children aren't IStructuralData
 			for each (child in newChildren)
 			{
 				child.parent = this;
@@ -460,7 +461,7 @@ package com.layerglue.lib.application.structure
 			{
 				case CollectionEventKind.ADD:
 				{
-					setChildParenting(event.items);
+					validateNewChildren(event.items);
 					break;
 				}
 				case CollectionEventKind.REMOVE:
