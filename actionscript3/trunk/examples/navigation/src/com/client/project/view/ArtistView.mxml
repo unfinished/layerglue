@@ -6,6 +6,7 @@
 	width="100%" height="100%">
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.model.structure.Image;
 			import com.layerglue.lib.application.structure.IStructuralData;
 			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
 		]]>
@@ -15,14 +16,18 @@
 		<mx:Box width="100%" height="92" styleName="artistMenuBackground">
 			<mx:HBox>
 				<mx:Repeater id="thumbRepeater" dataProvider="{structuralData.children}" count="8">
-					<mx:Label text="{thumbRepeater.currentItem.title}" color="0xFFFFFF" />
+					<mx:Button
+						label="{thumbRepeater.currentItem.title}"
+						color="0xFFFFFF" />
 				</mx:Repeater>
 			</mx:HBox>
+			<!--
 			<controls:NavSafeToggleButtonBar
 				dataProvider="{structuralData.children}"
 				selectedIndex="{structuralData.selectedChildIndex}" 
 				itemClick="{(new StructuralDataNavigationRequest(event.item as IStructuralData)).dispatch()}"
 				labelField="title" />
+			-->
 		</mx:Box>
 	</mx:VBox>
 </ShowHideBoxExt>
