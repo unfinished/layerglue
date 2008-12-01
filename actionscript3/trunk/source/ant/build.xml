@@ -29,7 +29,6 @@
 			<arg line="-output ${docs.dir}" />
 			<arg line="-source-path ${src.dir}"/>
 			<arg line="-doc-sources ${src.dir}" />
-			<arg line="-doc-sources ../libs/SWFAddress/src" />
 			<arg line="-main-title 'LayerGlue API Documentation'"/>
 			<arg line="-window-title 'LayerGlue API Documentation'"/>
 		</exec>
