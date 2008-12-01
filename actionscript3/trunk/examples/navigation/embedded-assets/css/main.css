@@ -12,32 +12,70 @@ Application
     backgroundGradientColors: #FFFFFF, #DDDDDD;
 }
 
-.applicationTitle
+.siteTitle
 {
-	fontSize: 16;
+	fontSize: 50;
+	fontWeight:bold
+}
+
+
+LinkButton
+{
+	textSelectedColor:#FF3300;
+	
 }
 
 .siteMenu
 {
-	backgroundAlpha:0;
+	tabStyleName:siteMenuButton;
+	selectedTabTextStyleName:siteMenuButtonSelected;
 }
 
 .siteMenuButton
 {
-	font-size:20;
+	font-size:16;
 	skin:ClassReference(null);
 	color:#333333;
 	textSelectedColor:#FF3300;
 	textRollOverColor:#FF3300;
-	
+}
+
+.siteMenuButtonSelected
+{
+	font-size:16;
+	skin:ClassReference(null);
+	color:#FF3300;
 }
 
 .galleryMenu
 {
-	
+	tabStyleName:galleryMenuButton;
+	selectedTabTextStyleName:galleryMenuButtonSelected;
 }
 
 .galleryMenuButton
 {
-	
+	font-size:12;
+	skin:ClassReference(null);
+	color:#FFFFFF;
+	textRollOverColor:#FF3300;
+}
+
+.galleryMenuButtonSelected
+{
+	font-size:12;
+	skin:ClassReference(null);
+	color:#FF3300;
+}
+
+.galleryMenuBackground
+{
+	backgroundColor:#000000;
+	backgroundAlpha:0.7;
+}
+
+.artistMenuBackground
+{
+	backgroundColor:#000000;
+	backgroundAlpha:0.7;
 }
