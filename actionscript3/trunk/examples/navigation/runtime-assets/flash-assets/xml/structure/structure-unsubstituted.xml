@@ -13,7 +13,7 @@
 			<somethingTitle>home.somethingTitle</somethingTitle>
 			<somethingBody>home.somethingBody</somethingBody>
 		</home>
-		<gallery id="gallery" uriNode="gallery" defaultChildId="artist1">
+		<gallery id="gallery" uriNode="gallery" defaultChildId="artist2">
 			<title>@gallery.title@</title>
 			<children>
 				<artist id="artist1" uriNode="jamiecopeland" defaultChildId="1">
