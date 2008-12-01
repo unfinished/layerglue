@@ -6,13 +6,17 @@ package com.layerglue.flex3.base.controls
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Button;
+	import mx.controls.LinkButton;
 	import mx.controls.TabBar;
+	import mx.core.ClassFactory;
 	import mx.core.mx_internal;
 	import mx.events.ItemClickEvent;
 	
 	use namespace mx_internal;
 	
 	[Style(name="selectorDistance", type="Number", inherit="no")]
+	
+	[Style(name="buttonClassReference", type="Class")]
 	
 	/**
 	 * Changes the way the toggle bar deals with data providers and selected index
@@ -99,6 +103,14 @@ package com.layerglue.flex3.base.controls
     		// Force an updateDisplayList so the selected index is updated visually
     		invalidateDisplayList();
     	}
+    	
+    	override protected function createChildren():void
+		{
+			var buttonClassReference:Class = getStyle("buttonClassReference");
+			navItemFactory = new ClassFactory(buttonClassReference ? buttonClassReference : LinkButton);
+			
+			super.createChildren();
+		}
     	
 	}
 }
