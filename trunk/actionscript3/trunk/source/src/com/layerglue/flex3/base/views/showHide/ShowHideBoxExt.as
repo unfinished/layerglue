@@ -50,12 +50,26 @@ package com.layerglue.flex3.base.views.showHide
 		
 		public function startTransitionIn():void
 		{
-			show();
+			if (showHideState == ShowHideState.HIDDEN || showHideState == ShowHideState.HIDING)
+			{ 
+				show();
+			}
+			else if (showHideState == ShowHideState.SHOWN)
+			{
+				showEndHandler(null);
+			}
 		}
 		
 		public function startTransitionOut():void
 		{
-			hide();
+			if (showHideState == ShowHideState.SHOWN || showHideState == ShowHideState.SHOWING)
+			{ 
+				hide();
+			}
+			else if (showHideState == ShowHideState.HIDDEN)
+			{
+				hideEndHandler(null);
+			}
 		}
 		
 		public function stopTransition():void
