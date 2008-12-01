@@ -10,7 +10,7 @@
 			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
 		]]>
 	</mx:Script>
-	<mx:HBox width="100%" horizontalAlign="right">
+	<mx:HBox width="100%" horizontalAlign="right" styleName="galleryMenuBackground" paddingTop="2">
 		<controls:NavSafeToggleButtonBar
 		dataProvider="{structuralData.children}"
 		selectedIndex="{structuralData.selectedChildIndex}" 

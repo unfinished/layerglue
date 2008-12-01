@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xml>
-	<item id="site.title"><![CDATA[Layer Glue Gallery]]></item>
-	<item id="site.copyright"><![CDATA[© 2008 Layer Glue]]></item>
+	<item id="site.title"><![CDATA[LayerGlue Gallery]]></item>
+	<item id="site.copyright"><![CDATA[© 2008 LayerGlue]]></item>
 	
 	<item id="home.title"><![CDATA[Home]]></item>
 	<item id="home.imageUrl"><![CDATA[images/image.jpg]]></item>
