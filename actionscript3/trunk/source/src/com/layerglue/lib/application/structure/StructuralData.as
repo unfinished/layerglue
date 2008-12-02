@@ -1,12 +1,11 @@
 package com.layerglue.lib.application.structure
 {
+	import com.layerglue.lib.application.events.CollectionEvent;
+	import com.layerglue.lib.application.events.CollectionEventKind;
 	import com.layerglue.lib.application.events.StructuralDataEvent;
 	import com.layerglue.lib.base.collections.ICollection;
 	
 	import flash.events.EventDispatcher;
-	import flash.utils.getTimer;
-	import com.layerglue.lib.application.events.CollectionEvent;
-	import com.layerglue.lib.application.events.CollectionEventKind;
 	
 	[Event(name="selectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
 	[Event(name="childSelectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
@@ -301,13 +300,19 @@ package com.layerglue.lib.application.structure
 					throw new Error("selectedChildIndex value out of range [length: " + children.getLength() + ", index: " + value + "]");
 				}
 				
-				if(selectedChild)
-				{
-					//Dispatching a change through the old selected item
-					selectedChild.dispatchEvent(new StructuralDataEvent(StructuralDataEvent.SELECTION_CHANGE));
-				}
+				// Store the old selectedChild so we can dispatch an event from it, then anything listening
+				// will know it's selection status has changed
+				var oldSelectedChild:IStructuralData = selectedChild;
 				
+				// Update the new child index.
+				// NOTE: 'selected' and 'selectedChild' run off selectedChildIndex
 				_selectedChildIndex = (isNaN(value)) ? -1 : value;
+				
+				if(oldSelectedChild)
+				{
+					//Dispatching a change through the old selected child
+					oldSelectedChild.dispatchEvent(new StructuralDataEvent(StructuralDataEvent.SELECTION_CHANGE));
+				}
 				
 				//Before dispatching an event through the selectedChild, make sure that one exists,
 				//as the selectedIndex could have been set to -1.
