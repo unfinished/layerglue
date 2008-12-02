@@ -16,8 +16,9 @@
 		<gallery id="gallery" uriNode="gallery" defaultChildId="artist01">
 			<title>@gallery.title@</title>
 			<children>
-				<artist id="artist01" uriNode="jamiecopeland" defaultChildId="1">
+				<artist id="artist01" defaultChildId="1">
 					<title>@gallery.artist01.title@</title>
+					<uriNode>@gallery.artist01.uriNode@</uriNode>
 					<children>
 						<image id="1" uriNode="1">
 							<title>@gallery.artist01.image01.title@</title>
@@ -52,23 +53,44 @@
 							<title>@gallery.artist01.image08.title@</title>
 							<basePath>@gallery.artist01.image08.url@</basePath>
 						</image>
-						
 					</children>
 				</artist>
-				<artist id="artist2" uriNode="mattsweetman" defaultChildId="1">
-					<title>@gallery.artist2.title@</title>
+				<artist id="artist02" defaultChildId="1">
+					<title>@gallery.artist02.title@</title>
+					<uriNode>@gallery.artist02.uriNode@</uriNode>
 					<children>
 						<image id="1" uriNode="1">
-							<title>@gallery.artist2.image01.title@</title>
-							<basePath>@gallery.artist2.image01.url@</basePath>
+							<title>@gallery.artist02.image01.title@</title>
+							<basePath>@gallery.artist02.image01.url@</basePath>
 						</image>
 						<image id="2" uriNode="2">
-							<title>@gallery.artist2.image02.title@</title>
-							<basePath>@gallery.artist2.image02.url@</basePath>
+							<title>@gallery.artist02.image02.title@</title>
+							<basePath>@gallery.artist02.image02.url@</basePath>
 						</image>
 						<image id="3" uriNode="3">
-							<title>@gallery.artist2.image03.title@</title>
-							<basePath>@gallery.artist2.image03.url@</basePath>
+							<title>@gallery.artist02.image03.title@</title>
+							<basePath>@gallery.artist02.image03.url@</basePath>
+						</image>
+						<image id="4" uriNode="4">
+							<title>@gallery.artist02.image04.title@</title>
+							<basePath>@gallery.artist02.image04.url@</basePath>
+						</image>
+						<image id="5" uriNode="5">
+							<title>@gallery.artist02.image05.title@</title>
+							<basePath>@gallery.artist02.image05.url@</basePath>
+						</image>
+						<image id="6" uriNode="6">
+							<title>@gallery.artist02.image06.title@</title>
+							<basePath>@gallery.artist02.image06.url@</basePath>
+						</image>
+						
+						<image id="7" uriNode="7">
+							<title>@gallery.artist02.image07.title@</title>
+							<basePath>@gallery.artist02.image07.url@</basePath>
+						</image>
+						<image id="8" uriNode="8">
+							<title>@gallery.artist02.image08.title@</title>
+							<basePath>@gallery.artist02.image08.url@</basePath>
 						</image>
 					</children>
 				</artist>

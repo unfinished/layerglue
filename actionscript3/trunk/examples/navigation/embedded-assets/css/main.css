@@ -18,7 +18,6 @@ Application
 	fontWeight:bold
 }
 
-
 LinkButton
 {
 	textSelectedColor:#FF3300;
@@ -94,4 +93,9 @@ LinkButton
 	overSkin: Embed("../images/thumbMenuArrowRight_over.png");
 	downSkin: Embed("../images/thumbMenuArrowRight_down.png");
 	disabledSkin: Embed("../images/thumbMenuArrowRight_disabled.png");
+}
+
+.footerCopyright
+{
+	fontWeight:bold;
 }
