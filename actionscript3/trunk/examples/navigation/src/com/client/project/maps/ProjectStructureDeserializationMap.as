@@ -5,7 +5,7 @@ package com.client.project.maps
 	import com.client.project.model.structure.Contact;
 	import com.client.project.model.structure.Gallery;
 	import com.client.project.model.structure.Home;
-	import com.client.project.model.structure.Image;
+	import com.client.project.model.structure.ArtistImage;
 	import com.client.project.model.structure.Site;
 	import com.layerglue.flex3.base.collections.FlexCollection;
 	import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
@@ -24,7 +24,7 @@ package com.client.project.maps
 			addMapping("home", Home);
 			addMapping("gallery", Gallery);
 			addMapping("artist", Artist);
-			addMapping("image", Image);
+			addMapping("image", ArtistImage);
 			addMapping("contact", Contact);
 			
 			addMapping("footer", Footer);

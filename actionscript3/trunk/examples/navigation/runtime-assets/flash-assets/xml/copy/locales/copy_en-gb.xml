@@ -13,21 +13,35 @@
 	<item id="home.somethingBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.]]></item>
 	
 	<item id="gallery.title"><![CDATA[Gallery]]></item>
-	<item id="gallery.artist1.title"><![CDATA[Jamie Copeland]]></item>
-	<item id="gallery.artist1.image1.title"><![CDATA[Dogs]]></item>
-	<item id="gallery.artist1.image1.url"><![CDATA[images/jamie-1.jpg]]></item>
-	<item id="gallery.artist1.image2.title"><![CDATA[Cats]]></item>
-	<item id="gallery.artist1.image2.url"><![CDATA[images/jamie-2.jpg]]></item>
-	<item id="gallery.artist1.image3.title"><![CDATA[Monkeys]]></item>
-	<item id="gallery.artist1.image3.url"><![CDATA[images/jamie-3.jpg]]></item>
+	<item id="gallery.artist01.title"><![CDATA[Jamie Copeland]]></item>
+	
+	<item id="gallery.artist01.image01.title"><![CDATA[One]]></item>
+	<item id="gallery.artist01.image02.title"><![CDATA[Two]]></item>
+	<item id="gallery.artist01.image03.title"><![CDATA[Three]]></item>
+	<item id="gallery.artist01.image04.title"><![CDATA[Four]]></item>
+	<item id="gallery.artist01.image05.title"><![CDATA[Five]]></item>
+	<item id="gallery.artist01.image06.title"><![CDATA[Six]]></item>
+	<item id="gallery.artist01.image07.title"><![CDATA[Seven]]></item>
+	<item id="gallery.artist01.image08.title"><![CDATA[Eight]]></item>
+	
+	<item id="gallery.artist01.image01.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-01]]></item>
+	<item id="gallery.artist01.image02.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-02]]></item>
+	<item id="gallery.artist01.image03.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-03]]></item>
+	<item id="gallery.artist01.image04.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-04]]></item>
+	<item id="gallery.artist01.image05.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-05]]></item>
+	<item id="gallery.artist01.image06.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-06]]></item>
+	<item id="gallery.artist01.image07.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-07]]></item>
+	<item id="gallery.artist01.image08.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-08]]></item>
+	
+	
 	
 	<item id="gallery.artist2.title"><![CDATA[Matt Sweetman]]></item>
 	<item id="gallery.artist2.image1.title"><![CDATA[Apples]]></item>
-	<item id="gallery.artist2.image1.url"><![CDATA[images/matt-1.jpg]]></item>
+	<item id="gallery.artist2.image1.url"><![CDATA[images/artists/matt-1]]></item>
 	<item id="gallery.artist2.image2.title"><![CDATA[Oranges]]></item>
-	<item id="gallery.artist2.image2.url"><![CDATA[images/matt-2.jpg]]></item>
+	<item id="gallery.artist2.image2.url"><![CDATA[images/artists/matt-2]]></item>
 	<item id="gallery.artist2.image3.title"><![CDATA[Bananas]]></item>
-	<item id="gallery.artist2.image3.url"><![CDATA[images/matt-3.jpg]]></item>
+	<item id="gallery.artist2.image3.url"><![CDATA[images/artists/matt-3]]></item>
 	
 	<item id="contact.title"><![CDATA[Contact]]></item>
 	<item id="contact.imageUrl"><![CDATA[images/image.jpg]]></item>
