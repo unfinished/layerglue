@@ -5,11 +5,12 @@ package com.client.project.controls
 	import flash.display.Shape;
 	
 	import mx.controls.Button;
+	import mx.controls.Image;
 
 	[Bindable]
 	public class ThumbnailButton extends Button
 	{
-		private var _image:ThrobberImage;
+		private var _image:Image;
 		private var _selectedBorder:Shape;
 		private var _rollOverBorder:Shape;
 		
@@ -33,6 +34,11 @@ package com.client.project.controls
 		override protected function createChildren():void
 		{
 			super.createChildren();
+			_image = new Image();
+			_image.source = "flash-assets/images/kew.jpg";
+			_image.width = 120;
+			_image.height = 120;
+			addChild(_image);
 		}
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
