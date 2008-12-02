@@ -24,6 +24,22 @@ LinkButton
 	
 }
 
+.homeBanner
+{
+	backgroundImage: Embed("../images/home-banner.jpg");
+}
+
+.homeStoryTitle
+{
+	fontSize:16;
+	fontWeight:bold;	
+}
+
+.homeStoryBody
+{
+	fontSize:11;
+}
+
 .siteMenu
 {
 	tabStyleName:siteMenuButton;

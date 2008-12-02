@@ -6,11 +6,11 @@
 	<item id="home.title"><![CDATA[Home]]></item>
 	<item id="home.imageUrl"><![CDATA[images/image.jpg]]></item>
 	<item id="home.newsTitle"><![CDATA[News]]></item>
-	<item id="home.newsBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.]]></item>
+	<item id="home.newsBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean tellus. Pellentesque nisl nunc, varius non, egestas non, egestas non, ligula. Mauris neque libero, pulvinar in, posuere quis, consequat nec, arcu.<br/><br/>Phasellus vestibulum, tortor nec interdum lacinia, ante nulla auctor ligula, at facilisis purus ipsum commodo ante.]]></item>
 	<item id="home.featuredArtistTitle"><![CDATA[Featured Artist]]></item>
-	<item id="home.featuredArtistBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.]]></item>
+	<item id="home.featuredArtistBody"><![CDATA[Donec mollis, mi eu fermentum consequat, lorem arcu gravida neque, sed pellentesque mauris purus mi.<br/><br/>Dapibus vulputate, enim sagittis lobortis consectetuer, lacus velit consectetuer dolor, ut molestie quam justo at nibh. Morbi venenatis. Maecenas sed velit sit amet metus pharetra rutrum.]]></item>
 	<item id="home.somethingTitle"><![CDATA[Something Interesting]]></item>
-	<item id="home.somethingBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc varius. Duis laoreet erat vel purus. Proin neque. Donec erat. Sed dapibus elit in arcu. In hac habitasse platea dictumst. Donec quis tortor.]]></item>
+	<item id="home.somethingBody"><![CDATA[vinar vel, ultricies vitae, leo. Donec mollis, mi eu fermentum consequat, lorem arcu gravida neque, sed pellentesque. Phasellus nec mauris quis ipsum adipiscing luctus. Duis id diam nec nulla tristique.<br/><br/> Proin magna tortor, gravida auctor, fringilla eu, viverra at, ligula. Pellentesque tincidunt.]]></item>
 	
 	<item id="gallery.title"><![CDATA[Gallery]]></item>
 	
