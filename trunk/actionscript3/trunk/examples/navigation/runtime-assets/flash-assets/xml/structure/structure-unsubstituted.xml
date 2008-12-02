@@ -13,7 +13,7 @@
 			<somethingTitle>home.somethingTitle</somethingTitle>
 			<somethingBody>home.somethingBody</somethingBody>
 		</home>
-		<gallery id="gallery" uriNode="gallery" defaultChildId="artist2">
+		<gallery id="gallery" uriNode="gallery" defaultChildId="artist1">
 			<title>@gallery.title@</title>
 			<children>
 				<artist id="artist1" uriNode="jamiecopeland" defaultChildId="1">
@@ -31,6 +31,47 @@
 							<title>@gallery.artist1.image3.title@</title>
 							<url>@gallery.artist1.image3.url@</url>
 						</image>
+						
+						
+						<image id="4" uriNode="4">
+							<title>@gallery.artist1.image1.title@</title>
+							<url>@gallery.artist1.image1.url@</url>
+						</image>
+						<image id="5" uriNode="5">
+							<title>@gallery.artist1.image2.title@</title>
+							<url>@gallery.artist1.image2.url@</url>
+						</image>
+						<image id="6" uriNode="6">
+							<title>@gallery.artist1.image3.title@</title>
+							<url>@gallery.artist1.image3.url@</url>
+						</image>
+						
+						<image id="7" uriNode="7">
+							<title>@gallery.artist1.image1.title@</title>
+							<url>@gallery.artist1.image1.url@</url>
+						</image>
+						<image id="8" uriNode="8">
+							<title>@gallery.artist1.image2.title@</title>
+							<url>@gallery.artist1.image2.url@</url>
+						</image>
+						<image id="9" uriNode="9">
+							<title>@gallery.artist1.image3.title@</title>
+							<url>@gallery.artist1.image3.url@</url>
+						</image>
+						
+						<image id="10" uriNode="10">
+							<title>@gallery.artist1.image1.title@</title>
+							<url>@gallery.artist1.image1.url@</url>
+						</image>
+						<image id="11" uriNode="11">
+							<title>@gallery.artist1.image2.title@</title>
+							<url>@gallery.artist1.image2.url@</url>
+						</image>
+						<image id="12" uriNode="12">
+							<title>@gallery.artist1.image3.title@</title>
+							<url>@gallery.artist1.image3.url@</url>
+						</image>
+						
 					</children>
 				</artist>
 				<artist id="artist2" uriNode="mattsweetman" defaultChildId="1">

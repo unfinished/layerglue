@@ -79,3 +79,19 @@ LinkButton
 	backgroundColor:#000000;
 	backgroundAlpha:0.7;
 }
+
+.thumbMenuArrowLeft
+{
+	upSkin: Embed("../images/thumbMenuArrowLeft_up.png");
+	overSkin: Embed("../images/thumbMenuArrowLeft_over.png");
+	downSkin: Embed("../images/thumbMenuArrowLeft_down.png");
+	disabledSkin: Embed("../images/thumbMenuArrowLeft_disabled.png");
+}
+
+.thumbMenuArrowRight
+{
+	upSkin: Embed("../images/thumbMenuArrowRight_up.png");
+	overSkin: Embed("../images/thumbMenuArrowRight_over.png");
+	downSkin: Embed("../images/thumbMenuArrowRight_down.png");
+	disabledSkin: Embed("../images/thumbMenuArrowRight_disabled.png");
+}
