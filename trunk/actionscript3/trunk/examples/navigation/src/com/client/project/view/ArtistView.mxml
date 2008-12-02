@@ -3,10 +3,14 @@
 	xmlns="com.layerglue.flex3.base.views.showHide.*"
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:controls="com.layerglue.flex3.base.controls.*"
-	width="100%" height="100%" xmlns:controls1="com.client.project.controls.*" xmlns:controls2="com.client.project.view.controls.*">
+	xmlns:controls1="com.client.project.controls.*"
+	xmlns:controls2="com.client.project.view.controls.*"
+	width="900" height="520"
+	paddingTop="0" paddingBottom="0"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off">
 	<mx:Script>
 		<![CDATA[
-			import com.client.project.model.structure.Image;
+			import com.client.project.model.structure.ArtistImage;
 			import com.layerglue.lib.application.structure.IStructuralData;
 			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
 						
@@ -41,9 +45,11 @@
 			}
 		]]>
 	</mx:Script>
-	<mx:VBox width="100%" height="100%">
+	<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 		<mx:Box id="childViewContainer" width="100%" height="100%"/>
-		<mx:HBox width="100%" height="92" styleName="artistMenuBackground" paddingLeft="16" paddingRight="16" verticalAlign="middle">
+		<mx:VBox height="100%">
+			<mx:Spacer height="100%" />
+			<mx:HBox width="100%" height="92" styleName="artistMenuBackground" paddingLeft="16" paddingRight="16" verticalAlign="middle">
 				<mx:Button
 					id="menuLeftButton"
 					enabled="{canDecrementMenu}"
@@ -54,12 +60,12 @@
 					<mx:Repeater id="thumbRepeater" dataProvider="{structuralData.children}" count="8">
 						<controls2:Thumbnail
 							id="thumb1"
-							width="84"
+							width="90"
 							height="52"
-							source="flash-assets/images/matt.jpg"
+							source="{ArtistImage(thumbRepeater.currentItem).smallImagePath}"
 							selected="{thumbRepeater.currentItem.selected}"
 							click="(new StructuralDataNavigationRequest((event.currentTarget as Thumbnail).getRepeaterItem() as IStructuralData)).dispatch()"/>
-						</mx:Repeater>
+					</mx:Repeater>
 				</mx:HBox>
 				<mx:Spacer width="100%" />
 				<mx:Button
@@ -68,6 +74,7 @@
 					buttonMode="{canIncrementMenu}"
 					click="incrementThumbMenu()"
 					styleName="thumbMenuArrowRight" />
-		</mx:HBox>
-	</mx:VBox>
+			</mx:HBox>	
+		</mx:VBox>
+	</mx:Canvas>
 </ShowHideBoxExt>

@@ -10,7 +10,7 @@ package com.client.project.maps
 	import com.client.project.model.structure.Contact;
 	import com.client.project.model.structure.Gallery;
 	import com.client.project.model.structure.Home;
-	import com.client.project.model.structure.Image;
+	import com.client.project.model.structure.ArtistImage;
 	import com.client.project.model.structure.Site;
 	import com.layerglue.lib.application.maps.StructuralDataToContollerMap;
 
@@ -24,7 +24,7 @@ package com.client.project.maps
 			addClassReferenceMapping(Home, HomeController);
 			addClassReferenceMapping(Gallery, GalleryController);
 			addClassReferenceMapping(Artist, ArtistController);
-			addClassReferenceMapping(Image, ImageController);
+			addClassReferenceMapping(ArtistImage, ImageController);
 			addClassReferenceMapping(Contact, ContactController);
 		}
 		

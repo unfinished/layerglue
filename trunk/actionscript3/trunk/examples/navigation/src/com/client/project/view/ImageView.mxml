@@ -2,9 +2,9 @@
 <ShowHideBoxExt xmlns="com.layerglue.flex3.base.views.showHide.*" xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Script>
 		<![CDATA[
-			import com.client.project.model.structure.Image;
+			import com.client.project.model.structure.ArtistImage;
 		]]>
 	</mx:Script>
-	<mx:Label text="{'Title: ' + Image(structuralData).title}"/>
-	<mx:Label text="{'URL: ' + Image(structuralData).url}" />
+	<mx:Image source="{ArtistImage(structuralData).largeImagePath}" />
+	
 </ShowHideBoxExt>
