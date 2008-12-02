@@ -53,13 +53,13 @@
 				<mx:HBox paddingLeft="29" paddingRight="29">
 					<mx:Repeater id="thumbRepeater" dataProvider="{structuralData.children}" count="8">
 						<controls2:Thumbnail
-							id="thumb"
+							id="thumb1"
 							width="84"
 							height="52"
 							source="flash-assets/images/matt.jpg"
-							selected="{Image(thumbRepeater.currentItem).selected}"
+							selected="{thumbRepeater.currentItem.selected}"
 							click="(new StructuralDataNavigationRequest((event.currentTarget as Thumbnail).getRepeaterItem() as IStructuralData)).dispatch()"/>
-					</mx:Repeater>
+						</mx:Repeater>
 				</mx:HBox>
 				<mx:Spacer width="100%" />
 				<mx:Button

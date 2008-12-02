@@ -45,7 +45,6 @@ package com.client.project.view.controls
 			_selected = value;
 			_selectedChanged = true;
 			
-			trace("set selected: " + _selected + ", image id: "+getRepeaterItem().id);
 			invalidateDisplayList();
 		}
 		
