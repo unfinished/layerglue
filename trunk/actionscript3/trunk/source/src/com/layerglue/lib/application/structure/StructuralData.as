@@ -54,6 +54,7 @@ package com.layerglue.lib.application.structure
 			_selectedChildIndex = -1;
 		}
 		
+		/** @private */
 		protected var _id:String;
 		/**
 		 * A reference to the StructuralData. This should be unique for each level of the structural
@@ -70,6 +71,7 @@ package com.layerglue.lib.application.structure
 			_id = value;
 		}
 		
+		/** @private */
 		protected var _uriNode:String;
 		/**
 		 * A string representing the URI node of this StructuralData. It is used to create a chain of URI nodes
@@ -99,6 +101,7 @@ package com.layerglue.lib.application.structure
 			return isRoot() ? "/" : (parent.uri + uriNode + "/");
 		}
 		
+		/** @private */
 		protected var _title:String;
 		/**
 		 * A string representing the title of a StrucrualData location. This is commonly used in
@@ -115,6 +118,7 @@ package com.layerglue.lib.application.structure
 			_title = value;
 		}
 		
+		/** @private */
 		protected var _children:ICollection;
 		/**
 		 * An array containing instances of StructuralData that are hierarchically children of
@@ -143,7 +147,8 @@ package com.layerglue.lib.application.structure
 			// TODO: Move this event and handler out into FlexCollection because CollectionEvent is reliant on Flex
 			_children.addEventListener(CollectionEvent.COLLECTION_CHANGE, childrenChangeHandler, false, 0, true);
 		}
-				
+		
+		/** @private */
 		protected var _defaultChildId:String;
 		/**
 		 * A string representing the <code>id</code> of one of the children.
@@ -178,6 +183,7 @@ package com.layerglue.lib.application.structure
 			return children ? getChildById(defaultChildId) as IStructuralData : null;
 		}
 		
+		/** @private */
 		protected var _parent:IStructuralData;
 		/**
 		 * The instance of StructuralData immediately one place level in the hierarchy.
@@ -275,6 +281,7 @@ package com.layerglue.lib.application.structure
 			}
 		}
 		
+		/** @private */
 		protected var _selectedChildIndex:int;
 		
 		[Bindable(event="childSelectionChange")]
@@ -346,6 +353,7 @@ package com.layerglue.lib.application.structure
 			return isRoot() ? 0 : parent.depth + 1;
 		}
 		
+		/** @private */
 		protected var _structuralDataToControllerMapId:String;
 		/**
 		 * This can be used as an alternative to Class-to-Class reference mapping. It is useful
@@ -366,6 +374,7 @@ package com.layerglue.lib.application.structure
 			_structuralDataToControllerMapId = value;
 		}
 		
+		/** @private */
 		protected var _controllerToViewMapId:String;
 		/**
 		 * This can be used as an alternative to Class-to-Class reference mapping. It is useful
@@ -445,6 +454,7 @@ package com.layerglue.lib.application.structure
 			return null;
 		}
 		
+		/** @private */
 		// This ensures that whenever a child is added to the children collection it's parent property is set.
 		// newChildren parameter is untyped because the children setter sends through an instance
 		// of ICollection whereas the childrenChangeHandler sends through an instance of Array
@@ -458,6 +468,7 @@ package com.layerglue.lib.application.structure
 			}
 		}
 		
+		/** @private */
 		// TODO: Check duplicate id's or uri's when each child is added
 		// TODO: Check that child is valid instance of StructuralData?
 		protected function childrenChangeHandler(event:CollectionEvent):void
