@@ -108,26 +108,10 @@
 		]]>
 	</mx:Script>
 	
-	<!--
-	<mx:VBox>
-		<mx:HBox>
-			<mx:Button label="Goto Home" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('home'))).dispatch()"/>
-			<mx:Button label="Goto Gallery" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery'))).dispatch()"/>
-			<mx:Button label="Goto Artist1" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery').getChildById('artist1'))).dispatch()"/>
-			<mx:Button label="Goto Artist2" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('gallery').getChildById('artist2'))).dispatch()"/>
-			<mx:Button label="Goto Contact" click="(new StructuralDataNavigationRequest(LayerGlueLocator.getInstance().structuralData.getChildById('contact'))).dispatch()"/>
-		</mx:HBox>
-		
-		<mx:Label text="Application (one level above anything that's navigable)"/>
-		<mx:Box id="rootViewCotainer" width="200" height="300"/>
-		
-	</mx:VBox>
-	-->
-
 	<mx:Box
 		width="100%" height="100%"
 		horizontalAlign="center" verticalAlign="middle">
-		<mx:Box id="rootViewCotainer" width="900" height="700"/>
+		<mx:Box id="rootViewCotainer" width="900" height="630"/>
 	</mx:Box>
 	
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
