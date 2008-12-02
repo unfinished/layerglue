@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ShowHideBoxExt xmlns="com.layerglue.flex3.base.views.showHide.*" xmlns:mx="http://www.adobe.com/2006/mxml">
-	<mx:Label text="Home view"/>
+<ShowHideBoxExt
+	xmlns="com.layerglue.flex3.base.views.showHide.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	direction="vertical"
+	height="520">
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.model.structure.Home;
+		]]>
+	</mx:Script>
+	<mx:Canvas width="900" height="340" styleName="homeBanner" />
+	<mx:HBox horizontalGap="20" height="100%" paddingTop="10">
+		<mx:VBox width="290" height="100%">
+			<mx:Label text="{Home(structuralData).newsTitle}" width="280" styleName="homeStoryTitle"/>
+			<mx:Text htmlText="{Home(structuralData).newsBody}" width="280" styleName="homeStoryBody"/>
+		</mx:VBox>
+		<mx:VBox width="280" height="100%">
+			<mx:Label text="{Home(structuralData).featuredArtistTitle}" width="280" styleName="homeStoryTitle" />
+			<mx:Text htmlText="{Home(structuralData).featuredArtistBody}" width="280" styleName="homeStoryBody" />
+		</mx:VBox>
+		<mx:VBox width="290" height="100%">
+			<mx:Label text="{Home(structuralData).somethingTitle}" width="280" styleName="homeStoryTitle"/>
+			<mx:Text htmlText="{Home(structuralData).somethingBody}" width="280" styleName="homeStoryBody"/>
+		</mx:VBox>
+	</mx:HBox> 
 </ShowHideBoxExt>
