@@ -1,6 +1,6 @@
 package com.layerglue.lib.base.loaders
 {
-	import com.layerglue.lib.base.collections.EventListenerCollection;
+	import com.layerglue.lib.base.events.EventListenerCollection;
 	
 	import flash.display.LoaderInfo;
 	import flash.events.Event;

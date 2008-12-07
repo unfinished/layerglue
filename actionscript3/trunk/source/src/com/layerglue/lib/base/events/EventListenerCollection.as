@@ -1,4 +1,4 @@
-package com.layerglue.lib.base.collections
+package com.layerglue.lib.base.events
 {
 	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.utils.ArrayUtils;
