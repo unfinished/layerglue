@@ -1,8 +1,8 @@
 package com.layerglue.lib.application.navigation
 {
-	import flash.events.EventDispatcher;
-	import com.layerglue.lib.base.navigation.QueryString;
 	import com.layerglue.lib.application.controllers.INavigableController;
+	
+	import flash.events.EventDispatcher;
 	
 	public class NavigationPacket extends EventDispatcher
 	{

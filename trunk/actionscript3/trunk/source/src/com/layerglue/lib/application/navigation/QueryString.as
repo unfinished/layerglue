@@ -1,4 +1,4 @@
-package com.layerglue.lib.base.navigation
+package com.layerglue.lib.application.navigation
 {
 	import com.layerglue.lib.base.collections.HashMap;
 	

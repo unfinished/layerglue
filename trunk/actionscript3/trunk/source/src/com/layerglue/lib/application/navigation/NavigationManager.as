@@ -5,11 +5,9 @@ package com.layerglue.lib.application.navigation
 	import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
 	import com.layerglue.lib.application.controllers.INavigableController;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.base.navigation.QueryString;
 	import com.layerglue.lib.base.utils.StringUtils;
 	
 	import flash.events.EventDispatcher;
-	import mx.controls.Alert;
 	
 	[Bindable]
 	public class NavigationManager extends EventDispatcher
