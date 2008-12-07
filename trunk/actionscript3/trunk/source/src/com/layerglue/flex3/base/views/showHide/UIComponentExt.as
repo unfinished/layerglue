@@ -1,4 +1,4 @@
-package com.layerglue.flex3.base.views
+package com.layerglue.flex3.base.views.showHide
 {
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.ITransitionableNavigableView;
