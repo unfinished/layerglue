@@ -14,31 +14,20 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.layerglue.lib.base.events.EventListenerCollection;
-			import com.layerglue.lib.application.command.requests.URINavigationRequest;
-			import com.layerglue.flex3.base.events.PreloadManagerEvent;
 			import com.layerglue.lib.base.command.FrontController;
-			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
+			import com.layerglue.lib.base.io.FlashVars;
+			import com.client.project.preloader.PreloaderView;
 			import com.layerglue.lib.application.LayerGlueLocator;
 			import com.client.project.maps.ProjectControllerToViewMap;
-			import com.layerglue.lib.application.maps.ControllerToViewMap;
 			import com.client.project.maps.ProjectStructureToControllerMap;
-			import com.client.project.command.ProjectFrontControllerMap;
 			import com.client.project.maps.ProjectStructureDeserializationMap;
 			import com.layerglue.lib.application.setup.InitialSetupManager;
-			import com.layerglue.lib.application.navigation.NavigationManager;
-			import com.client.project.model.ModelLocator;
-			import com.client.project.preloader.PreloaderView;
+			import com.layerglue.flex3.base.events.PreloadManagerEvent;
 			import com.layerglue.flex3.base.preloader.PreloadManager;
-			import mx.collections.ArrayCollection;
-			import com.layerglue.lib.base.io.FlashVars;
-			import mx.events.FlexEvent;
-			import mx.events.EffectEvent;
-			import com.layerglue.flex3.base.effects.FadeExt;
-			import mx.effects.Fade;
+			import com.client.project.command.ProjectFrontControllerMap;
+			import com.layerglue.lib.base.events.EventListenerCollection;
 			import com.client.project.io.InitialAssetManager;
-			import mx.preloaders.DownloadProgressBar;
-			import com.layerglue.lib.application.navigation.NavigationManager;
+			import com.client.project.model.ModelLocator;
 			
 			[Bindable]
 			public var modelLocator:ModelLocator = ModelLocator.getInstance();
