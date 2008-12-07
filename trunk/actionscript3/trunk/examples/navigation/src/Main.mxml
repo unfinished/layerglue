@@ -14,8 +14,8 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.base.events.EventListenerCollection;
 			import com.layerglue.lib.application.command.requests.URINavigationRequest;
-			import com.layerglue.lib.base.collections.EventListenerCollection;
 			import com.layerglue.flex3.base.events.PreloadManagerEvent;
 			import com.layerglue.lib.base.command.FrontController;
 			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
