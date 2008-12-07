@@ -1,19 +1,13 @@
 package com.layerglue.flex3.base.preloader
 {
-	import com.layerglue.lib.base.collections.EventListenerCollection;
+	import com.layerglue.lib.base.events.EventListenerCollection;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
-	import com.layerglue.lib.base.io.FlashVars;
-	import com.layerglue.lib.base.io.LoadManager;
-	import com.layerglue.lib.base.io.LoadManagerToken;
-	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	import flash.utils.getDefinitionByName;
 	import flash.utils.getTimer;
 	
 	import mx.events.FlexEvent;

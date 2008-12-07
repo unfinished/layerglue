@@ -1,6 +1,6 @@
 package com.layerglue.flex3.base.loaders
 {
-	import com.layerglue.lib.base.collections.EventListenerCollection;
+	import com.layerglue.lib.base.events.EventListenerCollection;
 	import com.layerglue.lib.base.loaders.IMeasurableLoader;
 	
 	import flash.events.Event;

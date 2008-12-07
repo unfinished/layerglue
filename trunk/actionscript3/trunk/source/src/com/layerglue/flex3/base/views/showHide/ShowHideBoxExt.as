@@ -3,7 +3,7 @@ package com.layerglue.flex3.base.views.showHide
 	import com.layerglue.lib.application.events.FrameworkTransitionEvent;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.ITransitionableNavigableView;
-	import com.layerglue.lib.base.collections.EventListenerCollection;
+	import com.layerglue.lib.base.events.EventListenerCollection;
 	import com.layerglue.lib.base.events.ShowHideEvent;
 	
 	import flash.display.DisplayObjectContainer;

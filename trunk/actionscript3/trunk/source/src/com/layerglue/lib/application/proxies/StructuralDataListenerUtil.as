@@ -1,10 +1,10 @@
 package com.layerglue.lib.application.proxies
 {
-	import com.layerglue.lib.base.collections.EventListenerCollection;
-	import com.layerglue.lib.base.core.IDestroyable;
-	import com.layerglue.lib.base.events.SelectionEvent;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.structure.IStructuralDataListener;
+	import com.layerglue.lib.base.core.IDestroyable;
+	import com.layerglue.lib.base.events.EventListenerCollection;
+	import com.layerglue.lib.base.events.SelectionEvent;
 	
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
