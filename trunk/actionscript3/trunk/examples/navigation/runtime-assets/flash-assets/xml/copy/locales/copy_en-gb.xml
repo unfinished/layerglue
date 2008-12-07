@@ -47,14 +47,14 @@
 	<item id="gallery.artist02.image07.title"><![CDATA[Seven]]></item>
 	<item id="gallery.artist02.image08.title"><![CDATA[Eight]]></item>
 	
-	<item id="gallery.artist02.image01.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-01]]></item>
-	<item id="gallery.artist02.image02.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-02]]></item>
-	<item id="gallery.artist02.image03.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-03]]></item>
-	<item id="gallery.artist02.image04.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-04]]></item>
-	<item id="gallery.artist02.image05.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-05]]></item>
-	<item id="gallery.artist02.image06.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-06]]></item>
-	<item id="gallery.artist02.image07.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-07]]></item>
-	<item id="gallery.artist02.image08.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-08]]></item>
+	<item id="gallery.artist02.image01.url"><![CDATA[flash-assets/images/artists/matt-sweetman/01]]></item>
+	<item id="gallery.artist02.image02.url"><![CDATA[flash-assets/images/artists/matt-sweetman/02]]></item>
+	<item id="gallery.artist02.image03.url"><![CDATA[flash-assets/images/artists/matt-sweetman/03]]></item>
+	<item id="gallery.artist02.image04.url"><![CDATA[flash-assets/images/artists/matt-sweetman/04]]></item>
+	<item id="gallery.artist02.image05.url"><![CDATA[flash-assets/images/artists/matt-sweetman/05]]></item>
+	<item id="gallery.artist02.image06.url"><![CDATA[flash-assets/images/artists/matt-sweetman/06]]></item>
+	<item id="gallery.artist02.image07.url"><![CDATA[flash-assets/images/artists/matt-sweetman/07]]></item>
+	<item id="gallery.artist02.image08.url"><![CDATA[flash-assets/images/artists/matt-sweetman/08]]></item>
 	
 	<item id="contact.title"><![CDATA[Contact]]></item>
 	<item id="contact.imageUrl"><![CDATA[images/image.jpg]]></item>
