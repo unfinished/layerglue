@@ -108,11 +108,7 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Box
-		width="100%" height="100%"
-		horizontalAlign="center" verticalAlign="middle">
-		<mx:Box id="rootViewCotainer" width="900" height="630"/>
-	</mx:Box>
+	<mx:Box id="rootViewCotainer" width="900" height="630" horizontalCenter="0" verticalCenter="0"/>
 	
 	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
 	

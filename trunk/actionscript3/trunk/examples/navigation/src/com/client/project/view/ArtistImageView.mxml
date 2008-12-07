@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ShowHideBoxExt xmlns="com.layerglue.flex3.base.views.showHide.*" xmlns:mx="http://www.adobe.com/2006/mxml">
+<views:NavigableCanvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:views="com.layerglue.flex3.base.views.*">
+	
 	<mx:Script>
 		<![CDATA[
 			import com.client.project.model.structure.ArtistImage;
 		]]>
 	</mx:Script>
+	
 	<mx:Image source="{ArtistImage(structuralData).largeImagePath}" />
 	
-</ShowHideBoxExt>
+</views:NavigableCanvas>

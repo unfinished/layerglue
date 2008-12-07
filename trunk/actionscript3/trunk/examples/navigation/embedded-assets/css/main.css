@@ -12,32 +12,21 @@ Application
     backgroundGradientColors: #FFFFFF, #DDDDDD;
 }
 
+LinkButton
+{
+	textSelectedColor:#FF3300;
+}
+
 .siteTitle
 {
 	fontSize: 50;
 	fontWeight:bold
 }
 
-LinkButton
-{
-	textSelectedColor:#FF3300;
-	
-}
-
-.homeBanner
-{
-	backgroundImage: Embed("../images/home-banner.jpg");
-}
-
 .homeStoryTitle
 {
 	fontSize:16;
 	fontWeight:bold;	
-}
-
-.homeStoryBody
-{
-	fontSize:11;
 }
 
 .siteMenu
@@ -109,6 +98,12 @@ LinkButton
 	overSkin: Embed("../images/thumbMenuArrowRight_over.png");
 	downSkin: Embed("../images/thumbMenuArrowRight_down.png");
 	disabledSkin: Embed("../images/thumbMenuArrowRight_disabled.png");
+}
+
+.contactText
+{
+	fontSize: 12;
+	fontWeight:bold;
 }
 
 .footerCopyright

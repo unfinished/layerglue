@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ShowHideBoxExt
-	xmlns="com.layerglue.flex3.base.views.showHide.*"
+<views:NavigableCanvas
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:controls="com.layerglue.flex3.base.controls.*"
-	width="900" height="520">
+	xmlns:views="com.layerglue.flex3.base.views.*"
+	xmlns:controls="com.layerglue.flex3.base.controls.*">
+	
 	<mx:Script>
 		<![CDATA[
 			import com.layerglue.lib.application.structure.IStructuralData;
 			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
 		]]>
 	</mx:Script>
-	<mx:Canvas width="900" height="520" >
-		<mx:Box id="childViewContainer" width="100%" height="100%"/>
-		<mx:HBox width="100%" horizontalAlign="right" styleName="galleryMenuBackground" paddingTop="2">
-			<controls:NavSafeToggleButtonBar
+	
+	<mx:Canvas id="childViewContainer" width="900" height="520"/>
+	
+	<mx:Canvas width="100%" styleName="galleryMenuBackground">
+		<controls:NavSafeToggleButtonBar
+			right="0"
+			paddingTop="2"
 			dataProvider="{structuralData.children}"
 			selectedIndex="{structuralData.selectedChildIndex}" 
 			itemClick="{(new StructuralDataNavigationRequest(event.item as IStructuralData)).dispatch()}"
 			labelField="title"
 			styleName="galleryMenu" buttonStyleName="galleryMenuButton"/>
-		</mx:HBox>
 	</mx:Canvas>
-</ShowHideBoxExt>
+	
+</views:NavigableCanvas>

@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ShowHideBoxExt xmlns="com.layerglue.flex3.base.views.showHide.*" xmlns:mx="http://www.adobe.com/2006/mxml">
-	<mx:Label text="Contact view"/>
-</ShowHideBoxExt>
+<views:NavigableCanvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:views="com.layerglue.flex3.base.views.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.model.structure.Contact;
+		]]>
+	</mx:Script>
+	
+	<mx:Image x="0" y="0" width="900" height="520" source="{Contact(structuralData).imageUrl}"/>
+	
+	<mx:Text right="14" bottom="45" htmlText="{Contact(structuralData).address}" textAlign="right" styleName="contactText"/>
+	<mx:Text right="14" bottom="10" htmlText="{Contact(structuralData).email}" textAlign="right" styleName="contactText"/>
+	
+</views:NavigableCanvas>

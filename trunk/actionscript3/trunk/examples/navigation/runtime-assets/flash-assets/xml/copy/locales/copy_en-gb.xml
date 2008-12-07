@@ -4,7 +4,7 @@
 	<item id="site.copyright"><![CDATA[© 2008 LayerGlue]]></item>
 	
 	<item id="home.title"><![CDATA[Home]]></item>
-	<item id="home.imageUrl"><![CDATA[images/image.jpg]]></item>
+	<item id="home.imageUrl"><![CDATA[flash-assets/images/home-banner.jpg]]></item>
 	<item id="home.newsTitle"><![CDATA[News]]></item>
 	<item id="home.newsBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean tellus. Pellentesque nisl nunc, varius non, egestas non, egestas non, ligula. Mauris neque libero, pulvinar in, posuere quis, consequat nec, arcu.<br/><br/>Phasellus vestibulum, tortor nec interdum lacinia, ante nulla auctor ligula, at facilisis purus ipsum commodo ante.]]></item>
 	<item id="home.featuredArtistTitle"><![CDATA[Featured Artist]]></item>
@@ -57,8 +57,8 @@
 	<item id="gallery.artist02.image08.url"><![CDATA[flash-assets/images/artists/matt-sweetman/08]]></item>
 	
 	<item id="contact.title"><![CDATA[Contact]]></item>
-	<item id="contact.imageUrl"><![CDATA[images/image.jpg]]></item>
-	<item id="contact.address"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit.]]></item>
+	<item id="contact.imageUrl"><![CDATA[flash-assets/images/contact-background.jpg]]></item>
+	<item id="contact.address"><![CDATA[LayerGlue Gallery<br/>123 Leafy Street<br/>London<br/>LG1 3GL<br/>United Kingdom<br/><br/>+44 (0) 1234 5678]]></item>
 	<item id="contact.email"><![CDATA[info@layerglue.com]]></item>
 	
 	<item id="footer.copyright"><![CDATA[© 2008 Layer Glue]]></item>
