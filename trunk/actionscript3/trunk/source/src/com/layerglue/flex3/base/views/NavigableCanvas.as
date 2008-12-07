@@ -1,22 +1,23 @@
 package com.layerglue.flex3.base.views
 {
 	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.application.views.ITransitionableNavigableView;
+	import com.layerglue.lib.application.views.INavigableView;
 	import com.layerglue.lib.base.events.DestroyEvent;
 	
 	import flash.display.DisplayObjectContainer;
 	
 	import mx.containers.Canvas;
 
-	public class CanvasExt extends Canvas implements ITransitionableNavigableView
+	public class NavigableCanvas extends Canvas implements INavigableView
 	{
-		public function CanvasExt()
+		public function NavigableCanvas()
 		{
 			super();
 		}
 		
 		private var _structuralData:IStructuralData;
 		
+		[Bindable]
 		public function get structuralData():IStructuralData
 		{
 			return _structuralData;
@@ -30,6 +31,7 @@ package com.layerglue.flex3.base.views
 		
 		private var _childViewContainer:DisplayObjectContainer
 		
+		[Bindable]
 		public function get childViewContainer():DisplayObjectContainer
 		{
 			return _childViewContainer;
@@ -40,25 +42,8 @@ package com.layerglue.flex3.base.views
 			_childViewContainer = value;
 		}
 		
-		public function startTransitionIn():void
-		{
-		}
-		
-		public function startTransitionOut():void
-		{
-		}
-		
-		public function stopTransition():void
-		{
-		}
-		
 		public function destroy():void
 		{
-			if(parent)
-			{
-				parent.removeChild(this);
-			}
-
 			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
 		}
 	}
