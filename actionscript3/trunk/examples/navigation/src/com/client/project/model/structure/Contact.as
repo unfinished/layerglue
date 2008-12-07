@@ -2,6 +2,7 @@ package com.client.project.model.structure
 {
 	import com.layerglue.lib.application.structure.StructuralData;
 	
+	[Bindable]
 	public class Contact extends StructuralData
 	{
 		public var imageUrl:String;
