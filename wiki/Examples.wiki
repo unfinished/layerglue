@@ -3,12 +3,12 @@
 
 The library does not have to be used in it's entirety, and specific classes (or groups of classes) can be used independently. These examples demonstrate several important utilities, all of which can be used separately from the MVC navigation framework.
 
- # [ExampleSubstitution Substitution]
- # [ExampleDeserialization Deserialization]
- # [ExampleSubstitutionAndDeserialization Substitution and Deserialization]
- # [ExampleWorkflow Workflow]
- # [ExampleStyling Styling]
- # [ExamplePreloading Preloading]
+ # *[ExampleSubstitution Substitution]* - Simple multi-language substitution using simple xml or Excel files
+ # *[ExampleDeserialization Deserialization]* - Automated deserialization of xml into custom value object classes
+ # *[ExampleSubstitutionAndDeserialization Substitution and Deserialization]* - A combination of examples 1 and 2
+ # *[ExampleWorkflow Workflow]* - Substitution and deserialization worked into a more structured project and including Ant build files
+ # *[ExampleStyling Styling]* - Applying localised styling to an application through the use of CSS and workflow enhancements
+ # *[ExamplePreloading Preloading]* - Unified preloading of the main application swf and supporting assets into a single measurable process
 
 
 ==Navigation examples==
