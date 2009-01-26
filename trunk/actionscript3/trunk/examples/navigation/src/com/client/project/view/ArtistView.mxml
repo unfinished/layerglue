@@ -8,6 +8,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.model.structure.Artist;
 			import com.client.project.model.structure.ArtistImage;
 			import com.layerglue.lib.application.structure.IStructuralData;
 			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
