@@ -44,7 +44,6 @@
 							<title>@gallery.artist01.image06.title@</title>
 							<basePath>@gallery.artist01.image06.url@</basePath>
 						</image>
-						
 						<image id="7" uriNode="7">
 							<title>@gallery.artist01.image07.title@</title>
 							<basePath>@gallery.artist01.image07.url@</basePath>

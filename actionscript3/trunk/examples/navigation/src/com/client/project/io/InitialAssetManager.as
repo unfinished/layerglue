@@ -16,6 +16,7 @@ package com.client.project.io
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
+	import com.layerglue.lib.base.substitution.sources.ExcelSubstitutionSource;
 	
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
@@ -69,6 +70,7 @@ package com.client.project.io
 			
 			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),
+					/*new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_excel_" + modelLocator.locale.code + ".xml")),*/
 					localeCopyCompleteHandler,
 					errorHandler,
 					0.0025);
@@ -112,6 +114,8 @@ package com.client.project.io
 		private function localeCopyCompleteHandler(event:Event):void
 		{
 			_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			//_copySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 3, 1, "#");
+			
 			loadManager.loadNext();
 		}
 		

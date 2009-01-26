@@ -6,6 +6,7 @@
 	<property file="project.properties" />
 
 	<!-- SDK properties ======================================================================== -->
+	
 	<condition property="mxmlc" value="${FLEX_HOME}/bin/mxmlc" else="${FLEX_HOME}/bin/mxmlc.exe">
 		<os family="mac"/>
 	</condition>
