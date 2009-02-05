@@ -9,6 +9,7 @@ package com.layerglue.lib.application.controllers
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.EventDispatcher;
+	import com.layerglue.lib.base.utils.ArrayUtils;
 
 	/**
 	 * The abstract base class for all Navigable controllers.
@@ -37,8 +38,8 @@ package com.layerglue.lib.application.controllers
 		public function unnavigate():void
 		{
 			trace("NavigableController.unnavigate: " + this + " id=" + structuralData.id);
-			var currentAddressPacketControllerAtOurDepth:INavigableController = navigationManager.currentAddressPacket.getControllerAtDepth(depth) 
-			if(isRoot() || ( currentAddressPacketControllerAtOurDepth && structuralData == currentAddressPacketControllerAtOurDepth.structuralData))
+			
+			if(isRoot() || structuralData.uriNode == navigationManager.currentAddressPacket.getUriNodeAtDepth(depth))
 			{
 				navigationManager.unnavigationCompleteHandler(this);
 			}
@@ -61,11 +62,28 @@ package com.layerglue.lib.application.controllers
 		{
 			var p:NavigationPacket = navigationManager.currentAddressPacket;
 			
-			var c:INavigableController = p.getControllerAtDepth(depth+1);
+			//Try to get a deeper controller from the address contained by the packet
+			var deeperController:INavigableController = getChildByUriNode(p.getUriNodeAtDepth(depth+1));
 			
-			if(c)
+			//Check if the address contains a reference to a deeper controller
+			if(deeperController)
 			{
-				c.navigate();
+				deeperController.navigate();
+			}
+			else
+			{
+				//Try to get a deeper controller by checking if there is a default child
+				deeperController = getChildById(structuralData.defaultChildId);
+				
+				//Check if there is deeperController we should be navigating down to
+				if(deeperController)
+				{
+					deeperController.navigate();
+				}
+				else
+				{
+					trace("Reached deepest navigation point: " + structuralData.uri)
+				}
 			}
 		}
 		

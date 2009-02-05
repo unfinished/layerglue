@@ -28,8 +28,6 @@ package com.layerglue.lib.application.command.commands
 		{
 			super.execute(request);
 			
-			trace("typedRequest.hideFromBrowser:" + typedRequest.hideFromBrowser)
-			
 			if(typedRequest.hideFromBrowser)
 			{
 				LayerGlueLocator.getInstance().navigationManager.processStructuralDataNavigation(typedRequest.structuralData);
