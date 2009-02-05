@@ -46,7 +46,7 @@
 			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/western.swf"/>
 			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
 		</exec>
-	</target>
+	</target>	
 			
 	<!-- Release targets ======================================================================= -->
 	
@@ -72,7 +72,7 @@
 	
 	<target name="release_compile_regional_css_western">
 		<exec executable="${mxmlc}" failonerror="true">
-			<arg line="-output ${bindebug.dir}/flash-assets/compiled-css/regions/western.swf"/>
+			<arg line="-output ${binrelease.dir}/flash-assets/compiled-css/regions/western.swf"/>
 			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
 		</exec>
 	</target>

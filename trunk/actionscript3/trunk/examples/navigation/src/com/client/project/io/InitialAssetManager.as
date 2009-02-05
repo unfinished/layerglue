@@ -69,8 +69,8 @@ package com.client.project.io
 					0.0025);
 			
 			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
-					new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),
-					/*new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_excel_" + modelLocator.locale.code + ".xml")),*/
+					/*new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),*/
+					new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_excel_" + modelLocator.locale.code + ".xml")),
 					localeCopyCompleteHandler,
 					errorHandler,
 					0.0025);
@@ -113,8 +113,8 @@ package com.client.project.io
 		
 		private function localeCopyCompleteHandler(event:Event):void
 		{
-			_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			//_copySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 3, 1, "#");
+			//_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			_copySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 3, 1, "#");
 			
 			loadManager.loadNext();
 		}
