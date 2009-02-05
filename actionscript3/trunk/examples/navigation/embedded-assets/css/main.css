@@ -110,3 +110,8 @@ LinkButton
 {
 	fontWeight:bold;
 }
+
+Throbber
+{
+	throbberGraphic: Embed(source="../skins/skins.swf", symbol="ThumbPreloader");
+}
