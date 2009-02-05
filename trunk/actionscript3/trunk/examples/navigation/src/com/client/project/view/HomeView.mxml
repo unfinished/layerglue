@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views:NavigableCanvas
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:views="com.layerglue.flex3.base.views.*">
+	xmlns:views="com.layerglue.flex3.base.views.*"
+	xmlns:controls="com.layerglue.flex3.base.controls.*">
 	
 	<mx:Script>
 		<![CDATA[
@@ -9,7 +10,7 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Image x="0" y="0" width="900" height="340" source="{Home(structuralData).imageUrl}"/>
+	<controls:ThrobberImage x="0" y="0" width="900" height="340" source="{Home(structuralData).imageUrl}"/>
 	
 	<mx:VBox x="0" y="356" width="290">
 		<mx:Label text="{Home(structuralData).newsTitle}" width="280" styleName="homeStoryTitle"/>

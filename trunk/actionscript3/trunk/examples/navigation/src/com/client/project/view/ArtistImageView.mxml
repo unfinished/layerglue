@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <views:NavigableCanvas
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:views="com.layerglue.flex3.base.views.*">
+	xmlns:views="com.layerglue.flex3.base.views.*"
+	xmlns:controls="com.layerglue.flex3.base.controls.*">
 	
 	<mx:Script>
 		<![CDATA[
@@ -9,6 +10,6 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Image source="{ArtistImage(structuralData).largeImagePath}" />
+	<controls:ThrobberImage source="{ArtistImage(structuralData).largeImagePath}" />
 	
 </views:NavigableCanvas>
