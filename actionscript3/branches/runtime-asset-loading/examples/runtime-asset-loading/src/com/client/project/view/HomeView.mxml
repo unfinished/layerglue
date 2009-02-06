@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:NavigableCanvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:views="com.layerglue.flex3.base.views.*"
+	xmlns:controls="com.layerglue.flex3.base.controls.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.model.structure.Home;
+		]]>
+	</mx:Script>
+	
+	<controls:ThrobberImage x="0" y="0" width="900" height="340" source="{Home(structuralData).imageUrl}"/>
+	
+	<mx:VBox x="0" y="356" width="290">
+		<mx:Label text="{Home(structuralData).newsTitle}" width="280" styleName="homeStoryTitle"/>
+		<mx:Text htmlText="{Home(structuralData).newsBody}" width="280"/>
+	</mx:VBox>
+	
+	<mx:VBox x="305" y="356" width="290">
+		<mx:Label text="{Home(structuralData).featuredArtistTitle}" width="280" styleName="homeStoryTitle" />
+		<mx:Text htmlText="{Home(structuralData).featuredArtistBody}" width="280"/>
+	</mx:VBox>
+	
+	<mx:VBox x="610" y="356" width="290">
+		<mx:Label text="{Home(structuralData).somethingTitle}" width="280" styleName="homeStoryTitle"/>
+		<mx:Text htmlText="{Home(structuralData).somethingBody}" width="280"/>
+	</mx:VBox>
+		
+</views:NavigableCanvas>

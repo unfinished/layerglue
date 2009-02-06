@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:NavigableCanvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:controls="com.layerglue.flex3.base.controls.*"
+	xmlns:view="com.client.project.view.*"
+	xmlns:views="com.layerglue.flex3.base.views.*"
+	width="900" height="630">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.LinkButton;
+			import com.client.project.model.structure.Site;
+			import com.layerglue.lib.application.structure.IStructuralData;
+			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Text
+		x="0" y="0"
+		paddingTop="4" paddingLeft="-6"
+		text="{structuralData.title}"
+		styleName="siteTitle"
+		selectable="false"/>
+	
+	<controls:NavSafeToggleButtonBar
+		right="0" top="0"
+		paddingTop="35" paddingRight="-10"
+		dataProvider="{structuralData.children}"
+		selectedIndex="{structuralData.selectedChildIndex}"
+		itemClick="(new StructuralDataNavigationRequest(event.item as IStructuralData)).dispatch()"
+		labelField="title"
+		styleName="siteMenu"/>
+	
+	<mx:Box id="childViewContainer" x="0" y="77" width="900" height="520"/>
+	
+	<mx:Label x="0" bottom="0" text="{Site(structuralData).copyright}" styleName="footerCopyright" />
+	
+</views:NavigableCanvas>
