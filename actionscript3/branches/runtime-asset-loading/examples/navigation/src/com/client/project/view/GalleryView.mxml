@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:NavigableCanvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:views="com.layerglue.flex3.base.views.*"
+	xmlns:controls="com.layerglue.flex3.base.controls.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.model.structure.Gallery;
+			import com.layerglue.lib.application.structure.IStructuralData;
+			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas id="childViewContainer" width="900" height="520"/>
+	<mx:Canvas width="100%" styleName="galleryMenuBackground">
+		<controls:NavSafeToggleButtonBar
+			right="0"
+			paddingTop="2"
+			dataProvider="{structuralData.children}"
+			selectedIndex="{structuralData.selectedChildIndex}" 
+			itemClick="{(new StructuralDataNavigationRequest(event.item as IStructuralData)).dispatch()}"
+			labelField="title"
+			styleName="galleryMenu" buttonStyleName="galleryMenuButton"/>
+	</mx:Canvas>
+	
+</views:NavigableCanvas>

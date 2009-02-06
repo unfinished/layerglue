@@ -1,0 +1,19 @@
+/* Main CSS - Embedded in Application */
+
+global
+{
+	fontFamily: "RegionalFont";
+	embedFonts: true;
+	fontAntiAliasType: advanced;
+	color: #444444;
+}
+
+Application
+{
+    backgroundGradientColors: #FFFFFF, #DDDDDD;
+}
+
+.applicationTitle
+{
+	fontSize: 16;
+}

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lgapps:PreloadableApplication
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:local="*"
+	xmlns:lgapps="com.layerglue.flex3.base.applications.*"
+	layout="absolute"
+	preinitialize="preinitializeHandler()"
+	creationPolicy="none"
+	backgroundColor="0xFFFFFF"
+	preloader="com.client.project.preloader.PreloaderView"
+	preloaderMinDisplayTime="1000" xmlns:setup="com.layerglue.lib.application.setup.*">
+	
+	<mx:Style source="../embedded-assets/css/main.css"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.layerglue.lib.base.command.FrontController;
+			import com.layerglue.lib.base.io.FlashVars;
+			import com.client.project.preloader.PreloaderView;
+			import com.layerglue.lib.application.LayerGlueLocator;
+			import com.client.project.maps.ProjectControllerToViewMap;
+			import com.client.project.maps.ProjectStructureToControllerMap;
+			import com.client.project.maps.ProjectStructureDeserializationMap;
+			import com.layerglue.lib.application.setup.InitialSetupManager;
+			import com.layerglue.flex3.base.events.PreloadManagerEvent;
+			import com.layerglue.flex3.base.preloader.PreloadManager;
+			import com.client.project.command.ProjectFrontControllerMap;
+			import com.layerglue.lib.base.events.EventListenerCollection;
+			import com.client.project.io.InitialAssetManager;
+			import com.client.project.model.ModelLocator;
+			
+			[Bindable]
+			public var modelLocator:ModelLocator = ModelLocator.getInstance();
+			
+			private var _initialAssetManager:InitialAssetManager;
+			
+			private var _preloadListenerCollection:EventListenerCollection;
+			
+			private function preinitializeHandler():void
+			{
+				//Initialize the FlashVars instance to be sure the variables being passed in are available
+				FlashVars.initialize(systemManager as DisplayObject);
+				
+				//Hookup requests with commands via the FrontController
+				FrontController.initialize([new ProjectFrontControllerMap()]);
+				
+				_initialAssetManager = new InitialAssetManager();
+				
+				_preloadListenerCollection = new EventListenerCollection();
+				_preloadListenerCollection.createListener(PreloadManager.getInstance(), PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetsLoadComplete);
+				_preloadListenerCollection.createListener(PreloadManager.getInstance(), Event.COMPLETE, preloaderDoneHandler); 
+				
+				_initialAssetManager.start();
+			}
+			
+			private function initialAssetsLoadComplete(event:PreloadManagerEvent):void
+			{
+				var initialSetupManager:InitialSetupManager = new InitialSetupManager();
+				initialSetupManager.xmlToStructuralDataMap = new ProjectStructureDeserializationMap();
+				initialSetupManager.structuralDataToControllerMap = new ProjectStructureToControllerMap();
+				initialSetupManager.controllerToViewMap = new ProjectControllerToViewMap();
+				initialSetupManager.setup(_initialAssetManager.structuralXML);
+								
+				createComponentsFromDescriptors();
+				
+				LayerGlueLocator.getInstance().navigationManager.rootController.viewContainer = rootViewCotainer;
+			}
+			
+			private function preloaderDoneHandler(event:Event):void
+			{
+				_preloadListenerCollection.destroy();
+				
+				reparentPreloader();
+				
+				//TODO Make sure this doesnt need to be on a callLater
+				hidePreloader();
+				
+				LayerGlueLocator.getInstance().navigationManager.connectBrowserNavigation();
+			}
+			
+			private function hidePreloader():void
+			{
+				destroyPreloader();
+			}
+			
+			private function reparentPreloader():void
+			{
+				preloaderContainer.addChild(PreloadManager.getInstance().preloaderDisplay as DisplayObject);
+			}
+			
+			private function destroyPreloader():void
+			{
+				(PreloadManager.getInstance().preloaderDisplay as PreloaderView).destroy();
+				removeChild(preloaderContainer);
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Box id="rootViewCotainer" width="900" height="630" horizontalCenter="0" verticalCenter="0"/>
+	
+	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
+	
+</lgapps:PreloadableApplication>

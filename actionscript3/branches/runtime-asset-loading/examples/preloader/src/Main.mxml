@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lgapps:ProportionallyPreloadableApplication
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:local="*"
+	xmlns:lgapps="com.layerglue.flex3.base.applications.*"
+	layout="absolute"
+	preinitialize="preinitializeHandler()"
+	creationPolicy="none"
+	backgroundColor="0xFFFFFF"
+	preloader="com.client.project.preloader.PreloaderView"
+	preloaderMinDisplayTime="1000">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.layerglue.flex3.base.preloader.PreloadManager;
+			import mx.collections.ArrayCollection;
+			import com.layerglue.lib.base.io.FlashVars;
+			import mx.events.FlexEvent;
+			import mx.events.EffectEvent;
+			import com.layerglue.flex3.base.effects.FadeExt;
+			import mx.effects.Fade;
+			import com.client.project.io.InitialLoadManager;
+			import mx.preloaders.DownloadProgressBar;
+			import com.client.project.vo.StructureRoot;
+			
+			//com.layerglue.flex3.base.preloader.DownloadProgressBarExt
+			//com.client.project.preloader.PreloaderView
+			
+			private var _initialLoadManager:InitialLoadManager;
+						
+			// The object that will contain the deserialized xml data
+			[Bindable]
+			public var structureRoot:StructureRoot;
+			
+			private function preinitializeHandler():void
+			{
+				FlashVars.initialize(systemManager as DisplayObject);
+				
+				startLoadProcess();
+				
+				PreloadManager.getInstance().flexPreloader.addEventListener(FlexEvent.PRELOADER_DONE, flexPreloaderDoneHandler);
+			}
+			
+			private function flexPreloaderDoneHandler(event:Event):void
+			{
+				reparentPreloader();
+				callLater(hidePreloader);
+			}
+			
+			private function startLoadProcess():void
+			{
+				_initialLoadManager = new InitialLoadManager();
+				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
+				_initialLoadManager.start();
+			}
+			
+			private function initialLoadCompleteHandler(event:Event):void
+			{
+				structureRoot = _initialLoadManager.structureRoot;
+				
+				createComponentsFromDescriptors();
+			}
+			
+			private function hidePreloader():void
+			{
+				//preloaderContainer.visible = false;
+				
+				var effect:Fade = new FadeExt(preloaderContainer, 1, 0, 500);
+				effect.addEventListener(EffectEvent.EFFECT_END, preloaderHideComplete);
+				effect.play();
+			}
+			
+			private function preloaderHideComplete(event:EffectEvent):void
+			{
+				//PreloadManager.getInstance().preloaderDisplay.destroy();
+				removeChild(preloaderContainer);
+			}
+			
+			private function reparentPreloader():void
+			{
+				preloaderContainer.addChild(PreloadManager.getInstance().preloaderDisplay as DisplayObject);
+			}
+			
+			[Embed(source="../embedded-assets/images.jpg")]
+            [Bindable]
+            public var pic1:Class;
+            
+            [Embed(source="../embedded-assets/google.jpg")]
+            [Bindable]
+            public var pic2:Class;
+			
+		]]>
+	</mx:Script>
+	
+	<!-- Padding out swf size so download takes a while -->
+	<mx:Image source="../embedded-assets/google-logo-3.jpg" width="100" height="100"  visible="false" />
+	<mx:Image source="../embedded-assets/images.jpg" width="100" height="100" visible="false" />
+	<!-- ============================================== -->
+	
+	<mx:Box width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+		<!-- The Tree and DataGrid controls are good for exploring object hierarchies -->
+		<mx:HBox>
+			<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
+			<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
+		</mx:HBox>
+	</mx:Box>
+	<mx:UIComponent id="preloaderContainer" width="100%" height="100%" />
+</lgapps:ProportionallyPreloadableApplication>

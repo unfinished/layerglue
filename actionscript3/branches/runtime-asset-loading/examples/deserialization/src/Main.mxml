@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+	applicationComplete="applicationCompleteHandler()">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.layerglue.lib.base.events.EventListener;
+			import com.layerglue.lib.base.io.xml.XMLDeserializer;
+			import com.client.project.vo.StructureRoot;
+			import com.client.project.maps.StructureDeserializationMap;
+		
+			import com.layerglue.lib.base.loaders.XmlLoader;
+			
+			//Defining loaders
+			private var _unpopulatedXMLoader:XmlLoader;
+			
+			//Defining properties to hold XML
+			private var _structuralXML:XML;
+			
+			// The object that will contain the deserialized xml data
+			[Bindable]
+			public var structureRoot:StructureRoot;
+			
+			private function applicationCompleteHandler():void
+			{
+				// 1. Start loading the structural xml
+				loadStructuralXML();
+			}
+			
+			private function loadStructuralXML():void
+			{
+				_unpopulatedXMLoader = new XmlLoader();
+				_unpopulatedXMLoader.addEventListener(Event.COMPLETE, unpopulatedXMLloadCompleteHandler);
+				_unpopulatedXMLoader.load(new URLRequest("_structure.xml"));
+			}
+			
+			private function unpopulatedXMLloadCompleteHandler(event:Event):void
+			{
+				// 2. Store the structural xml
+				_structuralXML = (event.target as XmlLoader).typedData;
+				
+				// 3. Now the structural xml is loaded, start the deserialization
+				doDeserialization();
+			}
+			
+			private function doDeserialization():void
+			{
+				// 4. Create a new deserializer instance
+				var deserializer:XMLDeserializer = new XMLDeserializer();
+				
+				// 5. Give the deserializer a map to tell it which XML nodes translate in to which classes
+				deserializer.map = new StructureDeserializationMap();
+				
+				// 6. Deserialize the stuctural data into an object hierarchy and store the result
+				structureRoot = deserializer.deserialize(_structuralXML);
+				
+				// *** Set a breakpoint here to view the deserialized 'structureRoot' property***
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<!-- The Tree and DataGrid controls are good for exploring object hierarchies -->
+	<mx:HBox>
+		<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
+		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
+	</mx:HBox>
+	
+</mx:Application>
