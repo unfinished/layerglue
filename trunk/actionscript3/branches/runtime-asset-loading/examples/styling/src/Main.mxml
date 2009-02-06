@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+	preinitialize="preinintializeHandler()"
+	creationPolicy="none">
+	
+	<mx:Style source="../embedded-assets/css/main.css"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.layerglue.lib.base.io.FlashVars;
+			import com.client.project.locators.ModelLocator;
+			import com.client.project.vo.StructureRoot;
+			import com.client.project.io.InitialLoadManager;
+						
+			private var _initialLoadManager:InitialLoadManager;
+			
+			// The object that will contain the deserialized xml data
+			[Bindable]
+			public var structureRoot:StructureRoot;
+			
+			private function applicationCompleteHandler():void
+			{
+				startLoadProcess();
+			}
+			
+			private function preinintializeHandler():void
+			{
+				FlashVars.initialize(systemManager as DisplayObject);
+				
+				startLoadProcess()
+			}
+			
+			private function startLoadProcess():void
+			{
+				_initialLoadManager = new InitialLoadManager();
+				_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadCompleteHandler);
+				_initialLoadManager.start();
+			}
+			
+			private function initialLoadCompleteHandler(event:Event):void
+			{
+				structureRoot = ModelLocator.getInstance().structure;
+				createComponentsFromDescriptors();
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:HBox>
+		<mx:Label text="Font embedding" styleName="applicationTitle"/>
+		<mx:Button label="Click"/>
+	</mx:HBox>
+</mx:Application>

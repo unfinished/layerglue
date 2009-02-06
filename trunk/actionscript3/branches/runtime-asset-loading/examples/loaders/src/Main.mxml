@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute" xmlns:loaders="com.client.project.loaders.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
+			[Bindable]
+			public var locale:String = "en-gb";
+			
+			protected function load():void
+			{
+				loaderQueue.open();
+			}
+			
+			protected function queueItemComplete(event:MultiLoaderEvent):void
+			{
+				outputArea.text += (event.item as MXMLLoader).data+'\n\n\n';
+			}
+		]]>
+	</mx:Script>
+	
+	<loaders:MXMLLoaderQueue id="loaderQueue" itemComplete="queueItemComplete(event)">
+		<loaders:MXMLLoader id="globalConfig" url="flash-assets/xml/configuration/config_global.xml"/>
+		<loaders:MXMLLoader id="localeConfig" url="{'flash-assets/xml/configuration/locales/config_'+locale+'.xml'}" complete="locale='fr-fr'"/>
+		<loaders:MXMLLoader id="localeCopy" url="{'flash-assets/xml/copy/locales/copy_'+locale+'.xml'}"/>
+		<loaders:MXMLLoader id="structure" url="flash-assets/xml/structure/structure-unsubstituted.xml"/>
+	</loaders:MXMLLoaderQueue>
+	
+	<mx:HBox>
+		<mx:Button label="Load" click="load()"/>
+		<mx:TextArea id="outputArea" width="600" height="350"/>
+	</mx:HBox>
+</mx:Application>

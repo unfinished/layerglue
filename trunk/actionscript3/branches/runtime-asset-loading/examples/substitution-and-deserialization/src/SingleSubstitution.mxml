@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+	applicationComplete="applicationCompleteHandler()">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.vo.StructureRoot;
+			import com.client.project.maps.StructureDeserializationMap;
+			import com.layerglue.lib.base.io.xml.XMLDeserializer;
+			import com.layerglue.lib.base.substitution.ISubstitutionSource;
+			import com.layerglue.lib.base.substitution.sources.FlatXMLSubstitutionSource;
+			import com.layerglue.lib.base.substitution.XMLSubstitutor;
+			import com.layerglue.lib.base.loaders.XmlLoader;
+			
+			// Defining loaders
+			private var _unsubstitutedXMLoader:XmlLoader;
+			private var _copySourceXMLoader:XmlLoader;
+			
+			// Defining properties to hold XML
+			private var _unsubstitutedXML:XML;
+			private var _substitutedXML:XML;
+			private var _copySource:ISubstitutionSource;
+			
+			// The object that will contain the deserialized xml data
+			[Bindable]
+			public var structureRoot:StructureRoot;
+			
+			private function applicationCompleteHandler():void
+			{
+				// 1. Start loading the copy for the site
+				loadCopySourceXML();
+			}
+			
+			private function loadCopySourceXML():void
+			{
+				_copySourceXMLoader = new XmlLoader();
+				_copySourceXMLoader.addEventListener(Event.COMPLETE, copySourceXMLloadCompleteHandler);
+				_copySourceXMLoader.load(new URLRequest("_single_flat.xml"));
+			}
+			
+			private function copySourceXMLloadCompleteHandler(event:Event):void
+			{
+				// 2. Create a source for the substitutor passing in the flat xml and a name for each
+				//node containing copy - (see _single_flat.xml for a reference)
+				_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+				
+				// 3. Start loading the unsubstituted data to describe the site
+				loadUnsubstitutedXML();
+			}
+			
+			private function loadUnsubstitutedXML():void
+			{
+				_unsubstitutedXMLoader = new XmlLoader();
+				_unsubstitutedXMLoader.addEventListener(Event.COMPLETE, unsubstitutedXMLloadCompleteHandler);
+				_unsubstitutedXMLoader.load(new URLRequest("_structure_unsubstituted.xml"));
+			}
+			
+			private function unsubstitutedXMLloadCompleteHandler(event:Event):void
+			{
+				// 4. Store the unsubstituted xml for later
+				_unsubstitutedXML = (event.target as XmlLoader).typedData;
+				
+				// 5 Now that the unsubstituted xml and copy source is loaded, start the substitution
+				doSubstitution();
+			}
+			
+			private function doSubstitution():void
+			{
+				// 6. Set up the substitutor specifying the opening and closing delimeter
+				var substitutor:XMLSubstitutor = new XMLSubstitutor("@", "@");
+				
+				// 7. Create a substituted xml from the unsubstituted version and the copy source
+				_substitutedXML = substitutor.process(_unsubstitutedXML, _copySource);
+				
+				// 8. Now the xml has been substituted, deserialize it
+				doDeserialization();
+			}
+			
+			private function doDeserialization():void
+			{
+				// 9. Create a new deserializer
+				var deserializer:XMLDeserializer = new XMLDeserializer();
+				
+				// 10. Give the deserializer a map to describe which XML nodes translate to which classes
+				deserializer.map = new StructureDeserializationMap();
+				
+				// 11. Deserilize the xml into an object and store the result in structureRoot
+				structureRoot = deserializer.deserialize(_substitutedXML);
+				
+				// ***Set a breakpoint here to view the deserialized 'structureRoot' property***
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
+	<mx:HBox>
+		<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
+		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
+	</mx:HBox>
+	
+</mx:Application>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+	applicationComplete="applicationCompleteHandler()">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.maps.StructureDeserializationMap;
+			import com.layerglue.lib.base.io.xml.XMLDeserializer;
+			import com.client.project.vo.StructureRoot;
+			import com.layerglue.lib.base.substitution.sources.MultiSubstitutionSource;
+			import com.layerglue.lib.base.substitution.sources.FlatXMLSubstitutionSource;
+			import com.layerglue.lib.base.substitution.ISubstitutionSource;
+			import com.layerglue.lib.base.substitution.sources.ExcelSubstitutionSource;
+			import com.layerglue.lib.base.substitution.XMLSubstitutor;
+			import com.layerglue.lib.base.loaders.XmlLoader;
+			
+			//Defining loaders
+			private var _unsubstitutedXMLoader:XmlLoader;
+			private var _copySourceXMLoader:XmlLoader;
+			
+			//Defining properties to hold XML
+			private var _unsubstitutedXML:XML;
+			private var _substitutedXML:XML;
+			private var _copySource:ISubstitutionSource;
+			private var _configSource:ISubstitutionSource;
+			
+			// The object that will contain the deserialized xml data
+			[Bindable]
+			public var structureRoot:StructureRoot;
+			
+			private function applicationCompleteHandler():void
+			{
+				// 1. Start loading the configuration details for the site
+				loadConfigSourceXML();
+			}
+			
+			private function loadConfigSourceXML():void
+			{
+				_copySourceXMLoader = new XmlLoader();
+				_copySourceXMLoader.addEventListener(Event.COMPLETE, configSourceXMLloadCompleteHandler);
+				
+				_copySourceXMLoader.load(new URLRequest("_multi_flat_config.xml"));
+			}
+			
+			private function configSourceXMLloadCompleteHandler(event:Event):void
+			{
+				// 2. Create one of the sources for the substitutor passing in the flat xml and a
+				//name for each node containing copy - (see _multi_flat_config.xml for a reference)
+				_configSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+				
+				loadCopySourceXML();
+			}
+			
+			private function loadCopySourceXML():void
+			{
+				_copySourceXMLoader = new XmlLoader();
+				_copySourceXMLoader.addEventListener(Event.COMPLETE, copySourceXMLloadCompleteHandler);
+				
+				// 3 Start loading the copy for the site
+				_copySourceXMLoader.load(new URLRequest("_multi_excel_copy.xml"));
+			}
+			
+			private function copySourceXMLloadCompleteHandler(event:Event):void
+			{
+				// 4. Create a source for the subsitutor passing in the excel xml and references for
+				// the index of the key column, the value column, the ignoreFlag columm, and the
+				// ignoreFlag value
+				_copySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 4);
+				
+				// 5. Load in the unsubstituted data to describe the site's structure
+				loadUnsubstitutedXML();
+			}
+			
+			private function loadUnsubstitutedXML():void
+			{
+				_unsubstitutedXMLoader = new XmlLoader();
+				_unsubstitutedXMLoader.addEventListener(Event.COMPLETE, unsubstitutedXMLloadCompleteHandler);
+				_unsubstitutedXMLoader.load(new URLRequest("_structure_unsubstituted.xml"));
+			}
+			
+			private function unsubstitutedXMLloadCompleteHandler(event:Event):void
+			{
+				// 6. Store the site's structural data
+				_unsubstitutedXML = (event.target as XmlLoader).typedData;
+				
+				// 7. Now the configuration, copy and unsubstituted data are all loaded, start the
+				// substitution
+				doSubstitution();
+			}
+			
+			private function doSubstitution():void
+			{
+				// 8. Set up the substitutor with a delimeter config specifying that the opening and
+				// closing delimeter are both the @ symbol (These can be anything and, but in this
+				// example we are using @ for both)
+				var substitutor:XMLSubstitutor = new XMLSubstitutor("@", "@");
+				
+				// 9. Create a multi substitution source from the config and copy sources. Note that
+				// the sources can be of different types  as long as they implement the
+				// ISubstitutionSource interface
+				var multiSource:MultiSubstitutionSource = new MultiSubstitutionSource();
+				multiSource.addItem(_configSource);
+				multiSource.addItem(_copySource);
+				
+				// 10. Process the unsubstituted xml and Multisubstitution source with the
+				// substitutor to create the substituted xml
+				_substitutedXML = substitutor.process(_unsubstitutedXML, multiSource);
+				
+				// 11. Now the substitution is done, start the deserialization
+				doDeserialization();
+			}
+			
+			private function doDeserialization():void
+			{
+				// 12. Create a new deserializer instance
+				var deserializer:XMLDeserializer = new XMLDeserializer();
+				
+				// 13. Give the the deserializer a map telling it how to translate nodes into classes
+				deserializer.map = new StructureDeserializationMap();
+				
+				// 14. Deserilize the xml into an object and store the result in structureRoot
+				structureRoot = deserializer.deserialize(_substitutedXML);
+				
+				// ***Set a breakpoint here to view the deserialized 'structureRoot' property***
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<!-- The Tree and DataGrid controls are good for exploring object heirarchies -->
+	<mx:HBox>
+		<mx:Tree id="projectTree" dataProvider="{structureRoot}" width="220" height="280"/>
+		<mx:DataGrid dataProvider="{projectTree.selectedItem}" width="580" height="280"/>
+	</mx:HBox>
+</mx:Application>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:flexui="flexunit.flexui.*"
+	layout="absolute"
+	applicationComplete="applicationCompleteHandler()">
+	
+	<mx:Script>
+		<![CDATA[
+			import tests.com.layerglue.lib.collections.ArrayExtTest;
+			import tests.com.layerglue.lib.collections.FlexCollectionTest;
+			import tests.com.layerglue.lib.collections.CollectionTest;
+			import com.layerglue.lib.application.structure.StructuralData;
+			import flexunit.framework.TestCase;
+			import tests.StructuralDataTest;
+			import flexunit.framework.TestSuite;
+			
+			private function applicationCompleteHandler():void
+			{
+				var testSuite:TestSuite = new TestSuite();
+				testSuite.addTest( StructuralDataTest.suite() );
+				testSuite.addTestSuite( CollectionTest );
+				testSuite.addTestSuite( ArrayExtTest );
+				testSuite.addTestSuite( FlexCollectionTest );
+				
+				testRunner.test = testSuite;
+				testRunner.startTest();
+			}
+		]]>
+	</mx:Script>
+	
+	<flexui:TestRunnerBase id="testRunner" width="100%" height="100%"/>
+		
+</mx:Application>

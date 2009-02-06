@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:NavigableCanvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:views="com.layerglue.flex3.base.views.*"
+	xmlns:controls="com.layerglue.flex3.base.controls.*"
+	xmlns:controls1="com.client.project.controls.*"
+	xmlns:controls2="com.client.project.view.controls.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.model.structure.Artist;
+			import com.client.project.model.structure.ArtistImage;
+			import com.layerglue.lib.application.structure.IStructuralData;
+			import com.layerglue.lib.application.command.requests.StructuralDataNavigationRequest;
+						
+			private function incrementThumbMenu():void
+			{
+				if(canIncrementMenu)
+				{
+					thumbRepeater.startingIndex += thumbRepeater.count;
+					dispatchEvent(new Event(Event.CHANGE));
+				}
+			}
+			
+			private function decrementThumbMenu():void
+			{
+				if(canDecrementMenu)
+				{
+					thumbRepeater.startingIndex -= thumbRepeater.count;
+					dispatchEvent(new Event(Event.CHANGE));
+				}
+			}
+			
+			[Bindable (event="change")]
+			public function get canIncrementMenu():Boolean
+			{
+				return (thumbRepeater.dataProvider.length - thumbRepeater.startingIndex) > thumbRepeater.count;
+			}
+			
+			[Bindable (event="change")]
+			public function get canDecrementMenu():Boolean
+			{
+				return thumbRepeater.startingIndex > 0;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Box id="childViewContainer" width="900" height="520"/>
+	
+	<mx:Canvas
+		width="900" height="92"
+		bottom="0"
+		styleName="artistMenuBackground">
+		<mx:Button
+			left="18"
+			verticalCenter="0"
+			id="menuLeftButton"
+			enabled="{canDecrementMenu}"
+			buttonMode="{canDecrementMenu}"
+			click="decrementThumbMenu()"
+			styleName="thumbMenuArrowLeft"/>
+		<mx:HBox left="48" verticalCenter="0" horizontalGap="12">
+			<mx:Repeater id="thumbRepeater" dataProvider="{structuralData.children}" count="8">
+				<controls2:Thumbnail
+					id="thumb"
+					width="90"
+					height="52"
+					source="{ArtistImage(thumbRepeater.currentItem).smallImagePath}"
+					selected="{thumbRepeater.currentItem.selected}"
+					click="(new StructuralDataNavigationRequest((event.currentTarget as Thumbnail).getRepeaterItem() as IStructuralData)).dispatch()"/>
+			</mx:Repeater>
+		</mx:HBox>
+		<mx:Button
+			right="18"
+			verticalCenter="0"
+			id="menuRightButton"
+			enabled="{canIncrementMenu}"
+			buttonMode="{canIncrementMenu}"
+			click="incrementThumbMenu()"
+			styleName="thumbMenuArrowRight" />
+	</mx:Canvas>
+	
+</views:NavigableCanvas>
