@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+	<item id="site.title"><![CDATA[LayerGlue Gallery]]></item>
+	<item id="site.copyright"><![CDATA[© 2008 LayerGlue]]></item>
+	
+	<item id="home.title"><![CDATA[Home]]></item>
+	<item id="home.imageUrl"><![CDATA[flash-assets/images/home-banner.jpg]]></item>
+	<item id="home.newsTitle"><![CDATA[News]]></item>
+	<item id="home.newsBody"><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean tellus. Pellentesque nisl nunc, varius non, egestas non, egestas non, ligula. Mauris neque libero, pulvinar in, posuere quis, consequat nec, arcu.<br/><br/>Phasellus vestibulum, tortor nec interdum lacinia, ante nulla auctor ligula, at facilisis purus ipsum commodo ante.]]></item>
+	<item id="home.featuredArtistTitle"><![CDATA[Featured Artist]]></item>
+	<item id="home.featuredArtistBody"><![CDATA[Donec mollis, mi eu fermentum consequat, lorem arcu gravida neque, sed pellentesque mauris purus mi.<br/><br/>Dapibus vulputate, enim sagittis lobortis consectetuer, lacus velit consectetuer dolor, ut molestie quam justo at nibh. Morbi venenatis. Maecenas sed velit sit amet metus pharetra rutrum.]]></item>
+	<item id="home.somethingTitle"><![CDATA[Something Interesting]]></item>
+	<item id="home.somethingBody"><![CDATA[vinar vel, ultricies vitae, leo. Donec mollis, mi eu fermentum consequat, lorem arcu gravida neque, sed pellentesque. Phasellus nec mauris quis ipsum adipiscing luctus. Duis id diam nec nulla tristique.<br/><br/> Proin magna tortor, gravida auctor, fringilla eu, viverra at, ligula. Pellentesque tincidunt.]]></item>
+	
+	<item id="gallery.title"><![CDATA[Gallery]]></item>
+	
+	<item id="gallery.artist01.title"><![CDATA[Jamie Copeland]]></item>
+	<item id="gallery.artist01.uriNode"><![CDATA[jamiecopeland]]></item>
+	
+	<item id="gallery.artist01.image01.title"><![CDATA[One]]></item>
+	<item id="gallery.artist01.image02.title"><![CDATA[Two]]></item>
+	<item id="gallery.artist01.image03.title"><![CDATA[Three]]></item>
+	<item id="gallery.artist01.image04.title"><![CDATA[Four]]></item>
+	<item id="gallery.artist01.image05.title"><![CDATA[Five]]></item>
+	<item id="gallery.artist01.image06.title"><![CDATA[Six]]></item>
+	<item id="gallery.artist01.image07.title"><![CDATA[Seven]]></item>
+	<item id="gallery.artist01.image08.title"><![CDATA[Eight]]></item>
+	
+	<item id="gallery.artist01.image01.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-01]]></item>
+	<item id="gallery.artist01.image02.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-02]]></item>
+	<item id="gallery.artist01.image03.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-03]]></item>
+	<item id="gallery.artist01.image04.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-04]]></item>
+	<item id="gallery.artist01.image05.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-05]]></item>
+	<item id="gallery.artist01.image06.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-06]]></item>
+	<item id="gallery.artist01.image07.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-07]]></item>
+	<item id="gallery.artist01.image08.url"><![CDATA[flash-assets/images/artists/jamie-copeland/jamie-08]]></item>
+	
+	<item id="gallery.artist02.title"><![CDATA[Matt Sweetman]]></item>
+	<item id="gallery.artist02.uriNode"><![CDATA[mattsweetman]]></item>
+	
+	<item id="gallery.artist02.image01.title"><![CDATA[One]]></item>
+	<item id="gallery.artist02.image02.title"><![CDATA[Two]]></item>
+	<item id="gallery.artist02.image03.title"><![CDATA[Three]]></item>
+	<item id="gallery.artist02.image04.title"><![CDATA[Four]]></item>
+	<item id="gallery.artist02.image05.title"><![CDATA[Five]]></item>
+	<item id="gallery.artist02.image06.title"><![CDATA[Six]]></item>
+	<item id="gallery.artist02.image07.title"><![CDATA[Seven]]></item>
+	<item id="gallery.artist02.image08.title"><![CDATA[Eight]]></item>
+	
+	<item id="gallery.artist02.image01.url"><![CDATA[flash-assets/images/artists/matt-sweetman/01]]></item>
+	<item id="gallery.artist02.image02.url"><![CDATA[flash-assets/images/artists/matt-sweetman/02]]></item>
+	<item id="gallery.artist02.image03.url"><![CDATA[flash-assets/images/artists/matt-sweetman/03]]></item>
+	<item id="gallery.artist02.image04.url"><![CDATA[flash-assets/images/artists/matt-sweetman/04]]></item>
+	<item id="gallery.artist02.image05.url"><![CDATA[flash-assets/images/artists/matt-sweetman/05]]></item>
+	<item id="gallery.artist02.image06.url"><![CDATA[flash-assets/images/artists/matt-sweetman/06]]></item>
+	<item id="gallery.artist02.image07.url"><![CDATA[flash-assets/images/artists/matt-sweetman/07]]></item>
+	<item id="gallery.artist02.image08.url"><![CDATA[flash-assets/images/artists/matt-sweetman/08]]></item>
+	
+	<item id="contact.title"><![CDATA[Contact]]></item>
+	<item id="contact.imageUrl"><![CDATA[flash-assets/images/contact-background.jpg]]></item>
+	<item id="contact.address"><![CDATA[LayerGlue Gallery<br/>123 Leafy Street<br/>London<br/>LG1 3GL<br/>United Kingdom<br/><br/>+44 (0) 1234 5678]]></item>
+	<item id="contact.email"><![CDATA[info@layerglue.com]]></item>
+	
+	<item id="footer.copyright"><![CDATA[© 2008 Layer Glue]]></item>
+</xml>

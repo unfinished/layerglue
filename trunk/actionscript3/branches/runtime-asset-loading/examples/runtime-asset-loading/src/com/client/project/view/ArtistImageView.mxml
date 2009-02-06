@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:NavigableCanvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:views="com.layerglue.flex3.base.views.*"
+	xmlns:controls="com.layerglue.flex3.base.controls.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.client.project.model.structure.ArtistImage;
+		]]>
+	</mx:Script>
+	
+	<controls:ThrobberImage source="{ArtistImage(structuralData).largeImagePath}" />
+	
+</views:NavigableCanvas>
