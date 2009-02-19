@@ -1,19 +1,30 @@
 package com.layerglue.font
 {
+	import com.layerglue.flash.loaders.DisplayLoader;
+	
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
-	import flash.text.Font;
 	
 	public class FontManager extends EventDispatcher
 	{
+		private static var _instance:FontManager;
+		
+		private var _loader:DisplayLoader;
+		
+		public function get loader():Loader
+		{
+			return _loader;
+		}
+		
 		public function FontManager(enforcer:SingletonEnforcer)
 		{
 			super();
+			
+			_loader = new DisplayLoader();
+			_loader.addEventListener(Event.COMPLETE, loadCompleteHandler, false, 0, true);
 		}
-		
-		private static var _instance:FontManager;
 		
 		public static function getInstance():FontManager
 		{
@@ -24,16 +35,9 @@ package com.layerglue.font
 			return _instance;
 		}
 		
-		public function loadCompiledFont(url:String):void
+		private function loadCompleteHandler(event:Event):void
 		{
-			var loader:Loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, compiledFontLoaded, false, 0, true);
-			loader.load(new URLRequest(url));
-		}
-		
-		private function compiledFontLoaded(event:Event):void
-		{
-			dispatchEvent(event);
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 	}
 }
