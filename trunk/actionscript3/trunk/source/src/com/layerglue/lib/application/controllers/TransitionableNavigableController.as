@@ -30,7 +30,9 @@ package com.layerglue.lib.application.controllers
 			addView();
 			startTransitionIn();
 		}
+		/*
 		
+		TODO THIS FUNCTIONALITY NEEDS TO BE REWRITTEN TAKING INTO ACCOUNT THE NEW STRING STYLE NAVIGATIONPACKETS INSTEAD OF THE OLD STRAND STYLE.
 		override public function unnavigate():void
 		{
 			trace("TransitionableNavigableController.unnavigate: " + this + " id=" + structuralData.id);
@@ -52,7 +54,7 @@ package com.layerglue.lib.application.controllers
 				}
 			}
 		}
-		
+		 */
 		protected function startTransitionIn():void
 		{
 			trace("TransitionableNavigableController.startTransitionIn");
