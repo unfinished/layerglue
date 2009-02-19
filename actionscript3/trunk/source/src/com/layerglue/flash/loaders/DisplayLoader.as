@@ -1,21 +1,20 @@
-package com.layerglue.lib.base.loaders
+package com.layerglue.flash.loaders
 {
-	import com.layerglue.lib.base.core.IDestroyable;
 	import com.layerglue.lib.base.events.DestroyEvent;
 	import com.layerglue.lib.base.events.EventListenerCollection;
+	import com.layerglue.lib.base.loaders.IMeasurableLoader;
 	
+	import flash.display.Loader;
 	import flash.events.Event;
-	import flash.net.URLLoader;
+	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
-	
-	/**
-	 * An abstract base class on which to base loaders providing
-	 */
-	public class AbstractLoader extends URLLoader implements ISingleLoader, IDestroyable
+	import flash.system.LoaderContext;
+
+	public class DisplayLoader extends Loader implements IMeasurableLoader
 	{
 		protected var _listenerCollection:EventListenerCollection;
 		
-		public function AbstractLoader(request:URLRequest=null)
+		public function DisplayLoader(request:URLRequest=null)
 		{
 			super();
 			
@@ -47,42 +46,34 @@ package com.layerglue.lib.base.loaders
 		[Bindable(event="open", event="complete", event="progress")]
 		public function getBytesLoaded():uint
 		{
-			return bytesLoaded;
+			return contentLoaderInfo.bytesLoaded;
 		}
 		
 		[Bindable(event="open", event="complete", event="progress")]
 		public function getBytesTotal():uint
 		{
-			return bytesTotal;
+			return contentLoaderInfo.bytesTotal;
 		}
 		
-		[Bindable(event="open", event="complete")]
-		public function getData():*
+		override public function load(request:URLRequest, context:LoaderContext=null):void
 		{
-			return data;
-		}
-		
-		[Bindable(event="open", event="complete")]
-		public function getDataFormat():String
-		{
-			return dataFormat;
+			_isComplete = false;
+			super.load(request, context);
 		}
 		
 		/**
-		 * Starts the download of the specified URLRequest.
+		 * @inheritDoc
 		 */
-		override public function load(request:URLRequest):void
+		public function open():void
 		{
-			_request = request;
-			_isComplete = false;
-			super.load(request);
-		}
-		
-		protected function completeHandler(event:Event):void
-		{
-			_isComplete = true;
-			
-			//This method should be overriden in subclasses for dealing with incoming data - casting etc
+			if(_request)
+			{
+				super.load(request);
+			}
+			else
+			{
+				throw new Error("Tried to open a load without a URLRequest being set.");
+			}
 		}
 		
 		/**
@@ -96,19 +87,25 @@ package com.layerglue.lib.base.loaders
 			dispatchEvent(new Event(Event.CLOSE));
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
-		public function open():void
+		private function addListeners():void
 		{
-			if(request)
-			{
-				super.load(request);
-			}
-			else
-			{
-				throw new Error("Tried to open a load without a URLRequest being set.");
-			}
+			_listenerCollection.createListener(contentLoaderInfo, ProgressEvent.PROGRESS, progressHandler);
+			_listenerCollection.createListener(contentLoaderInfo, Event.COMPLETE, completeHandler);
+		}
+		
+		private function removeListeners():void
+		{
+			_listenerCollection.removeAll();
+		}
+		
+		private function progressHandler(event:ProgressEvent):void
+		{
+			dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS));
+		}
+		
+		private function completeHandler(event:Event):void
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		/**
@@ -119,16 +116,6 @@ package com.layerglue.lib.base.loaders
 			close();
 			removeListeners();
 			dispatchEvent(new DestroyEvent(DestroyEvent.DESTROY));
-		}
-		
-		protected function addListeners():void
-		{
-			_listenerCollection.createListener(this, Event.COMPLETE, completeHandler);
-		}
-		
-		protected function removeListeners():void
-		{
-			_listenerCollection.removeAll();
 		}
 	}
 }
