@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><!--ant-->
+
+<project name="client.project ant tasks" basedir=".">
+
+	<property file="user.properties" />
+	<property file="project.properties" />
+
+	<!-- SDK properties ======================================================================== -->
+	
+	<condition property="mxmlc" value="${FLEX_HOME}/bin/mxmlc" else="${FLEX_HOME}/bin/mxmlc.exe">
+		<os family="mac"/>
+	</condition>
+	
+	<condition property="fcsh" value="${FLEX_HOME}/bin/fsch" else="${FLEX_HOME}/bin/fsch.exe">
+		<os family="mac"/>
+	</condition>
+	
+	<condition property="asdoc" value="${FLEX_HOME}/bin/asdoc" else="${FLEX_HOME}/bin/asdoc.exe">
+		<os family="mac"/>
+	</condition>
+	
+	<!-- Debug targets ========================================================================= -->
+	
+	<target name="_debug_refresh_bin"
+		depends="	debug_delete_contents,
+					debug_copy_assets,
+					debug_compile_regional_font_western" />
+	
+	<target name="debug_delete_contents">
+		<delete includeemptydirs="true">
+			<fileset dir="${bindebug.dir}" includes="**/*" excludes="Main.swf"/>
+		</delete>
+	</target>
+	
+	<target name="debug_copy_assets"  description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-debug">
+		<copy todir="${bindebug.dir}">
+			<fileset dir="${runtimeassets.dir}">
+				<exclude name="**/_svn/**"/>
+				<exclude name="**/.svn/**"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="debug_compile_regional_font_western">
+		<exec executable="${mxmlc}" failonerror="true">
+			<arg line="-output ${bindebug.dir}/flash-assets/fonts/Western.swf"/>
+			<arg line="${compiledassets.dir}/fonts/Western.as"/>
+		</exec>
+	</target>	
+			
+	<!-- Release targets ======================================================================= -->
+	
+	<target name="_release_refresh_bin"
+		depends="	release_delete_assets,
+					release_copy_assets,
+					release_compile_regional_css_western" />
+		
+	<target name="release_delete_assets">
+		<delete includeemptydirs="true">
+			<fileset dir="${binrelease.dir}" includes="**/*"/>
+		</delete>
+	</target>
+	
+	<target name="release_copy_assets" description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-release">
+		<copy todir="${binrelease.dir}">
+			<fileset dir="${runtimeassets.dir}">
+				<exclude name="**/_svn/**"/>
+				<exclude name="**/.svn/**"/>
+			</fileset>	
+		</copy>
+	</target>
+	
+	<target name="release_compile_regional_css_western">
+		<exec executable="${mxmlc}" failonerror="true">
+			<arg line="-output ${binrelease.dir}/flash-assets/compiled-css/regions/western.swf"/>
+			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
+		</exec>
+	</target>
+	
+	<target name="createdocs">
+		<exec executable="${asdoc}" failonerror="true">
+			<arg line="-o ${docs.dir}" />
+			<arg line="-doc-sources ${src.dir}" />
+		</exec>
+	</target>
+	
+</project>
