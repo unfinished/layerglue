@@ -3,12 +3,12 @@ package com.client.project.io
 	import com.client.project.locators.ModelLocator;
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.layerglue.flash.loaders.DisplayLoader;
+	import com.layerglue.flash.preloader.FlashPreloadManager;
 	import com.layerglue.lib.application.structure.StructuralData;
 	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.LoadManagerToken;
-	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.URLLoaderExt;
 	import com.layerglue.lib.base.loaders.XmlLoader;
@@ -62,7 +62,8 @@ package com.client.project.io
 		{
 			super();
 			
-			_loader = new ProportionalLoadManager()//PreloadManager.getInstance().loadManager;
+			var p:FlashPreloadManager = FlashPreloadManager.getInstance();
+			_loader = FlashPreloadManager.getInstance().loadManager;
 			 
 			_loadManagerListener = new EventListener(
 						_loader,
@@ -102,9 +103,6 @@ package com.client.project.io
 				localeConfigPath = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".csv";
 				localeCopyPath = "flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".csv";
 			}
-			
-			trace(localeConfigPath);
-			trace(localeCopyPath);
 			
 			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),

@@ -1,8 +1,10 @@
 package
 {
+	
 	import com.client.project.io.InitialLoadManager;
 	import com.layerglue.components.LGButton;
 	import com.layerglue.components.LGLabel;
+	import com.layerglue.flash.applications.IPreloadableFlashApplication;
 	import com.layerglue.flash.loaders.DisplayLoader;
 	import com.layerglue.font.FontManager;
 	import com.layerglue.lib.base.io.FlashVars;
@@ -10,6 +12,7 @@ package
 	import fl.controls.Button;
 	import fl.managers.StyleManager;
 	
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -17,8 +20,10 @@ package
 	import flash.text.AntiAliasType;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
-
-	public class Main extends Sprite
+	
+	[Frame(factoryClass="com.client.project.preloader.CustomPreloaderDisplay")]
+	
+	public class Main extends Sprite implements IPreloadableFlashApplication
 	{
 		public var fontManager:FontManager;
 		
@@ -30,30 +35,38 @@ package
 		{
 			super();
 			
+			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+		}
+		
+		private function addedToStageHandler(event:Event):void
+		{
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			
-			FlashVars.initialize(stage);
-			
+			createChildren();
+		}
+		
+		public function createChildren():void
+		{
+			drawStuff();
+		}
+		
+		public function startInitialLoad():void
+		{
 			_initialLoadManager = new InitialLoadManager();
 			_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadManagerComplete);
 			_initialLoadManager.start();
-			
 		}
 		
 		private function initialLoadManagerComplete(event:Event):void
 		{
-			trace("initialLoadManager load complete");
-			/* 
-			graphics.beginFill(Number(_initialLoadManager.localeConfigSource.getValueByReference("backgroundColor")), 1);
-			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			graphics.endFill(); */
 			
-			drawStuff();
 		}
 		
 		private function drawStuff():void
 		{
+			trace("Main.drawStuff: " + stage);
+			
 			/* 
 			var tf:TextFormat = new TextFormat("RegionalFont", 12, 0x333333, false);
 			
