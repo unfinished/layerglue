@@ -45,10 +45,10 @@ package
 		private function initialLoadManagerComplete(event:Event):void
 		{
 			trace("initialLoadManager load complete");
-			
+			/* 
 			graphics.beginFill(Number(_initialLoadManager.localeConfigSource.getValueByReference("backgroundColor")), 1);
 			graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			graphics.endFill();
+			graphics.endFill(); */
 			
 			drawStuff();
 		}
@@ -83,9 +83,9 @@ package
 			l.y = 55;
 			addChild(l);
 						
-			StyleManager.setStyle( "textFormat", new TextFormat("RegionalFont", 100, 0x333333, false) );
+			StyleManager.setStyle( "textFormat", new TextFormat("RegionalFont", 12, 0x333333, false) );
 			StyleManager.setStyle( "antiAliasType", AntiAliasType.ADVANCED);
-			StyleManager.setStyle( "embedFonts", true );
+			StyleManager.setStyle( "embedFonts", false );
 			
 			
 			graphics.beginFill(Number(_initialLoadManager.localeConfigSource.getValueByReference("squareColor")), 1);

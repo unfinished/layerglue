@@ -87,6 +87,25 @@ package com.client.project.io
 			var modelLocator:ModelLocator = ModelLocator.getInstance();
 			modelLocator.locale = new Locale(FlashVars.getInstance().getValue("locale"));
 			
+			var useDyamicData:Boolean = FlashVars.getInstance().getValue("useDynamicData") == "true";
+			
+			var localeConfigPath:String;
+			var localeCopyPath:String;
+			
+			if(useDyamicData)
+			{
+				localeConfigPath = "http://spreadsheets.google.com/fm?key=pv-" + FlashVars.getInstance().getValue("localeConfigId") + "&hl=en&fmcmd=5&gid=0"
+				localeCopyPath = "http://spreadsheets.google.com/fm?key=pv-" + FlashVars.getInstance().getValue("localeCopyId") + "&hl=en&fmcmd=5&gid=0"
+			}
+			else
+			{
+				localeConfigPath = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".csv";
+				localeCopyPath = "flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".csv";
+			}
+			
+			trace(localeConfigPath);
+			trace(localeCopyPath);
+			
 			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
 					globalConfigCompleteHandler,
@@ -94,15 +113,13 @@ package com.client.project.io
 					0.0025);
 			
 			var localeConfigToken:LoadManagerToken = new LoadManagerToken(
-					/*new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml")),*/
-					new URLLoaderExt(new URLRequest("http://spreadsheets.google.com/fm?key=pv-TkmDxcvYCeGY6tqZBBKw&hl=en&fmcmd=5&gid=0")),
+					new URLLoaderExt(new URLRequest(localeConfigPath)),
 					localeConfigCompleteHandler,
 					errorHandler,
 					0.0025);
 			
 			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
-					/*new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),*/
-					new URLLoaderExt(new URLRequest("http://spreadsheets.google.com/fm?key=pv-TkmDxcvYClgKdWXFlBAQ&fmcmd=5&gid=0")),
+					new URLLoaderExt(new URLRequest(localeCopyPath)),
 					localeCopyCompleteHandler,
 					errorHandler,
 					0.0025);

@@ -1,0 +1,9 @@
+#,Tag id,Value
+,region,eastern
+,embedFonts,FALSE
+
+,backgroundColor,0x000000
+,squareColor,0x00FF00
+,squareWidth,100
+,squareHeight,100
+,squareCornerRadius,60
