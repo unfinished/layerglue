@@ -17,7 +17,6 @@ package com.layerglue.lib.base.loaders
 	public class RootLoaderProxy extends EventDispatcher implements IMeasurableLoader
 	{
 		private var _rootLoaderInfo:LoaderInfo;
-		private var _eventListenerCollection:EventListenerCollection;
 		
 		public function RootLoaderProxy(rootLoaderInfo:LoaderInfo)
 		{
@@ -27,9 +26,8 @@ package com.layerglue.lib.base.loaders
 			
 			_isComplete = _rootLoaderInfo.bytesLoaded > 0 &&  _rootLoaderInfo.bytesLoaded == _rootLoaderInfo.bytesTotal;
 			
-			_eventListenerCollection = new EventListenerCollection();
-			_eventListenerCollection.createListener(_rootLoaderInfo, ProgressEvent.PROGRESS, progressHandler);
-			_eventListenerCollection.createListener(_rootLoaderInfo, Event.COMPLETE, completeHandler);
+			_rootLoaderInfo.addEventListener(ProgressEvent.PROGRESS, progressHandler, false, 0, true);
+			_rootLoaderInfo.addEventListener(Event.COMPLETE, completeHandler, false, 0, true);
 		}
 		
 		private function progressHandler(event:ProgressEvent):void
