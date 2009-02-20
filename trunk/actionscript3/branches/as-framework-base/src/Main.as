@@ -7,6 +7,7 @@ package
 	import com.layerglue.font.FontManager;
 	import com.layerglue.lib.base.io.FlashVars;
 	
+	import fl.controls.Button;
 	import fl.managers.StyleManager;
 	
 	import flash.display.Sprite;
@@ -14,8 +15,6 @@ package
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.text.AntiAliasType;
-	import flash.text.Font;
-	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 
@@ -69,23 +68,28 @@ package
 			addChild(t);
 			
 			var a:Array = Font.enumerateFonts();
-			 
-			var b:LGButton = new LGButton();
-			b.label = "My button with long txt";
-			b.y = 30;
-			addChild(b);
 			 */
 			
+			var b2:Button = new Button();
+			b2.label = "Default Flash Component";
+			b2.y = 30;
+			addChild(b2);
+			
+			var b:LGButton = new LGButton();
+			b.label = "Custom LayerGlue Component";
+			b.y = 60;
+			addChild(b);
+			
 			var l:LGLabel = new LGLabel();
-			//l.text = "My label";
+			l.text = "Custom LayerGlue Label";
 			l.autoSize = TextFieldAutoSize.LEFT;
 			l.htmlText = _initialLoadManager.structureRoot.title;
-			l.y = 55;
+			l.y = 5;
 			addChild(l);
 						
 			StyleManager.setStyle( "textFormat", new TextFormat("RegionalFont", 12, 0x333333, false) );
 			StyleManager.setStyle( "antiAliasType", AntiAliasType.ADVANCED);
-			StyleManager.setStyle( "embedFonts", false );
+			StyleManager.setStyle( "embedFonts", true );
 			
 			
 			graphics.beginFill(Number(_initialLoadManager.localeConfigSource.getValueByReference("squareColor")), 1);

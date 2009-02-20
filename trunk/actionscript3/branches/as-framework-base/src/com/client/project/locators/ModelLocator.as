@@ -3,7 +3,6 @@ package com.client.project.locators
 	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.localisation.Locale;
 	
-	[Bindable]
 	public class ModelLocator
 	{
 		private static var _instance:ModelLocator;
