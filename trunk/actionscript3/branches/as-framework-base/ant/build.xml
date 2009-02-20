@@ -49,18 +49,17 @@
 	</target>
 	
 	<target name="debug_compile_regional_font_eastern">
-			<exec executable="${mxmlc}" failonerror="true">
-				<arg line="-output ${bindebug.dir}/flash-assets/fonts/Eastern.swf"/>
-				<arg line="${compiledassets.dir}/font-definitions/Eastern.as"/>
-			</exec>
-		</target>
+		<exec executable="${mxmlc}" failonerror="true">
+			<arg line="-output ${bindebug.dir}/flash-assets/fonts/Eastern.swf"/>
+			<arg line="${compiledassets.dir}/font-definitions/Eastern.as"/>
+		</exec>
+	</target>
 			
 	<!-- Release targets ======================================================================= -->
 	
 	<target name="_release_refresh_bin"
 		depends="	release_delete_assets,
-					release_copy_assets,
-					release_compile_regional_css_western" />
+					release_copy_assets" />
 		
 	<target name="release_delete_assets">
 		<delete includeemptydirs="true">
@@ -77,10 +76,17 @@
 		</copy>
 	</target>
 	
-	<target name="release_compile_regional_css_western">
+	<target name="release_compile_regional_font_western">
 		<exec executable="${mxmlc}" failonerror="true">
-			<arg line="-output ${binrelease.dir}/flash-assets/compiled-css/regions/western.swf"/>
-			<arg line="${embeddedassets.dir}/css/regions/western.css"/>
+			<arg line="-output ${binrelease.dir}/flash-assets/fonts/Western.swf"/>
+			<arg line="${compiledassets.dir}/font-definitions/Western.as"/>
+		</exec>
+	</target>
+	
+	<target name="release_compile_regional_font_eastern">
+		<exec executable="${mxmlc}" failonerror="true">
+			<arg line="-output ${binrelease.dir}/flash-assets/fonts/Eastern.swf"/>
+			<arg line="${compiledassets.dir}/font-definitions/Eastern.as"/>
 		</exec>
 	</target>
 	
