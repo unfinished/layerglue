@@ -24,7 +24,8 @@
 	<target name="_debug_refresh_bin"
 		depends="	debug_delete_contents,
 					debug_copy_assets,
-					debug_compile_regional_font_western" />
+					debug_compile_regional_font_western,
+					debug_compile_regional_font_eastern" />
 	
 	<target name="debug_delete_contents">
 		<delete includeemptydirs="true">
@@ -59,7 +60,9 @@
 	
 	<target name="_release_refresh_bin"
 		depends="	release_delete_assets,
-					release_copy_assets" />
+					release_copy_assets,
+					release_compile_regional_font_western,
+					release_compile_regional_font_eastern" />
 		
 	<target name="release_delete_assets">
 		<delete includeemptydirs="true">
