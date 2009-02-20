@@ -12,8 +12,29 @@
         <script type="text/javascript" src="html-assets/js/layerglue.js"></script>
 
 		<script>
+			var useDynamicData = true;
 			var locale = getQueryVar("locale").slice(0, 5);
 			locale = locale.length > 0 ? locale : "en-gb";
+			
+			
+			switch(locale)
+			{
+				case "en-gb":
+					localeConfigId = "TkmDxcvYCeGY6tqZBBKw";
+					localeCopyId = "TkmDxcvYClgKdWXFlBAQ";
+				break;
+				
+				case "fr-fr":
+					localeConfigId = "TkmDxcvYCQFKk9Dm1bGQ";
+					localeCopyId = "TkmDxcvYAjoDhoedkKCQ";
+				break;
+				
+				case "zh-cn":
+					localeConfigId = "TkmDxcvYDXhue9swYsEg";
+					localeCopyId = "TkmDxcvYALlz9BFXVncQ";
+				break;
+			}
+			
 		</script>
 		
 	</head>
@@ -28,7 +49,10 @@
             var so = new SWFObject('Main.swf', 'website', '100%', '100%', '9', '#869ca7');
             so.useExpressInstall('html-assets/js/swfobject/expressinstall.swf');
 			so.addParam('menu', 'false');
+			so.addVariable("useDynamicData", useDynamicData);
 			so.addVariable("locale", locale);
+			so.addVariable("localeConfigId", localeConfigId);
+			so.addVariable("localeCopyId", localeCopyId);
 			
             so.write('content');
         // ]]>

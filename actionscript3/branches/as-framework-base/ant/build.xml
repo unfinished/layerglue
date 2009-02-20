@@ -46,7 +46,14 @@
 			<arg line="-output ${bindebug.dir}/flash-assets/fonts/Western.swf"/>
 			<arg line="${compiledassets.dir}/font-definitions/Western.as"/>
 		</exec>
-	</target>	
+	</target>
+	
+	<target name="debug_compile_regional_font_eastern">
+			<exec executable="${mxmlc}" failonerror="true">
+				<arg line="-output ${bindebug.dir}/flash-assets/fonts/Eastern.swf"/>
+				<arg line="${compiledassets.dir}/font-definitions/Eastern.as"/>
+			</exec>
+		</target>
 			
 	<!-- Release targets ======================================================================= -->
 	
