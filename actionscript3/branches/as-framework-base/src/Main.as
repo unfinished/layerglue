@@ -121,6 +121,9 @@ package
 			var b:Button = new Button();
 			b.label = "Custom LayerGlue Component";
 			//b.y = 60;
+			b.textField.autoSize = "left";
+			trace(b.textField.textWidth);
+			b.width = b.textField.textWidth;
 			box.addChild(b);
 			
 			var l:LGLabel = new LGLabel();
@@ -161,6 +164,8 @@ package
 		public function onLabelButtonClick(event:ComponentEvent):void
 		{
 			(box.getChildAt(0) as Button).label = "WooWoo";
+			
+			//trace((box.getChildAt(0) as Button).textField.textWidth);
 		}
 	}
 }
