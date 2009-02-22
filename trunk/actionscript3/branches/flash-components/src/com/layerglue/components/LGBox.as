@@ -75,6 +75,14 @@ package com.layerglue.components
 		
 		override protected function draw():void
 		{
+			trace("LGBox draw");
+			
+			// TODO: Validate all the children first?
+			// LGButton in autoSize mode should send a RESIZE event in label setter,
+			// or on LABEL_CHANGE event handler.
+			// This will capture both initial and subsequent label changes.
+			// Then we must ensure LGButton renders FIRST, and LGBox afterwards
+			
 			if (isInvalid(InvalidationType.ALL))
 			{
 				positionChildren();
