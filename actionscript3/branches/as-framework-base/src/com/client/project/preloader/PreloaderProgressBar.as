@@ -7,6 +7,9 @@ package com.client.project.preloader
 		public function PreloaderProgressBar()
 		{
 			super();
+			
+			createChildren();
+			draw();
 		}
 		
 		protected function createChildren():void
@@ -16,8 +19,12 @@ package com.client.project.preloader
 		
 		protected function draw():void
 		{
-			
+			graphics.beginFill(0x0000FF);
+			graphics.drawRect(100, 100, 200, 30);
+			graphics.endFill();
 		}
+		
+		
 		
 		
 	}
