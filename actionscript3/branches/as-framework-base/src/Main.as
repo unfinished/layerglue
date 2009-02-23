@@ -36,12 +36,10 @@ package
 		public function Main()
 		{
 			super();
-			trace("Main");
 		}
 		
 		public function show(preloaderDisplay:DisplayObject):void
 		{
-			trace("Show");
 			if(preloaderDisplay.parent && preloaderDisplay.parent.contains(preloaderDisplay))
 			{
 				preloaderDisplay.parent.removeChild(preloaderDisplay);
