@@ -13,10 +13,8 @@ package
 	import fl.events.ComponentEvent;
 	import fl.managers.StyleManager;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
-	import flash.events.Event;
 	import flash.text.AntiAliasType;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
@@ -36,18 +34,15 @@ package
 		public function Main()
 		{
 			super();
-			
-			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
 		
-		private function addedToStageHandler(event:Event):void
+		public function show(preloaderDisplay:DisplayObject):void
 		{
+			if(preloaderDisplay.parent && preloaderDisplay.parent.contains(preloaderDisplay))
+			{
+				preloaderDisplay.parent.removeChild(preloaderDisplay);
+			}
 			
-		}
-		
-		public function show():void
-		{
-			trace("main.show");
 			createChildren();
 		}
 		
@@ -59,14 +54,7 @@ package
 		public function startInitialLoad():void
 		{
 			_initialLoadManager = new InitialLoadManager();
-			_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadManagerComplete);
 			_initialLoadManager.start();
-			
-		}
-		
-		private function initialLoadManagerComplete(event:Event):void
-		{
-			
 		}
 		
 		private function drawStuff():void
