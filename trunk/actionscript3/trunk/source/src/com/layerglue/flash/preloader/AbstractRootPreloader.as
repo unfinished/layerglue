@@ -11,9 +11,9 @@ package com.layerglue.flash.preloader
 	import flash.events.ProgressEvent;
 	import flash.utils.getDefinitionByName;
 
-	public class AbstractFlashPreloaderDisplay extends MovieClip implements IFlashPreloaderDisplay
+	public class AbstractRootPreloader extends MovieClip implements IRootPreloader
 	{
-		public function AbstractFlashPreloaderDisplay()
+		public function AbstractRootPreloader()
 		{
 			super();
 			
@@ -26,6 +26,7 @@ package com.layerglue.flash.preloader
 			stop();
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
+			FlashPreloadManager.getInstance().addEventListener(ProgressEvent.PROGRESS, loadProgressHandler, false, 0, true);
 			FlashPreloadManager.getInstance().addEventListener(PreloadManagerEvent.ROOT_LOAD_COMPLETE, rootLoadCompleteHandler, false, 0, true);
 			FlashPreloadManager.getInstance().addEventListener(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetLoadCompleteHandler, false, 0, true);
 		}
@@ -44,7 +45,12 @@ package com.layerglue.flash.preloader
 			}
 		}
 		
-		protected function rootLoadCompleteHandler(event:Event):void
+		protected function loadProgressHandler(event:ProgressEvent):void
+		{
+			//
+		}
+		
+		protected function rootLoadCompleteHandler(event:PreloadManagerEvent):void
 		{
 			startInitialAssetLoad();
 		}
@@ -66,6 +72,11 @@ package com.layerglue.flash.preloader
 			return 0.6;
 		}
 		
+		public function get minDisplayTime():Number
+		{
+			return 1000;
+		}
+		
 		public function get mainClassName():String
 		{
 			return "Main";
@@ -73,9 +84,8 @@ package com.layerglue.flash.preloader
 		
 		public function showMainApp():void
 		{
-			destroy();
-			
-			addChild(_mainMovie as DisplayObject);
+			addChildAt(_mainMovie as DisplayObject, 0);
+			_mainMovie.show();
 		}
 		
 		protected var _mainMovie:IPreloadableFlashApplication;
@@ -89,20 +99,15 @@ package com.layerglue.flash.preloader
 			if(mainClassReference)
 			{
 				_mainMovie = new mainClassReference();
+				
 				_mainMovie.startInitialLoad();
 			}
-		}
-		
-		protected function destroy():void
-		{
-			//Destroy preloader view stuff here. DO NOT do a parent.removeChild(this) as this is the root MovieClip
 		}
 		
 		protected function createChildren():void
 		{
 			
 		}
-		
 		
 	}
 }
