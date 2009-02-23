@@ -21,7 +21,7 @@ package
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
-	[Frame(factoryClass="com.client.project.preloader.CustomPreloaderDisplay")]
+	[Frame(factoryClass="com.client.project.preloader.CustomRootPreloader")]
 	
 	public class Main extends Sprite implements IPreloadableFlashApplication
 	{
@@ -42,9 +42,12 @@ package
 		
 		private function addedToStageHandler(event:Event):void
 		{
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.align = StageAlign.TOP_LEFT;
 			
+		}
+		
+		public function show():void
+		{
+			trace("main.show");
 			createChildren();
 		}
 		
@@ -58,6 +61,7 @@ package
 			_initialLoadManager = new InitialLoadManager();
 			_initialLoadManager.addEventListener(Event.COMPLETE, initialLoadManagerComplete);
 			_initialLoadManager.start();
+			
 		}
 		
 		private function initialLoadManagerComplete(event:Event):void
@@ -83,7 +87,7 @@ package
 			addChild(t);
 			
 			var a:Array = Font.enumerateFonts();
-			 */
+			*/
 			 
 			box = new LGBox();
 			box.y = 30;
@@ -136,11 +140,12 @@ package
 			StyleManager.setStyle( "textFormat", new TextFormat("RegionalFont", 12, 0x333333, false) );
 			StyleManager.setStyle( "antiAliasType", AntiAliasType.ADVANCED);
 			StyleManager.setStyle( "embedFonts", true );
-			
+			 
 			
 			graphics.beginFill(Number(_initialLoadManager.localeConfigSource.getValueByReference("squareColor")), 1);
 			graphics.drawRoundRect(100, 300, _initialLoadManager.localeConfigSource.getValueByReference("squareWidth"), _initialLoadManager.localeConfigSource.getValueByReference("squareHeight"), _initialLoadManager.localeConfigSource.getValueByReference("squareCornerRadius"), _initialLoadManager.localeConfigSource.getValueByReference("squareCornerRadius"));
 			graphics.endFill();
+			
 			
 		}
 		
