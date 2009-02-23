@@ -12,7 +12,6 @@ package com.layerglue.flash.preloader
 	
 	public class AbstractRootPreloader extends MovieClip implements IRootPreloader
 	{
-		protected var _preloaderDisplay:DisplayObject;
 		
 		public function AbstractRootPreloader()
 		{
@@ -73,7 +72,7 @@ package com.layerglue.flash.preloader
 		
 		protected function createChildren():void
 		{
-			//Should be overriden in subclasses to create the visual loader if required
+			//Must be overriden in subclasses to create the visual loader
 		}
 		
 		// IRootPreloaderImplementation -----------------------------------------------------------\
@@ -83,6 +82,13 @@ package com.layerglue.flash.preloader
 		public function get rootLoaderProxy():RootLoaderProxy
 		{
 			return _rootLoaderProxy;
+		}
+		
+		protected var _preloaderDisplay:DisplayObject;
+		
+		public function get preloaderDisplay():DisplayObject
+		{
+			return _preloaderDisplay;
 		}
 		
 		public function get rootLoadProportion():Number
