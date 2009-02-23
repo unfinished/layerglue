@@ -195,7 +195,16 @@ package com.layerglue.lib.base.loaders
 		{
 			if(_iterator.hasNext())
 			{
-				(_iterator.next() as ILoader).open();
+				var nextItem:ILoader = _iterator.next() as ILoader;
+				
+				if(nextItem.isComplete())
+				{
+					loadNext();
+				}
+				else
+				{
+					nextItem.open();
+				}
 			}
 			else
 			{

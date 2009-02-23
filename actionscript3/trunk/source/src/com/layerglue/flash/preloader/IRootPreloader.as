@@ -5,7 +5,7 @@ package com.layerglue.flash.preloader
 	import flash.display.LoaderInfo;
 	import flash.events.IEventDispatcher;
 	
-	public interface IFlashPreloaderDisplay extends IEventDispatcher
+	public interface IRootPreloader extends IEventDispatcher
 	{
 		function get mainClassName():String;
 		function get rootLoaderProxy():RootLoaderProxy;
