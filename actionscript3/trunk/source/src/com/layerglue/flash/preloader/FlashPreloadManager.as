@@ -32,10 +32,10 @@ package com.layerglue.flash.preloader
 			_startTime = getTimer();
 			
 			_rootPreloader = preloaderDisplay;
-			_rootPreloader.rootLoaderProxy.addEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
-			_rootPreloader.rootLoaderProxy.addEventListener(Event.COMPLETE, rootLoadCompleteHandler);
-			
 			_loadManager = new ProportionalLoadManager();
+			
+			_loadManager.addEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
+			_rootPreloader.rootLoaderProxy.addEventListener(Event.COMPLETE, rootLoadCompleteHandler);
 			
 			_loadManager.addItem(
 					new LoadManagerToken(

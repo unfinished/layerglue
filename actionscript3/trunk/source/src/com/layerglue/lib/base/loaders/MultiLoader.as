@@ -8,6 +8,15 @@ package com.layerglue.lib.base.loaders
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
 	
+	[Event(name="open", type="flash.events.Event")]
+	[Event(name="close", type="flash.events.Event")]
+	[Event(name="complete", type="flash.events.Event")]
+	[Event(name="progress", type="flash.events.ProgressEvent")]
+	[Event(name="itemOpen", type="com.layerglue.lib.base.events.loader.MultiLoaderEvent")]
+	[Event(name="itemClose", type="com.layerglue.lib.base.events.loader.MultiLoaderEvent")]
+	[Event(name="itemComplete", type="com.layerglue.lib.base.events.loader.MultiLoaderEvent")]
+	[Event(name="itemProgress", type="com.layerglue.lib.base.events.loader.MultiLoaderEvent")]
+	
 	/**
 	 * Enables the sequential load of multiple Iloader instances.
 	 * <p>Note that since this class implements IMultiLoader which in turn implements ILoader, other
@@ -267,6 +276,7 @@ package com.layerglue.lib.base.loaders
 		private function itemProgressHandler(event:Event):void
 		{
 			dispatchEvent(new MultiLoaderEvent(MultiLoaderEvent.ITEM_PROGRESS, (event.target as ILoader), getItemIndex((event.target as ILoader))));
+			dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS));
 		}
 		
 	}

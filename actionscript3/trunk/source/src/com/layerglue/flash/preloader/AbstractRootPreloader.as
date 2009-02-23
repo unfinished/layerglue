@@ -98,7 +98,7 @@ package com.layerglue.flash.preloader
 		
 		public function get minDisplayTime():Number
 		{
-			return 2000;
+			return 1000;
 		}
 		
 		public function get mainClassName():String
