@@ -1,7 +1,7 @@
 package com.layerglue.flex3.base.preloader
 {
-	import com.layerglue.flex3.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.events.EventListenerCollection;
+	import com.layerglue.lib.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
