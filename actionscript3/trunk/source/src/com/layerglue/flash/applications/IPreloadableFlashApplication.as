@@ -6,6 +6,6 @@ package com.layerglue.flash.applications
 	public interface IPreloadableFlashApplication extends IEventDispatcher
 	{
 		function startInitialLoad():void;
-		function show(/*progressBarDisplay:DisplayObject*/):void;
+		function show(preloaderDisplay:DisplayObject):void;
 	}
 }
