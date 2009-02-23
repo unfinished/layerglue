@@ -49,10 +49,17 @@ package com.client.project.preloader
 		{
 			if(stage)
 			{
+				var amountLoaded:Number = _preloadManager.loadManager.currentValue / _preloadManager.loadManager.totalValue;
+				
 				var fixedWidth:Number = 200;
 				var fixedHeight:Number = 20;
+				
 				graphics.beginFill(0x0000FF);
 				graphics.drawRect(stage.stageWidth/2 - fixedWidth/2, stage.stageHeight/2 - fixedHeight/2, fixedWidth, fixedHeight);
+				graphics.endFill();
+								
+				graphics.beginFill(0x00FF00);
+				graphics.drawRect(stage.stageWidth/2 - fixedWidth/2, stage.stageHeight/2 - fixedHeight/2, fixedWidth*amountLoaded, fixedHeight);
 				graphics.endFill();
 			}
 		}
