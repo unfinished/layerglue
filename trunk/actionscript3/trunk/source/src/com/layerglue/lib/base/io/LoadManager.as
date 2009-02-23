@@ -7,6 +7,7 @@ package com.layerglue.lib.base.io
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.ProgressEvent;
 	
 	/**
 	 * Provides a controlled way to sequentially load multiple items, with a simple callback
@@ -80,6 +81,7 @@ package com.layerglue.lib.base.io
 			_eventListenerCollection.createListener(_multiLoader, MultiLoaderEvent.ITEM_CLOSE, itemCloseHandler);
 			_eventListenerCollection.createListener(_multiLoader, MultiLoaderEvent.ITEM_COMPLETE, itemCompleteHandler);
 			_eventListenerCollection.createListener(_multiLoader, MultiLoaderEvent.ITEM_PROGRESS, itemProgressHandler);
+			_eventListenerCollection.createListener(_multiLoader, ProgressEvent.PROGRESS, progressHandler);
 		}
 		
 		/**
@@ -158,6 +160,11 @@ package com.layerglue.lib.base.io
 		private function itemProgressHandler(event:MultiLoaderEvent):void
 		{
 			dispatchEvent(event.clone());
+		}
+		
+		private function progressHandler(event:ProgressEvent):void
+		{
+			dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS));
 		}
 		
 		public function destroy():void
