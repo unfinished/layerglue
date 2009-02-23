@@ -2,7 +2,7 @@ package com.layerglue.flash.preloader
 {
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
-	import flash.display.LoaderInfo;
+	import flash.display.DisplayObject;
 	import flash.events.IEventDispatcher;
 	
 	public interface IRootPreloader extends IEventDispatcher
@@ -11,6 +11,7 @@ package com.layerglue.flash.preloader
 		function get rootLoaderProxy():RootLoaderProxy;
 		function get rootLoadProportion():Number;
 		function get minDisplayTime():Number;
+		function get preloaderDisplay():DisplayObject;
 		
 		function showMainApp():void;
 	}
