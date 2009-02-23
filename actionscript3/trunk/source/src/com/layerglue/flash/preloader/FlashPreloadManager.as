@@ -3,9 +3,7 @@ package com.layerglue.flash.preloader
 	import com.layerglue.lib.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
-	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
@@ -41,7 +39,7 @@ package com.layerglue.flash.preloader
 			
 			_loadManager.addItem(
 					new LoadManagerToken(
-					new RootLoaderProxy((preloaderDisplay as DisplayObject).stage.loaderInfo),
+					preloaderDisplay.rootLoaderProxy,
 					null,
 					null,
 					preloaderDisplay.rootLoadProportion)
