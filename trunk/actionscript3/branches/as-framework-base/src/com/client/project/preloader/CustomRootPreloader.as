@@ -27,5 +27,6 @@ package com.client.project.preloader
 			_preloaderDisplay = new PreloaderProgressBar(FlashPreloadManager.getInstance())
 			addChild(_preloaderDisplay as DisplayObject);
 		}
+		
 	}
 }
