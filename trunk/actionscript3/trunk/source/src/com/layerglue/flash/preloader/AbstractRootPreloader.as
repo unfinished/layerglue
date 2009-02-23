@@ -1,18 +1,19 @@
 package com.layerglue.flash.preloader
 {
 	import com.layerglue.flash.applications.IPreloadableFlashApplication;
-	import com.layerglue.flex3.base.events.PreloadManagerEvent;
+	import com.layerglue.lib.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.ProgressEvent;
 	import flash.utils.getDefinitionByName;
-
+	
 	public class AbstractRootPreloader extends MovieClip implements IRootPreloader
 	{
+		protected var _preloaderDisplay:DisplayObject;
+		
 		public function AbstractRootPreloader()
 		{
 			super();
@@ -26,9 +27,8 @@ package com.layerglue.flash.preloader
 			stop();
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
-			FlashPreloadManager.getInstance().addEventListener(ProgressEvent.PROGRESS, loadProgressHandler, false, 0, true);
 			FlashPreloadManager.getInstance().addEventListener(PreloadManagerEvent.ROOT_LOAD_COMPLETE, rootLoadCompleteHandler, false, 0, true);
-			FlashPreloadManager.getInstance().addEventListener(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetLoadCompleteHandler, false, 0, true);
+			FlashPreloadManager.getInstance().addEventListener(Event.COMPLETE, totalLoadCompleteHandler, false, 0, true);
 		}
 		
 		protected function addedToStageHandler(event:Event):void
@@ -45,47 +45,14 @@ package com.layerglue.flash.preloader
 			}
 		}
 		
-		protected function loadProgressHandler(event:ProgressEvent):void
-		{
-			//
-		}
-		
 		protected function rootLoadCompleteHandler(event:PreloadManagerEvent):void
 		{
 			startInitialAssetLoad();
 		}
 		
-		protected function initialAssetLoadCompleteHandler(event:PreloadManagerEvent):void
+		protected function totalLoadCompleteHandler(event:Event):void
 		{
 			showMainApp();
-		}
-		
-		private var _rootLoaderProxy:RootLoaderProxy;
-		
-		public function get rootLoaderProxy():RootLoaderProxy
-		{
-			return _rootLoaderProxy;
-		}
-		
-		public function get rootLoadProportion():Number
-		{
-			return 0.6;
-		}
-		
-		public function get minDisplayTime():Number
-		{
-			return 1000;
-		}
-		
-		public function get mainClassName():String
-		{
-			return "Main";
-		}
-		
-		public function showMainApp():void
-		{
-			addChildAt(_mainMovie as DisplayObject, 0);
-			_mainMovie.show();
 		}
 		
 		protected var _mainMovie:IPreloadableFlashApplication;
@@ -106,8 +73,39 @@ package com.layerglue.flash.preloader
 		
 		protected function createChildren():void
 		{
-			
+			//Should be overriden in subclasses to create the visual loader if required
 		}
 		
+		// IRootPreloaderImplementation -----------------------------------------------------------\
+		
+		private var _rootLoaderProxy:RootLoaderProxy;
+		
+		public function get rootLoaderProxy():RootLoaderProxy
+		{
+			return _rootLoaderProxy;
+		}
+		
+		public function get rootLoadProportion():Number
+		{
+			return 0.6;
+		}
+		
+		public function get minDisplayTime():Number
+		{
+			return 2000;
+		}
+		
+		public function get mainClassName():String
+		{
+			return "Main";
+		}
+		
+		public function showMainApp():void
+		{
+			addChildAt(_mainMovie as DisplayObject, 0);
+			_mainMovie.show(_preloaderDisplay);
+		}
+		
+		// IRootPreloaderImplementation -----------------------------------------------------------/
 	}
 }

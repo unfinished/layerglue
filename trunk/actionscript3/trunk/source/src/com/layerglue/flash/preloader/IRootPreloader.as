@@ -10,8 +10,8 @@ package com.layerglue.flash.preloader
 		function get mainClassName():String;
 		function get rootLoaderProxy():RootLoaderProxy;
 		function get rootLoadProportion():Number;
+		function get minDisplayTime():Number;
 		
 		function showMainApp():void;
-		function get loaderInfo():LoaderInfo;
 	}
 }

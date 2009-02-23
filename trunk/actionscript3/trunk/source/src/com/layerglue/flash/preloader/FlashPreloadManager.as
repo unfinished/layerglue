@@ -1,7 +1,6 @@
 package com.layerglue.flash.preloader
 {
-	
-	import com.layerglue.flex3.base.events.PreloadManagerEvent;
+	import com.layerglue.lib.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
@@ -10,23 +9,33 @@ package com.layerglue.flash.preloader
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
-
+	import flash.utils.getTimer;
+	import flash.utils.setTimeout;
+	
+	[Event(name="initialAssetsLoadComplete", type="com.layerglue.lib.base.events.PreloadManagerEvent")]
+	[Event(name="rootLoadComplete", type="com.layerglue.lib.base.events.PreloadManagerEvent")]
+	[Event(name="progress", type="flash.events.ProgressEvent")]
+	[Event(name="complete", type="flash.events.Event")]
+	
 	public class FlashPreloadManager extends EventDispatcher
 	{
-		private var _preloaderDisplay:IRootPreloader
+		private var _rootPreloader:IRootPreloader
+		private var _startTime:int;
 		
 		public function get preloaderDisplay():IRootPreloader
 		{
-			return _preloaderDisplay
+			return _rootPreloader
 		}
 		
 		public function FlashPreloadManager(preloaderDisplay:IRootPreloader)
 		{
 			super();
 			
-			_preloaderDisplay = preloaderDisplay;
-			_preloaderDisplay.rootLoaderProxy.addEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
-			_preloaderDisplay.rootLoaderProxy.addEventListener(Event.COMPLETE, rootLoadCompleteHandler);
+			_startTime = getTimer();
+			
+			_rootPreloader = preloaderDisplay;
+			_rootPreloader.rootLoaderProxy.addEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
+			_rootPreloader.rootLoaderProxy.addEventListener(Event.COMPLETE, rootLoadCompleteHandler);
 			
 			_loadManager = new ProportionalLoadManager();
 			
@@ -38,11 +47,8 @@ package com.layerglue.flash.preloader
 					preloaderDisplay.rootLoadProportion)
 				);
 			
-			
 			_loadManager.addEventListener(Event.COMPLETE, initialAssetsLoadCompleteHandler);
 		}
-		
-		
 		
 		private static var _instance:FlashPreloadManager;
 		
@@ -74,11 +80,6 @@ package com.layerglue.flash.preloader
 			return _loadManager;
 		}
 		
-		private function initialAssetsLoadCompleteHandler(event:Event):void
-		{
-			dispatchEvent(new PreloadManagerEvent(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE));
-		}
-		
 		private function loadProgressHandler(event:Event):void
 		{
 			dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS));
@@ -89,5 +90,25 @@ package com.layerglue.flash.preloader
 			dispatchEvent(new PreloadManagerEvent(PreloadManagerEvent.ROOT_LOAD_COMPLETE));
 		}
 		
+		private function initialAssetsLoadCompleteHandler(event:Event):void
+		{
+			dispatchEvent(new PreloadManagerEvent(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE));
+			
+			var currentTime:int = getTimer();
+			
+			if(currentTime >= _startTime + preloaderDisplay.minDisplayTime)
+			{
+				triggerComplete();
+			}
+			else
+			{
+				setTimeout(triggerComplete, preloaderDisplay.minDisplayTime - currentTime);
+			}
+		}
+		
+		protected function triggerComplete():void
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
+		}
 	}
 }
