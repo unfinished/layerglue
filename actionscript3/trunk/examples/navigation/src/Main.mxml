@@ -14,6 +14,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.layerglue.lib.base.events.PreloadManagerEvent;
 			import com.layerglue.lib.base.command.FrontController;
 			import com.layerglue.lib.base.io.FlashVars;
 			import com.client.project.preloader.PreloaderView;
@@ -22,7 +23,6 @@
 			import com.client.project.maps.ProjectStructureToControllerMap;
 			import com.client.project.maps.ProjectStructureDeserializationMap;
 			import com.layerglue.lib.application.setup.InitialSetupManager;
-			import com.layerglue.flex3.base.events.PreloadManagerEvent;
 			import com.layerglue.flex3.base.preloader.PreloadManager;
 			import com.client.project.command.ProjectFrontControllerMap;
 			import com.layerglue.lib.base.events.EventListenerCollection;
