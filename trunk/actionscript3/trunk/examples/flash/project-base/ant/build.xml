@@ -46,6 +46,8 @@
 		<exec executable="${mxmlc}" failonerror="true">
 			<arg line="-output ${bindebug.dir}/flash-assets/fonts/Western.swf"/>
 			<arg line="${compiledassets.dir}/style-definitions/Western.as"/>
+			<!-- Add in library reference to LayerGlue framework -->
+			<!-- Add in exclusion to FlashComponents framework -->
 		</exec>
 	</target>
 	

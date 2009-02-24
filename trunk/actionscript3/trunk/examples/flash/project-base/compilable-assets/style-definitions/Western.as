@@ -18,7 +18,7 @@ package
 		{
 			super();
 			Security.allowDomain("*");
-			registerFonts()
+			registerFonts();
 		}
 		
 		public static function registerFonts():void

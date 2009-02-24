@@ -2,18 +2,15 @@ package
 {
 	
 	import com.client.project.io.InitialLoadManager;
-	import com.client.project.locators.ModelLocator;
-	import com.layerglue.components.LGBox;
+	import com.client.project.styles.Global;
 	import com.layerglue.components.LGButton;
+	import com.layerglue.components.LGLabel;
 	import com.layerglue.flash.applications.IPreloadableFlashApplication;
 	import com.layerglue.flash.loaders.DisplayLoader;
-	
-	import fl.managers.StyleManager;
+	import com.layerglue.flash.styles.LGStyleManager;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.text.AntiAliasType;
-	import flash.text.TextFormat;
 	
 	[Frame(factoryClass="com.client.project.preloader.CustomRootPreloader")]
 	
@@ -24,13 +21,11 @@ package
 		
 		private var _displayLoader:DisplayLoader;
 		
-		public var box:LGBox;
-		public var button1:LGButton;
-		public var button2:LGButton;
-		
 		public function Main()
 		{
 			super();
+			LGStyleManager.getInstance();
+			
 		}
 		
 		public function show(preloaderDisplay:DisplayObject):void
@@ -44,7 +39,7 @@ package
 		}
 		
 		public function createChildren():void
-		{
+		{			
 			drawStuff();
 		}
 		
@@ -56,15 +51,18 @@ package
 		
 		private function drawStuff():void
 		{
+			var l:LGLabel = new LGLabel();
+			l.text = "New label";
+			addChild(l);
 			
-			StyleManager.setStyle( "textFormat", new TextFormat("RegionalFont", 12, 0x333333, false) );
-			StyleManager.setStyle( "antiAliasType", AntiAliasType.ADVANCED);
-			StyleManager.setStyle( "embedFonts", true );
+			var b:LGButton = new LGButton();
+			b.label = "New button";
+			b.y = 30;
+			addChild(b);
 			
 			graphics.beginFill(Number(_initialLoadManager.localeConfigSource.getValueByReference("squareColor")), 1);
 			graphics.drawRoundRect(100, 300, _initialLoadManager.localeConfigSource.getValueByReference("squareWidth"), _initialLoadManager.localeConfigSource.getValueByReference("squareHeight"), _initialLoadManager.localeConfigSource.getValueByReference("squareCornerRadius"), _initialLoadManager.localeConfigSource.getValueByReference("squareCornerRadius"));
 			graphics.endFill();
-			
 		}
 	}
 }

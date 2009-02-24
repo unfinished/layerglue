@@ -178,6 +178,7 @@ package com.client.project.io
 		
 		private function regionalCompiledFontCompleteHandler(event:Event):void
 		{
+			// Put loaded swf's main class into LGStyleManager.regionalStyle
 			_loader.loadNext();
 		}
 		
