@@ -69,9 +69,9 @@ package com.layerglue.components
 		
 		override public function addChild(child:DisplayObject):DisplayObject
 		{
-			if (!(child is UIComponent))
+			if (!(child is ILGComponent))
 			{
-				throw new Error("Only a subclass of UIComponent can be added to a box: "+child);
+				throw new Error("Only a class implementing ILGComponent can be added to a box: "+child);
 			}
 			child.addEventListener(ComponentEvent.MOVE, onChildMove, false, 0, true);
 			invalidate(InvalidationType.ALL);
@@ -80,9 +80,9 @@ package com.layerglue.components
 		
 		override public function addChildAt(child:DisplayObject, index:int):DisplayObject
 		{
-			if (!(child is UIComponent))
+			if (!(child is ILGComponent))
 			{
-				throw new Error("Only a subclass of UIComponent can be added to a box: "+child);
+				throw new Error("Only a class implementing ILGComponent can be added to a box: "+child);
 			}
 			child.addEventListener(ComponentEvent.MOVE, onChildMove, false, 0, true);
 			invalidate(InvalidationType.ALL);
@@ -183,6 +183,10 @@ package com.layerglue.components
 				maxWidth = Math.max(maxWidth, child.x + child.width);
 				maxHeight = Math.max(maxHeight, child.y + child.height);
 			}
+			
+			// TODO: Do horizontal and vertical alignment here
+			// Since maxWidth and maxHeight have been calculated we can use them
+			// to re-position the children on the x/y axis accordingly to alignment
 			
 			// Apply max children dimensions to this component
 			width = maxWidth;
