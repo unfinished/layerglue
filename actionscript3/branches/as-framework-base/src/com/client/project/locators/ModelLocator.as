@@ -1,5 +1,6 @@
 package com.client.project.locators
 {
+	import com.client.project.structure.Site;
 	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.localisation.Locale;
 	
@@ -7,7 +8,7 @@ package com.client.project.locators
 	{
 		private static var _instance:ModelLocator;
 		
-		//public var structure:StructureRoot;
+		public var structure:Site;
 		public var locale:Locale;
 		public var config:HashMap;
 		
