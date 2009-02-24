@@ -4,26 +4,20 @@ package
 	import com.client.project.io.InitialLoadManager;
 	import com.layerglue.components.LGBox;
 	import com.layerglue.components.LGButton;
-	import com.layerglue.components.LGLabel;
 	import com.layerglue.flash.applications.IPreloadableFlashApplication;
 	import com.layerglue.flash.loaders.DisplayLoader;
-	import com.layerglue.font.FontManager;
 	
-	import fl.controls.Button;
-	import fl.events.ComponentEvent;
 	import fl.managers.StyleManager;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.text.AntiAliasType;
-	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
 	[Frame(factoryClass="com.client.project.preloader.CustomRootPreloader")]
 	
 	public class Main extends Sprite implements IPreloadableFlashApplication
 	{
-		public var fontManager:FontManager;
 		
 		private var _initialLoadManager:InitialLoadManager;
 		
