@@ -2,6 +2,7 @@ package
 {
 	
 	import com.client.project.io.InitialLoadManager;
+	import com.client.project.locators.ModelLocator;
 	import com.layerglue.components.LGBox;
 	import com.layerglue.components.LGButton;
 	import com.layerglue.flash.applications.IPreloadableFlashApplication;
