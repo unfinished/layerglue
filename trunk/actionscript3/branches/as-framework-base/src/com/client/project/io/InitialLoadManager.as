@@ -4,7 +4,6 @@ package com.client.project.io
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.layerglue.flash.loaders.DisplayLoader;
 	import com.layerglue.flash.preloader.FlashPreloadManager;
-	import com.layerglue.lib.application.structure.StructuralData;
 	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
@@ -52,8 +51,6 @@ package com.client.project.io
 		}
 		
 		private var _loadManagerListener:EventListener;
-		
-		public var structureRoot:StructuralData;
 		
 		private var _regionalFontLoader:DisplayLoader;
 		
@@ -212,7 +209,7 @@ package com.client.project.io
 			var deserializer:XMLDeserializer = new XMLDeserializer();
 			deserializer.map = new StructureDeserializationMap();
 			var structure:* = deserializer.deserialize(xml);
-			structureRoot = structure;			
+			ModelLocator.getInstance().structure = structure;
 		}
 		
 	}

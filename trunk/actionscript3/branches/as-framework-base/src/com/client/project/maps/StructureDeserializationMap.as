@@ -1,6 +1,6 @@
 package com.client.project.maps
 {
-	import com.client.project.structure.StructureRoot;
+	import com.client.project.structure.Site;
 	import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
 
 	public class StructureDeserializationMap extends XMLDeserializationMap
@@ -14,7 +14,7 @@ package com.client.project.maps
 			// hierarchy into actionscript objects.
 			
 			addMapping("children", Array);
-			addMapping("structureRoot", StructureRoot);
+			addMapping("site", Site);
 		}
 		
 	}
