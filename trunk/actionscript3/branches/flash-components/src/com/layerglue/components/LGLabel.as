@@ -11,7 +11,7 @@ package com.layerglue.components
 	 * in exactly the same way as the original component, but supports extras features such as 
 	 * anti-alias support.
 	 */
-	public class LGLabel extends Label
+	public class LGLabel extends Label implements ILGComponent
 	{
 		private static var defaultStyles:Object = { antiAliasType: null }
 		
