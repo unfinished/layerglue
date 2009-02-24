@@ -45,14 +45,14 @@
 	<target name="debug_compile_regional_font_western">
 		<exec executable="${mxmlc}" failonerror="true">
 			<arg line="-output ${bindebug.dir}/flash-assets/fonts/Western.swf"/>
-			<arg line="${compiledassets.dir}/font-definitions/Western.as"/>
+			<arg line="${compiledassets.dir}/style-definitions/Western.as"/>
 		</exec>
 	</target>
 	
 	<target name="debug_compile_regional_font_eastern">
 		<exec executable="${mxmlc}" failonerror="true">
 			<arg line="-output ${bindebug.dir}/flash-assets/fonts/Eastern.swf"/>
-			<arg line="${compiledassets.dir}/font-definitions/Eastern.as"/>
+			<arg line="${compiledassets.dir}/style-definitions/Eastern.as"/>
 		</exec>
 	</target>
 			
@@ -82,14 +82,14 @@
 	<target name="release_compile_regional_font_western">
 		<exec executable="${mxmlc}" failonerror="true">
 			<arg line="-output ${binrelease.dir}/flash-assets/fonts/Western.swf"/>
-			<arg line="${compiledassets.dir}/font-definitions/Western.as"/>
+			<arg line="${compiledassets.dir}/style-definitions/Western.as"/>
 		</exec>
 	</target>
 	
 	<target name="release_compile_regional_font_eastern">
 		<exec executable="${mxmlc}" failonerror="true">
 			<arg line="-output ${binrelease.dir}/flash-assets/fonts/Eastern.swf"/>
-			<arg line="${compiledassets.dir}/font-definitions/Eastern.as"/>
+			<arg line="${compiledassets.dir}/style-definitions/Eastern.as"/>
 		</exec>
 	</target>
 	
