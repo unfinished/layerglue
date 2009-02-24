@@ -4,6 +4,8 @@ package com.client.project.io
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.layerglue.flash.loaders.DisplayLoader;
 	import com.layerglue.flash.preloader.FlashPreloadManager;
+	import com.layerglue.flash.styles.LGStyleCollection;
+	import com.layerglue.flash.styles.LGStyleManager;
 	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
@@ -18,6 +20,7 @@ package com.client.project.io
 	import com.layerglue.lib.base.substitution.sources.FlatXMLSubstitutionSource;
 	import com.layerglue.lib.base.substitution.sources.MultiSubstitutionSource;
 	
+	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
@@ -168,17 +171,15 @@ package com.client.project.io
 			populateStructuralDataXML((event.target as XmlLoader).typedData);
 			
 			var region:String = _localeConfigSource.getValueByReference("region");
-			
-			//Simulate availability of config data by setting the regional css path 
-			//_regionalFontLoader.request.url = "flash-assets/compiled-css/regions/" + region + ".swf?cacheBuster=" + Math.random();
-			_regionalFontLoader.request.url = "flash-assets/fonts/Western.swf";
+			_regionalFontLoader.request.url = "flash-assets/fonts/" + region + ".swf";
 			
 			_loader.loadNext();
 		}
 		
 		private function regionalCompiledFontCompleteHandler(event:Event):void
 		{
-			// Put loaded swf's main class into LGStyleManager.regionalStyle
+			LGStyleManager.getInstance().registerStyle((event.target as Loader).content as LGStyleCollection);
+			
 			_loader.loadNext();
 		}
 		
@@ -190,6 +191,16 @@ package com.client.project.io
 		private function errorHandler(event:Event):void
 		{
 			trace("Error loading file");
+		}
+		
+		private function get regionName():String
+		{
+			if(!_localeConfigSource)
+			{
+				throw new Error("Tried to access _localeConfigSource before before locale config data has been loaded and deserialized.");
+			}
+			
+			return _localeConfigSource.getValueByReference("region");
 		}
 		
 		private function populateStructuralDataXML(xml:XML):void

@@ -1,41 +1,34 @@
-	package
+package com.client.project.styles
 {
 	import com.layerglue.flash.styles.LGStyleCollection;
 	
 	import fl.managers.StyleManager;
 	
-	import flash.system.Security;
 	import flash.text.AntiAliasType;
-	import flash.text.Font;
 	import flash.text.TextFormat;
-
-	public class Eastern extends LGStyleCollection
+	
+	public class GlobalStyle extends LGStyleCollection
 	{
-		[Embed(source="../images/trees.jpg")]
+		
+		[Embed(source="/../embedded-assets/images/layerGlueLogo.gif")]
 		public static var testImage:Class;
 		
-		public function Eastern()
+		public function GlobalStyle()
 		{
 			super();
-			Security.allowDomain("*");
-		}
-		
-		override protected function registerFonts():void
-		{
-			
 		}
 		
 		override protected function defineStyles():void
 		{
-			StyleManager.setStyle( "textFormat", new TextFormat("_sans", 12, 0xFF3300, false) );
+			StyleManager.setStyle( "textFormat", new TextFormat("RegionalFont", 12, 0x000000, false) );
 			StyleManager.setStyle( "antiAliasType", AntiAliasType.ADVANCED);
-			StyleManager.setStyle( "embedFonts", false );
+			StyleManager.setStyle( "embedFonts", true );
 		}
 		
 		override protected function defineAssets():void
 		{
 			addAsset("testImage", testImage);
 		}
-		
+
 	}
 }
