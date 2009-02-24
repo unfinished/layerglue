@@ -18,7 +18,9 @@ package
 		{
 			super();
 			Security.allowDomain("*");
-			registerFonts()
+			registerFonts();
+			
+			StyleManager.setStyle( "textFormat", new TextFormat("RegionalFont", 14, 0x333333, false) );
 		}
 		
 		public static function registerFonts():void
