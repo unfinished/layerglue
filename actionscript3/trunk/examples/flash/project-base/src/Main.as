@@ -2,8 +2,8 @@ package
 {
 	
 	import com.client.project.io.InitialLoadManager;
-	import com.client.project.styles.Global;
-	import com.layerglue.components.LGButton;
+	import com.client.project.locators.ModelLocator;
+	import com.client.project.styles.GlobalStyle;
 	import com.layerglue.components.LGLabel;
 	import com.layerglue.flash.applications.IPreloadableFlashApplication;
 	import com.layerglue.flash.loaders.DisplayLoader;
@@ -24,8 +24,8 @@ package
 		public function Main()
 		{
 			super();
-			LGStyleManager.getInstance();
 			
+			LGStyleManager.getInstance().registerStyle(new GlobalStyle());
 		}
 		
 		public function show(preloaderDisplay:DisplayObject):void
@@ -35,6 +35,11 @@ package
 				preloaderDisplay.parent.removeChild(preloaderDisplay);
 			}
 			
+			trace(">>>> " + LGStyleManager.getInstance().getAsset("testImage"));
+			
+			var classRef:Class = LGStyleManager.getInstance().getAsset("testImage") as Class
+			var im:DisplayObject = addChild(new classRef());
+			im.y = 100
 			createChildren();
 		}
 		
@@ -51,14 +56,12 @@ package
 		
 		private function drawStuff():void
 		{
-			var l:LGLabel = new LGLabel();
-			l.text = "New label";
-			addChild(l);
 			
-			var b:LGButton = new LGButton();
-			b.label = "New button";
-			b.y = 30;
-			addChild(b);
+			var styledLabel:LGLabel = new LGLabel();
+			styledLabel.text = ModelLocator.getInstance().structure.title;
+			addChild(styledLabel);
+			
+			styledLabel.y = 30;
 			
 			graphics.beginFill(Number(_initialLoadManager.localeConfigSource.getValueByReference("squareColor")), 1);
 			graphics.drawRoundRect(100, 300, _initialLoadManager.localeConfigSource.getValueByReference("squareWidth"), _initialLoadManager.localeConfigSource.getValueByReference("squareHeight"), _initialLoadManager.localeConfigSource.getValueByReference("squareCornerRadius"), _initialLoadManager.localeConfigSource.getValueByReference("squareCornerRadius"));
