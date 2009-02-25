@@ -92,18 +92,17 @@ package com.layerglue.flash.preloader
 		{
 			dispatchEvent(new PreloadManagerEvent(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE));
 			
-			var currentTime:int = getTimer();
-			/* 
-			if(currentTime >= _startTime + preloaderDisplay.minDisplayTime)
+			var elapsedTime:int = getTimer() - _startTime;
+			
+			//Ensure that the preloaderDisplay.minDisplayTime is respected
+			if(elapsedTime >= preloaderDisplay.minDisplayTime)
 			{
 				triggerComplete();
 			}
 			else
 			{
-				trace("preloaderDisplay.minDisplayTime - currentTime: " + (preloaderDisplay.minDisplayTime - currentTime))
-				setTimeout(triggerComplete, preloaderDisplay.minDisplayTime - currentTime);
-			} */
-			triggerComplete();
+				setTimeout(triggerComplete, preloaderDisplay.minDisplayTime - elapsedTime);
+			}
 		}
 		
 		protected function triggerComplete():void

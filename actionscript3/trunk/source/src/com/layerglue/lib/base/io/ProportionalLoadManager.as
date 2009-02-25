@@ -32,6 +32,7 @@ package com.layerglue.lib.base.io
 			return calculateCurrentValue();
 		}
 		
+		//TODO Look into Infinity value and O being passed back as totalBytes of URLLoaderExt
 		private function calculateCurrentValue():Number
 		{
 			var proportionLoaded:Number = 0;;
@@ -41,6 +42,7 @@ package com.layerglue.lib.base.io
 				if(item.loader.isComplete())
 				{
 					proportionLoaded += item.proportion;
+					//trace(" adding fully loaded: " + item.proportion);
 				}
 				else //If we get here there is still an item loading
 				{
@@ -50,8 +52,10 @@ package com.layerglue.lib.base.io
 					//Calculate the fraction of the currently loading item's proportion
 					var measurableLoaderProportion:Number = item.proportion * (measurableLoader.getBytesLoaded() / measurableLoader.getBytesTotal());
 					
+					//trace(" adding semi loaded: " + measurableLoaderProportion + " (" +measurableLoader.getBytesLoaded() + " / " + measurableLoader.getBytesTotal()+ ") " + measurableLoader );
+					
 					//Add the fractional proportion to the overall value
-					proportionLoaded += isNaN(measurableLoaderProportion) ? 0 : measurableLoaderProportion;
+					proportionLoaded += (isNaN(measurableLoaderProportion) || measurableLoaderProportion==Infinity ) ? 0 : measurableLoaderProportion;
 					
 					//Make sure to stop here, as this item is loading, and all after this are
 					//waiting to load
