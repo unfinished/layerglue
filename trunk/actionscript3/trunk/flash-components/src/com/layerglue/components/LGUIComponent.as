@@ -6,7 +6,7 @@ package com.layerglue.components
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 
-	public class LGUIComponent extends UIComponent
+	public class LGUIComponent extends UIComponent implements ILGComponent
 	{
 		private static var defaultStyles:Object = { }
 		
