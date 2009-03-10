@@ -1,6 +1,8 @@
-package com.layerglue.controls
+package com.layerglue.components.controls
 {
 	import com.layerglue.components.LGUIComponent;
+	import com.layerglue.components.constants.ButtonInvalidationType;
+	import com.layerglue.components.constants.ButtonPhase;
 	
 	import flash.events.MouseEvent;
 
@@ -43,6 +45,7 @@ package com.layerglue.controls
 		protected function setPhase(phase:String):void
 		{
 			_phase = phase;
+			invalidate(ButtonInvalidationType.PHASE_CHANGE);
 		}
 		
 		protected function mouseEventHandler(event:MouseEvent):void
@@ -60,7 +63,6 @@ package com.layerglue.controls
 				setPhase(ButtonPhase.UP);
 			}
 			
-			invalidate();
 		}
 	}
 }

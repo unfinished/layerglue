@@ -1,4 +1,4 @@
-package com.layerglue.controls
+package com.layerglue.components.constants
 {
 	public class ButtonPhase extends Object
 	{
