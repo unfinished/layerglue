@@ -5,6 +5,10 @@ package com.layerglue.components
 
 	public class LGBaseButton extends BaseButton
 	{
+		public static const UP_STATE:String = "up";
+		public static const DOWN_STATE:String = "over";
+		public static const OVER_STATE:String = "down";
+		
 		public function LGBaseButton()
 		{
 			super();
@@ -22,6 +26,11 @@ package com.layerglue.components
 				setStyle(name, styles[name]);
 			}
 			
+		}
+		
+		public function get state():String
+		{
+			return mouseState;
 		}
 		
 		override protected function draw():void
