@@ -14,13 +14,9 @@ package com.layerglue.components.controls
 			
 			buttonMode = true;
 			mouseChildren = false;
+			enabled = true;
 			
 			setPhase(ButtonPhase.UP);
-			
-			addEventListener(MouseEvent.ROLL_OVER,mouseEventHandler,false,0,true);
-			addEventListener(MouseEvent.MOUSE_DOWN,mouseEventHandler,false,0,true);
-			addEventListener(MouseEvent.MOUSE_UP,mouseEventHandler,false,0,true);
-			addEventListener(MouseEvent.ROLL_OUT,mouseEventHandler,false,0,true);
 		}
 		
 		protected var _selected:Boolean;
@@ -33,6 +29,22 @@ package com.layerglue.components.controls
 		public function set selected(value:Boolean):void
 		{
 			_selected = value;
+		}
+		
+		override public function set enabled(value:Boolean):void
+		{
+			super.enabled = value;
+			
+			if (value == true)
+			{
+				attachListeners();
+				useHandCursor = true;
+			}
+			else
+			{
+				removeListeners();
+				useHandCursor = false;
+			}
 		}
 		 
 		protected var _phase:String;
@@ -62,7 +74,22 @@ package com.layerglue.components.controls
 			{
 				setPhase(ButtonPhase.UP);
 			}
-			
+		}
+		
+		protected function attachListeners():void
+		{
+			addEventListener(MouseEvent.ROLL_OVER,mouseEventHandler,false,0,true);
+			addEventListener(MouseEvent.MOUSE_DOWN,mouseEventHandler,false,0,true);
+			addEventListener(MouseEvent.MOUSE_UP,mouseEventHandler,false,0,true);
+			addEventListener(MouseEvent.ROLL_OUT,mouseEventHandler,false,0,true);
+		}
+		
+		protected function removeListeners():void
+		{
+			removeEventListener(MouseEvent.ROLL_OVER,mouseEventHandler,false);
+			removeEventListener(MouseEvent.MOUSE_DOWN,mouseEventHandler,false);
+			removeEventListener(MouseEvent.MOUSE_UP,mouseEventHandler,false);
+			removeEventListener(MouseEvent.ROLL_OUT,mouseEventHandler,false);
 		}
 	}
 }
