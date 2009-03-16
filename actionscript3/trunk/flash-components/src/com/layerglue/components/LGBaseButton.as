@@ -9,12 +9,19 @@ package com.layerglue.components
 		public static const DOWN_STATE:String = "over";
 		public static const OVER_STATE:String = "down";
 		
+		protected var _autoSizeToSkin:Boolean = true;
+		
 		public function LGBaseButton()
 		{
 			super();
 			useHandCursor = true;
 		}
 		
+		/**
+		 * Convenient way of applying multiple styles to the component instance. The object should conform to the
+		 * structure: {upSkin: "MyUpSkin", overSkin: "MyOverSkin", etc.}
+		 * You can use both string references and direct Class references to embedded assets.
+		 */
 		public function set skinStyles(value:Object):void
 		{
 			var styles:Object = value;
@@ -25,7 +32,6 @@ package com.layerglue.components
 				//trace("setStyle> "+ name + ": " + styles[name]);
 				setStyle(name, styles[name]);
 			}
-			
 		}
 		
 		public function get state():String
@@ -33,21 +39,15 @@ package com.layerglue.components
 			return mouseState;
 		}
 		
-		override protected function draw():void
-		{
-			if (invalidHash[InvalidationType.STATE])
-			{
-				//trace(mouseState);
-			}
-			
-			super.draw();
-		}
-		
 		override protected function drawBackground():void
 		{
 			super.drawBackground();
-			_width = background.width;
-			_height = background.height;
+			
+			if (_autoSizeToSkin)
+			{
+				_width = background.width;
+				_height = background.height;
+			}
 		}
 		
 	}
