@@ -66,11 +66,11 @@ package com.layerglue.components.controls
 			{
 				setPhase(ButtonPhase.DOWN);
 			}
-			else if(event.type == MouseEvent.ROLL_OVER || event.type == MouseEvent.MOUSE_UP)
+			else if(event.type == MouseEvent.ROLL_OVER || event.type == MouseEvent.MOUSE_UP || event.type == MouseEvent.MOUSE_OVER)
 			{
 				setPhase(ButtonPhase.OVER);
 			}
-			else if (event.type == MouseEvent.ROLL_OUT)
+			else if (event.type == MouseEvent.ROLL_OUT || event.type == MouseEvent.MOUSE_OUT)
 			{
 				setPhase(ButtonPhase.UP);
 			}
@@ -82,6 +82,9 @@ package com.layerglue.components.controls
 			addEventListener(MouseEvent.MOUSE_DOWN,mouseEventHandler,false,0,true);
 			addEventListener(MouseEvent.MOUSE_UP,mouseEventHandler,false,0,true);
 			addEventListener(MouseEvent.ROLL_OUT,mouseEventHandler,false,0,true);
+			
+			addEventListener(MouseEvent.MOUSE_OVER,mouseEventHandler,false,0,true);
+			addEventListener(MouseEvent.MOUSE_OUT,mouseEventHandler,false,0,true);
 		}
 		
 		protected function removeListeners():void
