@@ -91,7 +91,7 @@ package com.layerglue.flash.preloader
 		private function initialAssetsLoadCompleteHandler(event:Event):void
 		{
 			dispatchEvent(new PreloadManagerEvent(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE));
-			
+			/* 
 			var elapsedTime:int = getTimer() - _startTime;
 			
 			//Ensure that the preloaderDisplay.minDisplayTime is respected
@@ -102,12 +102,12 @@ package com.layerglue.flash.preloader
 			else
 			{
 				setTimeout(triggerComplete, preloaderDisplay.minDisplayTime - elapsedTime);
-			}
+			} */
 		}
-		
+		/* 
 		protected function triggerComplete():void
 		{
 			dispatchEvent(new Event(Event.COMPLETE));
-		}
+		} */
 	}
 }

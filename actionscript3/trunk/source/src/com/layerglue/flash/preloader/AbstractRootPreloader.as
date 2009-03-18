@@ -9,13 +9,18 @@ package com.layerglue.flash.preloader
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
+	import flash.utils.getTimer;
 	
 	public class AbstractRootPreloader extends MovieClip implements IRootPreloader
 	{
 		
+		protected var _startTime:uint;
+		
 		public function AbstractRootPreloader()
 		{
 			super();
+			
+			_startTime = getTimer();
 			
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			
@@ -27,7 +32,7 @@ package com.layerglue.flash.preloader
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
 			FlashPreloadManager.getInstance().addEventListener(PreloadManagerEvent.ROOT_LOAD_COMPLETE, rootLoadCompleteHandler, false, 0, true);
-			FlashPreloadManager.getInstance().addEventListener(Event.COMPLETE, totalLoadCompleteHandler, false, 0, true);
+			FlashPreloadManager.getInstance().addEventListener(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetsLoadCompleteHandler, false, 0, true);
 		}
 		
 		protected function addedToStageHandler(event:Event):void
@@ -48,8 +53,8 @@ package com.layerglue.flash.preloader
 		{
 			startInitialAssetLoad();
 		}
-		
-		protected function totalLoadCompleteHandler(event:Event):void
+		 
+		protected function initialAssetsLoadCompleteHandler(event:PreloadManagerEvent):void
 		{
 			showMainApp();
 		}
@@ -75,6 +80,19 @@ package com.layerglue.flash.preloader
 			//Must be overriden in subclasses to create the visual loader
 		}
 		
+		private var _isComplete:Boolean;
+		
+		protected function get isComplete():Boolean
+		{
+			return _isComplete;
+		}
+		
+		protected function showMainApp():void
+		{
+			addChildAt(_mainMovie as DisplayObject, 0);
+			_mainMovie.show(_preloaderDisplay);
+		}
+		
 		// IRootPreloaderImplementation -----------------------------------------------------------\
 		
 		private var _rootLoaderProxy:RootLoaderProxy;
@@ -96,20 +114,9 @@ package com.layerglue.flash.preloader
 			return 0.6;
 		}
 		
-		public function get minDisplayTime():Number
-		{
-			return 1000;
-		}
-		
 		public function get mainClassName():String
 		{
 			return "Main";
-		}
-		
-		public function showMainApp():void
-		{
-			addChildAt(_mainMovie as DisplayObject, 0);
-			_mainMovie.show(_preloaderDisplay);
 		}
 		
 		// IRootPreloaderImplementation -----------------------------------------------------------/

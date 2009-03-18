@@ -105,6 +105,7 @@ package com.layerglue.flash.loaders
 		
 		private function completeHandler(event:Event):void
 		{
+			_isComplete = true;
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
