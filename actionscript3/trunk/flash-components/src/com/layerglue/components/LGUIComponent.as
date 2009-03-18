@@ -1,5 +1,6 @@
 package com.layerglue.components
 {
+	import fl.core.InvalidationType;
 	import fl.core.UIComponent;
 	import fl.managers.StyleManager;
 	
@@ -20,6 +21,16 @@ package com.layerglue.components
 		public static function getStyleDefinition():Object
 		{ 
 			return UIComponent.mergeStyles(UIComponent.getStyleDefinition(), defaultStyles);
+		}
+		
+		public function setStyles(styles:Object):void
+		{
+			var name:String;
+			for (name in styles)
+			{
+				//trace("setStyle> "+ name + ": " + styles[name]);
+				setStyle(name, styles[name]);
+			}
 		}
 		
 		// Properly implement cascading styles without the need to set up defaultStyles on each class.
@@ -89,5 +100,18 @@ package com.layerglue.components
 			inCallLaterPhase2 = false;
 		}
 		
+		override public function invalidate(property:String=InvalidationType.ALL, callLater:Boolean=true):void
+		{
+			if (parent && parent is ILGContainer)
+			{
+				if (property == InvalidationType.SIZE)
+				{
+					// If this component is nested inside a LGBox and it's size has changed then we need
+					// to invalidate the box it sits within.
+					(parent as LGUIComponent).invalidate(InvalidationType.SIZE);
+				}
+			}
+			super.invalidate(property, callLater);
+		}
 	}
 }
