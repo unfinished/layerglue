@@ -5,6 +5,14 @@ package com.layerglue.flash.styles
 		private static var _instance:LGStyleManager;
 		private static var _initialized:Boolean;
 		
+		/**
+		 * 
+		 * <strong>Example:</strong>
+		 * 
+		 * //Extracting image assets
+		 * var classRef:Class = LGStyleManager.getInstance().getAsset("testImage") as Class;
+		 * var im:DisplayObject = addChild(new classRef());
+		 */
 		public function LGStyleManager()
 		{
 			if (_instance != null)
