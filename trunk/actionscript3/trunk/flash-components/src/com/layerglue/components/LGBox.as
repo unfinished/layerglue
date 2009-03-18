@@ -12,7 +12,7 @@ package com.layerglue.components
 	 * instances of UIComponent (or subclasses thereof). It can be used like a standard display
 	 * container, using addChild and removeChild to manage the children.
 	 */
-	public class LGBox extends UIComponent
+	public class LGBox extends UIComponent implements ILGContainer
 	{
 		public static var HORIZONTAL:String = "horizontal";
 		public static var VERTICAL:String = "vertical";

@@ -20,6 +20,13 @@ package com.layerglue.components
 			super();
 		}
 		
+		override protected function configUI():void
+		{
+			super.configUI();
+			
+			textField.mouseEnabled = false;
+		}
+		
 		public static function getStyleDefinition():Object
 		{ 
 			return UIComponent.mergeStyles(Label.getStyleDefinition(), defaultStyles);

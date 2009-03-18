@@ -82,9 +82,6 @@ package com.layerglue.components.controls
 			addEventListener(MouseEvent.MOUSE_DOWN,mouseEventHandler,false,0,true);
 			addEventListener(MouseEvent.MOUSE_UP,mouseEventHandler,false,0,true);
 			addEventListener(MouseEvent.ROLL_OUT,mouseEventHandler,false,0,true);
-			
-			addEventListener(MouseEvent.MOUSE_OVER,mouseEventHandler,false,0,true);
-			addEventListener(MouseEvent.MOUSE_OUT,mouseEventHandler,false,0,true);
 		}
 		
 		protected function removeListeners():void
