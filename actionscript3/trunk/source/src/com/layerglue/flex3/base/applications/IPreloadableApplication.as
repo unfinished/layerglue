@@ -21,7 +21,7 @@ package com.layerglue.flex3.base.applications
 		/**
 		 * The proportion of loadManagerTotalValue which is taken up by the main swf, defaulting to 0.6.
 		 */
-		function get loadManagerMainSWFValue():Number;
-		function set loadManagerMainSWFValue(value:Number):void;
+		function get loadManagerMainSWFProportion():Number;
+		function set loadManagerMainSWFProportion(value:Number):void;
 	}
 }

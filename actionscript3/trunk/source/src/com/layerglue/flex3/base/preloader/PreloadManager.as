@@ -75,9 +75,9 @@ package com.layerglue.flex3.base.preloader
 			return systemManager.info()["loadManagerTotalValue"] ? systemManager.info()["loadManagerTotalValue"] : DEFAULT_LOAD_MANAGER_TOTAL_VALUE;
 		}
 		
-		public static function getLoadManagerMainSWFValue(systemManager:ISystemManager):Number
+		public static function getLoadManagerMainSWFProportion(systemManager:ISystemManager):Number
 		{
-			return systemManager.info()["loadManagerMainSWFValue"] ? systemManager.info()["loadManagerMainSWFValue"] : DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE;
+			return systemManager.info()["loadManagerMainSWFProportion"] ? systemManager.info()["loadManagerMainSWFProportion"] : DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE;
 		}
 		
 		private var _listenerCollection:EventListenerCollection;
@@ -102,7 +102,7 @@ package com.layerglue.flex3.base.preloader
 							new RootLoaderProxy((preloaderDisplay as DisplayObject).root.loaderInfo),
 							null,
 							null,
-							getLoadManagerMainSWFValue((preloaderDisplay as DisplayObject).root as SystemManager));
+							getLoadManagerMainSWFProportion((preloaderDisplay as DisplayObject).root as SystemManager));
 			
 			_loadManager.addItem(item);
 			
