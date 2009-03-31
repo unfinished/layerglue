@@ -57,20 +57,20 @@ package com.layerglue.flex3.base.applications
 			_loadManagerTotalValue = value;
 		}
 		
-		private var _loadManagerMainSWFValue:Number;
+		private var _loadManagerMainSWFProportion:Number;
 		
 		/**
 		 * @inheritDoc
 		 */
 		[Inspectable(defaultValue="0.6")]
-		public function get loadManagerMainSWFValue():Number
+		public function get loadManagerMainSWFProportion():Number
 		{
-			return _loadManagerMainSWFValue;
+			return _loadManagerMainSWFProportion;
 		}
 		
-		public function set loadManagerMainSWFValue(value:Number):void
+		public function set loadManagerMainSWFProportion(value:Number):void
 		{
-			_loadManagerMainSWFValue = value;
+			_loadManagerMainSWFProportion = value;
 		}
 		
 	}
