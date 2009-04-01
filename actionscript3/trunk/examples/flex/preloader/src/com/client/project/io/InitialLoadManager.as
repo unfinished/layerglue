@@ -72,31 +72,31 @@ package com.client.project.io
 					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
 					globalConfigCompleteHandler,
 					errorHandler,
-					0.0025);
+					InitialLoadProportions.GLOBAL_CONFIG);
 			
 			var localeConfigToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest("flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml")),
 					localeConfigCompleteHandler,
 					errorHandler,
-					0.0025);
+					InitialLoadProportions.LOCALE_CONFIG);
 			
 			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest("flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml")),
 					localeCopyCompleteHandler,
 					errorHandler,
-					0.0025);
+					InitialLoadProportions.LOCALE_COPY);
 			
 			var unsubstitutedStructureToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
 					structureUnpopulatedCompleteHandler,
 					errorHandler,
-					0.0025);
+					InitialLoadProportions.STRUCTURAL_DATA);
 			
 			var regionalCSSToken:LoadManagerToken = new LoadManagerToken(
 					_regionalCSSLoader,
 					regionalCompiledCSSCompleteHandler,
 					errorHandler,
-					0.39);
+					InitialLoadProportions.REGIONAL_CSS);
 			
 			_loader.addItem(globalConfigToken);						
 			_loader.addItem(localeConfigToken);							
