@@ -8,10 +8,12 @@
 	creationPolicy="none"
 	backgroundColor="0xFFFFFF"
 	preloader="com.client.project.preloader.PreloaderView"
-	preloaderMinDisplayTime="1000">
+	preloaderMinDisplayTime="1000"
+	loadManagerMainSWFProportion="{InitialLoadProportions.MAIN_SWF}">
 	
 	<mx:Script>
 		<![CDATA[
+			import com.client.project.io.InitialLoadProportions;
 			import com.layerglue.flex3.base.preloader.PreloadManager;
 			import mx.collections.ArrayCollection;
 			import com.layerglue.lib.base.io.FlashVars;
