@@ -219,8 +219,8 @@ package com.layerglue.lib.base.io.xml
 			//Check if object exists
 			if(!obj)
 			{
-				//Check if xml has complex content (maening sub nodes rather than simple text content)
-				if(xml.hasComplexContent())
+				//Check if xml has complex content (maening sub nodes rather than simple text content) or any atrributes
+				if(xml.hasComplexContent() || xml.attributes().length() > 0)
 				{
 					
 					//Checking if a mapping can be found for the xml node name
