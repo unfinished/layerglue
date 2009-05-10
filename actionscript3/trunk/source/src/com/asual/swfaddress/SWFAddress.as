@@ -44,7 +44,7 @@ package com.asual.swfaddress {
         private static function _initialize():Boolean {
             if (_availability) {
                 ExternalInterface.addCallback('getSWFAddressValue', 
-                    function():String {return _value});
+                    function():String {return _value;});
                 ExternalInterface.addCallback('setSWFAddressValue', 
                     _setValue);
             }
