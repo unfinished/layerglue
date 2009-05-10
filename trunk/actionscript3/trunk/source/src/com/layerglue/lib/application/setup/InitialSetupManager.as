@@ -1,7 +1,5 @@
 package com.layerglue.lib.application.setup
 {
-	import com.layerglue.flex3.base.collections.FlexCollection;
-	import com.layerglue.flex3.base.collections.strategies.FlexCollectionStrategyMap;
 	import com.layerglue.lib.application.LayerGlueLocator;
 	import com.layerglue.lib.application.controllers.ControllerHierarchyCreator;
 	import com.layerglue.lib.application.controllers.INavigableController;
@@ -12,11 +10,12 @@ package com.layerglue.lib.application.setup
 	import com.layerglue.lib.base.collections.ArrayExt;
 	import com.layerglue.lib.base.collections.Collection;
 	import com.layerglue.lib.base.collections.strategies.CollectionStrategy;
+	import com.layerglue.lib.base.collections.strategies.CollectionStrategyMap;
 	import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
-	
+
 	import flash.events.EventDispatcher;
-	
+
 	public class InitialSetupManager extends EventDispatcher
 	{
 		public function InitialSetupManager()
@@ -76,8 +75,7 @@ package com.layerglue.lib.application.setup
 		
 		protected function createStructuralData(xml:XML):IStructuralData
 		{
-			var collectionStrategyMap:FlexCollectionStrategyMap = new FlexCollectionStrategyMap();
-			collectionStrategyMap.addMapping(FlexCollection, new CollectionStrategy());
+			var collectionStrategyMap:CollectionStrategyMap = new CollectionStrategyMap();
 			collectionStrategyMap.addMapping(Collection, new CollectionStrategy());
 			// TODO: do we need ArrayExt?
 			collectionStrategyMap.addMapping(ArrayExt, new CollectionStrategy());
