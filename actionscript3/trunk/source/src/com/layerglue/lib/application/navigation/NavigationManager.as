@@ -4,10 +4,9 @@ package com.layerglue.lib.application.navigation
 	import com.asual.swfaddress.SWFAddressEvent;
 	import com.layerglue.lib.application.controllers.INavigableController;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	
+
 	import flash.events.EventDispatcher;
-	
-	
+
 	[Bindable]
 	public class NavigationManager extends EventDispatcher
 	{
@@ -76,7 +75,7 @@ package com.layerglue.lib.application.navigation
 			//trace(">>>>>>> NavigationManager.processURINavigation: " + uri);
 			
 			var split:Array = uri.split("?");
-			var addressPortion:String = split[0];
+			//var addressPortion:String = split[0];
 			var queryPortion:String = split[1];
 			
 			var packet:NavigationPacket = new NavigationPacket(uri);

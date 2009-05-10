@@ -5,11 +5,10 @@ package com.layerglue.lib.application.controllers
 	import com.layerglue.lib.application.navigation.NavigationPacket;
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.INavigableView;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.EventDispatcher;
-	import com.layerglue.lib.base.utils.ArrayUtils;
 
 	/**
 	 * The abstract base class for all Navigable controllers.

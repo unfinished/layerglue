@@ -1,11 +1,7 @@
 package com.layerglue.lib.application.navigation
 {
-	import com.layerglue.lib.application.controllers.INavigableController;
-	
 	import flash.events.EventDispatcher;
-	import com.layerglue.lib.application.structure.IStructuralData;
-	import com.layerglue.lib.application.LayerGlueLocator;
-	
+
 	public class NavigationPacket extends EventDispatcher
 	{
 		private var _address:String;

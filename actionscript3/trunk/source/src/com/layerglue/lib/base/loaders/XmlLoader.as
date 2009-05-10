@@ -1,10 +1,10 @@
 package com.layerglue.lib.base.loaders
 {
 	import com.layerglue.lib.base.events.loader.XMLLoaderEvent;
-	
+
 	import flash.events.Event;
 	import flash.net.URLRequest;
-	
+
 	/**
 	 * Specifically designed for loading XML, on load complete this class creates an XML instance
 	 * and stores it in its typedData property.

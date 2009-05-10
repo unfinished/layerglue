@@ -2,13 +2,10 @@ package com.client.project.preloader
 {
 	import com.layerglue.flash.preloader.AbstractRootPreloader;
 	import com.layerglue.flash.preloader.FlashPreloadManager;
-	import com.layerglue.lib.base.events.PreloadManagerEvent;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
-	import flash.events.Event;
-	import flash.events.ProgressEvent;
 
 	public class CustomRootPreloader extends AbstractRootPreloader
 	{

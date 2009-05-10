@@ -2,9 +2,9 @@ package com.layerglue.lib.base.events
 {
 	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.utils.ArrayUtils;
-	
+
 	import flash.events.IEventDispatcher;
-	
+
 	/**
 	 * A collection of EventListener instances that can be added or removed at the same time.
 	 */

@@ -3,9 +3,7 @@ package com.layerglue.lib.application.controllers
 	import com.layerglue.lib.application.events.FrameworkTransitionEvent;
 	import com.layerglue.lib.application.views.ITransitionableNavigableView;
 	import com.layerglue.lib.base.events.EventListenerCollection;
-	
-	import flash.display.DisplayObject;
-	
+
 	public class TransitionableNavigableController extends NavigableController
 	{
 		protected var _viewTransitionListenerCollection:EventListenerCollection;

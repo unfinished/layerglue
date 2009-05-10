@@ -1,12 +1,10 @@
 package com.layerglue.lib.base.loaders
 {
-	import com.layerglue.lib.base.events.EventListenerCollection;
-	
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
-	
+
 	/**
 	 * A class to represent the main swf when performing load procedures in the LayerGlue loader
 	 * subframework.

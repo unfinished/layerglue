@@ -2,9 +2,9 @@ package com.layerglue.lib.base.io
 {
 	import com.layerglue.lib.base.events.EventListenerCollection;
 	import com.layerglue.lib.base.loaders.ILoader;
-	
+
 	import flash.events.Event;
-	
+
 	/**
 	* A wrapper class used to encapsulate the loader and it's associated handlers.
 	* It creates a link between the loader complete event and the handler passed into

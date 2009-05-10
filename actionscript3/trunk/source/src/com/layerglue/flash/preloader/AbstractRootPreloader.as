@@ -4,13 +4,13 @@ package com.layerglue.flash.preloader
 	import com.layerglue.lib.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getTimer;
-	
+
 	public class AbstractRootPreloader extends MovieClip implements IRootPreloader
 	{
 		

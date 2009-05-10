@@ -6,7 +6,6 @@ package com.layerglue.lib.application.command.commands
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.command.commands.AbstractCommand;
 	import com.layerglue.lib.base.command.requests.IRequest;
-	
 
 	/**
 	 * <p>A command dealing with navigation requests by the system.</p>

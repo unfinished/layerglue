@@ -3,7 +3,7 @@ package com.layerglue.flash.loaders
 	import com.layerglue.lib.base.events.DestroyEvent;
 	import com.layerglue.lib.base.events.EventListenerCollection;
 	import com.layerglue.lib.base.loaders.IMeasurableLoader;
-	
+
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;

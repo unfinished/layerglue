@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.substitution.sources
 {
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
-	
+
 	/**
 	 * <p>For XML structured as below:</p>
 	 * <p>Note: The top level node is not required to be named copyDeck and child nodes can be

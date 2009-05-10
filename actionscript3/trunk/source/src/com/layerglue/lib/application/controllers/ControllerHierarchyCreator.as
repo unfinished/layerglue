@@ -3,7 +3,7 @@ package com.layerglue.lib.application.controllers
 	import com.layerglue.lib.application.maps.ControllerToViewMap;
 	import com.layerglue.lib.application.maps.StructuralDataToContollerMap;
 	import com.layerglue.lib.application.structure.IStructuralData;
-	
+
 	public class ControllerHierarchyCreator
 	{
 		public var defaultController:Class;

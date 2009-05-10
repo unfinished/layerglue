@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.loaders
 {
 	import flash.events.IEventDispatcher;
-	
+
 	/**
 	 * Defines the methods necessary for creating a class capable of loading multiple sub loaders
 	 * 

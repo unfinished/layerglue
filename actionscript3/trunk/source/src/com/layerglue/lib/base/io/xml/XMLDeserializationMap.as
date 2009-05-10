@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.io.xml
 {
 	import com.layerglue.lib.base.collections.HashMap;
-	
+
 	/**
 	 * Specifies a mapping of string names to classes. This is used as a lookup table
 	 * in the deserializer. Typically this is subclassed and mappings are added in

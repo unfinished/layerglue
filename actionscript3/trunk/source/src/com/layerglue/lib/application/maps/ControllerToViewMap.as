@@ -2,7 +2,7 @@ package com.layerglue.lib.application.maps
 {
 	import com.layerglue.lib.application.controllers.INavigableController;
 	import com.layerglue.lib.base.utils.ReflectionUtils;
-	
+
 	public class ControllerToViewMap extends ClassMap
 	{
 		public function ControllerToViewMap()

@@ -4,9 +4,9 @@ package com.layerglue.lib.base.io.xml
 	import com.layerglue.lib.base.utils.ArrayUtils;
 	import com.layerglue.lib.base.utils.ReflectionUtils;
 	import com.layerglue.lib.base.utils.XMLUtils;
-	
+
 	import flash.events.EventDispatcher;
-	
+
 	/**
 	 * Deserializes XML into actionscript objects. It is typically used with
 	 * a deserialization map, specifying the class each node translates to.

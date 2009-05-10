@@ -4,11 +4,11 @@ package com.layerglue.lib.base.io
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.loaders.MultiLoader;
 	import com.layerglue.lib.base.utils.ArrayUtils;
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
-	
+
 	/**
 	 * Provides a controlled way to sequentially load multiple items, with a simple callback
 	 * mechanism for triggering specific methods at the completion of each item.

@@ -3,7 +3,7 @@ package com.layerglue.lib.base.io
 	import flash.display.DisplayObject;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
-	
+
 	/**
 	 * <p>FlashVars provides unified singleton access to the flashvars in the HTML embed code of the
 	 * swf.</p>

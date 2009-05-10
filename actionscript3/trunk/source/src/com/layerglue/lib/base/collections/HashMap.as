@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.collections
 {
 	import flash.utils.Dictionary;
-	
+
 	/**
 	 * An implementation of a HashMap, providing simple key value pair mappings.
 	 */
@@ -108,9 +108,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function containsKey(key:*):Boolean
 		{
-			var item:Object;
-			
-			for(item in _dict)
+			for(var item:Object in _dict)
 			{
 				if(item == key)
 				{

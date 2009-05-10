@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.loaders
 {
 	import flash.net.URLRequest;
-	
+
 	/**
 	 * Defines the methods needed to implement the loading of a single download.
 	 */

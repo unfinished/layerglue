@@ -4,9 +4,9 @@ package com.layerglue.lib.application.structure
 	import com.layerglue.lib.application.events.CollectionEventKind;
 	import com.layerglue.lib.application.events.StructuralDataEvent;
 	import com.layerglue.lib.base.collections.ICollection;
-	
+
 	import flash.events.EventDispatcher;
-	
+
 	[Event(name="selectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
 	[Event(name="childSelectionChange", type="com.layerglue.lib.application.events.StructuralDataEvent")]
 	// TODO: dispatch children collection change event (when contents of children change)

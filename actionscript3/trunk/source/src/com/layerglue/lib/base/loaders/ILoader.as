@@ -1,8 +1,7 @@
 package com.layerglue.lib.base.loaders
 {
 	import flash.events.IEventDispatcher;
-	import flash.net.URLRequest;
-	
+
 	//[Event(name="open", type="")] //Event.OPEN 
 	//[Event(name="complete", type="")] //Event.COMPLETE
 	//[Event(name="progress", type="")] //ProgressEvent.PROGRESS

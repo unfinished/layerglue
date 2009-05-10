@@ -3,13 +3,12 @@ package com.layerglue.flash.preloader
 	import com.layerglue.lib.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
 	import flash.utils.getTimer;
-	import flash.utils.setTimeout;
-	
+
 	[Event(name="initialAssetsLoadComplete", type="com.layerglue.lib.base.events.PreloadManagerEvent")]
 	[Event(name="rootLoadComplete", type="com.layerglue.lib.base.events.PreloadManagerEvent")]
 	[Event(name="progress", type="flash.events.ProgressEvent")]

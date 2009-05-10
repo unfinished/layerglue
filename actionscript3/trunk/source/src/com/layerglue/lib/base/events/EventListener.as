@@ -1,10 +1,9 @@
 package com.layerglue.lib.base.events
 {
-
 	import com.layerglue.lib.base.core.IDestroyable;
-	
+
 	import flash.events.IEventDispatcher;
-	
+
 	/**
 	 * This class wraps the event listening functionality provided by the standard flashplayer event system.
 	 * <p>A reference to the eventName, listener and useCapture properties is stored so the listener can be removed later</p>

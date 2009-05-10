@@ -1,13 +1,14 @@
 package com.layerglue.lib.base.loaders
 {
-	import flash.events.IOErrorEvent;			import com.layerglue.lib.base.core.IDestroyable;
+	import com.layerglue.lib.base.core.IDestroyable;
 	import com.layerglue.lib.base.events.DestroyEvent;
 	import com.layerglue.lib.base.events.EventListenerCollection;
-	
+
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	
+
 	/**
 	 * An abstract base class on which to base loaders providing
 	 */
