@@ -24,7 +24,7 @@ package com.client.project.io
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
-	
+import com.layerglue.lib.base.substitution.sources.ExcelSubstitutionSource;	
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
 	 * required before the application begins. 
@@ -62,7 +62,6 @@ package com.client.project.io
 		{
 			super();
 			
-			var p:FlashPreloadManager = FlashPreloadManager.getInstance();
 			_loader = FlashPreloadManager.getInstance().loadManager;
 			 
 			_loadManagerListener = new EventListener(
@@ -88,20 +87,23 @@ package com.client.project.io
 			var modelLocator:ModelLocator = ModelLocator.getInstance();
 			modelLocator.locale = new Locale(FlashVars.getInstance().getValue("locale"));
 			
-			var useDyamicData:Boolean = FlashVars.getInstance().getValue("useDynamicData") == "true";
+			var useDyamicData:Boolean = false;//FlashVars.getInstance().getValue("useDynamicData") == "true";
 			
 			var localeConfigPath:String;
 			var localeCopyPath:String;
 			
 			if(useDyamicData)
 			{
-				localeConfigPath = "http://spreadsheets.google.com/fm?key=pv-" + FlashVars.getInstance().getValue("localeConfigId") + "&hl=en&fmcmd=5&gid=0"
-				localeCopyPath = "http://spreadsheets.google.com/fm?key=pv-" + FlashVars.getInstance().getValue("localeCopyId") + "&hl=en&fmcmd=5&gid=0"
+				localeConfigPath = "http://spreadsheets.google.com/fm?key=pv-" + FlashVars.getInstance().getValue("localeConfigId") + "&hl=en&fmcmd=5&gid=0";
+				localeCopyPath = "http://spreadsheets.google.com/fm?key=pv-" + FlashVars.getInstance().getValue("localeCopyId") + "&hl=en&fmcmd=5&gid=0";
 			}
 			else
 			{
-				localeConfigPath = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".csv";
-				localeCopyPath = "flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".csv";
+				//localeConfigPath = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".csv";
+				//localeCopyPath = "flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".csv";
+				
+				localeConfigPath = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml";
+				localeCopyPath = "flash-assets/xml/copy/locales/copy_excel_" + modelLocator.locale.code + ".xml";
 			}
 			
 			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
@@ -111,13 +113,13 @@ package com.client.project.io
 					0.01);
 			
 			var localeConfigToken:LoadManagerToken = new LoadManagerToken(
-					new URLLoaderExt(new URLRequest(localeConfigPath)),
+					new XmlLoader(new URLRequest(localeConfigPath)),
 					localeConfigCompleteHandler,
 					errorHandler,
 					0.01);
 			
 			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
-					new URLLoaderExt(new URLRequest(localeCopyPath)),
+					new XmlLoader(new URLRequest(localeCopyPath)),
 					localeCopyCompleteHandler,
 					errorHandler,
 					0.01);
@@ -154,15 +156,19 @@ package com.client.project.io
 		
 		private function localeConfigCompleteHandler(event:Event):void
 		{
-			//_localeConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			_localeConfigSource = new DelimitedValuesSubstitutionSource(event.target.data, "\n", ",", 1, 2, 0, "#");
+			_localeConfigSource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			//_localeConfigSource = new DelimitedValuesSubstitutionSource(event.target.data, "\n", ",", 1, 2, 0, "#");
 			_loader.loadNext();
 		}
 		
 		private function localeCopyCompleteHandler(event:Event):void
 		{
 			//_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
-			_localeCopySource = new DelimitedValuesSubstitutionSource(event.target.data, "\n", ",", 1, 3, 0, "#");
+			//_localeCopySource = new DelimitedValuesSubstitutionSource(event.target.data, "\n", ",", 1, 3, 0, "#");
+			_localeCopySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 4, 1, "#");
+			
+			trace("_localeCopySource getValue: "+_localeCopySource.getValueByReference("project.title"));
+			
 			_loader.loadNext();
 		}
 		
