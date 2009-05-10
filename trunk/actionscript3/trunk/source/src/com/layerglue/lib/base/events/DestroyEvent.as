@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.events
 {
 	import flash.events.Event;
-	
+
 	/**
 	 * An event that should be used to express when an object is being destroyed.
 	 */

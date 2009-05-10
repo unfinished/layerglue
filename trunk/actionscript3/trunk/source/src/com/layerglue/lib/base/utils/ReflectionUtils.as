@@ -1,8 +1,8 @@
 package com.layerglue.lib.base.utils
 {
-	import flash.utils.getQualifiedClassName;
 	import flash.utils.getDefinitionByName;
-	
+	import flash.utils.getQualifiedClassName;
+
 	public class ReflectionUtils extends Object
 	{
 		public function ReflectionUtils()

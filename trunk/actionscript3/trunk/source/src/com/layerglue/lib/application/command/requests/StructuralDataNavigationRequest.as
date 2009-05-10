@@ -2,7 +2,7 @@ package com.layerglue.lib.application.command.requests
 {
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.command.requests.AbstractRequest;
-	
+
 	/**
 	 * A navigation request specifying a destination and whether or not it should be passed via
 	 * SWFAddress and be registered in the browser history

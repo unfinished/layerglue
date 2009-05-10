@@ -1,7 +1,7 @@
 package com.layerglue.lib.application.navigation
 {
 	import com.layerglue.lib.application.structure.IStructuralData;
-	
+
 	public class NavigationHistory extends Object
 	{
 		private var _items:Array;

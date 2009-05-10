@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.notifiication
 {
 	import flash.events.EventDispatcher;
-	
+
 	public class Notifier extends EventDispatcher
 	{
 		public function Notifier()

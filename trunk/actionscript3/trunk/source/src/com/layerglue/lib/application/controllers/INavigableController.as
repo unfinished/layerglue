@@ -2,10 +2,10 @@ package com.layerglue.lib.application.controllers
 {
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.application.views.INavigableView;
-	
+
 	import flash.display.DisplayObjectContainer;
 	import flash.events.IEventDispatcher;
-	
+
 	[Bindable]
 	public interface INavigableController extends IEventDispatcher
 	{

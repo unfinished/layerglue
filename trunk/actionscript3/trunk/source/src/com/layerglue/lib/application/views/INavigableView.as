@@ -2,13 +2,13 @@ package com.layerglue.lib.application.views
 {
 	import com.layerglue.lib.application.structure.IStructuralData;
 	import com.layerglue.lib.base.core.IDestroyable;
-	
-	import flash.display.DisplayObjectContainer;
-	import flash.events.IEventDispatcher;
-	
+
 	import mx.core.IChildList;
 	import mx.core.IUIComponent;
-	
+
+	import flash.display.DisplayObjectContainer;
+	import flash.events.IEventDispatcher;
+
 	public interface INavigableView extends
 		
 		//Implementing interfaces needed by the framework

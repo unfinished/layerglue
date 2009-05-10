@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.collections.strategies
 {
 	import com.layerglue.lib.base.collections.strategies.ICollectionStrategy;
-	
+
 	/**
 	 * 
 	 */

@@ -1,8 +1,7 @@
 package com.layerglue.lib.application.navigation
 {
 	import com.layerglue.lib.base.collections.HashMap;
-	
-	
+
 	/**
 	 * <p>A representation of a url style query string e.g. locale=en-gb&page=gallery</p>
 	 */

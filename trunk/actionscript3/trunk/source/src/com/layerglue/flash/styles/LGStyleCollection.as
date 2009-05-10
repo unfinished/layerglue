@@ -1,10 +1,8 @@
 package com.layerglue.flash.styles
 {
-	import com.layerglue.lib.base.collections.Collection;
-	
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
-	
+
 	public class LGStyleCollection extends Sprite
 	{
 		/*

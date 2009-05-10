@@ -2,12 +2,12 @@ package com.layerglue.lib.base.resources
 {
 	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.events.EventListener;
-	
+	import com.layerglue.lib.base.events.PropertyCollectionEvent;
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	import com.layerglue.lib.base.events.PropertyCollectionEvent;
 
 	public class PropertyCollection extends EventDispatcher
 	{

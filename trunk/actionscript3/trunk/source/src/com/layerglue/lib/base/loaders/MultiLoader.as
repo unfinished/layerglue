@@ -3,11 +3,11 @@ package com.layerglue.lib.base.loaders
 	import com.layerglue.lib.base.collections.ArrayIterator;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.utils.ArrayUtils;
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
-	
+
 	[Event(name="open", type="flash.events.Event")]
 	[Event(name="close", type="flash.events.Event")]
 	[Event(name="complete", type="flash.events.Event")]

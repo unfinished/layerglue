@@ -11,20 +11,19 @@ package com.client.project.io
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
-	import com.layerglue.lib.base.loaders.URLLoaderExt;
 	import com.layerglue.lib.base.loaders.XmlLoader;
 	import com.layerglue.lib.base.localisation.Locale;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
 	import com.layerglue.lib.base.substitution.XMLSubstitutor;
-	import com.layerglue.lib.base.substitution.sources.DelimitedValuesSubstitutionSource;
+	import com.layerglue.lib.base.substitution.sources.ExcelSubstitutionSource;
 	import com.layerglue.lib.base.substitution.sources.FlatXMLSubstitutionSource;
 	import com.layerglue.lib.base.substitution.sources.MultiSubstitutionSource;
-	
+
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
-import com.layerglue.lib.base.substitution.sources.ExcelSubstitutionSource;	
+
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
 	 * required before the application begins. 

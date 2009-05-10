@@ -3,7 +3,7 @@ package com.layerglue.lib.base.substitution.sources
 	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
 	import com.layerglue.lib.base.utils.ArrayUtils;
-	
+
 	/**
 	 * <p>A base class for Substitution sources.</p>
 	 */

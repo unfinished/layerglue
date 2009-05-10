@@ -2,9 +2,9 @@ package com.layerglue.lib.base.collections
 {
 	import com.layerglue.lib.application.events.CollectionEvent;
 	import com.layerglue.lib.application.events.CollectionEventKind;
-	
+
 	import flash.events.EventDispatcher;
-	
+
 	/**
 	 * A subclass of Array that implements the ICollection interface.
 	 */
@@ -90,7 +90,6 @@ package com.layerglue.lib.base.collections
 		{
 			for(var i:int=_array.length ; i>=0 ; i--)
 			{
-				var item:Object = _array[i];
 				removeItemAt(i);
 			}
 		}

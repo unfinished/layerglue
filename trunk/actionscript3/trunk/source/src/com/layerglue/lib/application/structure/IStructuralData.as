@@ -1,9 +1,9 @@
 package com.layerglue.lib.application.structure
 {
 	import com.layerglue.lib.base.collections.ICollection;
-	
+
 	import flash.events.IEventDispatcher;
-	
+
 	// TODO: take a look at these interfaces and what they're prescribing
 	public interface IStructuralData extends IEventDispatcher
 	{

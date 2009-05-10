@@ -1,8 +1,6 @@
 package com.layerglue.lib.base.substitution.sources
 {
-	import com.layerglue.lib.base.collections.HashMap;
-	import com.layerglue.lib.base.substitution.ISubstitutionSource;
-	
+
 	/**
 	 * A class that deserializes an Excel spreadsheet into a hashmap to allow it to act as an
 	 * ISubstitution source for an ISubstitutor.

@@ -3,7 +3,7 @@ package com.layerglue.lib.base.maps
 	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.command.requests.IRequest;
 	import com.layerglue.lib.base.utils.ReflectionUtils;
-	
+
 	/**
 	 * A class that performs the basic functionality to map requests to commands. Subclasses of this
 	 * should use the initialize method to set up the mappings.

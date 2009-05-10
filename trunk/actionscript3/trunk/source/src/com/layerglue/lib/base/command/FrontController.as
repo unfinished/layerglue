@@ -4,7 +4,7 @@ package com.layerglue.lib.base.command
 	import com.layerglue.lib.base.command.requests.IRequest;
 	import com.layerglue.lib.base.maps.FrontControllerMap;
 	import com.layerglue.lib.base.utils.ArrayUtils;
-	
+
 	/**
 	 * A singleton class through which all requests are dispatched. When a request is dispatched,
 	 * this class attempts to execute its matching command.

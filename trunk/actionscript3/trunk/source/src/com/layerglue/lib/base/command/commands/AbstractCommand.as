@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.command.commands
 {
 	import com.layerglue.lib.base.command.requests.IRequest;
-	
+
 	/**
 	 * This class is the abstract base for commands that are triggered by requests via the connector.
 	 */

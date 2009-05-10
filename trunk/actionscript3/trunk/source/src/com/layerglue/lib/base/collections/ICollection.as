@@ -1,7 +1,7 @@
 package com.layerglue.lib.base.collections
 {
 	import flash.events.IEventDispatcher;
-	
+
 	//TODO Look into return types for failed queries or removes - null or -1 etc
 	/**
 	 * Defines common methods and properties associated with collections.

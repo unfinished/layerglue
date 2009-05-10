@@ -1,9 +1,9 @@
 package com.layerglue.lib.base.events.loader
 {
 	import com.layerglue.lib.base.loaders.ILoader;
-	
+
 	import flash.events.Event;
-	
+
 	/**
 	 * Defines events dispatched by the MultiLoader class.
 	 */
