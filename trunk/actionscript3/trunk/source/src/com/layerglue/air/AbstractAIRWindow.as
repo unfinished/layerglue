@@ -46,6 +46,7 @@ package com.layerglue.air
 			{
 				initOptions = initOptions ? initOptions : new NativeWindowInitOptions();
 				_nativeWindow = new NativeWindow(initOptions);
+				_nativeWindow.stage.addChild(this);
 			}
 		}
 		
@@ -64,7 +65,6 @@ package com.layerglue.air
 		 */
 		public function open():void
 		{
-			nativeWindow.stage.addChild(this);
 			nativeWindow.activate();
 			nativeWindow.orderToFront();
 		}
