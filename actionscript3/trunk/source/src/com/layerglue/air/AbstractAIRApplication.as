@@ -42,6 +42,22 @@ package com.layerglue.air
 			return NativeApplication.nativeApplication;
 		}
 		
+		protected var _applicationIcons:AIRApplicationIcons;
+		/**
+		 * Access to an instance of the AIRApplicationIcon class. This allows you to change the
+		 * system tray icon and dock icon, and the context menus for both.
+		 * 
+		 * @see AIRApplicationIcon
+		 */
+		public function get applicationIcons():AIRApplicationIcons
+		{
+			if (!_applicationIcons)
+			{
+				_applicationIcons = new AIRApplicationIcons;
+			}
+			return _applicationIcons;
+		}
+		
 		/**
 		 * @private
 		 * Traces versioning information for the AIR Application. Values are extracted from the
