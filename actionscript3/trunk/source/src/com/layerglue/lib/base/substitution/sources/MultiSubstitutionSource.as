@@ -24,12 +24,12 @@ package com.layerglue.lib.base.substitution.sources
 			ArrayUtils.removeItem(_sources, source);
 		}
 		
-		public function getValueByReference(ref:*):*
+		public function getValue(key:*):*
 		{
 			var source:ISubstitutionSource;
 			for each(source in _sources)
 			{
-				var value:* = source.getValueByReference(ref);
+				var value:* = source.getValue(key);
 				if(value)
 				{
 					return value;

@@ -17,22 +17,22 @@ package com.layerglue.lib.application.maps
 		
 		public function addIdMapping(id:String, viewClassReference:Class):void
 		{
-			_idMap.put(id, viewClassReference);
+			_idMap.putValue(id, viewClassReference);
 		}
 		
 		public function addClassReferenceMapping(controllerClassReference:Class, viewClassReference:Class):void
 		{
-			_classRefMap.put(controllerClassReference, viewClassReference);
+			_classRefMap.putValue(controllerClassReference, viewClassReference);
 		}
 		
 		public function getFromIdMap(id:String):Class
 		{
-			return _idMap.get(id);
+			return _idMap.getValue(id);
 		}
 		
 		public function getFromClassReferenceMap(classReferece:Class):Class
 		{
-			return _classRefMap.get(classReferece);
+			return _classRefMap.getValue(classReferece);
 		}
 	}
 }

@@ -52,9 +52,9 @@ package com.layerglue.lib.base.substitution.sources
 		/**
 		 * @inheritDoc
 		 */
-		public function getValueByReference(ref:*):*
+		public function getValue(key:*):*
 		{
-			return _map.get(ref);
+			return _map.getValue(key);
 		}
 		
 		/**
@@ -69,7 +69,7 @@ package com.layerglue.lib.base.substitution.sources
 		{
 			var typedValue:* = getTypedValue(value, type);
 			
-			_map.put(id, typedValue);
+			_map.putValue(id, typedValue);
 			
 			var keyIndex:int = _references.indexOf(id);
 			
@@ -91,7 +91,7 @@ package com.layerglue.lib.base.substitution.sources
 		
 		public function containsItem(id:*):Boolean
 		{
-			return !!_map.get(id);
+			return !!_map.getValue(id);
 		}
 		
 		protected function getTypedValue(value:*, typeReference:String):*

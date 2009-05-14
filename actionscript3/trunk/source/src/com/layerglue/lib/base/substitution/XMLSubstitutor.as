@@ -139,7 +139,7 @@ package com.layerglue.lib.base.substitution
 			if(conformsToDelimeters(value))
 			{
 				// Returns the referenced string if found, else it returns the original key
-				var s:String = strategy.getValueByReference(stripDelimiters(value));
+				var s:String = strategy.getValue(stripDelimiters(value));
 				return s ? s : value;
 			}
 			return value;

@@ -26,7 +26,7 @@ package com.layerglue.lib.base.collections.strategies
 		 */
 		public function addMapping(type:Class, strategy:ICollectionStrategy):void
 		{
-			_map.put(type, strategy);
+			_map.putValue(type, strategy);
 		}
 		
 		/**
@@ -36,7 +36,7 @@ package com.layerglue.lib.base.collections.strategies
 		 */
 		public function removeMapping(type:Class):Boolean
 		{
-			return _map.remove(type);
+			return _map.removeValue(type);
 		}
 		
 		/**
@@ -74,7 +74,7 @@ package com.layerglue.lib.base.collections.strategies
 		 */
 		public function getStrategtyByType(type:Class):ICollectionStrategy
 		{
-			return _map.get(type) as ICollectionStrategy;
+			return _map.getValue(type) as ICollectionStrategy;
 		}
 	}
 }

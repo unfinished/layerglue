@@ -64,19 +64,19 @@ package com.layerglue.lib.base.io.xml
 		{
 			if(context)
 			{
-				var contextMap:HashMap = _contexts.get(context);
+				var contextMap:HashMap = _contexts.getValue(context);
 				//First check to see whether a map exists for that class
 				if(!contextMap)
 				{
-					_contexts.put(context, new HashMap());
-					contextMap = _contexts.get(context);
+					_contexts.putValue(context, new HashMap());
+					contextMap = _contexts.getValue(context);
 				}
 				
-				contextMap.put(identifier, classReference);
+				contextMap.putValue(identifier, classReference);
 			}
 			else
 			{
-				_nonContextualizedReferences.put(identifier, classReference);
+				_nonContextualizedReferences.putValue(identifier, classReference);
 			}
 		}
 		
@@ -90,16 +90,16 @@ package com.layerglue.lib.base.io.xml
 		{
 			if(context)
 			{
-				var contextMap:HashMap = _contexts.get(context);
+				var contextMap:HashMap = _contexts.getValue(context);
 				if(contextMap)
 				{
-					delete contextMap.remove(identifier);
+					delete contextMap.removeValue(identifier);
 				}
 				
 			}
 			else
 			{
-				delete _nonContextualizedReferences.remove(identifier);
+				delete _nonContextualizedReferences.removeValue(identifier);
 			}
 		}
 		
@@ -143,15 +143,15 @@ package com.layerglue.lib.base.io.xml
 		{
 			var contextualizedRef:Class;
 			//Try to get a contextualized reference
-			if(context && _contexts.get(context) && _contexts.get(context).get(identifier))
+			if(context && _contexts.getValue(context) && _contexts.getValue(context).getValue(identifier))
 			{
-				contextualizedRef = _contexts.get(context).get(identifier);
+				contextualizedRef = _contexts.getValue(context).getValue(identifier);
 			}
 			
 			//If no contextualized reference exists and we shouldnt default, return a null
 			if(defaultToNoncontextualized)
 			{
-				return contextualizedRef ?  contextualizedRef : _nonContextualizedReferences.get(identifier);
+				return contextualizedRef ?  contextualizedRef : _nonContextualizedReferences.getValue(identifier);
 			}
 			
 			return null;
