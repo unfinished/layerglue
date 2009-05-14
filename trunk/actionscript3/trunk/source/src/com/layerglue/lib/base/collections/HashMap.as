@@ -24,7 +24,7 @@ package com.layerglue.lib.base.collections
 		 * The value to which the specified key is mapped, or null if the map contains no mapping
 		 * for this key.
 		 */
-		public function get(key:*):*
+		public function getValue(key:*):*
 		{
 			return _dict[key];
 		}
@@ -32,7 +32,7 @@ package com.layerglue.lib.base.collections
 		/**
 		 * Associates the specified value with the specified key in this map.
 		 */
-		public function put(key:*, value:*):*
+		public function putValue(key:*, value:*):*
 		{
 			var oldValue:* = _dict[key];
 			_dict[key] = value;
@@ -42,7 +42,7 @@ package com.layerglue.lib.base.collections
 		/**
 		 * Removes the mapping for this key from this map if present.
 		 */
-		public function remove(key:*):*
+		public function removeValue(key:*):*
 		{
 			if(containsKey(key));
 			{
@@ -95,7 +95,7 @@ package com.layerglue.lib.base.collections
 			
 			for(item in _dict)
 			{
-				clone.put(item, get(item));
+				clone.putValue(item, getValue(item));
 			}
 			
 			return clone;
@@ -130,7 +130,7 @@ package com.layerglue.lib.base.collections
 			var key:*;
 			for(key in _dict)
 			{
-				if(value == get(key))
+				if(value == getValue(key))
 				{
 					return true;
 				}
@@ -148,7 +148,7 @@ package com.layerglue.lib.base.collections
 			
 			for(item in _dict)
 			{
-				remove(item);
+				removeValue(item);
 			}
 		}
 	}

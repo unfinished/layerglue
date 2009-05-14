@@ -77,7 +77,7 @@ package com.layerglue.lib.application.navigation
 		 */
 		public function getVariable(key:String):*
 		{
-			return _variables.get(key);
+			return _variables.getValue(key);
 		}
 		
 		/**
@@ -85,7 +85,7 @@ package com.layerglue.lib.application.navigation
 		 */
 		public function addVariable(key:String, value:String):void
 		{
-			_variables.put(key, value);
+			_variables.putValue(key, value);
 		}
 		
 		/**

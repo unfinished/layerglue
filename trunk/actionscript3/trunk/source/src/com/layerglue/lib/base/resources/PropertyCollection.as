@@ -105,13 +105,13 @@ package com.layerglue.lib.base.resources
 		
 		public function get(key:*):*
 		{
-			return _map.containsKey(key) ? _map.get(key) : "@" + key + "@";
+			return _map.containsKey(key) ? _map.getValue(key) : "@" + key + "@";
 			//return _map.get(key);
 		}
 		
 		public function put(key:*, value:*):void
 		{
-			_map.put(key, value);
+			_map.putValue(key, value);
 		}
 		
 	}

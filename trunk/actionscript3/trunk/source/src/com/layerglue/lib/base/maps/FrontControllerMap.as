@@ -26,7 +26,7 @@ package com.layerglue.lib.base.maps
 		 */
 		public function addMapping(requestClassReference:Class, commandClassReference:Class):void
 		{
-			_map.put(requestClassReference, commandClassReference);
+			_map.putValue(requestClassReference, commandClassReference);
 		}
 		
 		/**
@@ -34,7 +34,7 @@ package com.layerglue.lib.base.maps
 		 */
 		public function removeMapping(requestClassReference:Class):void
 		{
-			_map.remove(requestClassReference);
+			_map.removeValue(requestClassReference);
 		}
 		
 		/**
@@ -50,7 +50,7 @@ package com.layerglue.lib.base.maps
 		 */
 		public function getCommandClassByRequestClass(requestClass:Class):Class
 		{
-			return _map.get(requestClass);
+			return _map.getValue(requestClass);
 		}
 		
 		/**
