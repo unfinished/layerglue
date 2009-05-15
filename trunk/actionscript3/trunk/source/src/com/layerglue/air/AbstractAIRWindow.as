@@ -70,9 +70,9 @@ package com.layerglue.air
 		}
 		
 		/**
-		 * Closes the window. This action is cancelable. If you listen for Event.CLOSING
-		 * on the nativeWindow property you can call event.preventDefault() and the window
-		 * will not close. This is useful to catch un-saved files, etc.
+		 * Closes the window. This action is cancelable. You must listen for Event.CLOSING
+		 * on the nativeWindow property, and then call event.preventDefault() to stop the
+		 * window from closing. This is useful to catch un-saved files, etc.
 		 * 
 		 * NOTE: If you wish to be able to catch Event.CLOSING you <em>must</em> use this method
 		 * and not NativeWindow.close(), which doesn't fire the event and will close the window

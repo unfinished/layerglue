@@ -19,17 +19,12 @@ package com.layerglue.air
 	 * 
 	 * @author LayerGlue
 	 */
-	public class AIRApplicationIcons
+	public class AIRApplicationIconUtils
 	{
-		public function AIRApplicationIcons()
-		{
-			
-		}
-		
 		/**
 		 * Shortcut for retrieving the NativeApplication instance.
 		 */
-		public function get nativeApplication():NativeApplication
+		public static function get nativeApplication():NativeApplication
 		{
 			return NativeApplication.nativeApplication;
 		}
@@ -39,13 +34,13 @@ package com.layerglue.air
 		 * instances and will choose the one that's closest to the size of the displayed icon.
 		 * This property will have no effect on a non-Windows/Linux OS.
 		 */
-		public function get systemTrayIcon():Array
+		public static function get systemTrayIcon():Array
 		{
 			var a:Array = NativeApplication.supportsSystemTrayIcon ? (nativeApplication.icon as SystemTrayIcon).bitmaps : null;
 			return a;
 		}
 		
-		public function set systemTrayIcon(bitmaps:Array):void
+		public static function set systemTrayIcon(bitmaps:Array):void
 		{
 			if (NativeApplication.supportsSystemTrayIcon)
 			{
@@ -58,13 +53,13 @@ package com.layerglue.air
 		 * instances and will choose the one that's closest to the size of the displayed icon.
 		 * This property will have no effect on a non-OSX OS.
 		 */
-		public function get dockIcon():Array
+		public static function get dockIcon():Array
 		{
 			var a:Array = NativeApplication.supportsDockIcon ? (nativeApplication.icon as DockIcon).bitmaps : null;
 			return a;
 		}
 		
-		public function set dockIcon(bitmaps:Array):void
+		public static function set dockIcon(bitmaps:Array):void
 		{
 			if (NativeApplication.supportsDockIcon)
 			{
@@ -76,13 +71,13 @@ package com.layerglue.air
 		 * The system tray menu, accessible by right-clicking on the system tray icon.
 		 * This property will have no effect on non-Windows/Linux OS.
 		 */
-		public function get systemTrayIconMenu():NativeMenu
+		public static function get systemTrayIconMenu():NativeMenu
 		{
 			var m:NativeMenu = NativeApplication.supportsSystemTrayIcon ? (nativeApplication.icon as SystemTrayIcon).menu : null;
 			return m;
 		}
 		
-		public function set systemTrayIconMenu(menu:NativeMenu):void
+		public static function set systemTrayIconMenu(menu:NativeMenu):void
 		{
 			if (NativeApplication.supportsSystemTrayIcon)
 			{
@@ -94,13 +89,13 @@ package com.layerglue.air
 		 * The dock icon menu, accessible by right-clicking on the system tray icon.
 		 * This property will have no effect on non-OSX OS.
 		 */
-		public function get dockIconMenu():NativeMenu
+		public static function get dockIconMenu():NativeMenu
 		{
 			var m:NativeMenu = NativeApplication.supportsDockIcon ? (nativeApplication.icon as DockIcon).menu : null;
 			return m;
 		}
 		
-		public function set dockIconMenu(menu:NativeMenu):void
+		public static function set dockIconMenu(menu:NativeMenu):void
 		{
 			if (NativeApplication.supportsDockIcon)
 			{
