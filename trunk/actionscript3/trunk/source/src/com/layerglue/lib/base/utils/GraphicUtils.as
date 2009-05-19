@@ -9,7 +9,7 @@ package com.layerglue.lib.base.utils
 			super();
 		}
 		
-		public static function fillSprite(sprite:Sprite, color:Number=0x00FF00, alpha:Number=0.5, width:Number=NaN, height:Number=NaN):void
+		public static function fillSprite(sprite:Sprite, color:Number=0x00FF00, alpha:Number=0.5, width:Number=NaN, height:Number=NaN, x:Number=0, y:Number=0):void
 		{
 			if(isNaN(width))
 			{
@@ -23,7 +23,7 @@ package com.layerglue.lib.base.utils
 			
 			sprite.graphics.clear();
 			sprite.graphics.beginFill(color, alpha);
-			sprite.graphics.drawRect(0, 0, width, height);
+			sprite.graphics.drawRect(x, y, width, height);
 			sprite.graphics.endFill();
 		}
 	}
