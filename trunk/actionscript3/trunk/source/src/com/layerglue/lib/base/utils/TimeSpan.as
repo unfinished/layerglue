@@ -39,10 +39,9 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the number of whole days
+		 * Gets the number of whole days. Use totalDays to get a decimal value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromHours(25), 
-		 *                      totalHours will be 1.04, but hours will be 1 
+		 * @see totalDays
 		 * @return A number representing the number of whole days in the TimeSpan
 		 */
 		public function get days():Number
@@ -51,10 +50,10 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the number of whole hours (excluding entire days)
+		 * Gets the number of whole hours (excluding entire days). Use totalHours to get a
+		 * decimal value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromMinutes(1500), 
-		 *                      totalHours will be 25, but hours will be 1 
+		 * @see totalHours
 		 * @return A number representing the number of whole hours in the TimeSpan
 		 */
 		public function get hours():Number
@@ -63,10 +62,10 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the number of whole minutes (excluding entire hours)
+		 * Gets the number of whole minutes (excluding entire hours). Use totalMinutes to get a
+		 * decimal value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromMilliseconds(65500), 
-		 *                      totalSeconds will be 65.5, but seconds will be 5 
+		 * @see totalMinutes
 		 * @return A number representing the number of whole minutes in the TimeSpan
 		 */
 		public function get minutes():Number
@@ -75,10 +74,10 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the number of whole seconds (excluding entire minutes)
+		 * Gets the number of whole seconds (excluding entire minutes). Use totalSeconds to get a
+		 * decimal value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromMilliseconds(65500), 
-		 *                      totalSeconds will be 65.5, but seconds will be 5 
+		 * @see totalSeconds
 		 * @return A number representing the number of whole seconds in the TimeSpan
 		 */
 		public function get seconds():Number
@@ -87,10 +86,10 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the number of whole milliseconds (excluding entire seconds)
+		 * Gets the number of whole milliseconds (excluding entire seconds). Use totalMilliseconds
+		 * to get an entire millisecond value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromMilliseconds(2123), 
-		 *                      totalMilliseconds will be 2001, but milliseconds will be 123 
+		 * @see totalMillseconds
 		 * @return A number representing the number of whole milliseconds in the TimeSpan
 		 */
 		public function get milliseconds():Number
@@ -99,10 +98,9 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the total number of days.
+		 * Gets the total number of days, with partial days represented as decimal value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromHours(25), 
-		 *                      totalHours will be 1.04, but hours will be 1 
+		 * @see days
 		 * @return A number representing the total number of days in the TimeSpan
 		 */
 		public function get totalDays():Number
@@ -111,10 +109,9 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the total number of hours.
+		 * Gets the total number of hours, with partial hours represented as decimal value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromMinutes(1500), 
-		 *                      totalHours will be 25, but hours will be 1 
+		 * @see hours
 		 * @return A number representing the total number of hours in the TimeSpan
 		 */
 		public function get totalHours():Number
@@ -123,10 +120,9 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the total number of minutes.
+		 * Gets the total number of minutes, with partial minutes represented as decimal value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromMilliseconds(65500), 
-		 *                      totalSeconds will be 65.5, but seconds will be 5 
+		 * @see minutes
 		 * @return A number representing the total number of minutes in the TimeSpan
 		 */
 		public function get totalMinutes():Number
@@ -135,10 +131,9 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
-		 * Gets the total number of seconds.
+		 * Gets the total number of seconds, with partial seconds represented as decimal value.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromMilliseconds(65500), 
-		 *                      totalSeconds will be 65.5, but seconds will be 5 
+		 * @see minutes
 		 * @return A number representing the total number of seconds in the TimeSpan
 		 */
 		public function get totalSeconds():Number
@@ -149,8 +144,7 @@ package com.layerglue.lib.base.utils
 		/**
 		 * Gets the total number of milliseconds.
 		 * 
-		 * @example In a TimeSpan created from TimeSpan.fromMilliseconds(2123), 
-		 *                      totalMilliseconds will be 2001, but milliseconds will be 123 
+		 * @see milliseconds
 		 * @return A number representing the total number of milliseconds in the TimeSpan
 		 */
 		public function get totalMilliseconds():Number
