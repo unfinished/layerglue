@@ -91,10 +91,14 @@ package com.layerglue.lib.base.utils
 			}
 		}
 		
-		public static function stackHorizontal(x:Number, y:Number, horizontalGap:Number, items:Array):Number
+		public static function stackHorizontal(x:Number, y:Number, horizontalGap:Number, items:Array, roundValues:Boolean=true):Number
 		{
 			var item:*;
 			var xIncrementer:Number = x;
+			if (roundValues)
+			{
+				xIncrementer = Math.round(xIncrementer);
+			}
 			
 			var i:int=0;
 			while(i<items.length)
@@ -124,17 +128,26 @@ package com.layerglue.lib.base.utils
 						throw new Error("Only DisplayObjects or Numbers can be added as items to PositionUtils.stackVertical");
 					}
 				}
+				
+				if (roundValues)
+				{
+					xIncrementer = Math.round(xIncrementer);
+				}
 				i++;
 			}
 			
 			return item.y + item.height;
 		}
 		
-		public static function stackVertical(x:Number, y:Number, verticalGap:Number, items:Array):Number
+		public static function stackVertical(x:Number, y:Number, verticalGap:Number, items:Array, roundValues:Boolean=true):Number
 		{
 			var item:*;
 			var yIncrementer:Number = y;
-			
+			if (roundValues)
+			{
+				yIncrementer = Math.round(yIncrementer);
+			}
+				
 			var i:int=0;
 			while(i<items.length)
 			{
@@ -161,6 +174,11 @@ package com.layerglue.lib.base.utils
 					{
 						throw new Error("Only DisplayObjects or Numbers can be added as items to PositionUtils.stackVertical");
 					}
+				}
+				
+				if (roundValues)
+				{
+					yIncrementer = Math.round(yIncrementer);
 				}
 				i++;
 			}
