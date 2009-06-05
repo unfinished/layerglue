@@ -103,7 +103,12 @@ package com.layerglue.flash.controls
 		
 		protected function globalReleaseHandler(event:MouseEvent):void
 		{
-			stage.removeEventListener(MouseEvent.MOUSE_UP, globalReleaseHandler, false);
+			//TODO - TEMPORARY FIX ONLY
+			if(stage)
+			{
+				stage.removeEventListener(MouseEvent.MOUSE_UP, globalReleaseHandler, false);
+			}
+			
 			
 			//Check for release outside
 			if(phase != ButtonPhase.OVER)
