@@ -1,7 +1,8 @@
 package com.layerglue.flash.controls 
 {
 	import com.layerglue.flash.constants.ButtonPhase;
-
+	import com.layerglue.lib.base.events.EventListener;
+	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 
@@ -14,6 +15,8 @@ package com.layerglue.flash.controls
 		public function BaseButton()
 		{
 			super();
+			
+			enabled = true;
 			
 			addEventListeners();
 			
@@ -93,7 +96,7 @@ package com.layerglue.flash.controls
 		protected function pressHandler(event:MouseEvent):void
 		{
 			setPhase(ButtonPhase.DOWN);
-			stage.addEventListener(MouseEvent.MOUSE_UP, globalReleaseHandler, false, 0, true);
+			addStageListener();
 		}
 		
 		protected function releaseHandler(event:MouseEvent):void
@@ -101,14 +104,9 @@ package com.layerglue.flash.controls
 			setPhase(ButtonPhase.OVER);
 		}
 		
-		protected function globalReleaseHandler(event:MouseEvent):void
+		protected function stageReleaseHandler(event:MouseEvent):void
 		{
-			//TODO - TEMPORARY FIX ONLY
-			if(stage)
-			{
-				stage.removeEventListener(MouseEvent.MOUSE_UP, globalReleaseHandler, false);
-			}
-			
+			removeStageListener();
 			
 			//Check for release outside
 			if(phase != ButtonPhase.OVER)
@@ -117,9 +115,24 @@ package com.layerglue.flash.controls
 			}
 		}
 		
+		protected var _stageListener:EventListener;
+		
+		protected function addStageListener():void
+		{
+			_stageListener = new EventListener(stage, MouseEvent.MOUSE_UP, stageReleaseHandler, false, 0, true);
+		}
+		
+		protected function removeStageListener():void
+		{
+			if(_stageListener)
+			{
+				_stageListener.destroy();
+				_stageListener = null;
+			}
+		}
+		
 		protected function invalidate():void
 		{
-			
 		}
 		
 	}
