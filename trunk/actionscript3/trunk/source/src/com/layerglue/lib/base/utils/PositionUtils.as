@@ -2,6 +2,7 @@ package com.layerglue.lib.base.utils
 {
 
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	/**
 	 * @author Jamie Copeland
 	 */
@@ -186,5 +187,17 @@ package com.layerglue.lib.base.utils
 			return item.y + item.height;
 		}
 		
+		/**
+		 * Returns references to all children of a DisplayObjectContainer in an array.
+		 */
+		public static function getChildrenInContainer(container:DisplayObjectContainer):Array
+		{
+			var a:Array = new Array();
+			for (var i:int = 0; i < container.numChildren; i++)
+			{
+				a.push(container.getChildAt(i));
+			}
+			return a;
+		}
 	}
 }
