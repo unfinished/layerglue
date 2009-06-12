@@ -101,7 +101,7 @@ package com.layerglue.lib.base.utils
 		
 		
 		
-		public static function stackHorizontal(items:Array, horizontalGap:Number, alignment:String=ALIGN_NONE, x:Number=0, y:Number=0, roundValues:Boolean=true):Number
+		public static function stackHorizontal(items:Array, horizontalGap:Number=0, alignment:String=ALIGN_NONE, x:Number=0, y:Number=0, roundValues:Boolean=true):Number
 		{
 			var item:*;
 			var xIncrementer:Number = x;
@@ -174,7 +174,7 @@ package com.layerglue.lib.base.utils
 		}
 		
 		
-		public static function stackVertical(items:Array, verticalGap:Number, alignment:String=ALIGN_NONE, x:Number=0, y:Number=0, roundValues:Boolean=true):Number
+		public static function stackVertical(items:Array, verticalGap:Number=0, alignment:String=ALIGN_NONE, x:Number=0, y:Number=0, roundValues:Boolean=true):Number
 		{
 			var item:*;
 			var widestItemWidth:Number;
@@ -251,14 +251,28 @@ package com.layerglue.lib.base.utils
 			return item.y + item.height;
 		}
 		
-		public static function centerHorizontallyWithinObject(obj:DisplayObject, container:DisplayObject, offset:Number=0):void
+		public static function centerHorizontallyWithinContainer(objects:Array, container:DisplayObject, offset:Number=0):void
 		{
-			obj.x = ((container.width / 2) - (obj.width / 2)) + offset;
+			var obj:DisplayObject;
+			var i:int = 0;
+			while(i < objects.length)
+			{
+				obj = objects[i] as DisplayObject;
+				obj.x = ((container.width / 2) - (obj.width / 2)) + offset;
+				i++;
+			}
 		}
 		
-		public static function centerVerticallyWithinObject(obj:DisplayObject, container:DisplayObject, offset:Number=0):void
+		public static function centerVerticallyWithinContainer(objects:Array, container:DisplayObject, offset:Number=0):void
 		{
-			obj.y = ((container.height / 2) - (obj.height / 2)) + offset;
+			var obj:DisplayObject;
+			var i:int = 0;
+			while(i < objects.length)
+			{
+				obj = objects[i] as DisplayObject;
+				obj.y = ((container.height / 2) - (obj.height / 2)) + offset;
+				i++
+			}
 		}
 		
 		/**
