@@ -8,6 +8,13 @@ package com.layerglue.lib.base.utils
 	 */
 	public class PositionUtils extends Object 
 	{
+		public static const ALIGN_NONE:String = "none";
+		public static const ALIGN_LEFT:String = "left";
+		public static const ALIGN_RIGHT:String = "right";
+		public static const ALIGN_CENTER:String = "center";
+		public static const ALIGN_TOP:String = "top";
+		public static const ALIGN_BOTTOM:String = "bottom";
+		public static const ALIGN_MIDDLE:String = "middle";
 		
 		public function PositionUtils()
 		{
@@ -92,7 +99,9 @@ package com.layerglue.lib.base.utils
 			}
 		}
 		
-		public static function stackHorizontal(x:Number, y:Number, horizontalGap:Number, items:Array, roundValues:Boolean=true):Number
+		
+		
+		public static function stackHorizontal(items:Array, horizontalGap:Number, alignment:String=ALIGN_NONE, x:Number=0, y:Number=0, roundValues:Boolean=true):Number
 		{
 			var item:*;
 			var xIncrementer:Number = x;
@@ -113,11 +122,6 @@ package com.layerglue.lib.base.utils
 					{
 						item.x = xIncrementer;
 						
-						if(!isNaN(y))
-						{
-							item.y = y;
-						}
-						
 						xIncrementer += item.width + horizontalGap;
 					}
 					else if(item is Number)
@@ -137,12 +141,43 @@ package com.layerglue.lib.base.utils
 				i++;
 			}
 			
+			if(alignment != ALIGN_NONE)
+			{
+				i=0;
+				while(i<items.length)
+				{
+					if(items[i] is DisplayObject)
+					{
+						var obj:DisplayObject = items[i] as DisplayObject;
+						
+						switch(alignment)
+						{
+							case ALIGN_TOP:
+								obj.y = y;
+							break;
+							
+							case ALIGN_BOTTOM:
+								obj.y = y - obj.height
+							break;
+							
+							case ALIGN_MIDDLE:
+								obj.y = y - (obj.height / 2);
+							break;
+						}
+					}
+					
+					i++;
+				}
+			}
+			
 			return item.y + item.height;
 		}
 		
-		public static function stackVertical(x:Number, y:Number, verticalGap:Number, items:Array, roundValues:Boolean=true):Number
+		
+		public static function stackVertical(items:Array, verticalGap:Number, alignment:String=ALIGN_NONE, x:Number=0, y:Number=0, roundValues:Boolean=true):Number
 		{
 			var item:*;
+			var widestItemWidth:Number;
 			var yIncrementer:Number = y;
 			if (roundValues)
 			{
@@ -159,9 +194,9 @@ package com.layerglue.lib.base.utils
 				{
 					if(item is DisplayObject)
 					{
-						if(!isNaN(x))
+						if( isNaN(widestItemWidth) || (item as DisplayObject).width > widestItemWidth )
 						{
-							item.x = x;
+							widestItemWidth = (item as DisplayObject).width;
 						}
 						
 						item.y = yIncrementer;
@@ -184,7 +219,46 @@ package com.layerglue.lib.base.utils
 				i++;
 			}
 			
+			if(alignment != ALIGN_NONE)
+			{
+				i=0;
+				while(i<items.length)
+				{
+					if(items[i] is DisplayObject)
+					{
+						var obj:DisplayObject = items[i] as DisplayObject;
+						
+						switch(alignment)
+						{
+							case ALIGN_LEFT:
+								obj.x = x;
+							break;
+							
+							case ALIGN_RIGHT:
+								obj.x = x - obj.width
+							break;
+							
+							case ALIGN_CENTER:
+								obj.x = x - (obj.width / 2);
+							break;
+						}
+					}
+					
+					i++;
+				}
+			}
+			
 			return item.y + item.height;
+		}
+		
+		public static function centerHorizontallyWithinObject(obj:DisplayObject, container:DisplayObject, offset:Number=0):void
+		{
+			obj.x = ((container.width / 2) - (obj.width / 2)) + offset;
+		}
+		
+		public static function centerVerticallyWithinObject(obj:DisplayObject, container:DisplayObject, offset:Number=0):void
+		{
+			obj.y = ((container.height / 2) - (obj.height / 2)) + offset;
 		}
 		
 		/**
