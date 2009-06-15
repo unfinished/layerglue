@@ -222,7 +222,7 @@ package com.layerglue.lib.base.utils
 		 */
 		public function toString():String
 		{
-			return ("[TimeSpan] " + days + "d " + hours + "h " + minutes + "m " + seconds + "s " + milliseconds + "ms");
+			return (days + "d " + hours + "h " + minutes + "m " + seconds + "s " + milliseconds + "ms");
 		}
 	}
 }
