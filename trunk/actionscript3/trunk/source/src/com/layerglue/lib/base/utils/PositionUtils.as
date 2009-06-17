@@ -253,24 +253,34 @@ package com.layerglue.lib.base.utils
 		
 		public static function centerHorizontallyWithinContainer(objects:Array, container:DisplayObject, offset:Number=0):void
 		{
-			var obj:DisplayObject;
-			var i:int = 0;
-			while(i < objects.length)
-			{
-				obj = objects[i] as DisplayObject;
-				obj.x = ((container.width / 2) - (obj.width / 2)) + offset;
-				i++;
-			}
+			centerHorizontallyAgainstX(objects, (container.width / 2), offset);
 		}
 		
 		public static function centerVerticallyWithinContainer(objects:Array, container:DisplayObject, offset:Number=0):void
+		{
+			centerVerticallyAgainstY(objects, (container.height / 2), offset);
+		}
+		
+		public static function centerHorizontallyAgainstX(objects:Array, x:Number, offset:Number=0):void
 		{
 			var obj:DisplayObject;
 			var i:int = 0;
 			while(i < objects.length)
 			{
 				obj = objects[i] as DisplayObject;
-				obj.y = ((container.height / 2) - (obj.height / 2)) + offset;
+				obj.x = (x - (obj.width / 2)) + offset;
+				i++;
+			}
+		}
+		
+		public static function centerVerticallyAgainstY(objects:Array, y:Number, offset:Number=0):void
+		{
+			var obj:DisplayObject;
+			var i:int = 0;
+			while(i < objects.length)
+			{
+				obj = objects[i] as DisplayObject;
+				obj.y = (y - (obj.height / 2)) + offset;
 				i++
 			}
 		}
