@@ -283,6 +283,38 @@ package com.layerglue.lib.base.utils
 			}
 		}
 		
+		public static function alignVertical(items:Array, alignment:String=ALIGN_NONE, x:Number=0, roundValues:Boolean=true):void
+		{
+			if (alignment != ALIGN_NONE)
+			{
+				var i:int = 0;
+				while (i<items.length)
+				{
+					if (items[i] is DisplayObject)
+					{
+						var obj:DisplayObject = items[i] as DisplayObject;
+						
+						switch (alignment)
+						{
+							case ALIGN_TOP:
+								obj.x = x;
+							break;
+							
+							case ALIGN_BOTTOM:
+								obj.x = x - obj.width
+							break;
+							
+							case ALIGN_CENTER:
+								obj.x = x - (obj.width / 2);
+							break;
+						}
+					}
+					
+					i++;
+				}
+			}
+		}
+		
 		public static function centerHorizontallyWithinContainer(objects:Array, container:DisplayObject, offset:Number=0):void
 		{
 			centerHorizontallyAgainstX(objects, (container.width / 2), offset);
