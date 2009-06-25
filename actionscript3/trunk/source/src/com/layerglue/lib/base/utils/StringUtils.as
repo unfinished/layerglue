@@ -5,6 +5,10 @@ package com.layerglue.lib.base.utils
 	 */
 	public class StringUtils
 	{
+		public static const ALPHA_NUMERIC_RESTRICTION:String = "A-Z a-z 0-9";
+		public static const NUMERIC_RESTRICTION:String = "0-9 + \u0020";
+		public static const EMAIL_RESTRICTION:String = "A-Z a-z 0-9 @ . _ \\-";
+		
 		public function StringUtils()
 		{
 			super();
