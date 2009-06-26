@@ -48,6 +48,24 @@ package com.layerglue.air
 			}
 		}
 		
+		
+		/**
+		 * The system tray tooltip, supported by Windows and Linux.
+		 */
+		public static function get systemTrayTooltip():String
+		{
+			var a:String = NativeApplication.supportsSystemTrayIcon ? (nativeApplication.icon as SystemTrayIcon).tooltip : "";
+			return a;
+		}
+		
+		public static function set systemTrayTooltip(text:String):void
+		{
+			if (NativeApplication.supportsSystemTrayIcon)
+			{
+				(nativeApplication.icon as SystemTrayIcon).tooltip = text;
+			}
+		}
+		
 		/**
 		 * The dock icon, supported by Mac OSX. It requires an array of BitmapData
 		 * instances and will choose the one that's closest to the size of the displayed icon.
