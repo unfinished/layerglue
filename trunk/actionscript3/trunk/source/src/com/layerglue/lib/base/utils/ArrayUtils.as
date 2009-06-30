@@ -27,6 +27,58 @@ package com.layerglue.lib.base.utils
 		}
 		
 		/**
+		 * Returns whether or not two arrays contain the same item
+		 */
+		static public function containsMatchingItems(array1:Array, array2:Array):Boolean
+		{
+			var i:int=0;
+			while(i < array1.length)
+			{
+				var array1Item:Object = array1[i];
+				
+				var j:int=0;
+				while(j < array2.length)
+				{
+					if(array1[i] == array2[j])
+					{
+						return true;
+					}
+					j++;
+				}
+				i++;
+			}
+			
+			return false;
+		}
+		
+		/**
+		 * Returns items contained by both arrays
+		 */
+		static public function getMatchingItems(array1:Array, array2:Array):Array
+		{
+			var items:Array = [];
+			
+			var i:int=0;
+			while(i < array1.length)
+			{
+				var array1Item:Object = array1[i];
+				
+				var j:int=0;
+				while(j < array2.length)
+				{
+					if(array1[i] == array2[j])
+					{
+						items.push(array2[j]);
+					}
+					j++;
+				}
+				i++;
+			}
+			
+			return items;
+		}
+		
+		/**
 		 * Adds an item to the array
 		 */
 		public static function addItem(array:Array, item:*):void
