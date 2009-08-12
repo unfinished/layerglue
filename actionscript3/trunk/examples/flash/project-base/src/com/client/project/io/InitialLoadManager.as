@@ -89,7 +89,7 @@ package com.client.project.io
 			var useDyamicData:Boolean = false;//FlashVars.getInstance().getValue("useDynamicData") == "true";
 			
 			var localeConfigPath:String = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml";;
-			var localeCopyPath:String = "flash-assets/xml/copy/locales/copy_excel_" + modelLocator.locale.code + ".xml";
+			var localeCopyPath:String = "flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml";
 			
 			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
@@ -148,11 +148,9 @@ package com.client.project.io
 		
 		private function localeCopyCompleteHandler(event:Event):void
 		{
-			//_copySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
+			_localeCopySource = new FlatXMLSubstitutionSource((event.target as XmlLoader).typedData, "item");
 			//_localeCopySource = new DelimitedValuesSubstitutionSource(event.target.data, "\n", ",", 1, 3, 0, "#");
-			_localeCopySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 4, 1, "#");
-			
-			trace("_localeCopySource getValue: "+_localeCopySource.getValue("project.title"));
+			//_localeCopySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 4, 1, "#");
 			
 			_loader.loadNext();
 		}
