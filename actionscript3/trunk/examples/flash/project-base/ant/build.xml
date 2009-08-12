@@ -33,7 +33,7 @@
 		</delete>
 	</target>
 	
-	<target name="debug_copy_assets"  description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-debug">
+	<target name="debug_copy_assets"  description="Copies files from runtime_assets to bin-debug">
 		<copy todir="${bindebug.dir}">
 			<fileset dir="${runtimeassets.dir}">
 				<exclude name="**/_svn/**"/>
@@ -74,7 +74,7 @@
 		</delete>
 	</target>
 	
-	<target name="release_copy_assets" description="Deletes old files, then copies files from runtime_assets to bin-debug and bin-release">
+	<target name="release_copy_assets" description="Copies files from runtime_assets to bin-release">
 		<copy todir="${binrelease.dir}">
 			<fileset dir="${runtimeassets.dir}">
 				<exclude name="**/_svn/**"/>
