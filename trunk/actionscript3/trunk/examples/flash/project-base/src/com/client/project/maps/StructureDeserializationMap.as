@@ -1,6 +1,7 @@
 package com.client.project.maps
 {
 	import com.client.project.structure.Site;
+	import com.layerglue.lib.base.collections.ArrayExt;
 	import com.layerglue.lib.base.io.xml.XMLDeserializationMap;
 
 	public class StructureDeserializationMap extends XMLDeserializationMap
@@ -13,7 +14,7 @@ package com.client.project.maps
 			// The deserializer will use this map class as a lookup when turning the XML
 			// hierarchy into actionscript objects.
 			
-			addMapping("children", Array);
+			addMapping("children", ArrayExt);
 			addMapping("site", Site);
 		}
 		
