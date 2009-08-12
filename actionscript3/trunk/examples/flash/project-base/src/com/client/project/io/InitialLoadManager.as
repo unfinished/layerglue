@@ -88,22 +88,8 @@ package com.client.project.io
 			
 			var useDyamicData:Boolean = false;//FlashVars.getInstance().getValue("useDynamicData") == "true";
 			
-			var localeConfigPath:String;
-			var localeCopyPath:String;
-			
-			if(useDyamicData)
-			{
-				localeConfigPath = "http://spreadsheets.google.com/fm?key=pv-" + FlashVars.getInstance().getValue("localeConfigId") + "&hl=en&fmcmd=5&gid=0";
-				localeCopyPath = "http://spreadsheets.google.com/fm?key=pv-" + FlashVars.getInstance().getValue("localeCopyId") + "&hl=en&fmcmd=5&gid=0";
-			}
-			else
-			{
-				//localeConfigPath = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".csv";
-				//localeCopyPath = "flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".csv";
-				
-				localeConfigPath = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml";
-				localeCopyPath = "flash-assets/xml/copy/locales/copy_excel_" + modelLocator.locale.code + ".xml";
-			}
+			var localeConfigPath:String = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml";;
+			var localeCopyPath:String = "flash-assets/xml/copy/locales/copy_excel_" + modelLocator.locale.code + ".xml";
 			
 			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
@@ -166,7 +152,7 @@ package com.client.project.io
 			//_localeCopySource = new DelimitedValuesSubstitutionSource(event.target.data, "\n", ",", 1, 3, 0, "#");
 			_localeCopySource = new ExcelSubstitutionSource((event.target as XmlLoader).typedData, 2, 4, 1, "#");
 			
-			trace("_localeCopySource getValue: "+_localeCopySource.getValueByReference("project.title"));
+			trace("_localeCopySource getValue: "+_localeCopySource.getValue("project.title"));
 			
 			_loader.loadNext();
 		}
@@ -175,7 +161,7 @@ package com.client.project.io
 		{
 			populateStructuralDataXML((event.target as XmlLoader).typedData);
 			
-			var region:String = _localeConfigSource.getValueByReference("region");
+			var region:String = _localeConfigSource.getValue("region");
 			_regionalFontLoader.request.url = "flash-assets/fonts/" + region + ".swf";
 			
 			_loader.loadNext();
@@ -205,7 +191,7 @@ package com.client.project.io
 				throw new Error("Tried to access _localeConfigSource before before locale config data has been loaded and deserialized.");
 			}
 			
-			return _localeConfigSource.getValueByReference("region");
+			return _localeConfigSource.getValue("region");
 		}
 		
 		private function populateStructuralDataXML(xml:XML):void
