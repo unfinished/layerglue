@@ -4,6 +4,7 @@ package com.layerglue.flash.preloader
 
 	import flash.display.DisplayObject;
 	import flash.events.IEventDispatcher;
+	import com.layerglue.flash.applications.IPreloadableFlashApplication;
 
 	public interface IRootPreloader extends IEventDispatcher
 	{
@@ -12,9 +13,10 @@ package com.layerglue.flash.preloader
 		function get rootLoadProportion():Number;
 		function get preloaderDisplay():DisplayObject;
 		
+		function showMainInstance(mainInstance:IPreloadableFlashApplication):void;
+		
 		
 		//function get minDisplayTime():Number;
 		//function get isComplete():Boolean;
-		//function showMainApp():void;
 	}
 }

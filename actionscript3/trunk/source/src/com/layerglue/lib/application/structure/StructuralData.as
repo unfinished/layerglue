@@ -13,7 +13,7 @@ package com.layerglue.lib.application.structure
 	
 	[DefaultProperty("children")]
 	
-	[Bindable]
+	/*[Bindable]*/
 	/**
 	 * At it's simplest implementation StructuralData represents a piece of model data.
 	 * In the LayerGlue framework it is considered the 'model' part of the Presentation Model pattern.
