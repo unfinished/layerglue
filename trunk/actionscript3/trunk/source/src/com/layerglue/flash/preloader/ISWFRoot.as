@@ -11,12 +11,8 @@ package com.layerglue.flash.preloader
 		function get mainClassName():String;
 		function get rootLoaderProxy():RootLoaderProxy;
 		function get rootLoadProportion():Number;
-		function get preloaderDisplay():DisplayObject;
+		function get preloaderView():DisplayObject;
 		
 		function addMainInstanceToDisplayList(mainInstance:IPreloadableFlashApplication):void;
-		
-		
-		//function get minDisplayTime():Number;
-		//function get isComplete():Boolean;
 	}
 }

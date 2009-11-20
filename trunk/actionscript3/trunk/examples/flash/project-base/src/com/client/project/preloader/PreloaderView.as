@@ -12,8 +12,9 @@ package com.client.project.preloader
 	import fl.motion.easing.Quadratic;
 	import com.layerglue.flash.views.SpriteExt;
 	import org.goasap.interfaces.IPlayable;
+	import com.layerglue.lib.base.events.PreloaderViewEvent;
 
-	public class PreloaderProgressBar extends SpriteExt
+	public class PreloaderView extends SpriteExt
 	{
 		private static const LOADER_POLL_DURATION:Number = 500;
 		private static const TWEEN_DURATION:Number = 500;
@@ -23,7 +24,7 @@ package com.client.project.preloader
 		private var _loadBarBackground:Sprite;
 		private var _loadBar:Sprite;
 		
-		public function PreloaderProgressBar(preloadManager:FlashPreloadManager)
+		public function PreloaderView(preloadManager:FlashPreloadManager)
 		{
 			super();
 			
@@ -139,7 +140,7 @@ package com.client.project.preloader
 		
 		protected function animationCompleteHandler():void
 		{
-			dispatchEvent(new Event(Event.COMPLETE));
+			dispatchEvent(new PreloaderViewEvent(PreloaderViewEvent.ANIMATION_COMPLETE, true, true));
 		}
 		
 	}
