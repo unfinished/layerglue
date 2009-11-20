@@ -73,7 +73,6 @@ package com.layerglue.flash.views
 		
 		protected function createChildren():void
 		{
-			_childrenCreated = true;
 		}
 
 		protected function draw():void
@@ -102,6 +101,7 @@ package com.layerglue.flash.views
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler, false);
 			
 			createChildren();
+			_childrenCreated = true;
 			draw();
 		}
 		
@@ -116,6 +116,3 @@ package com.layerglue.flash.views
 	}
 	
 }
-
-
-

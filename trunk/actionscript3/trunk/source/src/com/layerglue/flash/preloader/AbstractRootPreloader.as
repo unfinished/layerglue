@@ -13,14 +13,11 @@ package com.layerglue.flash.preloader
 
 	public class AbstractRootPreloader extends MovieClip implements IRootPreloader
 	{
-		
-		protected var _startTime:uint;
+		protected var _mainInstance:IPreloadableFlashApplication;
 		
 		public function AbstractRootPreloader()
 		{
 			super();
-			
-			_startTime = getTimer();
 			
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			
@@ -32,7 +29,6 @@ package com.layerglue.flash.preloader
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
 			FlashPreloadManager.getInstance().addEventListener(PreloadManagerEvent.ROOT_LOAD_COMPLETE, rootLoadCompleteHandler, false, 0, true);
-			FlashPreloadManager.getInstance().addEventListener(PreloadManagerEvent.INITIAL_ASSETS_LOAD_COMPLETE, initialAssetsLoadCompleteHandler, false, 0, true);
 		}
 		
 		protected function addedToStageHandler(event:Event):void
@@ -51,28 +47,30 @@ package com.layerglue.flash.preloader
 		
 		protected function rootLoadCompleteHandler(event:PreloadManagerEvent):void
 		{
+			nextFrame();
+			createMainInstance();
 			startInitialAssetLoad();
 		}
-		 
-		protected function initialAssetsLoadCompleteHandler(event:PreloadManagerEvent):void
-		{
-			showMainApp();
-		}
 		
-		protected var _mainMovie:IPreloadableFlashApplication;
-		
-		protected function startInitialAssetLoad():void
+		protected function createMainInstance():void
 		{
-			nextFrame();
-			
-			var mainClassReference:Class = Class(getDefinitionByName("Main"));
+			var mainClassReference:Class = Class(getDefinitionByName(mainClassName));
 			
 			if(mainClassReference)
 			{
-				_mainMovie = new mainClassReference();
-				
-				_mainMovie.startInitialLoad();
+				_mainInstance = new mainClassReference();
 			}
+		}
+		
+		public function showMainInstance(mainInstance:IPreloadableFlashApplication):void
+		{
+			addChildAt(mainInstance as DisplayObject, 0);
+			mainInstance.show(_preloaderDisplay);
+		}
+		
+		protected function startInitialAssetLoad():void
+		{
+			_mainInstance.startInitialLoad();
 		}
 		
 		protected function createChildren():void
@@ -85,12 +83,6 @@ package com.layerglue.flash.preloader
 		protected function get isComplete():Boolean
 		{
 			return _isComplete;
-		}
-		
-		protected function showMainApp():void
-		{
-			addChildAt(_mainMovie as DisplayObject, 0);
-			_mainMovie.show(_preloaderDisplay);
 		}
 		
 		// IRootPreloaderImplementation -----------------------------------------------------------\
@@ -111,7 +103,7 @@ package com.layerglue.flash.preloader
 		
 		public function get rootLoadProportion():Number
 		{
-			return 0.6;
+			return NaN;
 		}
 		
 		public function get mainClassName():String
@@ -120,5 +112,6 @@ package com.layerglue.flash.preloader
 		}
 		
 		// IRootPreloaderImplementation -----------------------------------------------------------/
+		
 	}
 }
