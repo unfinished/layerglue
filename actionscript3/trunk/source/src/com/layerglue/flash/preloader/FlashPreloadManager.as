@@ -10,37 +10,38 @@ package com.layerglue.flash.preloader
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
 	import com.layerglue.lib.base.loaders.RootLoaderProxy;
+	import com.layerglue.lib.base.events.PreloaderViewEvent;
 
 	[Event(name="rootLoadComplete", type="com.layerglue.lib.base.events.PreloadManagerEvent")]
 	[Event(name="progress", type="flash.events.ProgressEvent")]
 	
 	public class FlashPreloadManager extends EventDispatcher
 	{
-		private var _rootPreloader:ISWFRoot;
+		private var _swfRoot:ISWFRoot;
 		private var _mainInstance:IPreloadableFlashApplication;
 		
-		public function get preloaderDisplay():ISWFRoot
+		public function get swfRoot():ISWFRoot
 		{
-			return _rootPreloader;
+			return _swfRoot;
 		}
 		
-		public function FlashPreloadManager(preloaderDisplay:ISWFRoot)
+		public function FlashPreloadManager(swfRoot:ISWFRoot)
 		{
 			super();
 			
-			_rootPreloader = preloaderDisplay;
+			_swfRoot = swfRoot;
 			_loadManager = new ProportionalLoadManager();
 			
 			_loadManager.addEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
-			_rootPreloader.rootLoaderProxy.addEventListener(Event.COMPLETE, rootLoadCompleteHandler);
-			_rootPreloader.addEventListener(Event.COMPLETE, preloaderDisplayCompleteHandler, false, 0, true);
+			_swfRoot.rootLoaderProxy.addEventListener(Event.COMPLETE, rootLoadCompleteHandler);
+			_swfRoot.addEventListener(PreloaderViewEvent.ANIMATION_COMPLETE, preloaderViewCompleteHandler, false, 0, true);
 			
 			_loadManager.addItem(
 					new LoadManagerToken(
-					preloaderDisplay.rootLoaderProxy,
+					_swfRoot.rootLoaderProxy,
 					null,
 					null,
-					preloaderDisplay.rootLoadProportion)
+					_swfRoot.rootLoadProportion)
 				);
 			
 			_loadManager.addEventListener(Event.COMPLETE, initialAssetsLoadCompleteHandler);
@@ -48,11 +49,11 @@ package com.layerglue.flash.preloader
 		
 		private static var _instance:FlashPreloadManager;
 		
-		public static function initialize(preloaderDisplay:ISWFRoot):FlashPreloadManager
+		public static function initialize(swfRoot:ISWFRoot):FlashPreloadManager
 		{
 			if(!_instance)
 			{
-				_instance = new FlashPreloadManager(preloaderDisplay);
+				_instance = new FlashPreloadManager(swfRoot);
 				
 			}
 			
@@ -97,11 +98,10 @@ package com.layerglue.flash.preloader
 			//_rootPreloader.showMainInstance(_mainInstance);
 		}
 		
-		private function preloaderDisplayCompleteHandler(event:Event):void
+		private function preloaderViewCompleteHandler(event:Event):void
 		{
-			trace("FlashPreloadManager tryign to show");
-			_rootPreloader.addMainInstanceToDisplayList(_mainInstance);
-			_mainInstance.show(preloaderDisplay as DisplayObject);
+			_swfRoot.addMainInstanceToDisplayList(_mainInstance);
+			_mainInstance.show(swfRoot.preloaderView);
 		}
 	}
 }

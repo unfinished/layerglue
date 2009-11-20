@@ -12,7 +12,7 @@ package
 	{
 		
 		private var _initialLoadManager:InitialLoadManager;
-		private var _preloaderDisplay:DisplayObject;
+		private var _preloaderView:DisplayObject;
 		
 		public function Main()
 		{
@@ -21,14 +21,14 @@ package
 			FlashPreloadManager.getInstance().registerMainInstance(this);
 		}
 		
-		public function show(preloaderDisplay:DisplayObject):void
+		public function show(preloaderView:DisplayObject):void
 		{
-			_preloaderDisplay = preloaderDisplay;
+			_preloaderView = preloaderView;
 			
 			trace("Main.show");
-			if(_preloaderDisplay.parent && _preloaderDisplay.parent.contains(preloaderDisplay))
+			if(_preloaderView.parent && _preloaderView.parent.contains(_preloaderView))
 			{
-				HydroTween.go(_preloaderDisplay, {alpha:0}, 2, 0, Quadratic.easeOut, preloaderHideComplete);
+				HydroTween.go(_preloaderView, {alpha:0}, 2, 0, Quadratic.easeOut, preloaderHideComplete);
 				
 				//createChildren() and draw() are being called here, but may need to be moved in to
 				//preloaderHideComplete depending on the project
@@ -57,8 +57,7 @@ package
 		
 		private function preloaderHideComplete():void
 		{
-			trace("_preloaderDisplay: "+_preloaderDisplay)
-			_preloaderDisplay.parent.removeChild(_preloaderDisplay);
+			_preloaderView.parent.removeChild(_preloaderView);
 		}
 	}
 }

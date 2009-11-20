@@ -23,14 +23,8 @@ package com.client.project.preloader
 		{
 			super.createChildren();
 			
-			_preloaderDisplay = new PreloaderProgressBar(FlashPreloadManager.getInstance());
-			_preloaderDisplay.addEventListener(Event.COMPLETE, preloaderDisplayCompleteHandler, false, 0, true);
-			addChild(_preloaderDisplay as DisplayObject);
-		}
-		
-		protected function preloaderDisplayCompleteHandler(event:Event):void
-		{
-			dispatchEvent(new Event(Event.COMPLETE));
+			_preloaderView = new PreloaderView(FlashPreloadManager.getInstance());
+			addChild(_preloaderView as DisplayObject);
 		}
 		
 		override public function get rootLoadProportion():Number

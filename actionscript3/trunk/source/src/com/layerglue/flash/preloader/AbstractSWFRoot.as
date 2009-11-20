@@ -94,11 +94,11 @@ package com.layerglue.flash.preloader
 			return _rootLoaderProxy;
 		}
 		
-		protected var _preloaderDisplay:DisplayObject;
+		protected var _preloaderView:DisplayObject;
 		
-		public function get preloaderDisplay():DisplayObject
+		public function get preloaderView():DisplayObject
 		{
-			return _preloaderDisplay;
+			return _preloaderView;
 		}
 		
 		public function get rootLoadProportion():Number
