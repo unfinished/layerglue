@@ -11,11 +11,11 @@ package com.layerglue.flash.preloader
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getTimer;
 
-	public class AbstractRootPreloader extends MovieClip implements IRootPreloader
+	public class AbstractSWFRoot extends MovieClip implements ISWFRoot
 	{
 		protected var _mainInstance:IPreloadableFlashApplication;
 		
-		public function AbstractRootPreloader()
+		public function AbstractSWFRoot()
 		{
 			super();
 			
@@ -62,10 +62,10 @@ package com.layerglue.flash.preloader
 			}
 		}
 		
-		public function showMainInstance(mainInstance:IPreloadableFlashApplication):void
+		public function addMainInstanceToDisplayList(mainInstance:IPreloadableFlashApplication):void
 		{
+			trace("AbstractSwfRoot.addMainInstanceToDisplayList");
 			addChildAt(mainInstance as DisplayObject, 0);
-			mainInstance.show(_preloaderDisplay);
 		}
 		
 		protected function startInitialAssetLoad():void

@@ -1,7 +1,7 @@
 package com.client.project.preloader
 {
 	import com.client.project.constants.LoadProportionConstants;
-	import com.layerglue.flash.preloader.AbstractRootPreloader;
+	import com.layerglue.flash.preloader.AbstractSWFRoot;
 	import com.layerglue.flash.preloader.FlashPreloadManager;
 	
 	import flash.display.DisplayObject;
@@ -9,9 +9,9 @@ package com.client.project.preloader
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 
-	public class CustomRootPreloader extends AbstractRootPreloader
+	public class CustomSWFRoot extends AbstractSWFRoot
 	{
-		public function CustomRootPreloader()
+		public function CustomSWFRoot()
 		{
 			super();
 			
