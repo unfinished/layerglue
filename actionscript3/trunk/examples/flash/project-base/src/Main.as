@@ -1,50 +1,52 @@
 package
 {
-	import com.client.project.io.InitialLoadManager;	import com.client.project.locators.ModelLocator;	import com.client.project.styles.GlobalStyle;	import com.layerglue.components.LGLabel;	import com.layerglue.flash.applications.IPreloadableFlashApplication;	import com.layerglue.flash.styles.LGStyleManager;		import flash.display.DisplayObject;	import flash.display.Sprite;	
-	/*
-	public class Main extends Sprite
-	{
-		public function Main()
-		{
-			super();
-			
-			trace("Hello Jamie");
-		}
-	}
-	*/
-	
-	[Frame(factoryClass="com.client.project.preloader.CustomRootPreloader")]
+	import com.client.project.io.InitialLoadManager;	import com.client.project.styles.GlobalStyle;	import com.layerglue.flash.applications.IPreloadableFlashApplication;	import com.layerglue.flash.styles.LGStyleManager;		import flash.display.DisplayObject;	import flash.display.Sprite;
+	import com.layerglue.flash.preloader.FlashPreloadManager;
+	import com.hydrotik.go.HydroTween;
+	import fl.motion.easing.Quadratic;
+	import com.layerglue.lib.base.utils.GraphicUtils;	
+
+	[Frame(factoryClass="com.client.project.preloader.CustomSWFRoot")]
 	
 	public class Main extends Sprite implements IPreloadableFlashApplication
 	{
 		
 		private var _initialLoadManager:InitialLoadManager;
+		private var _preloaderDisplay:DisplayObject;
 		
 		public function Main()
 		{
 			super();
 			
-			LGStyleManager.getInstance().registerStyle(new GlobalStyle());
+			FlashPreloadManager.getInstance().registerMainInstance(this);
 		}
 		
 		public function show(preloaderDisplay:DisplayObject):void
 		{
-			if(preloaderDisplay.parent && preloaderDisplay.parent.contains(preloaderDisplay))
+			_preloaderDisplay = preloaderDisplay;
+			
+			trace("Main.show");
+			if(_preloaderDisplay.parent && _preloaderDisplay.parent.contains(preloaderDisplay))
 			{
-				preloaderDisplay.parent.removeChild(preloaderDisplay);
+				HydroTween.go(_preloaderDisplay, {alpha:0}, 2, 0, Quadratic.easeOut, preloaderHideComplete);
+				
+				//createChildren() and draw() are being called here, but may need to be moved in to
+				//preloaderHideComplete depending on the project
+				createChildren();
+				draw();
 			}
-			
-			trace(">>>> " + LGStyleManager.getInstance().getAsset("testImage"));
-			
-			var classRef:Class = LGStyleManager.getInstance().getAsset("testImage") as Class;
-			var im:DisplayObject = addChild(new classRef());
-			im.y = 100;
-			createChildren();
 		}
 		
 		public function createChildren():void
-		{			
-			drawStuff();
+		{
+			//Create site content but hide it
+			
+			GraphicUtils.fillSprite(this, 0x00FF00, 1, 200, 200);
+		}
+		
+		private function draw():void
+		{
+			
 		}
 		
 		public function startInitialLoad():void
@@ -53,23 +55,10 @@ package
 			_initialLoadManager.start();
 		}
 		
-		private function drawStuff():void
+		private function preloaderHideComplete():void
 		{
-			
-			var styledLabel:LGLabel = new LGLabel();
-			styledLabel.text = ModelLocator.getInstance().structure.title;
-			addChild(styledLabel);
-			
-			styledLabel.y = 30;
-			styledLabel.autoSize = "left";
-			
-			/*
-			graphics.beginFill(Number(_initialLoadManager.localeConfigSource.getValueByReference("squareColor")), 1);
-			graphics.drawRoundRect(100, 300, _initialLoadManager.localeConfigSource.getValueByReference("squareWidth"), _initialLoadManager.localeConfigSource.getValueByReference("squareHeight"), _initialLoadManager.localeConfigSource.getValueByReference("squareCornerRadius"), _initialLoadManager.localeConfigSource.getValueByReference("squareCornerRadius"));
-			graphics.endFill();
-			 
-			 */
+			trace("_preloaderDisplay: "+_preloaderDisplay)
+			_preloaderDisplay.parent.removeChild(_preloaderDisplay);
 		}
-		
 	}
 }

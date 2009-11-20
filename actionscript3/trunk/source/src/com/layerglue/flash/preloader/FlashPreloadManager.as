@@ -16,15 +16,15 @@ package com.layerglue.flash.preloader
 	
 	public class FlashPreloadManager extends EventDispatcher
 	{
-		private var _rootPreloader:IRootPreloader;
+		private var _rootPreloader:ISWFRoot;
 		private var _mainInstance:IPreloadableFlashApplication;
 		
-		public function get preloaderDisplay():IRootPreloader
+		public function get preloaderDisplay():ISWFRoot
 		{
 			return _rootPreloader;
 		}
 		
-		public function FlashPreloadManager(preloaderDisplay:IRootPreloader)
+		public function FlashPreloadManager(preloaderDisplay:ISWFRoot)
 		{
 			super();
 			
@@ -48,7 +48,7 @@ package com.layerglue.flash.preloader
 		
 		private static var _instance:FlashPreloadManager;
 		
-		public static function initialize(preloaderDisplay:IRootPreloader):FlashPreloadManager
+		public static function initialize(preloaderDisplay:ISWFRoot):FlashPreloadManager
 		{
 			if(!_instance)
 			{
@@ -94,11 +94,13 @@ package com.layerglue.flash.preloader
 		
 		private function initialAssetsLoadCompleteHandler(event:Event):void
 		{
-			_rootPreloader.showMainInstance(_mainInstance);
+			//_rootPreloader.showMainInstance(_mainInstance);
 		}
 		
 		private function preloaderDisplayCompleteHandler(event:Event):void
 		{
+			trace("FlashPreloadManager tryign to show");
+			_rootPreloader.addMainInstanceToDisplayList(_mainInstance);
 			_mainInstance.show(preloaderDisplay as DisplayObject);
 		}
 	}
