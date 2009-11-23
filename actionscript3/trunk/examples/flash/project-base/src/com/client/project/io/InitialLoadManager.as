@@ -104,13 +104,7 @@ package com.client.project.io
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalFontLoader = new DisplayLoader(new URLRequest());
 			
-			//var modelLocator:ModelLocator = ModelLocator.getInstance();
-			//modelLocator.locale = new Locale(FlashVars.getInstance().getValue("locale"));
-			
-			var useDyamicData:Boolean = false;//FlashVars.getInstance().getValue("useDynamicData") == "true";
-			
 			var locale:String = FlashVars.getInstance().getValue("locale");
-			
 			var localeConfigPath:String = _assetsBasePath+ "xml/configuration/locales/config_" + locale + ".xml";;
 			var localeCopyPath:String = _assetsBasePath + "xml/copy/locales/copy_" + locale + ".xml";
 			
