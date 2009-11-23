@@ -46,7 +46,6 @@ package com.layerglue.flex3.base.applications
 		/**
 		 * @inheritDoc
 		 */
-		[Inspectable(defaultValue="1")]
 		public function get loadManagerTotalValue():Number
 		{
 			return _loadManagerTotalValue;
@@ -62,7 +61,6 @@ package com.layerglue.flex3.base.applications
 		/**
 		 * @inheritDoc
 		 */
-		[Inspectable(defaultValue="0.6")]
 		public function get loadManagerMainSWFProportion():Number
 		{
 			return _loadManagerMainSWFProportion;

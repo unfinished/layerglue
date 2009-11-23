@@ -52,13 +52,13 @@ package com.layerglue.flex3.base.preloader
 		 * The default arbitrary total value used by the loadManager if a value is not set in the
 		 * main application
 		 */
-		public static var DEFAULT_LOAD_MANAGER_TOTAL_VALUE:Number = 1;
+		public static var DEFAULT_LOAD_MANAGER_TOTAL_VALUE:Number = 100;
 		
 		/**
 		 * The default proportion of the main swf as a segment the overall filesize being loaded
 		 * before the site is initialized. 
 		 */
-		public static var DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE:Number = 0.6;
+		public static var DEFAULT_LOAD_MANAGER_MAIN_SWF_VALUE:Number = 60;
 		
 		public static function getLoadManagerClassReference(systemManager:ISystemManager):Class
 		{

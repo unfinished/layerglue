@@ -56,7 +56,7 @@ package com.client.project.preloader
 		
 		private function loadChangeHandler(event:Event):void
 		{
-			draw();
+			//draw();
 		}
 		
 		override protected function createChildren():void

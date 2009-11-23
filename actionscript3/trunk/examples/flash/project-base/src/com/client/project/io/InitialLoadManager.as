@@ -29,6 +29,7 @@ package com.client.project.io
 	import flash.net.URLRequest;
 	
 	import org.puremvc.as3.patterns.facade.Facade;
+	import com.client.project.constants.LoadProportionConstants;
 
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
@@ -117,37 +118,37 @@ package com.client.project.io
 					new XmlLoader(new URLRequest(_assetsBasePath + "xml/configuration/config_global.xml")),
 					globalConfigCompleteHandler,
 					errorHandler,
-					0.01);
+					LoadProportionConstants.GLOBAL_CONFIG);
 			
 			var localeConfigToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest(localeConfigPath)),
 					localeConfigCompleteHandler,
 					errorHandler,
-					0.01);
+					LoadProportionConstants.LOCALE_CONFIG);
 			
 			var localeCopyToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest(localeCopyPath)),
 					localeCopyCompleteHandler,
 					errorHandler,
-					0.01);
+					LoadProportionConstants.LOCALE_COPY);
 			
 			var unsubstitutedStructureToken:LoadManagerToken = new LoadManagerToken(
 					new XmlLoader(new URLRequest(_assetsBasePath + "xml/structure/structure-unsubstituted.xml")),
 					structureUnpopulatedCompleteHandler,
 					errorHandler,
-					0.01);
+					LoadProportionConstants.UNSUBSTITUED_STRUCTURE);
 			
 			var regionalCompiledFontToken:LoadManagerToken = new LoadManagerToken(
 					_regionalFontLoader,
 					regionalCompiledFontCompleteHandler,
 					errorHandler,
-					0.36);
+					LoadProportionConstants.REGIONAL_COMPILED_FONT);
 			
 			var runtimeAssetsToken:LoadManagerToken = new LoadManagerToken(
 					new DisplayLoader(new URLRequest(_assetsBasePath + "runtime-assets.swf")),
 					runtimeAssetsCompleteHandler,
 					errorHandler,
-					0.01);
+					LoadProportionConstants.RUNTIME_ASSETS);
 			
 			_loader.addItem(globalConfigToken);						
 			_loader.addItem(localeConfigToken);							

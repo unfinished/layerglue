@@ -132,37 +132,37 @@ package com.layerglue.lib.base.io
 			_multiLoader.loadNext();
 		}
 			
-		private function openHandler(event:Event):void
+		protected function openHandler(event:Event):void
 		{
 			dispatchEvent(event.clone());
 		}
 		
-		private function completeHandler(event:Event):void
+		protected function completeHandler(event:Event):void
 		{
 			dispatchEvent(event.clone());
 		}
 		
-		private function itemOpenHandler(event:MultiLoaderEvent):void
+		protected function itemOpenHandler(event:MultiLoaderEvent):void
 		{
 			dispatchEvent(event.clone());
 		}
 		
-		private function itemCloseHandler(event:MultiLoaderEvent):void
+		protected function itemCloseHandler(event:MultiLoaderEvent):void
 		{
 			dispatchEvent(event.clone());
 		}
 		
-		private function itemCompleteHandler(event:MultiLoaderEvent):void
+		protected function itemCompleteHandler(event:MultiLoaderEvent):void
 		{
 			dispatchEvent(event.clone());
 		}
 		
-		private function itemProgressHandler(event:MultiLoaderEvent):void
+		protected function itemProgressHandler(event:MultiLoaderEvent):void
 		{
 			dispatchEvent(event.clone());
 		}
 		
-		private function progressHandler(event:ProgressEvent):void
+		protected function progressHandler(event:ProgressEvent):void
 		{
 			dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS));
 		}
