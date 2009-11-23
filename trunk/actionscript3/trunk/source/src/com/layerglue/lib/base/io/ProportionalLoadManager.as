@@ -1,6 +1,7 @@
 package com.layerglue.lib.base.io
 {
 	import com.layerglue.lib.base.loaders.IMeasurableLoader;
+	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 
 	/**
 	 * 
@@ -11,8 +12,6 @@ package com.layerglue.lib.base.io
 		public function ProportionalLoadManager()
 		{
 			super();
-			
-			totalValue = 1;
 		}
 		
 		private var _totalValue:Number;
@@ -30,6 +29,13 @@ package com.layerglue.lib.base.io
 		public function get currentValue():Number
 		{
 			return calculateCurrentValue();
+		}
+		
+		override protected function itemProgressHandler(event:MultiLoaderEvent):void
+		{
+			super.itemProgressHandler(event);
+			
+			//trace(">>>>>  "+currentValue +"/"+totalValue)
 		}
 		
 		//TODO Look into Infinity value and O being passed back as totalBytes of URLLoaderExt
@@ -62,7 +68,7 @@ package com.layerglue.lib.base.io
 					break;
 				}
 			}
-			
+			//trace(" proportionLoaded: " + proportionLoaded);
 			return proportionLoaded;
 		}
 		

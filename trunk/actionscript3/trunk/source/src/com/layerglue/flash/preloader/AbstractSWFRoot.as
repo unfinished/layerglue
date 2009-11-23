@@ -100,7 +100,12 @@ package com.layerglue.flash.preloader
 			return _preloaderView;
 		}
 		
-		public function get rootLoadProportion():Number
+		public function get rootLoadProportion():int
+		{
+			return NaN;
+		}
+		
+		public function get totalLoadValue():int
 		{
 			return NaN;
 		}

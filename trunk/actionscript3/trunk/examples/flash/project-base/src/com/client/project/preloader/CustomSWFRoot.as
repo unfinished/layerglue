@@ -27,10 +27,14 @@ package com.client.project.preloader
 			addChild(_preloaderView as DisplayObject);
 		}
 		
-		override public function get rootLoadProportion():Number
+		override public function get rootLoadProportion():int
 		{
 			return LoadProportionConstants.ROOT;
 		}
 		
+		override public function get totalLoadValue():int
+		{
+			return LoadProportionConstants.total;
+		}
 	}
 }

@@ -31,6 +31,7 @@ package com.layerglue.flash.preloader
 			
 			_swfRoot = swfRoot;
 			_loadManager = new ProportionalLoadManager();
+			_loadManager.totalValue = swfRoot.totalLoadValue;
 			
 			_loadManager.addEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
 			_swfRoot.rootLoaderProxy.addEventListener(Event.COMPLETE, rootLoadCompleteHandler);
