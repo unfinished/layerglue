@@ -1,11 +1,6 @@
 package
 {
-	import com.client.project.io.InitialLoadManager;	import com.client.project.styles.GlobalStyle;	import com.layerglue.flash.applications.IPreloadableFlashApplication;	import com.layerglue.flash.styles.LGStyleManager;		import flash.display.DisplayObject;	import flash.display.Sprite;
-	import com.layerglue.flash.preloader.FlashPreloadManager;
-	import com.hydrotik.go.HydroTween;
-	import fl.motion.easing.Quadratic;
-	import com.layerglue.lib.base.utils.GraphicUtils;
-	import com.client.project.views.SiteView;	
+	import com.client.project.io.InitialLoadManager;	import com.client.project.views.SiteView;	import com.hydrotik.go.HydroTween;	import com.layerglue.flash.applications.IPreloadableFlashApplication;	import com.layerglue.flash.preloader.FlashPreloadManager;		import fl.motion.easing.Quadratic;		import flash.display.DisplayObject;	import flash.display.Sprite;	
 
 	[Frame(factoryClass="com.client.project.preloader.CustomSWFRoot")]
 	
@@ -27,7 +22,6 @@ package
 		{
 			_preloaderView = preloaderView;
 			
-			trace("Main.show");
 			if(_preloaderView.parent && _preloaderView.parent.contains(_preloaderView))
 			{
 				HydroTween.go(_preloaderView, {alpha:0}, 2, 0, Quadratic.easeOut, preloaderHideComplete);
