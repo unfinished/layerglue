@@ -1,4 +1,4 @@
-`	package
+package
 {
 	import flash.system.Security;
 	import flash.text.Font;
