@@ -64,7 +64,6 @@ package com.layerglue.flash.preloader
 		
 		public function addMainInstanceToDisplayList(mainInstance:IPreloadableFlashApplication):void
 		{
-			trace("AbstractSwfRoot.addMainInstanceToDisplayList");
 			addChildAt(mainInstance as DisplayObject, 0);
 		}
 		

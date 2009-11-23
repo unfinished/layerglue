@@ -4,7 +4,8 @@ package
 	import com.layerglue.flash.preloader.FlashPreloadManager;
 	import com.hydrotik.go.HydroTween;
 	import fl.motion.easing.Quadratic;
-	import com.layerglue.lib.base.utils.GraphicUtils;	
+	import com.layerglue.lib.base.utils.GraphicUtils;
+	import com.client.project.views.SiteView;	
 
 	[Frame(factoryClass="com.client.project.preloader.CustomSWFRoot")]
 	
@@ -13,6 +14,7 @@ package
 		
 		private var _initialLoadManager:InitialLoadManager;
 		private var _preloaderView:DisplayObject;
+		private var _siteView:SiteView;
 		
 		public function Main()
 		{
@@ -41,7 +43,8 @@ package
 		{
 			//Create site content but hide it
 			
-			GraphicUtils.fillSprite(this, 0x00FF00, 1, 200, 200);
+			_siteView = new SiteView();
+			addChild(_siteView);
 		}
 		
 		private function draw():void

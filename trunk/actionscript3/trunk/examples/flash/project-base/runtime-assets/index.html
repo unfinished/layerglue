@@ -16,6 +16,7 @@
 			var locale = getQueryVar("locale").slice(0, 5);
 			locale = locale.length > 0 ? locale : "en-gb";
 			
+			var assetsBasePath = "flash-assets/";
 			
 			switch(locale)
 			{
@@ -51,6 +52,7 @@
 			so.addParam('menu', 'false');
 			so.addVariable("useDynamicData", useDynamicData);
 			so.addVariable("locale", locale);
+			so.addVariable("assetsBasePath", assetsBasePath);			
 			so.addVariable("localeConfigId", localeConfigId);
 			so.addVariable("localeCopyId", localeCopyId);
 			
