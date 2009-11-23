@@ -1,28 +1,34 @@
 package com.client.project.io
 {
-	import com.client.project.locators.ModelLocator;
 	import com.client.project.maps.StructureDeserializationMap;
+	import com.client.project.model.proxies.AssetLibraryProxy;
+	import com.client.project.model.proxies.ConfigProxy;
+	import com.client.project.model.proxies.CopyProxy;
+	import com.client.project.model.proxies.StructuralDataProxy;
+	import com.client.project.structure.Site;
 	import com.layerglue.flash.loaders.DisplayLoader;
 	import com.layerglue.flash.preloader.FlashPreloadManager;
 	import com.layerglue.flash.styles.LGStyleCollection;
 	import com.layerglue.flash.styles.LGStyleManager;
+	import com.layerglue.lib.base.assets.AssetLibrary;
+	import com.layerglue.lib.base.collections.IKeyValuePairCollection;
 	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.xml.XMLDeserializer;
 	import com.layerglue.lib.base.loaders.XmlLoader;
-	import com.layerglue.lib.base.localisation.Locale;
 	import com.layerglue.lib.base.substitution.ISubstitutionSource;
 	import com.layerglue.lib.base.substitution.XMLSubstitutor;
-	import com.layerglue.lib.base.substitution.sources.ExcelSubstitutionSource;
 	import com.layerglue.lib.base.substitution.sources.FlatXMLSubstitutionSource;
 	import com.layerglue.lib.base.substitution.sources.MultiSubstitutionSource;
-
+	
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
+	
+	import org.puremvc.as3.patterns.facade.Facade;
 
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
@@ -30,7 +36,27 @@ package com.client.project.io
 	 */
 	public class InitialLoadManager extends EventDispatcher
 	{
-		//Defining properties to hold XML Substitutors
+		[Embed(source="/../embedded-assets/embedded-assets.swf", mimeType="application/octet-stream")]
+		private static var embeddedAssetsClass:Class;
+		
+		private var _loadManagerListener:EventListener;
+		private var _regionalFontLoader:DisplayLoader;
+		private var _assetsBasePath:String;
+		
+		public function InitialLoadManager()
+		{
+			super();
+			
+			_loader = FlashPreloadManager.getInstance().loadManager;
+			
+			_loadManagerListener = new EventListener(
+						_loader,
+						Event.COMPLETE,
+						loaderCompleteHandler);
+			 
+			initialize();
+		}
+		
 		private var _globalConfigSource:ISubstitutionSource;
 		
 		public function get globalConfigSource():ISubstitutionSource
@@ -52,23 +78,11 @@ package com.client.project.io
 			return _localeCopySource;
 		}
 		
-		private var _loadManagerListener:EventListener;
+		private var _assetLibrary:AssetLibrary;
 		
-		private var _regionalFontLoader:DisplayLoader;
-		
-		
-		public function InitialLoadManager()
+		public function assetLibrary():AssetLibrary
 		{
-			super();
-			
-			_loader = FlashPreloadManager.getInstance().loadManager;
-			 
-			_loadManagerListener = new EventListener(
-						_loader,
-						Event.COMPLETE,
-						loaderCompleteHandler);
-			 
-			initialize();
+			return _assetLibrary;
 		}
 		
 		private var _loader:LoadManager;
@@ -79,20 +93,28 @@ package com.client.project.io
 		}
 		
 		public function initialize():void
-		{			
+		{
+			_assetsBasePath = FlashVars.getInstance().getValue("assetsBasePath", "flash-assets/");
+			
+			//Adding embedded assets
+			_assetLibrary = new AssetLibrary();
+			_assetLibrary.addEmbeddedSWF(embeddedAssetsClass);
+			
 			//Creating empty loader as url can only be defined after xml data has been deserialized.
 			_regionalFontLoader = new DisplayLoader(new URLRequest());
 			
-			var modelLocator:ModelLocator = ModelLocator.getInstance();
-			modelLocator.locale = new Locale(FlashVars.getInstance().getValue("locale"));
+			//var modelLocator:ModelLocator = ModelLocator.getInstance();
+			//modelLocator.locale = new Locale(FlashVars.getInstance().getValue("locale"));
 			
 			var useDyamicData:Boolean = false;//FlashVars.getInstance().getValue("useDynamicData") == "true";
 			
-			var localeConfigPath:String = "flash-assets/xml/configuration/locales/config_" + modelLocator.locale.code + ".xml";;
-			var localeCopyPath:String = "flash-assets/xml/copy/locales/copy_" + modelLocator.locale.code + ".xml";
+			var locale:String = FlashVars.getInstance().getValue("locale");
+			
+			var localeConfigPath:String = _assetsBasePath+ "xml/configuration/locales/config_" + locale + ".xml";;
+			var localeCopyPath:String = _assetsBasePath + "xml/copy/locales/copy_" + locale + ".xml";
 			
 			var globalConfigToken:LoadManagerToken = new LoadManagerToken(
-					new XmlLoader(new URLRequest("flash-assets/xml/configuration/config_global.xml")),
+					new XmlLoader(new URLRequest(_assetsBasePath + "xml/configuration/config_global.xml")),
 					globalConfigCompleteHandler,
 					errorHandler,
 					0.01);
@@ -110,7 +132,7 @@ package com.client.project.io
 					0.01);
 			
 			var unsubstitutedStructureToken:LoadManagerToken = new LoadManagerToken(
-					new XmlLoader(new URLRequest("flash-assets/xml/structure/structure-unsubstituted.xml")),
+					new XmlLoader(new URLRequest(_assetsBasePath + "xml/structure/structure-unsubstituted.xml")),
 					structureUnpopulatedCompleteHandler,
 					errorHandler,
 					0.01);
@@ -121,16 +143,32 @@ package com.client.project.io
 					errorHandler,
 					0.36);
 			
+			var runtimeAssetsToken:LoadManagerToken = new LoadManagerToken(
+					new DisplayLoader(new URLRequest(_assetsBasePath + "runtime-assets.swf")),
+					runtimeAssetsCompleteHandler,
+					errorHandler,
+					0.01);
+			
 			_loader.addItem(globalConfigToken);						
 			_loader.addItem(localeConfigToken);							
 			_loader.addItem(localeCopyToken);							
 			_loader.addItem(unsubstitutedStructureToken);							
 			_loader.addItem(regionalCompiledFontToken);
+			_loader.addItem(runtimeAssetsToken);
 		}
 		
 		public function start():void
 		{
-			_loader.start();
+			_loader.start();			
+		}
+		
+		protected function setupData():void
+		{
+			var mergedConfigData:IKeyValuePairCollection = new MultiSubstitutionSource([_globalConfigSource, _localeConfigSource]);
+			
+			Facade.getInstance().registerProxy(new AssetLibraryProxy(_assetLibrary));
+			Facade.getInstance().registerProxy(new ConfigProxy(mergedConfigData));
+			Facade.getInstance().registerProxy(new CopyProxy(_localeCopySource));
 		}
 		
 		private function globalConfigCompleteHandler(event:Event):void
@@ -160,7 +198,7 @@ package com.client.project.io
 			populateStructuralDataXML((event.target as XmlLoader).typedData);
 			
 			var region:String = _localeConfigSource.getValue("region");
-			_regionalFontLoader.request.url = "flash-assets/fonts/" + region + ".swf";
+			_regionalFontLoader.request.url = _assetsBasePath + "fonts/" + region + ".swf";
 			
 			_loader.loadNext();
 		}
@@ -172,8 +210,18 @@ package com.client.project.io
 			_loader.loadNext();
 		}
 		
+		private function runtimeAssetsCompleteHandler(event:Event):void
+		{
+			//Adding runtime assets
+			_assetLibrary.addLoader(event.target as DisplayLoader, false);
+			
+			_loader.loadNext();
+		}
+		
 		private function loaderCompleteHandler(event:Event):void
 		{
+			setupData();
+			
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
@@ -209,8 +257,9 @@ package com.client.project.io
 		{
 			var deserializer:XMLDeserializer = new XMLDeserializer();
 			deserializer.map = new StructureDeserializationMap();
-			var structure:* = deserializer.deserialize(xml);
-			ModelLocator.getInstance().structure = structure;
+			var structure:Site = deserializer.deserialize(xml);
+			
+			Facade.getInstance().registerProxy(new StructuralDataProxy(structure));
 		}
 		
 	}
