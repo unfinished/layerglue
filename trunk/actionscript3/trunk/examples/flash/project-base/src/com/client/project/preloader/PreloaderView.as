@@ -13,6 +13,7 @@ package com.client.project.preloader
 	import com.layerglue.flash.views.SpriteExt;
 	import org.goasap.interfaces.IPlayable;
 	import com.layerglue.lib.base.events.PreloaderViewEvent;
+	import flash.utils.setTimeout;
 
 	public class PreloaderView extends SpriteExt
 	{
@@ -61,6 +62,8 @@ package com.client.project.preloader
 		
 		override protected function createChildren():void
 		{
+			stage.addEventListener(Event.RESIZE, resizeHandler, false, 0, true);
+			
 			_loadBarContainer = new Sprite();
 			addChild(_loadBarContainer);
 			
@@ -70,8 +73,8 @@ package com.client.project.preloader
 			_loadBar = new Sprite();
 			_loadBarContainer.addChild(_loadBar);
 			
-			var fixedWidth:Number = 200;
-			var fixedHeight:Number = 20;
+			var fixedWidth:Number = 400;
+			var fixedHeight:Number = 5;
 			
 			//Draw background
 			_loadBarBackground.graphics.beginFill(0x333333);
@@ -79,11 +82,13 @@ package com.client.project.preloader
 			_loadBarBackground.graphics.endFill();
 			
 			//Draw bar
-			_loadBar.graphics.beginFill(0x666666);
+			_loadBar.graphics.beginFill(0x999999);
 			_loadBar.graphics.drawRect(0, 0, fixedWidth, fixedHeight);
 			_loadBar.graphics.endFill();
 			
 			_loadBar.scaleX = 0;
+			
+			setTimeout(triggerPoll, 1);
 		}
 		
 		override protected function draw():void
@@ -92,8 +97,6 @@ package com.client.project.preloader
 			{
 				_loadBarContainer.x = stage.stageWidth/2 - _loadBarContainer.width/2;
 				_loadBarContainer.y = stage.stageHeight/2 - _loadBarContainer.height/2;
-				
-				triggerPoll();
 			}
 		}
 		
@@ -141,6 +144,14 @@ package com.client.project.preloader
 		protected function animationCompleteHandler():void
 		{
 			dispatchEvent(new PreloaderViewEvent(PreloaderViewEvent.ANIMATION_COMPLETE, true, true));
+		}
+		
+		protected function resizeHandler(event:Event):void
+		{
+			if(parent)
+			{
+				invalidate();
+			}
 		}
 		
 	}

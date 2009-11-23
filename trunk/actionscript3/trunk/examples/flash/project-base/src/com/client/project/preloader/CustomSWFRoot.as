@@ -8,6 +8,7 @@ package com.client.project.preloader
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import com.hydrotik.go.HydroTween;
 
 	public class CustomSWFRoot extends AbstractSWFRoot
 	{
@@ -17,6 +18,8 @@ package com.client.project.preloader
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
+			
+			HydroTween.VERBOSE = false;
 		}
 		
 		override protected function createChildren():void
