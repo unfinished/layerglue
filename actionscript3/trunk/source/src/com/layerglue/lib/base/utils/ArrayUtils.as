@@ -1,17 +1,11 @@
 package com.layerglue.lib.base.utils
 {
-	
 	public class ArrayUtils extends Object
 	{
-		public function ArrayUtils()
-		{
-			super();
-		}
-		
 		/**
 		 * Returns whether or not the array contains an item.
 		 */
-		static public function contains( array:Array, item:Object ):Boolean
+		public static function contains( array:Array, item:Object ):Boolean
 		{
 			var i:int = 0;
 			
@@ -29,7 +23,7 @@ package com.layerglue.lib.base.utils
 		/**
 		 * Returns whether or not two arrays contain the same item
 		 */
-		static public function containsMatchingItems(array1:Array, array2:Array):Boolean
+		public static function containsMatchingItems(array1:Array, array2:Array):Boolean
 		{
 			var i:int=0;
 			while(i < array1.length)
@@ -54,7 +48,7 @@ package com.layerglue.lib.base.utils
 		/**
 		 * Returns items contained by both arrays
 		 */
-		static public function getMatchingItems(array1:Array, array2:Array):Array
+		public static function getMatchingItems(array1:Array, array2:Array):Array
 		{
 			var items:Array = [];
 			
@@ -203,6 +197,25 @@ package com.layerglue.lib.base.utils
 			}
 			
 			return -1;
+		}
+		
+		/**
+		 * Shuffles items in the array.
+		 * 
+		 * @param iterations The number of swaps to make in the shuffle. If the default of zero is
+		 * used then the number of swaps will equal the length of the array plus one.
+		 */
+		public static function shuffle(array:Array, iterations:int=0):void
+		{
+			var loops:int = (iterations == 0) ? (array.length + 1) : iterations;
+			for (var i:int = 0; i < loops; i++)
+			{
+				var a:int = Math.random() * array.length;
+				var b:int = Math.random() * array.length;
+				var t:* = array[a];
+				array[a] = array[b];
+				array[b] = t; 
+			}
 		}
 	}
 }
