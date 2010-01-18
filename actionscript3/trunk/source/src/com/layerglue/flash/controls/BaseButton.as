@@ -1,15 +1,15 @@
 package com.layerglue.flash.controls 
 {
 	import com.layerglue.flash.constants.ButtonPhase;
+	import com.layerglue.flash.views.SpriteExt;
 	import com.layerglue.lib.base.events.EventListener;
 	
-	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 
 	/**
 	 * @author Jamie Copeland
 	 */
-	public class BaseButton extends Sprite 
+	public class BaseButton extends SpriteExt
 	{
 		
 		public function BaseButton()
@@ -33,7 +33,7 @@ package com.layerglue.flash.controls
 		public function set enabled(value:Boolean):void
 		{
 			_enabled = value;
-			invalidate();
+			invalidateState();
 		}
 		
 		protected var _selected:Boolean;
@@ -46,7 +46,7 @@ package com.layerglue.flash.controls
 		public function set selected(value:Boolean):void
 		{
 			_selected = value;
-			invalidate();
+			invalidateState();
 		}
 
 		protected var _phase:String;
@@ -59,7 +59,7 @@ package com.layerglue.flash.controls
 		protected function setPhase(value:String):void
 		{
 			_phase = value;
-			invalidate();
+			invalidateState();
 		}
 		
 		protected function addEventListeners():void
@@ -131,7 +131,7 @@ package com.layerglue.flash.controls
 			}
 		}
 		
-		protected function invalidate():void
+		protected function invalidateState():void
 		{
 		}
 		
