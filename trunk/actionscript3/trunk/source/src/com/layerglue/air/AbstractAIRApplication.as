@@ -55,11 +55,11 @@ package com.layerglue.air
 			var appCopyright:String = appDescriptor.ns::copyright;
 			var appVersion:String = appDescriptor.ns::version;
 			
-			trace("========================================================");
-			trace(" LayerGlue AIR App - " + " AppID: '" + appId + "' " + appVersion );
-			trace(" (AIR Runtime version: " + NativeApplication.nativeApplication.runtimeVersion
-				+  " - Display: " + Capabilities.screenResolutionX + "x" + Capabilities.screenResolutionY + ")");
-			trace("========================================================");
+			trace("====================================================");
+			trace(" Adobe AIR - " + " AppID: '" + appId + "' v" + appVersion );
+			trace(" (AIR Runtime: " + NativeApplication.nativeApplication.runtimeVersion
+				+  "   Display: " + Capabilities.screenResolutionX + "x" + Capabilities.screenResolutionY + ")");
+			trace("====================================================");
 		}
 		
 	}
