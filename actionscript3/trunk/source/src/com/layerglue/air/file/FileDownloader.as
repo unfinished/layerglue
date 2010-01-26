@@ -48,6 +48,8 @@ package com.layerglue.air.file
 		
 		public function startDownloading(remoteFilePath:String, localFile:File):void
 		{
+			//trace("startDownloading: " + remoteFilePath, localFile.url);
+			
 			_remotePath = remoteFilePath;
 			_localFile = localFile;
 			_request = new URLRequest(remoteFilePath);
