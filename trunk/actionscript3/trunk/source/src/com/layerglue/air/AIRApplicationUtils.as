@@ -49,5 +49,16 @@ package com.layerglue.air
 				NativeApplication.nativeApplication.startAtLogin = value; 
 			}
 		}
+		
+		/**
+		 * Returns the version number as defined in the application descriptor XML.
+		 */
+		public static function get applicationVersion():String
+		{
+			var appDescriptor:XML = NativeApplication.nativeApplication.applicationDescriptor;
+			var ns:Namespace = appDescriptor.namespace();
+			var appVersion:String = appDescriptor.ns::version;
+			return appVersion;
+		}
 	}
 }
