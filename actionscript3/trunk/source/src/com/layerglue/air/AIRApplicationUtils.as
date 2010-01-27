@@ -51,14 +51,26 @@ package com.layerglue.air
 		}
 		
 		/**
+		 * Returns a value from the app descriptor XML by the specified key. Returns an empty string
+		 * if the key was not found. Note, the value must be a simple XML node with no children,
+		 * for example the 'version' and 'name' nodes. Since the app descriptor XML allows custom
+		 * nodes to be added this is a good way of including custom properties into an AIR build.
+		 */
+		public static function getAppDescriptorValue(key:String):String
+		{
+			var desc:XML = NativeApplication.nativeApplication.applicationDescriptor;
+			var ns:Namespace = desc.namespace();
+			var q:QName = new QName(ns, key);
+			var value:String = desc.child(q);
+			return value;
+		}
+		
+		/**
 		 * Returns the version number as defined in the application descriptor XML.
 		 */
 		public static function get applicationVersion():String
 		{
-			var appDescriptor:XML = NativeApplication.nativeApplication.applicationDescriptor;
-			var ns:Namespace = appDescriptor.namespace();
-			var appVersion:String = appDescriptor.ns::version;
-			return appVersion;
+			return getAppDescriptorValue("version");
 		}
 	}
 }
