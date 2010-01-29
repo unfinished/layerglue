@@ -325,7 +325,7 @@ package com.layerglue.lib.base.utils
 			centerVerticallyAgainstY(objects, (container.height / 2), offset);
 		}
 		
-		public static function centerHorizontallyAgainstX(objects:Array, x:Number, offset:Number=0):void
+		public static function centerHorizontallyAgainstX(objects:Array, x:Number, offset:Number=0, roundValues:Boolean=true):void
 		{
 			var obj:DisplayObject;
 			var i:int = 0;
@@ -333,11 +333,12 @@ package com.layerglue.lib.base.utils
 			{
 				obj = objects[i] as DisplayObject;
 				obj.x = (x - (obj.width / 2)) + offset;
+				if (roundValues) obj.x = Math.round(obj.x);
 				i++;
 			}
 		}
 		
-		public static function centerVerticallyAgainstY(objects:Array, y:Number, offset:Number=0):void
+		public static function centerVerticallyAgainstY(objects:Array, y:Number, offset:Number=0, roundValues:Boolean=true):void
 		{
 			var obj:DisplayObject;
 			var i:int = 0;
@@ -345,6 +346,7 @@ package com.layerglue.lib.base.utils
 			{
 				obj = objects[i] as DisplayObject;
 				obj.y = (y - (obj.height / 2)) + offset;
+				if (roundValues) obj.y = Math.round(obj.y);
 				i++
 			}
 		}
