@@ -75,13 +75,13 @@ package com.layerglue.flash.views
 		{
 		}
 
-		protected function draw():void
+		protected function updateDisplayList():void
 		{	
 		}
 		
 		public function invalidate():void
 		{
-			draw();
+			updateDisplayList();
 		}
 		
 		public function move(x:Number, y:Number):void
@@ -102,7 +102,7 @@ package com.layerglue.flash.views
 			
 			createChildren();
 			_childrenCreated = true;
-			draw();
+			invalidate();
 		}
 		
 		public function destroy():void
