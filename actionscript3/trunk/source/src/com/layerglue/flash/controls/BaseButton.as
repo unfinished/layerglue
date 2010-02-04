@@ -1,25 +1,21 @@
 package com.layerglue.flash.controls 
 {
 	import com.layerglue.flash.constants.ButtonPhase;
-	import com.layerglue.flash.views.SpriteExt;
 	import com.layerglue.lib.base.events.EventListener;
 	
+	import flash.display.Sprite;
 	import flash.events.MouseEvent;
-
-	/**
-	 * @author Jamie Copeland
-	 */
+	import com.layerglue.flash.views.SpriteExt;
+	
 	public class BaseButton extends SpriteExt
 	{
+		public var id:String;
 		
 		public function BaseButton()
 		{
 			super();
-			
 			enabled = true;
-			
 			addEventListeners();
-			
 			setPhase(ButtonPhase.UP);
 		}
 		
@@ -33,7 +29,7 @@ package com.layerglue.flash.controls
 		public function set enabled(value:Boolean):void
 		{
 			_enabled = value;
-			invalidateState();
+			invalidate();
 		}
 		
 		protected var _selected:Boolean;
@@ -46,9 +42,9 @@ package com.layerglue.flash.controls
 		public function set selected(value:Boolean):void
 		{
 			_selected = value;
-			invalidateState();
+			invalidate();
 		}
-
+		
 		protected var _phase:String;
 		
 		public function get phase():String
@@ -56,10 +52,10 @@ package com.layerglue.flash.controls
 			return _phase;
 		}
 		
-		protected function setPhase(value:String):void
+		public function setPhase(value:String):void
 		{
 			_phase = value;
-			invalidateState();
+			invalidate();
 		}
 		
 		protected function addEventListeners():void
@@ -131,9 +127,14 @@ package com.layerglue.flash.controls
 			}
 		}
 		
-		protected function invalidateState():void
+		override protected function createChildren():void
 		{
+			super.createChildren();
 		}
 		
+		override protected function updateDisplayList():void
+		{
+			super.updateDisplayList();
+		}
 	}
 }
