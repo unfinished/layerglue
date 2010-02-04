@@ -81,7 +81,7 @@ package com.layerglue.flash.views
 		
 		public function invalidate():void
 		{
-			updateDisplayList();
+			if (_childrenCreated) updateDisplayList();
 		}
 		
 		public function move(x:Number, y:Number):void
