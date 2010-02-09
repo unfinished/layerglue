@@ -217,5 +217,10 @@ package com.layerglue.lib.base.utils
 				array[b] = t; 
 			}
 		}
+		
+		public static function getNextIncrementerValue(currentValue:Number, array:Array, cycle:Boolean=true):Number
+		{
+			return currentValue >= array.length-1 ? (cycle ? 0 : currentValue) : currentValue + 1;
+		}
 	}
 }
