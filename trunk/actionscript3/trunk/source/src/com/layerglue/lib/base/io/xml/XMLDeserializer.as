@@ -216,9 +216,12 @@ package com.layerglue.lib.base.io.xml
 		 */
 		public function deserialize(xml:XML, obj:*=null, parent:*=null):*
 		{
+			var classRef:Class;
+			
 			//Check if object exists
 			if(!obj)
 			{
+				
 				//Check if xml has complex content (maening sub nodes rather than simple text content) or any atrributes
 				if(xml.hasComplexContent() || xml.attributes().length() > 0)
 				{
@@ -226,7 +229,7 @@ package com.layerglue.lib.base.io.xml
 					//Checking if a mapping can be found for the xml node name
 					if(hasMapping(xml.localName()))
 					{
-						var classRef:Class = getMapping(xml.localName());
+						classRef = getMapping(xml.localName());
 						obj = new classRef();
 					}
 					else
@@ -260,14 +263,21 @@ package com.layerglue.lib.base.io.xml
 				else
 				{
 					//Usually a simple node with simple content will contain a string but it may be
-					//an empty collection, so have to check for explict isCollection flag via
-					//the isCollectionNode() method
+					//an empty collection or mapped object, so have to check for explict
+					//isCollection flag via the isCollectionNode() method or if it has a direct
+					//mapping
 					
 					use namespace deserializerNamespace;
 										
 					if(xml.@isCollection == "1" || xml.@isCollection == "true")
 					{
 						obj = createAnonymousObject(xml);
+					}
+					else if(getMapping(xml.localName()))
+					{
+						classRef = getMapping(xml.localName());
+						obj = new classRef();
+						//trace("deserlializeer getting to here: " + getMapping(xml.localName()));
 					}
 					else if(!getMapping(xml.localName()))
 					{
