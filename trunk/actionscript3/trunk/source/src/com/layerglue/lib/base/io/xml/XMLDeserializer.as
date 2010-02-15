@@ -277,7 +277,6 @@ package com.layerglue.lib.base.io.xml
 					{
 						classRef = getMapping(xml.localName());
 						obj = new classRef();
-						//trace("deserlializeer getting to here: " + getMapping(xml.localName()));
 					}
 					else if(!getMapping(xml.localName()))
 					{
