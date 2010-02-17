@@ -219,7 +219,7 @@ package com.layerglue.lib.base.utils
 		}
 		
 		//TODO implement this
-		//public static function getNextIncrementerValue(currentValue:Number, array:Array, incrementAmount:int=1, cycle:Boolean=true):Number
+		//public static function getNextIncrementerValue(currentValue:Number, array:Array, cycle:Boolean=true, incrementAmount:int=1):Number
 		public static function getNextIncrementerValue(currentValue:Number, array:Array, cycle:Boolean=true):Number
 		{
 			return currentValue >= array.length-1 ? (cycle ? 0 : currentValue) : currentValue + 1;
