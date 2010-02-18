@@ -494,14 +494,8 @@ package com.layerglue.lib.base.io.xml
 				}
 				
 				//Default to false
-				return false;
-				
-				
-				
+				return false;				
 			}
-			
-			
-			
 		}
 		
 		/**
