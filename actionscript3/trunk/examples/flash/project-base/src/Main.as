@@ -1,16 +1,15 @@
 package
 {
-	import fl.motion.easing.Quadratic;
-
 	import com.client.project.io.InitialLoadManager;
 	import com.client.project.views.SiteView;
 	import com.hydrotik.go.HydroTween;
 	import com.layerglue.flash.applications.IPreloadableFlashApplication;
 	import com.layerglue.flash.preloader.FlashPreloadManager;
-	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.resources.ImageResourceItem;
 	import com.layerglue.lib.base.resources.ResourceCollection;
 	import com.layerglue.lib.base.resources.SWFResourceItem;
+
+	import mx.effects.easing.Quadratic;
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
