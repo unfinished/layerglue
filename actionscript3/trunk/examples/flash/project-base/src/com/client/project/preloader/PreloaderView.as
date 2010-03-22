@@ -1,18 +1,19 @@
 package com.client.project.preloader
 {
+	import fl.motion.easing.Quadratic;
+
+	import com.hydrotik.go.HydroTween;
 	import com.layerglue.flash.preloader.FlashPreloadManager;
-	import com.layerglue.lib.base.events.PreloadManagerEvent;
-	
+	import com.layerglue.flash.views.SpriteExt;
+	import com.layerglue.lib.base.events.PreloaderViewEvent;
+
+	import org.goasap.interfaces.IPlayable;
+
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
-	import com.hydrotik.go.HydroTween;
-	import flash.utils.Timer;
 	import flash.events.TimerEvent;
-	import fl.motion.easing.Quadratic;
-	import com.layerglue.flash.views.SpriteExt;
-	import org.goasap.interfaces.IPlayable;
-	import com.layerglue.lib.base.events.PreloaderViewEvent;
+	import flash.utils.Timer;
 	import flash.utils.setTimeout;
 
 	public class PreloaderView extends SpriteExt
@@ -91,7 +92,7 @@ package com.client.project.preloader
 			setTimeout(triggerPoll, 1);
 		}
 		
-		override protected function draw():void
+		override protected function updateDisplayList():void
 		{
 			if(childrenCreated)
 			{

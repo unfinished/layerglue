@@ -28,7 +28,7 @@ package com.client.project.views
 			trace("copy:::: "+copyProxy.getValue("project.title"));
 		}
 		
-		override protected function draw():void
+		override protected function updateDisplayList():void
 		{
 			
 		}
