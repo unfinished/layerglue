@@ -157,7 +157,7 @@ package com.layerglue.lib.base.utils
 							break;
 							
 							case ALIGN_BOTTOM:
-								obj.y = y - obj.height
+								obj.y = y - obj.height;
 							break;
 							
 							case ALIGN_MIDDLE:

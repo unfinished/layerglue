@@ -71,17 +71,17 @@ package com.layerglue.lib.base.resources
 					switch(type.toLowerCase())
 					{
 						case "uint":
-							var u:uint = prop.valueOf();
+							var u:uint = prop.valueOf() as uint;
 							put(propName, u);
 						break;
 						
 						case "int":
-							var i:int = prop.valueOf();
+							var i:int = prop.valueOf() as int;
 							put(propName, i);
 						break;
 						
 						case "number":
-							var n:Number = prop.valueOf();
+							var n:Number = prop.valueOf() as Number;
 							put(propName, n);
 						break;
 						
