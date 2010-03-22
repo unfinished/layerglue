@@ -1,6 +1,20 @@
 package
 {
-	import com.client.project.io.InitialLoadManager;	import com.client.project.views.SiteView;	import com.hydrotik.go.HydroTween;	import com.layerglue.flash.applications.IPreloadableFlashApplication;	import com.layerglue.flash.preloader.FlashPreloadManager;		import fl.motion.easing.Quadratic;		import flash.display.DisplayObject;	import flash.display.Sprite;	
+	import fl.motion.easing.Quadratic;
+
+	import com.client.project.io.InitialLoadManager;
+	import com.client.project.views.SiteView;
+	import com.hydrotik.go.HydroTween;
+	import com.layerglue.flash.applications.IPreloadableFlashApplication;
+	import com.layerglue.flash.preloader.FlashPreloadManager;
+	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
+	import com.layerglue.lib.base.resources.ImageResourceItem;
+	import com.layerglue.lib.base.resources.ResourceCollection;
+	import com.layerglue.lib.base.resources.SWFResourceItem;
+
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
+	import flash.events.Event;
 
 	[Frame(factoryClass="com.client.project.preloader.CustomSWFRoot")]
 	
@@ -39,7 +53,32 @@ package
 			
 			_siteView = new SiteView();
 			addChild(_siteView);
+			
+			// TESTING ONLY
+			
+			var imageResourceItem:ImageResourceItem = new ImageResourceItem();
+			imageResourceItem.url = "flash-assets/testImage.jpg";
+			imageResourceItem.proportion = 50;
+			
+			var swfResourceItem:SWFResourceItem = new SWFResourceItem();
+			swfResourceItem.url = "flash-assets/testImage.jpg";
+			swfResourceItem.proportion = 50;
+			
+			var rc:ResourceCollection = new ResourceCollection();
+			
+			rc.addItem(imageResourceItem);
+			rc.addItem(swfResourceItem);
+			rc.addEventListener(Event.COMPLETE, totalCompleteHandler);
+			rc.start();
+			
+			// TESTING ONLY
 		}
+
+		private function totalCompleteHandler(event:Event) : void 
+		{
+			trace("Main.totalCompleteHandler");
+		}
+
 		
 		private function draw():void
 		{
