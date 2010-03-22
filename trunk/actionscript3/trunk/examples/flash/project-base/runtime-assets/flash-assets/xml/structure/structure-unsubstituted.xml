@@ -3,4 +3,14 @@
 	<title><![CDATA[@project.title@]]></title>
 	
 	<!--<children></children>-->
+	
+	<resourceCollection>
+		<items>
+			<swfResource	id="testSWF"	url="flash-assets/testSWF.swf" />
+			<swfResource	id="testSWF2"	url="flash-assets/testSWF.swf" />
+			<imageResource	id="testImage"	url="flash-assets/testImage.jpg" />
+			<stringResource	id="testString" />
+			<imageResource	id="testImage2"	url="flash-assets/testImage.jpg" />
+		</items>
+	</resourceCollection>
 </site>

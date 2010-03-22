@@ -285,64 +285,80 @@ package com.layerglue.lib.base.io.xml
 				}
 			}
 			
+			//trace("XMLDeserializer.deserialize - obj: " + ReflectionUtils.getFullyQualifiedClassName(obj));
+			
 			//NOTE: Object has always been created by this point
 			
-			//Deserializing attributes
-			for (var i:int = 0; i < xml.attributes().length(); i++)
-			{
-				//Get the current attribute
-				var attName:String = String(xml.attributes()[i].name());
-				
-				//Creating the namespaced isCollection attribute name
-				var namespacedIsCollectionAttName:String = ReflectionUtils.getFullyQualifiedClassName(XMLDeserializer) + "::isCollection";
-				
-				//Checking we arent trying to deserialize the isCollection marker attribute
-				if(attName != namespacedIsCollectionAttName)
-				{
-					setProperty(obj, attName, xml.attributes()[i].toString());
-				}
-			}
+			//If the object is implements ISelfDeserializer let it deal with its
+			//own deserialization and return
 			
-			//Deserializing children
-			for each(var childXML:XML in xml.children())
+			if(obj is ISelfDeserializer)
 			{
-				var child:Object = deserialize(childXML, null, obj);
-				
-				var numSiblingsWithChildNodeName:int = XMLUtils.getNumItemsWithName(xml, childXML.localName()); 
-				
-				
-				//If the node has more than one child with the same name and
-				//groupSameNamedUnmappedNodes is true push items with same name into property on parent which is an array.
-				if(numSiblingsWithChildNodeName > 1 && groupSameNamedUnmappedNodes)
+				(obj as ISelfDeserializer).deserialize(xml);
+				//return;
+			}
+			else
+			{
+				//Deserializing attributes
+				for (var i:int = 0; i < xml.attributes().length(); i++)
 				{
+					//Get the current attribute
+					var attName:String = String(xml.attributes()[i].name());
 					
-					if( !obj.hasOwnProperty(childXML.localName()) )
+					//Creating the namespaced isCollection attribute name
+					var namespacedIsCollectionAttName:String = ReflectionUtils.getFullyQualifiedClassName(XMLDeserializer) + "::isCollection";
+					
+					//Checking we arent trying to deserialize the isCollection marker attribute
+					if(attName != namespacedIsCollectionAttName)
 					{
-						obj[childXML.localName()] = new anonymousCollectionType();						
+						setProperty(obj, attName, xml.attributes()[i].toString());
 					}
-					
-					addItemToCollection(obj[childXML.localName()], child);
 				}
-				else
+				
+				//Deserializing children
+				for each(var childXML:XML in xml.children())
 				{
-					//Attempt to parent the objects
-					if(isCollectionObject(obj))
+					var child:Object = deserialize(childXML, null, obj);
+					
+					var numSiblingsWithChildNodeName:int = XMLUtils.getNumItemsWithName(xml, childXML.localName()); 
+					
+					//If the node has more than one child with the same name and
+					//groupSameNamedUnmappedNodes is true push items with same name into property on parent which is an array.
+					if(numSiblingsWithChildNodeName > 1 && groupSameNamedUnmappedNodes)
 					{
-						tryParenting(ignoreArraysWhenParenting ? parent : obj, child);
+						if( !obj.hasOwnProperty(childXML.localName()) )
+						{
+							obj[childXML.localName()] = new anonymousCollectionType();						
+						}
 						
-						addItemToCollection(obj, child);
+						addItemToCollection(obj[childXML.localName()], child);
 					}
 					else
 					{
-						if(child)
+						//Attempt to parent the objects
+						if(isCollectionObject(obj))
 						{
 							tryParenting(ignoreArraysWhenParenting ? parent : obj, child);
+							
+							addItemToCollection(obj, child);
 						}
-						
-						setProperty(obj, childXML.localName(), child);
+						else
+						{
+							if(child)
+							{
+								tryParenting(ignoreArraysWhenParenting ? parent : obj, child);
+							}
+							
+							setProperty(obj, childXML.localName(), child);
+						}
 					}
-					
 				}
+			}
+			
+			//Make sure to call postDeserialize if the object implents IPostDeserialize
+			if(obj is IPostDeserialize)
+			{
+				(obj as IPostDeserialize).postDeserialize();
 			}
 			
 			return obj;

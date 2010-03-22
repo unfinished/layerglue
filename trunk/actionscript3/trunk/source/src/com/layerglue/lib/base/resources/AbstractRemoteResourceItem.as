@@ -6,7 +6,7 @@ package com.layerglue.lib.base.resources
 	/**
 	 * @author Jamie Copeland
 	 */
-	public class AbstractRemoteResourceItem extends LoadManagerToken 
+	public class AbstractRemoteResourceItem extends LoadManagerToken implements IRemoteResourceItem
 	{
 		public function AbstractRemoteResourceItem(loader : ILoader = null, completeHandler : Function = null, errorHandler : Function = null, proportion : Number = NaN)
 		{

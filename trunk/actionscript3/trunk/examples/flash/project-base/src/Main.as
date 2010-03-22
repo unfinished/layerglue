@@ -75,7 +75,11 @@ package
 
 		private function totalCompleteHandler(event:Event) : void 
 		{
-			trace("Main.totalCompleteHandler");
+			trace("Main.totalCompleteHandler: " + event.target);
+			
+			//var resourceCollection:ResourceCollection = event.target as ResourceCollection;
+			//var item = resourceCollection.getItem("testImage");
+			
 		}
 
 		
