@@ -42,7 +42,7 @@ package com.layerglue.lib.base.io
 			_listenerCollection = null;
 		}
 		
-		private var _loader:ILoader;
+		protected var _loader:ILoader;
 		
 		public function get loader():ILoader
 		{
@@ -54,7 +54,7 @@ package com.layerglue.lib.base.io
 			_loader = value;
 		}
 		
-		private var _proportion:Number;
+		protected var _proportion:Number;
 		
 		public function get proportion():Number
 		{
