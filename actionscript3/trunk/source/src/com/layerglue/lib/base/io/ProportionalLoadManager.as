@@ -1,7 +1,9 @@
 package com.layerglue.lib.base.io
 {
-	import com.layerglue.lib.base.loaders.IMeasurableLoader;
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
+	import com.layerglue.lib.base.loaders.IMeasurableLoader;
+
+	import flash.display.Loader;
 
 	/**
 	 * 
@@ -18,7 +20,21 @@ package com.layerglue.lib.base.io
 		
 		public function get totalValue():Number
 		{
-			return _totalValue;
+			//If the _totalValue has been set manually return this value,
+			//otherwise calculate it by totalling the values of contained items
+			if(_totalValue)
+			{			
+				return _totalValue;
+			}
+			else
+			{
+				var total:Number = 0;
+				for each(var item:LoadManagerToken in _loadManagerItems)
+				{
+					total += item.proportion;
+				}
+				return total;
+			}
 		}
 		
 		public function set totalValue(value:Number):void
@@ -35,7 +51,7 @@ package com.layerglue.lib.base.io
 		{
 			super.itemProgressHandler(event);
 			
-			//trace(">>>>>  "+currentValue +"/"+totalValue)
+			//trace(">>>>>  "+currentValue +"/"+totalValue);
 		}
 		
 		//TODO Look into Infinity value and O being passed back as totalBytes of URLLoaderExt

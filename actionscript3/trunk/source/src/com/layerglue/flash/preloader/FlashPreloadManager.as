@@ -2,15 +2,13 @@ package com.layerglue.flash.preloader
 {
 	import com.layerglue.flash.applications.IPreloadableFlashApplication;
 	import com.layerglue.lib.base.events.PreloadManagerEvent;
+	import com.layerglue.lib.base.events.PreloaderViewEvent;
 	import com.layerglue.lib.base.io.LoadManagerToken;
 	import com.layerglue.lib.base.io.ProportionalLoadManager;
-	
-	import flash.display.DisplayObject;
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
-	import com.layerglue.lib.base.loaders.RootLoaderProxy;
-	import com.layerglue.lib.base.events.PreloaderViewEvent;
 
 	[Event(name="rootLoadComplete", type="com.layerglue.lib.base.events.PreloadManagerEvent")]
 	[Event(name="progress", type="flash.events.ProgressEvent")]
