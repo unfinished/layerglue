@@ -1,6 +1,6 @@
 package com.client.project.maps
 {
-	import com.layerglue.lib.base.resources.TextResource;
+	import com.layerglue.lib.base.resources.StringResource;
 	import com.layerglue.lib.base.resources.XMLResourceItem;
 	import com.layerglue.lib.base.resources.SWFResourceItem;
 	import com.layerglue.lib.base.resources.ImageResourceItem;
@@ -24,11 +24,12 @@ package com.client.project.maps
 			
 			
 			addMapping("items", Array);
+			addMapping("items2", Array);
 			addMapping("resourceCollection", ResourceCollection);
 			addMapping("imageResource", ImageResourceItem);
 			addMapping("swfResource", SWFResourceItem);
 			addMapping("xmlResource", XMLResourceItem);
-			addMapping("textResource", TextResource);
+			addMapping("stringResource", StringResource);
 			
 		}
 		

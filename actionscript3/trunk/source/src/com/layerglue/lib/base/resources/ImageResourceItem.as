@@ -8,7 +8,7 @@ package com.layerglue.lib.base.resources
 	/**
 	 * @author Jamie Copeland
 	 */
-	public class ImageResourceItem extends AbstractRemoteResourceItem implements IRemoteResourceItem
+	public class ImageResourceItem extends AbstractRemoteResourceItem
 	{
 		public function ImageResourceItem(loader : ILoader = null, completeHandler : Function = null, errorHandler : Function = null, proportion : Number = NaN)
 		{

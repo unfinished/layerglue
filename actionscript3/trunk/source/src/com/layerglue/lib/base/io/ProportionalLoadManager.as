@@ -3,8 +3,6 @@ package com.layerglue.lib.base.io
 	import com.layerglue.lib.base.events.loader.MultiLoaderEvent;
 	import com.layerglue.lib.base.loaders.IMeasurableLoader;
 
-	import flash.display.Loader;
-
 	/**
 	 * 
 	 */
