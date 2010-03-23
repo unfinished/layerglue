@@ -49,7 +49,7 @@ package com.layerglue.lib.base.collections
 		 * 
 		 * @returns The item that has been removed.
 		 */
-		 //function removeItem(item:Object):Object
+		 function removeItem(item:Object):Object
 		 
 		 /**
 		 * Removes all items from the collection.

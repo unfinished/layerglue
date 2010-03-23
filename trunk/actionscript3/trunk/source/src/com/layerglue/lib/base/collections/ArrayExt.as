@@ -1,5 +1,6 @@
 package com.layerglue.lib.base.collections
 {
+	import com.layerglue.lib.base.utils.ArrayUtils;
 	import com.layerglue.lib.application.events.CollectionEvent;
 	import com.layerglue.lib.application.events.CollectionEventKind;
 
@@ -89,6 +90,15 @@ package com.layerglue.lib.base.collections
 			
 			return removedItem;
 		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function removeItem(item:*):*
+		{
+			return ArrayUtils.removeItem(this, item);
+		}
+		
 		
 		/**
 		 * @inheritDoc

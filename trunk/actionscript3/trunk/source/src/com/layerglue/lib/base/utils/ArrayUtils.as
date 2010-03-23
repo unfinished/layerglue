@@ -91,7 +91,7 @@ package com.layerglue.lib.base.utils
 		/**
 		 * Removes an item from the array if it is present.
 		 */
-		public static function removeItem(array:Array, item:*):void
+		public static function removeItem(array:Array, item:*):*
 		{
 			var i:int = 0;
 			
@@ -100,6 +100,7 @@ package com.layerglue.lib.base.utils
 				if( array[i] === item )
 				{
 					array.splice(i, 1);
+					return item;
 				}
 			}
 		}
