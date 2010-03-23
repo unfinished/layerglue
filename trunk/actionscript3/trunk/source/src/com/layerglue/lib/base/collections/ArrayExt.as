@@ -31,7 +31,7 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
-		public function addItemAt(item:Object, index:int):void
+		public function addItemAt(item:*, index:int):void
 		{
 			splice(index, 0, item);
 			
@@ -45,7 +45,7 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
-		public function addItem(item:Object):void
+		public function addItem(item:*):void
 		{
 			push(item);
 			
@@ -59,7 +59,7 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
-		public function getItemAt(index:int, prefetch:int=0):Object
+		public function getItemAt(index:int, prefetch:int=0):*
 		{
 			return this[index];
 		}
@@ -67,7 +67,7 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
-		public function getItemIndex(item:Object):int
+		public function getItemIndex(item:*):int
 		{
 			return indexOf(item);
 		}
@@ -75,7 +75,7 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
-		public function removeItemAt(index:int):Object
+		public function removeItemAt(index:int):*
 		{
 			var removedItem:Object = splice(index, 1);
 			

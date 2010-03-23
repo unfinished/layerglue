@@ -14,12 +14,12 @@ package com.layerglue.lib.base.collections
 		/**
 		 * Adds an item to the end of collection.
 		 */
-		 function addItem(item:Object):void
+		 function addItem(item:*):void
 		 
 		 /**
 		 * Adds an item at a specific location in the collection.
 		 */
-		 function addItemAt(item:Object, index:int):void;
+		 function addItemAt(item:*, index:int):void;
 		 
 		 //TODO Look at standardising the return value if the item is not present - currently in
 		 //Array a null value is passed whereas ArrayCollection retuns -1
@@ -28,19 +28,19 @@ package com.layerglue.lib.base.collections
 		 * 
 		 * @param index The index of the item to return.
 		 */
-		 function getItemAt(index:int, prefetch:int = 0):Object
+		 function getItemAt(index:int, prefetch:int = 0):*
 		 
 		 /**
 		 * Returns the index of an item if it is present in the Collection
 		 */
-		 function getItemIndex(item:Object):int
+		 function getItemIndex(item:*):int
 		 
 		 /**
 		 * Removes an item at a specific index in the collection.
 		 * 
 		 * @param index The index of the item to remove.
 		 */
-		 function removeItemAt(index:int):Object
+		 function removeItemAt(index:int):*
 		 
 		 /**
 		 * Removes an item from the collection if it is present.
@@ -49,7 +49,7 @@ package com.layerglue.lib.base.collections
 		 * 
 		 * @returns The item that has been removed.
 		 */
-		 function removeItem(item:Object):Object
+		 function removeItem(item:*):*
 		 
 		 /**
 		 * Removes all items from the collection.

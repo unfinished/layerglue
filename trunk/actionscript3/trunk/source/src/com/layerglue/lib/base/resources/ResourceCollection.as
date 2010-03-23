@@ -121,6 +121,7 @@ package com.layerglue.lib.base.resources
 				if(item is LoadManagerToken)
 				{
 					addItem(item as LoadManagerToken);
+					trace("ResourceCollection.postDeserialize - item: " + item);
 				}
 			}
 		}
