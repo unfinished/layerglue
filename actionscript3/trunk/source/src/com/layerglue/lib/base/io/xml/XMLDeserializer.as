@@ -285,80 +285,62 @@ package com.layerglue.lib.base.io.xml
 				}
 			}
 			
-			//trace("XMLDeserializer.deserialize - obj: " + ReflectionUtils.getFullyQualifiedClassName(obj));
-			
 			//NOTE: Object has always been created by this point
 			
-			//If the object is implements ISelfDeserializer let it deal with its
-			//own deserialization and return
-			
-			if(obj is ISelfDeserializer)
+			//Deserializing attributes
+			for (var i:int = 0; i < xml.attributes().length(); i++)
 			{
-				(obj as ISelfDeserializer).deserialize(xml);
-				//return;
-			}
-			else
-			{
-				//Deserializing attributes
-				for (var i:int = 0; i < xml.attributes().length(); i++)
-				{
-					//Get the current attribute
-					var attName:String = String(xml.attributes()[i].name());
-					
-					//Creating the namespaced isCollection attribute name
-					var namespacedIsCollectionAttName:String = ReflectionUtils.getFullyQualifiedClassName(XMLDeserializer) + "::isCollection";
-					
-					//Checking we arent trying to deserialize the isCollection marker attribute
-					if(attName != namespacedIsCollectionAttName)
-					{
-						setProperty(obj, attName, xml.attributes()[i].toString());
-					}
-				}
+				//Get the current attribute
+				var attName:String = String(xml.attributes()[i].name());
 				
-				//Deserializing children
-				for each(var childXML:XML in xml.children())
+				//Creating the namespaced isCollection attribute name
+				var namespacedIsCollectionAttName:String = ReflectionUtils.getFullyQualifiedClassName(XMLDeserializer) + "::isCollection";
+				
+				//Checking we arent trying to deserialize the isCollection marker attribute
+				if(attName != namespacedIsCollectionAttName)
 				{
-					var child:Object = deserialize(childXML, null, obj);
-					
-					var numSiblingsWithChildNodeName:int = XMLUtils.getNumItemsWithName(xml, childXML.localName()); 
-					
-					//If the node has more than one child with the same name and
-					//groupSameNamedUnmappedNodes is true push items with same name into property on parent which is an array.
-					if(numSiblingsWithChildNodeName > 1 && groupSameNamedUnmappedNodes)
+					setProperty(obj, attName, xml.attributes()[i].toString());
+				}
+			}
+			
+			//Deserializing children
+			for each(var childXML:XML in xml.children())
+			{
+				var child:Object = deserialize(childXML, null, obj);
+				
+				var numSiblingsWithChildNodeName:int = XMLUtils.getNumItemsWithName(xml, childXML.localName()); 
+				
+				//If the node has more than one child with the same name and
+				//groupSameNamedUnmappedNodes is true push items with same name into property on parent which is an array.
+				if(numSiblingsWithChildNodeName > 1 && groupSameNamedUnmappedNodes)
+				{
+					if( !obj.hasOwnProperty(childXML.localName()) )
 					{
-						if( !obj.hasOwnProperty(childXML.localName()) )
-						{
-							obj[childXML.localName()] = new anonymousCollectionType();						
-						}
+						obj[childXML.localName()] = new anonymousCollectionType();						
+					}
+					
+					addItemToCollection(obj[childXML.localName()], child);
+				}
+				else
+				{
+					//Attempt to parent the objects
+					if(isCollectionObject(obj))
+					{
+						tryParenting(ignoreArraysWhenParenting ? parent : obj, child);
 						
-						addItemToCollection(obj[childXML.localName()], child);
+						addItemToCollection(obj, child);
 					}
 					else
 					{
-						//Attempt to parent the objects
-						if(isCollectionObject(obj))
+						if(child)
 						{
 							tryParenting(ignoreArraysWhenParenting ? parent : obj, child);
-							
-							addItemToCollection(obj, child);
 						}
-						else
-						{
-							if(child)
-							{
-								tryParenting(ignoreArraysWhenParenting ? parent : obj, child);
-							}
-							
-							setProperty(obj, childXML.localName(), child);
-						}
+						
+						setProperty(obj, childXML.localName(), child);
 					}
+					
 				}
-			}
-			
-			//Make sure to call postDeserialize if the object implents IPostDeserialize
-			if(obj is IPostDeserialize)
-			{
-				(obj as IPostDeserialize).postDeserialize();
 			}
 			
 			return obj;
@@ -478,6 +460,8 @@ package com.layerglue.lib.base.io.xml
 				//Check 1 - Explicit mapping - See documentation above
 				if(map)
 				{
+					trace(">>>>>>>>>>>>>>>> XMLDeserializer.isCollectionNode - possibleCollection: " + possibleCollection);
+					
 					var classRef:Class = getMapping(xml.localName());
 					
 					if( classRef )

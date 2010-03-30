@@ -22,7 +22,7 @@ package com.layerglue.flex3.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function addItem(collection:*, item:Object):void
+		override public function addItem(collection:*, item:*):void
 		{
 			(collection as ArrayCollection).addItem(item);
 		}
@@ -30,7 +30,7 @@ package com.layerglue.flex3.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function getItemAt(collection:*, index:int, prefetch:int = 0):Object
+		override public function getItemAt(collection:*, index:int, prefetch:int = 0):*
 		{
 			return (collection as ArrayCollection).getItemAt(index, prefetch);
 		}
@@ -38,7 +38,7 @@ package com.layerglue.flex3.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function getItemIndex(collection:*, item:Object):int
+		override public function getItemIndex(collection:*, item:*):int
 		{
 			return (collection as ArrayCollection).getItemIndex(item);
 		}
@@ -47,7 +47,7 @@ package com.layerglue.flex3.base.collections.strategies
 		 * @inheritDoc
 		 */
 		//TODO look at whether or not this should throw an error as ArrayCollection does
-		override public function removeItemAt(collection:*, index:int):Object
+		override public function removeItemAt(collection:*, index:int):*
 		{
 			return (collection as ArrayCollection).removeItemAt(index);
 		}
@@ -55,7 +55,7 @@ package com.layerglue.flex3.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */	
-		override public function removeItem(collection:*, item:Object):Object
+		override public function removeItem(collection:*, item:*):*
 		{
 			var itemIndex:int = (collection as ArrayCollection).getItemIndex(item);
 			if(itemIndex > -1)
@@ -77,7 +77,7 @@ package com.layerglue.flex3.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function contains(collection:*, item:Object):Boolean
+		override public function contains(collection:*, item:*):Boolean
 		{
 			return (collection as ArrayCollection).contains(item);
 		}

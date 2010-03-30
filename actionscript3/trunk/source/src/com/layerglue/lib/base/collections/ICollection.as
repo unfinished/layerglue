@@ -9,12 +9,8 @@ package com.layerglue.lib.base.collections
 	 * <p>ICollection is designed to allow different classes such as Array and ArrayCollection to
 	 * be subclassed, implement a common interface, and be used interchangeabley.</p>
 	 */
-	public interface ICollection extends IEventDispatcher
+	public interface ICollection extends IEventDispatcher, ISimpleCollection
 	{
-		/**
-		 * Adds an item to the end of collection.
-		 */
-		 function addItem(item:*):void
 		 
 		 /**
 		 * Adds an item at a specific location in the collection.
@@ -43,15 +39,6 @@ package com.layerglue.lib.base.collections
 		 function removeItemAt(index:int):*
 		 
 		 /**
-		 * Removes an item from the collection if it is present.
-		 * 
-		 * @param The item to be removed.
-		 * 
-		 * @returns The item that has been removed.
-		 */
-		 function removeItem(item:*):*
-		 
-		 /**
 		 * Removes all items from the collection.
 		 */
 		 function removeAll():void
@@ -61,7 +48,7 @@ package com.layerglue.lib.base.collections
 		 * 
 		 * @param item The item to be tested for,
 		 */
-		 function contains(item:Object):Boolean
+		 function contains(item:*):Boolean
 		 
 		 /**
 		 * How many items are in the array.

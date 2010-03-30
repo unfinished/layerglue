@@ -30,7 +30,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function addItem(collection:*, item:Object):void
+		public function addItem(collection:Object, item:*):void
 		{
 			throw new Error("addItem() needs to be overriden in concrete implementations");
 		}
@@ -38,7 +38,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function addItemAt(collection:*, item:Object, index:int):void
+		public function addItemAt(collection:Object, item:*, index:int):void
 		{
 			throw new Error("addItemAt() needs to be overriden in concrete implementations");
 		}
@@ -46,7 +46,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function getItemAt(collection:*, index:int, prefetch:int = 0):Object
+		public function getItemAt(collection:Object, index:int, prefetch:int = 0):*
 		{
 			throw new Error("getItemAt() needs to be overriden in concrete implementations");
 			return null;
@@ -55,7 +55,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function getItemIndex(collection:*, item:Object):int
+		public function getItemIndex(collection:Object, item:*):int
 		{
 			throw new Error("getItemIndex() needs to be overriden in concrete implementations");
 			return null;
@@ -64,7 +64,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function removeItemAt(collection:*, index:int):Object
+		public function removeItemAt(collection:Object, index:int):*
 		{
 			throw new Error("removeItemAt() needs to be overriden in concrete implementations");
 			return null;
@@ -72,8 +72,8 @@ package com.layerglue.lib.base.collections.strategies
 		
 		/**
 		 * @inheritDoc
-		 */	
-		public function removeItem(collection:*, item:Object):Object
+		 */
+		public function removeItem(collection:Object, item:*):*
 		{
 			throw new Error("removeItem() needs to be overriden in concrete implementations");
 			return null;
@@ -82,7 +82,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function removeAll(collection:*):void
+		public function removeAll(collection:Object):void
 		{
 			throw new Error("removeAll() needs to be overriden in concrete implementations");
 		}
@@ -90,7 +90,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function contains(collection:*, item:Object):Boolean
+		public function contains(collection:Object, item:*):Boolean
 		{
 			throw new Error("contains() needs to be overriden in concrete implementations");
 			return null;
@@ -99,7 +99,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		public function getLength(collection:*):int
+		public function getLength(collection:Object):int
 		{
 			throw new Error("get length() needs to be overriden in concrete implementations");
 			return NaN;

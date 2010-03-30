@@ -1,84 +1,83 @@
 package com.layerglue.lib.base.collections.strategies
 {
-	import com.layerglue.lib.base.collections.ICollection;
-
 	public class CollectionStrategy extends AbstractCollectionStrategy
 	{
 		public function CollectionStrategy()
 		{
 			super();
 		}
-
+		
 		/**
 		 * @inheritDoc
 		 */
-		override public function addItem(collection : *, item : Object) : void
+		override public function addItem(collection:Object, item:*):void
 		{
-			(collection as ICollection).addItem(item);
+			collection.addItem(item);
 		}
-
+		
 		/**
 		 * @inheritDoc
 		 */
-		override public function addItemAt(collection : *, item : Object, index : int) : void
+		override public function addItemAt(collection:Object, item:*, index:int):void
 		{
-			(collection as ICollection).addItemAt(item, index);
+			collection.addItemAt(item, index);
 		}
-
+		
 		/**
 		 * @inheritDoc
 		 */
-		override public function getItemAt(collection : *, index : int, prefetch : int = 0) : Object
+		override public function getItemAt(collection:Object, index:int, prefetch:int = 0):*
 		{
-			return (collection as ICollection).getItemAt(index, prefetch);
+			return collection.getItemAt(index, prefetch);
 		}
-
+		
 		/**
 		 * @inheritDoc
 		 */
-		override public function getItemIndex(collection : *, item : Object) : int
+		override public function getItemIndex(collection:Object, item:*):int
 		{
-			return (collection as ICollection).getItemIndex(item);
+			return collection.getItemIndex(item);
 		}
-
+		
 		/**
 		 * @inheritDoc
 		 */
-		override public function removeItemAt(collection : *, index : int) : Object
+		override public function removeItemAt(collection:Object, index:int):*
 		{
-			return (collection as ICollection).removeItemAt(index);
+			return collection.removeItemAt(index);
 		}
-
-		/**
-		 * @inheritDoc
-		 */	
-		override public function removeItem(collection : *, item : Object) : Object
-		{
-			return (collection as ICollection).removeItem(item);
-		}
-
+		
 		/**
 		 * @inheritDoc
 		 */
-		override public function removeAll(collection : *) : void
+		override public function removeItem(collection:Object, item:*):*
 		{
-			(collection as ICollection).removeAll();
+			return collection.removeItem(item);
 		}
-
+		
 		/**
 		 * @inheritDoc
 		 */
-		override public function contains(collection : *, item : Object) : Boolean
+		override public function removeAll(collection:Object):void
 		{
-			return (collection as ICollection).contains(item);
+			collection.removeAll();
 		}
-
+		
 		/**
 		 * @inheritDoc
 		 */
-		override public function getLength(collection : *) : int
+		override public function contains(collection:Object, item:*):Boolean
 		{
-			return (collection as ICollection).getLength();
+			return collection.contains(item);
 		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		override public function getLength(collection:Object):int
+		{
+			return collection.getLength();
+		}
+		
 	}
 }
