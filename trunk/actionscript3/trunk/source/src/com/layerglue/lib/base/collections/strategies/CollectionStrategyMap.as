@@ -1,5 +1,6 @@
 package com.layerglue.lib.base.collections.strategies
 {
+	import flash.utils.Dictionary;
 	import com.layerglue.lib.base.collections.ArrayExt;
 	import com.layerglue.lib.base.collections.HashMap;
 	import com.layerglue.lib.base.utils.ReflectionUtils;
@@ -19,12 +20,13 @@ package com.layerglue.lib.base.collections.strategies
 			
 			addMapping(Array, new ArrayStrategy());
 			addMapping(ArrayExt, new CollectionStrategy());
+			addMapping(Dictionary, new DictionaryStrategy());
 		}
 		
 		/**
 		 * Adds a mapping beteween a collection type and a Strategy.
 		 */
-		public function addMapping(type:Class, strategy:ICollectionStrategy):void
+		public function addMapping(type:Class, strategy:ISimpleCollectionStrategy):void
 		{
 			_map.putValue(type, strategy);
 		}
@@ -46,11 +48,11 @@ package com.layerglue.lib.base.collections.strategies
 		 * 
 		 * @param collection The collection instance to match on.
 		 * 
-		 * @returns The corresponding ICollectionStrategy instance or null if one cannot be found
+		 * @returns The corresponding ISimpleCollectionStrategy instance or null if one cannot be found
 		 */
-		public function getStrategyByInstance(collection:Object):ICollectionStrategy
+		public function getStrategyByInstance(collection:Object):ISimpleCollectionStrategy
 		{
-			var strategy:ICollectionStrategy = getStrategtyByType(ReflectionUtils.getClassReference(collection));
+			var strategy:ISimpleCollectionStrategy = getStrategtyByType(ReflectionUtils.getClassReference(collection));
 			
 			//If there is a specific type returned the mapped class
 			if(strategy)
@@ -72,9 +74,9 @@ package com.layerglue.lib.base.collections.strategies
 		 * 
 		 * @param type The type to match on.
 		 */
-		public function getStrategtyByType(type:Class):ICollectionStrategy
+		public function getStrategtyByType(type:Class):ISimpleCollectionStrategy
 		{
-			return _map.getValue(type) as ICollectionStrategy;
+			return _map.getValue(type) as ISimpleCollectionStrategy;
 		}
 	}
 }

@@ -13,7 +13,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function addItemAt(collection:*, item:Object, index:int):void
+		override public function addItemAt(collection:Object, item:*, index:int):void
 		{
 			(collection as Array).splice(index, 0, item);
 		}
@@ -21,7 +21,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function addItem(collection:*, item:Object):void
+		override public function addItem(collection:Object, item:*):void
 		{
 			(collection as Array).push(item);
 		}
@@ -29,7 +29,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function getItemAt(collection:*, index:int, prefetch:int = 0):Object
+		override public function getItemAt(collection:Object, index:int, prefetch:int = 0):*
 		{
 			return (collection as Array)[index];
 		}
@@ -37,7 +37,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function getItemIndex(collection:*, item:Object):int
+		override public function getItemIndex(collection:Object, item:*):int
 		{
 			return (collection as Array).indexOf(item);
 		}
@@ -45,12 +45,12 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function removeItemAt(collection:*, index:int):Object
+		override public function removeItemAt(collection:Object, index:int):*
 		{
 			return (collection as Array).splice(index, 1);
 		}
 				
-		override public function removeItem(collection:*, item:Object):Object
+		override public function removeItem(collection:Object, item:*):*
 		{
 			var itemIndex:int = (collection as Array).indexOf(item);
 			return (collection as Array).splice(itemIndex, 1);
@@ -59,7 +59,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function removeAll(collection:*):void
+		override public function removeAll(collection:Object):void
 		{
 			(collection as Array).splice(0, (collection as Array).length);
 		}
@@ -67,7 +67,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function contains(collection:*, item:Object):Boolean
+		override public function contains(collection:Object, item:*):Boolean
 		{
 			return (collection as Array).indexOf(item) != -1;
 		}
@@ -75,7 +75,7 @@ package com.layerglue.lib.base.collections.strategies
 		/**
 		 * @inheritDoc
 		 */
-		override public function getLength(collection:*):int
+		override public function getLength(collection:Object):int
 		{
 			return (collection as Array).length;
 		}

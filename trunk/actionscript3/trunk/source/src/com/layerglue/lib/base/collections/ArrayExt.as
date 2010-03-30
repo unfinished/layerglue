@@ -1,6 +1,5 @@
 package com.layerglue.lib.base.collections
 {
-	import com.layerglue.lib.base.utils.ArrayUtils;
 	import com.layerglue.lib.application.events.CollectionEvent;
 	import com.layerglue.lib.application.events.CollectionEventKind;
 
@@ -75,9 +74,24 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
+		public function removeItem(item:*):*
+		{
+			for(var i:int = 0 ;i < length ;i--)
+			{
+				if(this[i])
+				{
+					removeItemAt(i);
+				}
+			}
+			return null;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
 		public function removeItemAt(index:int):*
 		{
-			var removedItem:Object = splice(index, 1);
+			var removedItem:* = splice(index, 1);
 			
 			if(removedItem != null)
 			{
@@ -94,15 +108,6 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
-		public function removeItem(item:*):*
-		{
-			return ArrayUtils.removeItem(this, item);
-		}
-		
-		
-		/**
-		 * @inheritDoc
-		 */
 		public function removeAll():void
 		{
 			for(var i:int=length ; i>=0 ; i--)
@@ -114,7 +119,7 @@ package com.layerglue.lib.base.collections
 		/**
 		 * @inheritDoc
 		 */
-		public function contains(item:Object):Boolean
+		public function contains(item:*):Boolean
 		{
 			return indexOf(item) != -1;
 		}
