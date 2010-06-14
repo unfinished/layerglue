@@ -1,18 +1,19 @@
 package com.client.project.io
 {
+	import com.client.project.constants.LoadProportionConstants;
 	import com.client.project.maps.StructureDeserializationMap;
 	import com.client.project.model.proxies.AssetLibraryProxy;
 	import com.client.project.model.proxies.ConfigProxy;
 	import com.client.project.model.proxies.CopyProxy;
 	import com.client.project.model.proxies.StructuralDataProxy;
 	import com.client.project.structure.Site;
+	import com.layerglue.flash.events.FlashPreloadManagerEvent;
 	import com.layerglue.flash.loaders.DisplayLoader;
 	import com.layerglue.flash.preloader.FlashPreloadManager;
 	import com.layerglue.flash.styles.LGStyleCollection;
 	import com.layerglue.flash.styles.LGStyleManager;
 	import com.layerglue.lib.base.assets.AssetLibrary;
 	import com.layerglue.lib.base.collections.IKeyValuePairCollection;
-	import com.layerglue.lib.base.events.EventListener;
 	import com.layerglue.lib.base.io.FlashVars;
 	import com.layerglue.lib.base.io.LoadManager;
 	import com.layerglue.lib.base.io.LoadManagerToken;
@@ -22,14 +23,13 @@ package com.client.project.io
 	import com.layerglue.lib.base.substitution.XMLSubstitutor;
 	import com.layerglue.lib.base.substitution.sources.FlatXMLSubstitutionSource;
 	import com.layerglue.lib.base.substitution.sources.MultiSubstitutionSource;
-	
+
+	import org.puremvc.as3.patterns.facade.Facade;
+
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
-	
-	import org.puremvc.as3.patterns.facade.Facade;
-	import com.client.project.constants.LoadProportionConstants;
 
 	/**
 	 * Handles the loading, substitution and deserialization of any XML data that's
@@ -40,7 +40,6 @@ package com.client.project.io
 		[Embed(source="/../embedded-assets/embedded-assets.swf", mimeType="application/octet-stream")]
 		private static var embeddedAssetsClass:Class;
 		
-		private var _loadManagerListener:EventListener;
 		private var _regionalFontLoader:DisplayLoader;
 		private var _assetsBasePath:String;
 		
@@ -50,11 +49,10 @@ package com.client.project.io
 			
 			_loader = FlashPreloadManager.getInstance().loadManager;
 			
-			_loadManagerListener = new EventListener(
-						_loader,
-						Event.COMPLETE,
-						loaderCompleteHandler);
-			 
+			//Add listeners
+			_loader.addEventListener(Event.COMPLETE, loaderCompleteHandler, false, 0, true);
+			FlashPreloadManager.getInstance().addEventListener(FlashPreloadManagerEvent.PRELOADER_VIEW_ANIMATION_COMPLETE, preloaderViewAnimCompleteHandler, false, 0, true);
+			
 			initialize();
 		}
 		
@@ -216,8 +214,6 @@ package com.client.project.io
 		private function loaderCompleteHandler(event:Event):void
 		{
 			setupData();
-			
-			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		private function errorHandler(event:Event):void
@@ -225,14 +221,12 @@ package com.client.project.io
 			trace("Error loading file");
 		}
 		
-		private function get regionName():String
+		private function preloaderViewAnimCompleteHandler(event:FlashPreloadManagerEvent):void
 		{
-			if(!_localeConfigSource)
-			{
-				throw new Error("Tried to access _localeConfigSource before before locale config data has been loaded and deserialized.");
-			}
-			
-			return _localeConfigSource.getValue("region");
+			//Currently setupData() is synchronous, so the animation completing
+			//will always happen after it completes, but another check may be
+			//needed if setupData is switched to asynchronous 
+			FlashPreloadManager.getInstance().attachMainInstance();
 		}
 		
 		private function populateStructuralDataXML(xml:XML):void

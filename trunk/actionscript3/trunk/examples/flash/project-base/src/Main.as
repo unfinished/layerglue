@@ -1,5 +1,6 @@
 package
 {
+	import fl.motion.easing.Quadratic;
 	import com.client.project.io.InitialLoadManager;
 	import com.client.project.views.SiteView;
 	import com.hydrotik.go.HydroTween;
@@ -9,7 +10,7 @@ package
 	import com.layerglue.lib.base.resources.ResourceCollection;
 	import com.layerglue.lib.base.resources.SWFResourceItem;
 
-	import mx.effects.easing.Quadratic;
+	
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -52,25 +53,25 @@ package
 			
 			_siteView = new SiteView();
 			addChild(_siteView);
-			
-			// TESTING ONLY
-			
-			var imageResourceItem:ImageResourceItem = new ImageResourceItem();
-			imageResourceItem.url = "flash-assets/testImage.jpg";
-			imageResourceItem.proportion = 50;
-			
-			var swfResourceItem:SWFResourceItem = new SWFResourceItem();
-			swfResourceItem.url = "flash-assets/testImage.jpg";
-			swfResourceItem.proportion = 50;
-			
-			var rc:ResourceCollection = new ResourceCollection();
-			
-			rc.addItem(imageResourceItem);
-			rc.addItem(swfResourceItem);
-			rc.addEventListener(Event.COMPLETE, totalCompleteHandler);
-			rc.start();
-			
-			// TESTING ONLY
+//			
+//			// TESTING ONLY
+//			
+//			var imageResourceItem:ImageResourceItem = new ImageResourceItem();
+//			imageResourceItem.url = "flash-assets/testImage.jpg";
+//			imageResourceItem.proportion = 50;
+//			
+//			var swfResourceItem:SWFResourceItem = new SWFResourceItem();
+//			swfResourceItem.url = "flash-assets/testImage.jpg";
+//			swfResourceItem.proportion = 50;
+//			
+//			var rc:ResourceCollection = new ResourceCollection();
+//			
+//			rc.addItem(imageResourceItem);
+//			rc.addItem(swfResourceItem);
+//			rc.addEventListener(Event.COMPLETE, totalCompleteHandler);
+//			rc.start();
+//			
+//			// TESTING ONLY
 		}
 
 		private function totalCompleteHandler(event:Event) : void 
