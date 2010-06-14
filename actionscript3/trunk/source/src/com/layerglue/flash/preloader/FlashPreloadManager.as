@@ -1,5 +1,6 @@
 package com.layerglue.flash.preloader
 {
+	import com.layerglue.flash.events.FlashPreloadManagerEvent;
 	import com.layerglue.flash.applications.IPreloadableFlashApplication;
 	import com.layerglue.lib.base.events.PreloadManagerEvent;
 	import com.layerglue.lib.base.events.PreloaderViewEvent;
@@ -33,7 +34,7 @@ package com.layerglue.flash.preloader
 			
 			_loadManager.addEventListener(ProgressEvent.PROGRESS, loadProgressHandler);
 			_swfRoot.rootLoaderProxy.addEventListener(Event.COMPLETE, rootLoadCompleteHandler);
-			_swfRoot.addEventListener(PreloaderViewEvent.ANIMATION_COMPLETE, preloaderViewCompleteHandler, false, 0, true);
+			_swfRoot.addEventListener(PreloaderViewEvent.ANIMATION_COMPLETE, preloaderViewAnimationCompleteHandler, false, 0, true);
 			
 			_loadManager.addItem(
 					new LoadManagerToken(
@@ -65,7 +66,6 @@ package com.layerglue.flash.preloader
 		}
 		
 		private var _loadManager:ProportionalLoadManager;
-		
 		/**
 		 * The ProportionalLoadManager responsible for the managing and measuring the initial assets
 		 * to be loaded in to the site.
@@ -77,9 +77,21 @@ package com.layerglue.flash.preloader
 			return _loadManager;
 		}
 		
+		private var _preloaderViewAnimationComplete:Boolean;
+		public function get preloaderViewAnimationComplete():Boolean
+		{
+			return _preloaderViewAnimationComplete;
+		}
+		
 		public function registerMainInstance(mainInstance:IPreloadableFlashApplication):void
 		{
 			_mainInstance = mainInstance;
+		}
+		
+		public function attachMainInstance():void
+		{
+			_swfRoot.addMainInstanceToDisplayList(_mainInstance);
+			_mainInstance.show(swfRoot.preloaderView);
 		}
 		
 		private function loadProgressHandler(event:Event):void
@@ -97,10 +109,10 @@ package com.layerglue.flash.preloader
 			//_rootPreloader.showMainInstance(_mainInstance);
 		}
 		
-		private function preloaderViewCompleteHandler(event:Event):void
+		private function preloaderViewAnimationCompleteHandler(event:Event):void
 		{
-			_swfRoot.addMainInstanceToDisplayList(_mainInstance);
-			_mainInstance.show(swfRoot.preloaderView);
+			_preloaderViewAnimationComplete = true;
+			dispatchEvent(new FlashPreloadManagerEvent(FlashPreloadManagerEvent.PRELOADER_VIEW_ANIMATION_COMPLETE));
 		}
 	}
 }
