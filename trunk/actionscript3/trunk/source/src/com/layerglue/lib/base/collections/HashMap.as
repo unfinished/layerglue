@@ -44,7 +44,7 @@ package com.layerglue.lib.base.collections
 		 */
 		public function removeValue(key:*):*
 		{
-			if(containsKey(key));
+			if(containsKey(key))
 			{
 				delete _dict[key];
 				return true;
